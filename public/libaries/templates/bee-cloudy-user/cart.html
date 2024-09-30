@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang - GIỏ hàng</title>
+    <!-- css  -->
+    <link rel="stylesheet" href="/libaries/css/style.css">
+    <link rel="stylesheet" href="/libaries/css/custom_reponsive.css">
+    <!-- icon  -->
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/libaries/images/app_icon.png">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- box-icon  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- splidejs css  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/css/splide.min.css">
+    <!-- bootstrap5 css  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- animation  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- select2 css  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- header  -->
+    <section>
+        <header>
+            <div class="container-fuild text-bg-dark">
+                <div class="container">
+                    <div class="d-flex justify-content-between align-items-center p-2 fz-15">
+                        <div class="splide" id="promo-carousel">
+                            <div class="splide__track">
+                                <ul class="splide__list fz-14">
+                                    <li class="splide__slide text-truncate">
+                                        <span>Khuyến mãi 50% cho đơn hàng đầu tiên</span>
+                                    </li>
+                                    <li class="splide__slide text-truncate">
+                                        <span>Miễn phí vận chuyển cho đơn hàng trên 500k</span>
+                                    </li>
+                                    <li class="splide__slide text-truncate">
+                                        <span>Giảm 20% khi thanh toán qua thẻ</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="search-final">
+                            <form action="#" method="get" class="app-search d-none d-md-block ">
+                                <div class="input-group input-group-sm w-100 position-relative ">
+                                    <input type="text" name="keyword" class="form-control search-header py-0"
+                                        placeholder="bạn đang cần gì?">
+                                    <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
+                                        <i class='bx bx-search-alt-2'></i>
+                                    </button>
+                                </div>
+                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3"
+                                    style="top: 165px;">
+                                    <div class="card p-2 border-0 mt-2 rounded-1 shadow-sm justify-content-center"
+                                        style="width: 500px !important">
+                                        <div class="card-body py-2 px-2">
+                                            <div class="title-search-recent">
+                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Tìm kiếm
+                                                    gần gây</h6>
+                                            </div>
+                                            <div class="content-search-recent mt-3">
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            Sản phẩm độc quyền của chúng tôi
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            ip 15 promax
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            iphone xs max
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            iphone 16 pro
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body py-2 px-2">
+                                            <div class="title-search-recent">
+                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách
+                                                    nổi bật</h6>
+                                            </div>
+                                            <div class="content-search-hot mt-3">
+                                                <ul>
+                                                    <li
+                                                        class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-2">
+                                                        <a href="javascript:void(0)"
+                                                            class="content-search-mnpoly text-muted">Sản phẩm
+                                                            độc quyền</a>
+                                                        <i class="fa-solid fa-bookmark " data-bs-toggle="tooltip"
+                                                            data-bs-title="top tìm kiếm"></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="fw-medium d-none d-lg-block">
+                            <a href="#" class="text-white">Cửa hàng </a>
+                            <span class="ms-2">Hotline: <a href="tel:0900112583">0900112583</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <section>
+        <header>
+            <div class="container-fuild">
+                <nav class="navbar navbar-expand-lg shadow-sm bg-white p-0 sticky-nav">
+                    <div class="container p-0">
+                        <a class="navbar-brand" href="#"><img src="/libaries/images/app_icon.png"
+                                class="object-fit-cover logo-index" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-lg-center justify-content-md-center justify-content-sm-start"
+                            id="navbarSupportedContent">
+                            <ul
+                                class="nav fw-bold justify-content-lg-center justify-content-md-center justify-content-sm-start align-items-center text-color">
+                                <li class="menu-li-item px-2 py-3">
+                                    <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Trang
+                                        chủ</a>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#"
+                                        class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Cửa
+                                        hàng <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#"
+                                        class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Bài
+                                        viết <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-li-item px-2 py-3">
+                                    <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
+                                        hệ</a>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#"
+                                        class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Trang
+                                        khác <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-flex icon-header align-items-center">
+                            <div class="dropdown icon-item">
+                                <a class="position-relative box-icon-profile gear-profile dropdown-toggle" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-bell"></i>
+                                    <span
+                                        class="fz-14 fw-bold text-danger position-absolute top-0 start-100 translate-middle">
+                                        5
+                                    </span>
+                                </a>
+                                <div
+                                    class="dropdown-menu dropdown-menu-notify dropdown-menu-end border-0 shadow-lg p-0">
+                                    <div
+                                        class="dropdown-header text-bg-success  d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold">Thông báo</span>
+                                        <a href="#" class="text-light fz-12">Xem chi tiết</a>
+                                    </div>
+                                    <ul class="ul-menu p-0 mb-1 text-muted">
+                                        <li class="li-menu-header py-1 px-3">
+                                            <a href="#">
+                                                <div class="title-notify text-truncate mb-1">
+                                                    <span class="fz-15 fw-600">Đặt hàng thành côngĐặt hàng thành côngĐặt
+                                                        hàng thành công</span>
+
+                                                </div>
+                                                <div class="content-notify">
+                                                    <p class="fz-13 fst-italic mb-0 overflow-hidden"
+                                                        style="height: 43px;">
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn</p>
+                                                </div>
+                                                <div class="foot-notify text-end">
+                                                    <span class="fz-13 text-danger">Chưa đọc</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="li-menu-header py-1 px-3">
+                                            <a href="#">
+                                                <div class="title-notify text-truncate mb-1">
+                                                    <span class="fz-15 fw-600">Đặt hàng thành côngĐặt hàng thành côngĐặt
+                                                        hàng thành công</span>
+
+                                                </div>
+                                                <div class="content-notify">
+                                                    <p class="fz-13 fst-italic mb-0 overflow-hidden"
+                                                        style="height: 43px;">
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn</p>
+                                                </div>
+                                                <div class="foot-notify text-end">
+                                                    <span class="fz-13 text-danger">Chưa đọc</span>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="icon-item">
+                                <span class="box-icon-profile">
+                                    <a class="" role="button">
+                                        <i class="fa-solid fa-bookmark" data-bs-toggle="tooltip"
+                                            data-bs-title="Yêu thích"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="icon-item">
+                                <span class="box-icon-profile">
+                                    <a href="#">
+                                        <i class="fa-solid fa-cart-shopping" data-bs-toggle="tooltip"
+                                            data-bs-title="Giỏ hàng"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="icon-item dropdown">
+                                <!-- chưa đăng nhập  -->
+                                <!-- <span class="box-icon-profile">
+                                    <a class="acount-profile" href="#">
+                                        <i class="fa-solid fa-user fz-20 p-3" data-bs-toggle="tooltip"
+                                            data-bs-title=""></i>
+                                    </a>
+                                </span> -->
+
+                                <!-- đã đăng nhập  -->
+                                <button type="button" class="btn border-0 gear-profile dropdown-toggle "
+                                    data-bs-toggle="dropdown">
+                                    <span class="d-flex align-items-center">
+                                        <img class="rounded-circle header-profile-user"
+                                            src="/libaries/images/user-default.avif" alt="Avatar User"
+                                            class="rounded-circle object-fit-cover" width="40" height="40">
+                                        <!-- <span class="text-start ms-xl-2">
+                                            <span class="d-none d-xl-inline-block ms-1 fw-medium text-muted">Thanh
+                                                Trung</span>
+                                            <span class="d-none d-xl-block ms-1 fz-14 text-secondary">Quản trị
+                                                viên</span>
+                                        </span> -->
+                                    </span>
+                                </button>
+                                <div class="rounded-1 shadow-sm dropdown-menu dropdown-menu-end border-0"
+                                    style="min-width: 180px;">
+                                    <ul class="ul-menu p-0 mb-1 text-muted">
+                                        <li class="li-menu-header p-2">
+                                            <span class="text-decoration-none fw-medium fz-14 ps-1">
+                                                Xin chào thanh trung!
+                                            </span>
+                                        </li>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-13 ps-1">
+                                                <i class="fa-solid fa-pen me-2"></i>Cập nhật
+                                            </a>
+                                        </li>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-13 ps-1 text-danger">
+                                                <i
+                                                    class="fa-solid fa-arrow-right-from-bracket me-2 text-danger"></i>Đăng
+                                                xuất
+                                            </a>
+                                        </li>
+                                        <hr>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-13 ps-1 text-muted">
+                                                <i class="fa-solid fa-circle-info me-2"></i>Hỗ trợ
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </section>
+    <!-- end header  -->
+    <section>
+        <article>
+            <div class="container p-0 w-100">
+                <!-- breadcrumb  -->
+                <nav class="pt-3 pb-3" aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
+                        <li class="breadcrumb-item "><a href="#" class="text-decoration-none text-muted">Trang chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                    </ol>
+                </nav>
+                <!-- end breadcrumb  -->
+                <!-- content -->
+                    <div class="main-cart row flex-wrap text-muted pt-3 mx-0 mb-5">
+                        <!-- giỏ hàng rỗng  -->
+                        <!-- <div class="no-product text-center p-3">
+                            <a href="#">
+                                <img src="/libaries/images/image-add-to-cart.png" alt="" class="img-fluid object-fit-cover " width="200">
+                                <div class="mt-1 text-white">
+                                    <h6 class=" text-muted text-uppercase mb-2">Bạn chưa có sản phẩm nào!</h6>
+                                    <a href="#" class="btn btn-success"><i class="mdi mdi-home me-1"></i>Xem sản phẩm</a>
+                                </div>
+                            </a>
+                        </div> -->
+                        <!-- có sản phẩm  -->
+                        <div class="col-lg-8 col-md-12 col-sm-12 mb-md-4 mb-sm-3 ps-0 rounded-1">
+                            <div class="card-header bg-light shadow-sm border-0 mb-3">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title mb-0 p-3">Giỏ hàng</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive bg-white shadow-sm p-2">
+                                <table class="table align-middle table-hover h-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th class="text-end">Đơn giá</th>
+                                            <th class="text-center">Số Lượng</th>
+                                            <th class="text-end">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="card-body">
+                                                    <div class="row gy-3">
+                                                        <div class="col-sm-auto">
+                                                            <div class="bg-light rounded p-1">
+                                                                <img src="/libaries/images/ao_polo2.png" alt=""
+                                                                    width="90" height="90"
+                                                                    class="img-fluid d-block object-fit-cover me-2">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm" style="width: 250px;">
+                                                            <h5 class="fz-16 text-break">
+                                                                <a href="#" class="text-muted">Áo polo nam sọc ngang
+                                                                    ngắn
+                                                                    tay thấm hút mát
+                                                                    mẻ thoải máy</a>
+                                                            </h5>
+                                                            <ul class="list-inline text-muted fz-14 mb-2">
+                                                                <li class="list-inline-item">Màu : <span
+                                                                        class="fw-medium">Đen</span></li>
+                                                                <li class="list-inline-item">Size : <span
+                                                                        class="fw-medium">M</span></li>
+                                                            </ul>
+                                                            <a href="#" class="d-block text-danger fz-14 ">
+                                                                <i
+                                                                    class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
+                                                                <span class="mt-1 align-middle"> Xóa</span>
+                                                            </a>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="fw-medium text-muted"> 259.000đ</span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="input-group componant-quantity justify-content-center shadow-sm flex-grow"
+                                                        style="max-width: 120px;">
+                                                        <button class="quantity-minus w-md-100 rounded-3 " type="button"
+                                                            id="button-addon1">
+                                                            <i class='bx bx-minus fw-medium'></i>
+                                                        </button>
+                                                        <input type="text" name="quantity w-sm-25 "
+                                                            class="form-control border-0 fz-20 text-center fw-600"
+                                                            value="1" min="1" style="max-width: 60px;">
+                                                        <input type="hidden" name="quantity" value="">
+                                                        <button class="quantity-plus w-md-100 " type="button"
+                                                            id="button-addon2">
+                                                            <i class='bx bx-plus'></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="fw-medium text-muted"> 259.000đ</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="card-body">
+                                                    <div class="row gy-3">
+                                                        <div class="col-sm-auto">
+                                                            <div class="bg-light rounded p-1">
+                                                                <img src="/libaries/images/ao_polo2.png" alt=""
+                                                                    width="90" height="90"
+                                                                    class="img-fluid d-block object-fit-cover me-2">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm" style="width: 250px;">
+                                                            <h5 class="fz-16 text-break">
+                                                                <a href="#" class="text-muted">Áo polo nam sọc ngang
+                                                                    ngắn
+                                                                    tay thấm hút mát
+                                                                    mẻ thoải máy</a>
+                                                            </h5>
+                                                            <ul class="list-inline text-muted fz-14 mb-2">
+                                                                <li class="list-inline-item">Màu : <span
+                                                                        class="fw-medium">Đen</span></li>
+                                                                <li class="list-inline-item">Size : <span
+                                                                        class="fw-medium">M</span></li>
+                                                            </ul>
+                                                            <a href="#" class="d-block text-danger fz-14 ">
+
+                                                                <i
+                                                                    class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
+                                                                <span class="mt-1 align-middle"> Xóa</span>
+                                                            </a>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="fw-medium text-muted"> 259.000đ</span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="input-group componant-quantity justify-content-center shadow-sm flex-grow"
+                                                        style="max-width: 120px;">
+                                                        <button class="quantity-minus w-md-100 rounded-3 " type="button"
+                                                            id="button-addon1">
+                                                            <i class='bx bx-minus fw-medium'></i>
+                                                        </button>
+                                                        <input type="text" name="quantity w-sm-25 "
+                                                            class="form-control border-0 fz-20 text-center fw-600"
+                                                            value="1" min="1" style="max-width: 60px;">
+                                                        <input type="hidden" name="quantity" value="">
+                                                        <button class="quantity-plus w-md-100 " type="button"
+                                                            id="button-addon2">
+                                                            <i class='bx bx-plus'></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="fw-medium text-muted"> 259.000đ</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="card-body">
+                                                    <div class="row gy-3">
+                                                        <div class="col-sm-auto">
+                                                            <div class="bg-light rounded p-1">
+                                                                <img src="/libaries/images/ao_polo2.png" alt=""
+                                                                    width="90" height="90"
+                                                                    class="img-fluid d-block object-fit-cover me-2">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm" style="width: 250px;">
+                                                            <h5 class="fz-16 text-break">
+                                                                <a href="#" class="text-muted">Áo polo nam sọc ngang
+                                                                    ngắn
+                                                                    tay thấm hút mát
+                                                                    mẻ thoải máy</a>
+                                                            </h5>
+                                                            <ul class="list-inline text-muted fz-14 mb-2">
+                                                                <li class="list-inline-item">Màu : <span
+                                                                        class="fw-medium">Đen</span></li>
+                                                                <li class="list-inline-item">Size : <span
+                                                                        class="fw-medium">M</span></li>
+                                                            </ul>
+                                                            <a href="#" class="d-block text-danger fz-14 ">
+                                                                <i
+                                                                    class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
+                                                                <span class="mt-1 align-middle"> Xóa</span>
+                                                            </a>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="fw-medium text-muted"> 259.000đ</span>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="input-group componant-quantity justify-content-center shadow-sm flex-grow"
+                                                        style="max-width: 120px;">
+                                                        <button class="quantity-minus w-md-100 rounded-3 " type="button"
+                                                            id="button-addon1">
+                                                            <i class='bx bx-minus fw-medium'></i>
+                                                        </button>
+                                                        <input type="text" name="quantity w-sm-25 "
+                                                            class="form-control border-0 fz-20 text-center fw-600"
+                                                            value="1" min="1" style="max-width: 60px;">
+                                                        <input type="hidden" name="quantity" value="">
+                                                        <button class="quantity-plus w-md-100 " type="button"
+                                                            id="button-addon2">
+                                                            <i class='bx bx-plus'></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="fw-medium text-muted"> 259.000đ</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+
+                                </table>
+                                <div class="footer-cart d-flex justify-content-between align-items-center py-3">
+                                    <a href="#" class="back-to-product fz-14 text-muted ms-3">
+                                        <i class="fa-solid fa-chevron-left fz-3 me-2"></i>
+                                        <span>Xem sản phẩm</span>
+                                    </a>
+                                    <a href="#" class="back-to-product btn btn-outline-danger fz-14 rounded-1"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fa-solid fa-trash-alt fz-3 me-2"></i>
+                                        <span>Xóa giỏ hàng</span>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa toàn bộ
+                                                        sản phẩm
+                                                        trong giỏ hàng</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class=" fz-16">Bạn có chắc chắn muốn xóa hết sản phẩm trong
+                                                        giỏ hàng
+                                                        hay không?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light rounded-1"
+                                                        data-bs-dismiss="modal">Hủy</button>
+                                                    <button type="button" class="btn btn-danger rounded-1">Xác nhận
+                                                        xóa</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-12 pe-0 ps-3">
+                            <div class="card border-0 rounded-2 shadow-sm">
+                                <div class="card-header border-0 py-3">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <h5 class="card-title mb-0">Đơn hàng</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="table-responsive table-card">
+                                        <table class="table table-borderless align-middle mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="p-0">
+                                                        <div class="avatar-md bg-light rounded p-1">
+                                                            <img src="/libaries/images/ao_polo2.png" alt="" width="90"
+                                                                height="90"
+                                                                class="img-fluid d-block object-fit-cover me-2">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <h5 class="fz-14 text-break">
+                                                            <a href="#" class="text-body">Áo polo nam sọc ngang ngắn
+                                                                tay thấm hút mát
+                                                                mẻ thoải máy</a>
+                                                        </h5>
+                                                        <p class="text-muted mb-0 fz-14">259.000đ <strong
+                                                                class="text-info">x2</strong></p>
+                                                    </td>
+                                                    <td class="text-end fz-14 fw-medium ">518.000đ</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-0">
+                                                        <div class="avatar-md bg-light rounded p-1">
+                                                            <img src="/libaries/images/ao_polo2.png" alt="" width="90"
+                                                                height="90"
+                                                                class="img-fluid d-block object-fit-cover me-2">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <h5 class="fz-14 text-break">
+                                                            <a href="#" class="text-body">Áo polo nam sọc ngang ngắn
+                                                                tay thấm hút mát
+                                                                mẻ thoải máy</a>
+                                                        </h5>
+                                                        <p class="text-muted mb-0 fz-14">259.000đ <strong
+                                                                class="text-info">x2</strong></p>
+                                                    </td>
+                                                    <td class="text-end fz-14 fw-medium ">518.000đ</td>
+                                                </tr>
+                                                <tr style="height: 10px;">
+                                                    <td colspan="3">
+                                                        <hr>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <div class="bg-light-subtle border-success-subtle p-0"></div>
+                                                        <div class="text-start">
+                                                            <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
+                                                        </div>
+                                                        <div class="hstack gap-2">
+                                                            <input class="form-control me-auto" type="text"
+                                                                placeholder="Nhập mã voucher">
+                                                            <button type="button"
+                                                                class="btn btn-success fw-500 w-25 rounded-1">Áp
+                                                                mã</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 50px;">
+                                                    <td class="fz-16" colspan="2">Thành tiền:</td>
+                                                    <td class="fw-semibold text-end">2.000.000đ</td>
+                                                </tr>
+                                                <tr style="height: 50px;">
+                                                    <td class="fz-16" colspan="2">Giảm giá:
+                                                    </td>
+                                                    <td class="fw-semibold text-end">- 100.000đ</td>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td class="fz-16" colspan="2">Phí vận chuyển:</td>
+                                                    <td class="fw-semibold text-end">16.500đ</td>
+                                                </tr>
+
+                                                <tr class="" style="height: 50px;">
+                                                    <th colspan="2">Tổng tiền:</th>
+                                                    <td class="text-end">
+                                                        <span class="fw-semibold">
+                                                            1.000.000đ
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="" style="height: 50px;">
+                                                    <td colspan="3">
+                                                        <a href="#"
+                                                            class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
+                                                            hành thanh toán</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="border-2" >
+                <!-- product similar  -->
+                <div class="product-similar mb-3 text-muted">
+                    <div class="title-product mt-4 mb-3">
+                        <h5 class="fs-4 fw-500 mb-3 text-uppercase">
+                            sản phẩm mới
+                            <hr class=" border-4 border-info mb-2" style="width: 160px;">
+                        </h5>
+                    </div>
+                    <div class="row flex-wrap">
+                        <div class="col-lg-3 col-md-6 col-12 mb-3">
+                            <div class="card card-product shadow-sm border-0">
+                                <div class="head-card d-flex p-2">
+                                    <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
+                                    <span class="ms-auto text-muted" data-bs-toggle="tooltip"
+                                        data-bs-title="Thêm vào yêu thích">
+                                        <i class="fa-regular fa-bookmark fz-16"></i>
+                                    </span>
+                                </div>
+                                <div class="image-main-product position-relative">
+                                    <img src="/libaries/images/ao1.jpg" alt="product image" width="100%" height="250"
+                                        class="img-fluid">
+                                    <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                        <div class="hstack gap-3">
+                                            <div class="p-2">
+                                                <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
+                                                    nam</span>
+                                            </div>
+                                            <div class="p-2 ms-auto">
+                                                <div class="product-image-color">
+                                                    <img src="/libaries/images/blue.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/yellow.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/green.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2">
+                                    <h6 class="fw-medium">
+                                        <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
+                                            Vải Pique
+                                            Ngắn Tay
+                                            mát mẻ, thoải mái</a>
+                                    </h6>
+                                    <div class="d-flex justify-content-start mb-2">
+                                        <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
+                                        <span class="mt-1">
+                                            <del class="text-secondary fz-14 ">559.000đ</del>
+                                        </span>
+                                    </div>
+                                    <div class="box-action">
+                                        <a href="#" class="action-cart-item-buy">
+                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                            <span>Mua ngay</span>
+                                        </a>
+                                        <a href="#" class="action-cart-item-add">
+                                            <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
+                                            <span>thêm giỏ hàng</span>
+
+                                        </a>
+                                    </div>
+                                    <div class="head-card d-flex p-0">
+                                        <span class="fz-14 ">
+                                            <div class="rating">
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                            </div>
+                                        </span>
+                                        <span class="ms-auto fz-14">25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12 mb-3">
+                            <div class="card card-product shadow-sm border-0">
+                                <div class="head-card d-flex p-2">
+                                    <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
+                                    <span class="ms-auto text-muted" data-bs-toggle="tooltip"
+                                        data-bs-title="Thêm vào yêu thích">
+                                        <i class="fa-regular fa-bookmark fz-16"></i>
+                                    </span>
+                                </div>
+                                <div class="image-main-product position-relative">
+                                    <img src="/libaries/images/ao1.jpg" alt="product image" width="100%" height="250"
+                                        class="img-fluid">
+                                    <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                        <div class="hstack gap-3">
+                                            <div class="p-2">
+                                                <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
+                                                    nam</span>
+                                            </div>
+                                            <div class="p-2 ms-auto">
+                                                <div class="product-image-color">
+                                                    <img src="/libaries/images/blue.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/yellow.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/green.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2">
+                                    <h6 class="fw-medium">
+                                        <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
+                                            Vải Pique
+                                            Ngắn Tay
+                                            mát mẻ, thoải mái</a>
+                                    </h6>
+                                    <div class="d-flex justify-content-start mb-2">
+                                        <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
+                                        <span class="mt-1">
+                                            <del class="text-secondary fz-14 ">559.000đ</del>
+                                        </span>
+                                    </div>
+                                    <div class="box-action">
+                                        <a href="#" class="action-cart-item-buy">
+                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                            <span>Mua ngay</span>
+                                        </a>
+                                        <a href="#" class="action-cart-item-add">
+                                            <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
+                                            <span>thêm giỏ hàng</span>
+
+                                        </a>
+                                    </div>
+                                    <div class="head-card d-flex p-0">
+                                        <span class="fz-14 ">
+                                            <div class="rating">
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                            </div>
+                                        </span>
+                                        <span class="ms-auto fz-14">25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12 mb-3">
+                            <div class="card card-product shadow-sm border-0">
+                                <div class="head-card d-flex p-2">
+                                    <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
+                                    <span class="ms-auto text-muted" data-bs-toggle="tooltip"
+                                        data-bs-title="Thêm vào yêu thích">
+                                        <i class="fa-regular fa-bookmark fz-16"></i>
+                                    </span>
+                                </div>
+                                <div class="image-main-product position-relative">
+                                    <img src="/libaries/images/ao1.jpg" alt="product image" width="100%" height="250"
+                                        class="img-fluid">
+                                    <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                        <div class="hstack gap-3">
+                                            <div class="p-2">
+                                                <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
+                                                    nam</span>
+                                            </div>
+                                            <div class="p-2 ms-auto">
+                                                <div class="product-image-color">
+                                                    <img src="/libaries/images/blue.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/yellow.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/green.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2">
+                                    <h6 class="fw-medium">
+                                        <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
+                                            Vải Pique
+                                            Ngắn Tay
+                                            mát mẻ, thoải mái</a>
+                                    </h6>
+                                    <div class="d-flex justify-content-start mb-2">
+                                        <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
+                                        <span class="mt-1">
+                                            <del class="text-secondary fz-14 ">559.000đ</del>
+                                        </span>
+                                    </div>
+                                    <div class="box-action">
+                                        <a href="#" class="action-cart-item-buy">
+                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                            <span>Mua ngay</span>
+                                        </a>
+                                        <a href="#" class="action-cart-item-add">
+                                            <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
+                                            <span>thêm giỏ hàng</span>
+
+                                        </a>
+                                    </div>
+                                    <div class="head-card d-flex p-0">
+                                        <span class="fz-14 ">
+                                            <div class="rating">
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                            </div>
+                                        </span>
+                                        <span class="ms-auto fz-14">25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12 mb-3">
+                            <div class="card card-product shadow-sm border-0">
+                                <div class="head-card d-flex p-2">
+                                    <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
+                                    <span class="ms-auto text-muted" data-bs-toggle="tooltip"
+                                        data-bs-title="Thêm vào yêu thích">
+                                        <i class="fa-regular fa-bookmark fz-16"></i>
+                                    </span>
+                                </div>
+                                <div class="image-main-product position-relative">
+                                    <img src="/libaries/images/ao1.jpg" alt="product image" width="100%" height="250"
+                                        class="img-fluid">
+                                    <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                        <div class="hstack gap-3">
+                                            <div class="p-2">
+                                                <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
+                                                    nam</span>
+                                            </div>
+                                            <div class="p-2 ms-auto">
+                                                <div class="product-image-color">
+                                                    <img src="/libaries/images/blue.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/yellow.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                    <img src="/libaries/images/green.png" alt="image color product"
+                                                        width="14" height="14" class="rounded-circle img-fluid me-1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-2">
+                                    <h6 class="fw-medium">
+                                        <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
+                                            Vải Pique
+                                            Ngắn Tay
+                                            mát mẻ, thoải mái</a>
+                                    </h6>
+                                    <div class="d-flex justify-content-start mb-2">
+                                        <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
+                                        <span class="mt-1">
+                                            <del class="text-secondary fz-14 ">559.000đ</del>
+                                        </span>
+                                    </div>
+                                    <div class="box-action">
+                                        <a href="#" class="action-cart-item-buy">
+                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                            <span>Mua ngay</span>
+                                        </a>
+                                        <a href="#" class="action-cart-item-add">
+                                            <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
+                                            <span>thêm giỏ hàng</span>
+
+                                        </a>
+                                    </div>
+                                    <div class="head-card d-flex p-0">
+                                        <span class="fz-14 ">
+                                            <div class="rating">
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                                <span class="fa fa-star text-warning"></span>
+                                            </div>
+                                        </span>
+                                        <span class="ms-auto fz-14">25</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+    <!-- back to top  -->
+    <!-- footer  -->
+    <section>
+        <div class="">
+            <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
+                style="bottom: 60px; right: 30px;">
+                <div class=" border-2 rounded-circle">
+                    <i
+                        class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
+                </div>
+            </a>
+            <!-- <div class=" live-chat ms-lg-16">
+                <a href="zalo">
+                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                </a>
+            </div> -->
+        </div>
+        <footer>
+            <div class="container-fuild z-0">
+                <div class="container">
+                    <div class="row flex-grow">
+                        <div class="col-lg-3 col-md-8 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Cửa hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Hỗ trợ khách hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
+                                        gặp</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Điều khoản &
+                                        Dịch vụ</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Dịch vụ khách hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">GIỏ hàng</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Theo dõi chúng tôi</h6>
+                            <ul class="p-0 d-flex justify-content-around align-items-center w-75">
+                                <li class="list-unstyled menu-footer-item pt-2 ps-0 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-facebook" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-square-instagram" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Instagram"></i>
+                                    </a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-youtube" data-bs-toggle="tooltip"
+                                            data-bs-title="Nền tảng Youtube"></i>
+                                    </a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-square-twitter" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Twitter"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <h6 class="text-uppercase fw-bold fz-16">Khuyến mãi</h6>
+                            <span class="text-dark fz-14">
+                                Đăng ký để nhận giảm giá tới 20% cho đơn hàng.
+                            </span>
+                            <div class="input-group mb-3 mt-3">
+                                <input type="text" class="form-control" placeholder="Đăng ký ngay"
+                                    aria-describedby="button-addon2">
+                                <button class="btn btn-success px-3" type="button" id="button-addon2">Gửi</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-9 col-md-6 col-sm-6">
+                            <span class="text-decoration-none text-dark fz-15 fw-normal">@2023 - 2024 phát triển toàn
+                                diện</span>
+                            <ul class="d-flex justify-content-start  align-items-center p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2 me-2">
+                                    <a href="#" class="text-decoration-underline text-dark fz-15 fw-medium ">Trung tâm
+                                        bảo
+                                        mật</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2 me-2">
+                                    <a href="#" class="text-decoration-underline text-dark fz-15 fw-medium ">Chính
+                                        sách</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Phương thức thanh toán</h6>
+                            <ul class="p-0 d-flex justify-content-sm-around align-items-center w-75">
+                                <li class="list-unstyled menu-footer-item pt-2 ps-0 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <img src="/libaries/images/pay.svg" alt="" class="w-100"
+                                            data-bs-toggle="tooltip" data-bs-title="Các phuong thức thanh toán">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <tfoot>
+            <div class="container-fuild text-bg-dark">
+                <div class="container text-lg-center p-2">
+                    <span class="p-2 fz-14">Bản quyền thuộc © thewinner 2024 - 2025</span>
+                </div>
+            </div>
+        </tfoot>
+    </section>
+    <!-- end footer  -->
+</body>
+<!-- jQuery  -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+<!-- jQurery Ui  -->
+<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"
+    integrity="sha256-u0L8aA6Ev3bY2HI4y0CAyr9H8FRWgX4hZ9+K7C2nzdc=" crossorigin="anonymous"></script>
+<!-- bootstrap5 js   -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<!-- splide js  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.min.js"></script>
+<!-- select2 js  -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- js  -->
+<script src="/libaries/js/script.js"></script>
+<!-- jquery  -->
+<script src="/libaries/js/jquey_custom.js"></script>
+
+</html>
