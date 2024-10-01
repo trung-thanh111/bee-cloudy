@@ -11,27 +11,36 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 
-class ProductRepository extends BaseRepository implements ProductRepositoryInterface {
-    
+class ProductRepository extends BaseRepository implements ProductRepositoryInterface
+{
+
     protected $model;
 
-    public function __construct(Product $model) {
+    public function __construct(Product $model)
+    {
         $this->model = $model;
     }
-    public function create($payload = []){
+    public function getProductBySlug(string $slug = '')
+    {
+        return $this->model
+        ->select(['*'])
+            ->with(['productCatalogues', 'productVariant'])
+            ->where('slug', $slug)
+            ->first();
+    }
+
+    public function create($payload = [])
+    {
         $product = $this->model->create($payload);
-        
-        if(isset($payload['product_catalogue_id'])){
-            if(is_array($payload['product_catalogue_id'])){
+
+        if (isset($payload['product_catalogue_id'])) {
+            if (is_array($payload['product_catalogue_id'])) {
                 // attach() thêm mới record vào bảng trung gian với qh n-n mà k xóa bản ghi đã có
                 $product->productCatalogues()->attach($payload['product_catalogue_id']);
-            }else{
+            } else {
                 $product->productCatalogues()->attach($payload['product_catalogue_id']);
             }
         }
         return $product;
     }
-    
-    
 }
-
