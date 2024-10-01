@@ -58,7 +58,7 @@
             <div class="d-flex">
                 <div class="record ms-2">
                     <select name="perpage" id="" class="form-control setUpSelect2" style="width: 280px">
-                        @for ($i = 5; $i <= 100; $i += 5)
+                        @for ($i = 10; $i <= 100; $i += 10)
                             <option {{ $perpage == $i ? 'selected' : '' }} value="{{ $i }}">
                                 {{ $i }} bản ghi</option>
                         @endfor
@@ -69,12 +69,12 @@
         <div class="col-sm-auto">
             <div class="d-flex">
                 <div class="record ms-2">
-                    <select name="product_catalogue_id" id="product_catalogue_id"
+                    <select name="brand_id" id="brand_id"
                         class="form-control text-muted setUpSelect2">
-                        <option value="" >[Nhóm thuộc tính]</option>
-                        @if ($productCatalogues != null)
-                            @foreach ($productCatalogues as $key => $catalogue)
-                                <option value="{{ $catalogue->id }}" {{ old('product_catalogue_id', request('product_catalogue_id')) == $catalogue->id ? ' selected' : ''}}>{{ $catalogue->name }}</option>
+                        <option value="" >[Thương hiệu]</option>
+                        @if ($brands != null)
+                            @foreach ($brands as $key => $brand)
+                                <option value="{{ $brand->id }}" {{ old('brand_id', request('brand_id')) == $brand->id ? ' selected' : ''}}>{{ $brand->name }}</option>
                             @endforeach
                         @endif
                     </select>
@@ -85,9 +85,11 @@
             <div class="d-flex">
                 <div class="fillter-publish ms-2">
                     <select name="publish" id="publish" class="form-control text-muted" style="width: 180px">
-                        <option value="" >[Tất cả trạng thái]</option>
-                        <option value="1" {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>Hiển thị</option>
-                        <option value="0" {{ old('publish', request('publish')) == '0' ? 'selected' : '' }}>Ẩn</option>
+                        <option value="">[Tất cả trạng thái]</option>
+                        <option value="1" {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>
+                            Hiển thị</option>
+                        <option value="0" {{ old('publish', request('publish')) == '0' ? 'selected' : '' }}>Ẩn
+                        </option>
                     </select>
                 </div>
             </div>

@@ -24,7 +24,6 @@ class ProductCatalogueController extends Controller
     public function index(Request $request)
     {
         $productCatalogues = $this->productCatalogueService->paginate($request);
-        $reloadUrl = $this->getRecordNull($request);
         $template = 'backend.product.catalogue.index';
         return view('backend.dashboard.layout', compact(
             'template',
@@ -124,17 +123,5 @@ class ProductCatalogueController extends Controller
 
         return redirect()->route('product.catalogue.index');
     }
-    private function getRecordNull(Request $request)
-    {
-        $keyword = $request->input('keyword');
-        $publish = $request->input('publish');
-        // Kiểm tra nếu tất cả các tham số đều rỗng
-        if (empty($keyword) && empty($publish)) {
-            // Kiểm tra nếu URL hiện tại không phải là URL đích
-            if ($request->fullUrl() !== url('/product/catalogue/index')) {
-                // send() chuyển hướng ngay lập tức
-                return redirect()->to(url('/product/catalogue/index'))->send();
-            }
-        }
-    }
+    
 }
