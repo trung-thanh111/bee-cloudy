@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Repositories\ProductRepository;
 use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,10 @@ use Illuminate\Support\Facades\DB;
 class ProductService implements ProductServiceInterface
 {
     protected $productRepository;
-    public function __construct(ProductRepository $productRepository)
-    {
+    public function __construct(
+        ProductRepository $productRepository
+
+    ) {
         $this->productRepository = $productRepository;
     }
 
@@ -30,13 +33,13 @@ class ProductService implements ProductServiceInterface
     {
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
-            'publish' => $request->has('publish') ? $request->integer('publish') : 0,
+            'publish' => $request->input('publish') !== null ? $request->integer('publish') : null,
             'where' => [
-                ['product_catalogue_id', '=',  $request->integer('product_catalogue_id')]
+                ['brand_id', '=',  $request->integer('brand_id')]
             ]
         ];
         $relation = ['productCatalogues'];
-        $perPage = $request->integer('perpage') ?: 5;
+        $perPage = $request->integer('perpage') ?: 10;
         $products = $this->productRepository->pagination(
             $this->paginateSelect(),
             $condition,
@@ -54,9 +57,9 @@ class ProductService implements ProductServiceInterface
         DB::beginTransaction();
         try {
             $product = $this->createProduct($request);
-            
+
             if ($product->id > 0) {
-            $this->createVariant($product, $request);
+                $this->createVariant($product, $request);
             }
             DB::commit();
             return true;
@@ -74,15 +77,20 @@ class ProductService implements ProductServiceInterface
             if (!$product) {
                 throw new \Exception("Không tìm thấy bản ghi!");
             }
-            $payload = $request->except(['_token', 'submit']);
-            // dd($payload);
-            $data = $this->productRepository->update($slug, $payload);
+             $this->updateProduct($product, $request);
+
+             $product->productVariant()->delete();
+ 
+             $this->createVariant($product, $request);
+            // Cập nhật mối quan hệ nhiều-nhiều
+            if (isset($request->product_catalogue_id)) {
+                $product->productCatalogues()->sync($request->product_catalogue_id);
+            }
             DB::commit();
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
             echo $e->getMessage();
-            die();
             return false;
         }
     }
@@ -149,8 +157,11 @@ class ProductService implements ProductServiceInterface
 
     private function createProduct($request)
     {
-        $payload = $request->except(['_token', 'submit', 'accept']);
+        $payload = $request->only($this->payload());
         $payload['user_id'] = Auth::id();
+        $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
+        $payload['attribute'] = $this->formatJson($request, 'attribute');
+        $payload['variant'] = $this->formatJson($request, 'variant');
         $product = $this->productRepository->create($payload);
         return $product;
     }
@@ -159,12 +170,41 @@ class ProductService implements ProductServiceInterface
         $payload = $request->only(['name', 'variant', 'productVariant', 'attribute']); // các input hidden của variant và productVariant 
         // dd($payload);
         $variant = $this->createVariantArray($payload);
-        // xóa hết bản ghi có product variant và inseert lại  
-        $product->productVariant()->delete();
+
         // sử dụng phương thức createmany()
         $variants = $product->productVariant()->createmany($variant);
         // lấy danh sách id của variants -> trc khi commit lần đầu empty bảng product_variant để inert đúng 
         $variantId = $variants->pluck('id');
+        // dd($variantId);
+        $attributeCombines = $this->comebineAttribute(array_values($payload['attribute']));
+        if (count($variantId)) {
+            foreach ($variantId as $key => $val) {
+                if (count(($attributeCombines))) {
+                    foreach ($attributeCombines[$key] as $attributeId) {
+                        $variantAttribute[] = [
+                            'product_variant_id' => $val,
+                            'attribute_id' => $attributeId
+                        ];
+                    }
+                }
+            }
+        }
+        return $variantAttribute;
+    }
+
+    private function comebineAttribute($attributes = [], $index = 0)
+    {
+        // đk dừng đệ quy 
+        if ($index === count($attributes)) return [[]];
+        // đệ quy 
+        $subComebines = $this->comebineAttribute($attributes, $index + 1);
+        $combines  = [];
+        foreach ($attributes[$index] as $key => $val) {
+            foreach ($subComebines as $keySub => $valSub) {
+                $combines[] = array_merge([$val], $valSub);
+            }
+        }
+        return $combines;
     }
 
     private function createVariantArray($payload = [])
@@ -197,11 +237,46 @@ class ProductService implements ProductServiceInterface
 
         return $variant;
     }
+    private function updateProduct($product, $request)
+    {
+        $payload = $request->only($this->payload());
+        $payload['user_id'] = Auth::id();
+        $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
+        $payload['attribute'] = $this->formatJson($request, 'attribute');
+        $payload['variant'] = $this->formatJson($request, 'variant');
+        
+        $product->update($payload);
+        return $product;
+    }
+    public function formatJson($request, $inputName)
+    {
+        return ($request->input($inputName) && !empty($request->input($inputName)) ? json_encode($request->input($inputName)) : '');
+    }
+    private function payload()
+    {
+        return [
+            'name',
+            'slug',
+            'price',
+            'info',
+            'sku',
+            'short_desc',
+            'image',
+            'brand_id',
+            'description',
+            'publish',
+            'product_catalogue_id',
+            'attributeCatalogue',
+            'attribute',
+            'variant',
+        ];
+    }
     private function paginateSelect()
     {
         return [
             'id',
             'name',
+            'image',
             'slug',
             'short_desc',
             'description',
@@ -209,6 +284,9 @@ class ProductService implements ProductServiceInterface
             'price',
             'brand_id',
             'user_id',
+            'attributeCatalogue',
+            'attribute',
+            'variant',
             'publish',
             'created_at'
         ];

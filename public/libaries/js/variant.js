@@ -29,7 +29,7 @@
                 $(".variant-body").append(html);
     
                 // Xóa class d-none khỏi phần tử product-variant khi thêm variant
-                $('.product-variant').removeClass('d-none');
+                // $('.product-variant').removeClass('d-none');
                 
                 // nếu khi mà ng dùng click vào nhóm thuộc tính mới sẽ xóa thead và tbody để render lại 
                 $('.variantTable thead').html('');
@@ -311,7 +311,6 @@
         let attributeId = Object.values(variantItem).join(', ')
         // chuyyển tất cả dấu , trong chuỗi attributeId thành -
         let classModified = attributeId.replace(/, /g, '-')
-        console.log(classModified)
 
         let $row = $('<tr>').addClass('variant-row tr-variant-'+classModified)
         let $td

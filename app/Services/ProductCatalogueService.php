@@ -32,7 +32,7 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
     {
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
-            'publish' => $request->has('publish') ? $request->integer('publish') : null,
+            'publish' => $request->input('publish') !== null ? $request->integer('publish') : null,
         ];
         $perPage = $request->integer('perpage') ?? 5;
         $productCatalogues = $this->productCatalogueRepository->pagination(
