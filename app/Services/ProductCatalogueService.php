@@ -71,17 +71,11 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
             $productCatalogue = $this->productCatalogueRepository->findBySlug($slug);
             if (!$productCatalogue) {
                 throw new \Exception("Không tìm thấy bản ghi!");
-            }
-
-            // Lấy giá trị order từ request
-            $orderSelected = $request->input('order');
-            
-            // Tìm bản ghi có cùng vị trí order được chọn
+            }            $orderSelected = $request->input('order');
             $orderSameSelected = $this->productCatalogueRepository->findByCondition([
                 ['order', '=',  $orderSelected]
             ]);
-
-            // Hoán đổi vị trí order nếu tìm thấy bản ghi có cùng order
+            // Hoán đổi vị trí order
             if ($orderSameSelected) {
                 $originalOrder = $productCatalogue->order;
                 $productCatalogue->order = $orderSelected;
@@ -90,25 +84,12 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
                 $orderSameSelected->order = $originalOrder;
                 $orderSameSelected->save();
             }
-
-            // Cập nhật thông tin của bản ghi hiện tại
             $payload = $request->except(['_token', 'submit']);
-
-            // Kiểm tra payload nếu cần debug
-            // dd($payload); // Bỏ comment để debug, nhưng không dừng chương trình nếu bạn đã kiểm tra xong
-
-            // Cập nhật bản ghi
             $this->productCatalogueRepository->update($slug, $payload);
-
-            // Commit transaction
             DB::commit();
             return true;
         } catch (\Exception $e) {
-            // Rollback transaction khi có lỗi
             DB::rollBack();
-
-            // Thay vì dùng die(), hãy ghi log lỗi hoặc trả về response lỗi
-            // Log::error('Error updating product catalogue: ' . $e->getMessage());
             throw new \Exception("Cập nhật thất bại: " . $e->getMessage());
         }
     }

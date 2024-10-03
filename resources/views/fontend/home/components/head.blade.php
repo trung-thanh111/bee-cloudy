@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bee cloudy</title>
+<title>@yield('page_title')</title>
 <!-- css  -->
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/custom_reponsive.css">
