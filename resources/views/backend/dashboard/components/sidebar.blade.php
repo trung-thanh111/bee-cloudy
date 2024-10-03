@@ -65,6 +65,35 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarPageposts" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarPageposts">
+                        <i class="fa-solid fa-newspaper"></i></i> <span data-key="t-pageposts">Bài viết</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarPageposts">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('post.catalogue.index') }}" class="nav-link">Nhóm bài viết</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarProfile" > Bài viết
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarProfile">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('post.index') }}" class="nav-link" >
+                                                Danh sách</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('post.create') }}" class="nav-link">Thêm mới </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarLanding">
                         <i class="ri-rocket-line"></i> 
