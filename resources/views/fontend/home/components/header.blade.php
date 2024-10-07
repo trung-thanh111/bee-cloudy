@@ -125,7 +125,7 @@
                                     chủ</a>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">
-                                <a href="#"
+                                <a href="{{ route('shop.index') }}"
                                     class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Cửa
                                     hàng <i class="fas fa-minus fz-12 fw-bold"></i></a>
                                 <ul class="ul-menu-header p-0 dropdown-content">

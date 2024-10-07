@@ -488,6 +488,10 @@
                             <i class="mdi mdi-home text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle" data-key="t-logout">Trang chủ</span>
                         </a>
+                        <a class="dropdown-item " href="{{ route('shop.index') }}">
+                            <i class="mdi mdi-home text-muted fs-16 align-middle me-1"></i>
+                            <span class="align-middle" data-key="t-logout">Cửa hàng</span>
+                        </a>
                         <a class="dropdown-item text-danger" href="{{ route('auth.logout') }}">
                             <i class="mdi mdi-logout fs-16 align-middle me-1"></i>
                             <span class="align-middle" data-key="t-logout">Đăng xuất</span>

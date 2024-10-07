@@ -16,3 +16,5 @@
 <script src="/libaries/templates/bee-cloudy-user/libaries/js/script.js"></script>
 <!-- jquery  -->
 <script src="/libaries/templates/bee-cloudy-user/libaries/js/jquey_custom.js"></script>
+{{-- choose variant  --}}
+<script src="/libaries/js/choose_variant.js"></script>

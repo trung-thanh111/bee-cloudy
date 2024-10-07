@@ -170,6 +170,12 @@
                                         <span class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
                                     @endif
                                 </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Giá giảm</label>
+                                    <input type="text" name="del" class="form-control"
+                                        value="{{ old('del', $product->del) }}">
+                                    <span class="text-warning fz-12 mt-1">Có thể bỏ trống nếu không giảm giá!</span>
+                                </div>
                             </div>
                         </div>
                         <div class="card">

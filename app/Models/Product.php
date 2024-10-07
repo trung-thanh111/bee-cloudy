@@ -25,13 +25,19 @@ class Product extends Model
         'brand_id',
         'sku',
         'user_id',
-        'attributeCatalogue',
-        'attribute',
-        'variant',
+        'attributeCatalogue', // json
+        'attribute', // json
+        'variant',  // json
         'price',
+        'del',
         'publish',
         'created_at',
 
+    ];
+    
+    // casts chuyển json thành mảng khi lấy ra và thành json khi insert vào 
+    protected $casts = [
+        'attribute' => 'json'
     ];
 
     //khai báo quan hệ n-n vs bảng product_catalogues thông qua bảng pivot 
