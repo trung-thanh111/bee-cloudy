@@ -23,7 +23,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'slug' => 'required|string|max:255|unique:products,slug',
+            'slug' => 'required|max:255|unique:products,slug',
             'info' => 'max:255',
             'short_desc' => 'max:255',
             'product_catalogue_id' => 'required',
@@ -39,7 +39,6 @@ class StoreProductRequest extends FormRequest
             'name.required' => 'Bạn chưa nhập tên sản phẩm.',
             'name.max' => 'Tên thuộc tính không được vượt quá 255 ký tự.',
             'slug.required' => 'Đường dẫn slug là bắt buộc.',
-            'slug.string' => 'Đường dẫn slug phải là chuỗi ký tự.',
             'slug.max' => 'Đường dẫn slug không được vượt quá 255 ký tự.',
             'slug.unique' => 'Đường dẫn đã tồn tại. Vui lòng chon đường dẫn khác',
             'sku.required' => 'Sku chung cho sản phẩm là bắt buộc.',

@@ -11,14 +11,24 @@ use Illuminate\Database\Eloquent\Model;
  */
 
 
-class AttributeCatalogueRepository extends BaseRepository implements AttributeCatalogueRepositoryInterface {
-    
+class AttributeCatalogueRepository extends BaseRepository implements AttributeCatalogueRepositoryInterface
+{
+
     protected $model;
 
-    public function __construct(AttributeCatalogue $model) {
+    public function __construct(AttributeCatalogue $model)
+    {
         $this->model = $model;
     }
 
-    
+    public function getAttributeCatalogueWhereIn($whereInField = 'id', $whereIn = [])
+    {
+        return $this->model->select([
+            'id',
+            'name'
+        ])
+            ->where('publish', 1)
+            ->whereIn($whereInField, $whereIn)
+            ->get();
+    }
 }
-
