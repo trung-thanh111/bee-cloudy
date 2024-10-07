@@ -72,9 +72,8 @@
                                     <div>
                                         <textarea class="form-control ck-editor" id="info" data-height="100" name="info">{{ old('info') }}</textarea>
                                         @if ($errors->has('info'))
-                                        <span
-                                            class="text-danger fz-12 mt-1">{{ $errors->first('info') }}</span>
-                                    @endif
+                                            <span class="text-danger fz-12 mt-1">{{ $errors->first('info') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="mt-3">
@@ -112,15 +111,16 @@
                                         <span class="mt-2"><a href="{{ route('product.catalogue.create') }}"
                                                 class="text-decoration-underline text-primary">thêm mới</a></span>
                                     </div>
-                                    <select class="form-select setUpSelect2" name="product_catalogue_id[]" multiple="multiple">
+                                    <select class="form-select setUpSelect2" name="product_catalogue_id[]"
+                                        multiple="multiple">
                                         <option value="0">[Chọn nhóm sản phẩm]</option>
                                         @foreach ($productCatalogues as $key => $catalogue)
                                             <option value="{{ $catalogue->id }}"
-                                                {{ (collect(old('product_catalogue_id'))->contains($catalogue->id)) ? 'selected' : '' }}>
+                                                {{ collect(old('product_catalogue_id'))->contains($catalogue->id) ? 'selected' : '' }}>
                                                 {{ $catalogue->name }}
                                             </option>
                                         @endforeach
-                                    </select>                                    
+                                    </select>
                                     @if ($errors->has('product_catalogue_id'))
                                         <span
                                             class="text-danger fz-12 mt-1">{{ $errors->first('product_catalogue_id') }}</span>
@@ -137,16 +137,15 @@
                                     <select class="form-select setUpSelect2" name="brand_id">
                                         <option value="0">[Chọn thương hiệu]</option>
                                         @foreach ($brands as $key => $brand)
-                                            <option value="{{ $brand->id }}" 
+                                            <option value="{{ $brand->id }}"
                                                 {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
                                                 {{ $brand->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                
+
                                     @if ($errors->has('brand_id'))
-                                        <span
-                                            class="text-danger fz-12 mt-1">{{ $errors->first('brand_id') }}</span>
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('brand_id') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -158,19 +157,25 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="product_sku" class="form-label">Mã sản phẩm</label>
-                                    <input type="text" name="sku" id="product_sku" class="form-control" value="{{ old('sku') }}">
+                                    <input type="text" name="sku" id="product_sku" class="form-control"
+                                        value="{{ old('sku') }}">
                                     @if ($errors->has('sku'))
-                                        <span
-                                            class="text-danger fz-12 mt-1">{{ $errors->first('sku') }}</span>
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('sku') }}</span>
                                     @endif
                                 </div>
                                 <div class="mb-3">
                                     <label for="" class="form-label">Giá</label>
-                                    <input type="text" name="price" class="form-control" value="{{ old('price') }}">
+                                    <input type="text" name="price" class="form-control"
+                                        value="{{ old('price') }}">
                                     @if ($errors->has('price'))
-                                        <span
-                                            class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
                                     @endif
+                                </div>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Giá giảm</label>
+                                    <input type="text" name="del" class="form-control"
+                                        value="{{ old('del') }}">
+                                    <span class="text-warning fz-12 mt-1">Có thể bỏ trống nếu không giảm giá!</span>
                                 </div>
                             </div>
                         </div>
@@ -205,9 +210,9 @@
                                             {{-- image-target dùng dể choose image hthi cho ngxem  --}}
                                             <span class="image-target">
                                                 <img src="{{ old('old_image', $product->image ?? '/libaries/upload/images/img-notfound.png') }}"
-                                                alt="Product Image"
-                                                class="render-image object-fit-cover rounded-1 mb-2 position-relative"
-                                                width="96" height="96">                                           
+                                                    alt="Product Image"
+                                                    class="render-image object-fit-cover rounded-1 mb-2 position-relative"
+                                                    width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}
                                             <input type="hidden" name="image" value="">

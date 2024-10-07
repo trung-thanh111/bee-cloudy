@@ -675,31 +675,36 @@
     FS.productVariant = () => {
         // bắt lại biến variant bên blade 
         variant = JSON.parse(atob(variant))
-        
+        const findIndexVariantBySku = (sku) => variant.sku.findIndex((item) => item === sku)
+
         // loop qua từng row và đổ dữ liệu vào 
         $('.variant-row').each(function (index, value){
             let _this = $(this)
-            let inputHidenFields = [
-                {name: 'variant[quantity][]', class: 'variant_quantity', value: variant.quantity[index]},
-                {name: 'variant[sku][]', class: 'variant_sku', value: variant.sku[index]},
-                {name: 'variant[price][]', class: 'variant_price', value: variant.price[index]},
-                
-                {name: 'variant[file_name][]', class: 'variant_filename',value: variant.file_name[index]},
-                {name: 'variant[file_url][]', class: 'variant_fileurl', value: variant.file_url[index]},
-                {name: 'variant[album][]', class: 'variant_album', value: variant.album[index]},
-            ]
-            // đổ vào input trong form variant 
-            for(let i = 0; i < inputHidenFields.length; i++) {
-                // tìm đến input có name và đổ dữ liệu vào input
-                _this.find('.'+ inputHidenFields[i].class).val((inputHidenFields[i].value) ? inputHidenFields[i].value : 0)
+            let variantKey = _this.attr('class').match(/tr-variant-(\d+-\d+)/)[1];
+            let dataIndex = variant.sku.findIndex(sku => sku.includes(variantKey));
+            // console.log(variantKey, dataIndex)
+            if(dataIndex !== -1){
+                let inputHidenFields = [
+                    {name: 'variant[quantity][]', class: 'variant_quantity', value: variant.quantity[dataIndex]},
+                    {name: 'variant[sku][]', class: 'variant_sku', value: variant.sku[dataIndex]},
+                    {name: 'variant[price][]', class: 'variant_price', value: variant.price[dataIndex]},
+                    {name: 'variant[file_name][]', class: 'variant_filename',value: variant.file_name[dataIndex]},
+                    {name: 'variant[file_url][]', class: 'variant_fileurl', value: variant.file_url[dataIndex]},
+                    {name: 'variant[album][]', class: 'variant_album', value: variant.album[dataIndex]},
+                ]
+                // đổ vào input trong form variant 
+                for(let i = 0; i < inputHidenFields.length; i++) {
+                    // tìm đến input có name và đổ dữ liệu vào input
+                    _this.find('.'+ inputHidenFields[i].class).val((inputHidenFields[i].value) ? inputHidenFields[i].value : 0)
+                }
+                // đổ vào input trong td table
+                let album = variant.album[dataIndex]
+                let variantAvtImage = (album) ? album.split(',')[0] : ''
+                _this.find('.td-quantity').html(variant.quantity[dataIndex])
+                _this.find('.td-price').html(variant.price[dataIndex])
+                _this.find('.td-sku').html(variant.sku[dataIndex])
+                _this.find('.imageSrc').attr('src', variantAvtImage)
             }
-            // đổ vào input trong td table
-            let album = variant.album[index]
-            let variantAvtImage = (album) ? album.split(',')[0] : ''
-            _this.find('.td-quantity').html(variant.quantity[index])
-            _this.find('.td-price').html(variant.price[index])
-            _this.find('.td-sku').html(variant.sku[index])
-            _this.find('.imageSrc').attr('src', variantAvtImage)
         })
     }
     // gọi hàm

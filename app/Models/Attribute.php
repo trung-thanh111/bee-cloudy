@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\QueryScopes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Attribute extends Model
 {
@@ -26,5 +27,10 @@ class Attribute extends Model
     // khia báo quan hê vs bảng attributeCatalogues
     public function attributeCatalogues():BelongsTo{
         return $this->belongsTo(AttributeCatalogue::class, 'attribute_catalogue_id', 'id');
+    }
+
+    // khai báo quan hệ với bảng product_variant thông qua bảng pivot
+    public function productVariants ():BelongsToMany {
+        return $this->belongsToMany(ProductVariant::class, 'product_variant_attribute', 'attribute_id', 'product_variant_id');
     }
 }

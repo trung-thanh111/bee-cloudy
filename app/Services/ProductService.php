@@ -2,12 +2,17 @@
 
 namespace App\Services;
 
+use App\Models\AttributeCatalogue;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Repositories\ProductRepository;
+use App\Repositories\AttributeCatalogueRepository;
+use App\Repositories\AttributeRepository;
+use App\Repositories\ProductVariantAttributeRepository;
 use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * interface  UserService
@@ -17,11 +22,20 @@ use Illuminate\Support\Facades\DB;
 class ProductService implements ProductServiceInterface
 {
     protected $productRepository;
+    protected $attributeCatalogueRepository;
+    protected $attributeRepository;
+    protected $productVariantAttributeRepository;
     public function __construct(
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        AttributeCatalogueRepository $attributeCatalogueRepository,
+        AttributeRepository $attributeRepository,
+        ProductVariantAttributeRepository $productVariantAttributeRepository
 
     ) {
         $this->productRepository = $productRepository;
+        $this->attributeCatalogueRepository = $attributeCatalogueRepository;
+        $this->attributeRepository = $attributeRepository;
+        $this->productVariantAttributeRepository = $productVariantAttributeRepository;
     }
 
     public function all()
@@ -59,15 +73,15 @@ class ProductService implements ProductServiceInterface
             $product = $this->createProduct($request);
 
             // Trường hợp không có phiên bản
-        if (!isset($request->variant['sku']) || count($request->variant['sku']) === 0) {
-            $product->sku = $request->sku; // Lưu SKU từ request
-            $product->save();
-        }
+            if (!isset($request->variant['sku']) || count($request->variant['sku']) === 0) {
+                $product->sku = $request->sku; // Lưu SKU từ request
+                $product->save();
+            }
 
-        // Trường hợp có phiên bản
-        if (isset($request->variant['sku']) && count($request->variant['sku']) > 0) {
-            $this->createVariant($product, $request);
-        }
+            // Trường hợp có phiên bản
+            if (isset($request->variant['sku']) && count($request->variant['sku']) > 0) {
+                $this->createVariant($product, $request);
+            }
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -84,14 +98,14 @@ class ProductService implements ProductServiceInterface
             if (!$product) {
                 throw new \Exception("Không tìm thấy bản ghi!");
             }
-             $this->updateProduct($product, $request);
+            $this->updateProduct($product, $request);
 
-             if ($product->productVariant()->exists()) {
+            if ($product->productVariant()->exists()) {
                 $product->productVariant()->delete();
             }
-            
- 
-             $this->createVariant($product, $request);
+
+
+            $this->createVariant($product, $request);
             // Cập nhật mối quan hệ nhiều-nhiều
             if (isset($request->product_catalogue_id)) {
                 $product->productCatalogues()->sync($request->product_catalogue_id);
@@ -169,8 +183,10 @@ class ProductService implements ProductServiceInterface
     {
         $payload = $request->only($this->payload());
         $payload['user_id'] = Auth::id();
+        $payload['del'] = (isset($payload['del'])) ? $payload['del'] : '0';
+        $payload['slug'] = Str::slug($payload['slug'], '-');
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
-        $payload['attribute'] = $this->formatJson($request, 'attribute');
+        $payload['attribute'] = $request->input('attribute');
         $payload['variant'] = $this->formatJson($request, 'variant');
         $product = $this->productRepository->create($payload);
         return $product;
@@ -198,7 +214,7 @@ class ProductService implements ProductServiceInterface
                 }
             }
         }
-        return $variantAttribute;
+        $variantAttribute = $this->productVariantAttributeRepository->createBatch($variantAttribute);
     }
 
     private function comebineAttribute($attributes = [], $index = 0)
@@ -216,6 +232,7 @@ class ProductService implements ProductServiceInterface
         return $combines;
     }
 
+
     private function createVariantArray($payload = [])
     {
         $variant = [];
@@ -230,9 +247,11 @@ class ProductService implements ProductServiceInterface
                     ? $payload['name'] . ' - ' . $variantName
                     : '';
 
+                $vId = ($payload['productVariant']['id'][$key]) ?? '';
+                $productVariantId = sortString($vId);
                 $variant[] = [
                     'name' => $product_variant_fullname, // Combined product name
-                    'code' => ($payload['productVariant']['id'][$key]) ?? '',
+                    'code' => $productVariantId,
                     'quantity' => ($payload['variant']['quantity'][$key]) ?? '',
                     'sku' => $val,
                     'price' => ($payload['variant']['price'][$key]) ?? '',
@@ -251,9 +270,9 @@ class ProductService implements ProductServiceInterface
         $payload = $request->only($this->payload());
         $payload['user_id'] = Auth::id();
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
-        $payload['attribute'] = $this->formatJson($request, 'attribute');
+        $payload['attribute'] = $request->input('attribute');
         $payload['variant'] = $this->formatJson($request, 'variant');
-        
+
         $product->update($payload);
         return $product;
     }
@@ -261,12 +280,50 @@ class ProductService implements ProductServiceInterface
     {
         return ($request->input($inputName) && !empty($request->input($inputName)) ? json_encode($request->input($inputName)) : '');
     }
+
+    //lấy ra các attribute của sản phẩm thông qua cột attribue trong bảng product(chitietsp)
+    public function getAttribute($product)
+    {
+        // Lọc ra các id của nhóm thuộc tính
+        if (is_null($product->attribute) || !is_array($product->attribute)) {
+            if (is_string($product->attribute)) {
+                $product->attribute = json_decode($product->attribute, true);
+            }
+
+            if (!is_array($product->attribute)) {
+                return $product;
+            }
+        }
+        $attributeCatalogueId = array_keys($product->attribute);
+        // Lấy các thuộc tính dựa trên ID
+        $attributeCatalogues = $this->attributeCatalogueRepository->getAttributeCatalogueWhereIn('id', $attributeCatalogueId);
+        // ---- //
+        // lấy ra mảng id và merge lại vs nhau
+        $attributeId = array_merge(...$product->attribute);
+        $attrs = $this->attributeRepository->findAttributeByIdArray($attributeId);
+        // merge lại thành từng khối 
+        if (!is_null($attributeCatalogues)) {
+            foreach ($attributeCatalogues as $key => $val) {
+                $tempAttributes = [];
+                foreach ($attrs as $attr) {
+                    if ($val->id == $attr->attribute_catalogue_id) {
+                        $tempAttributes[] = $attr;
+                    }
+                }
+                $val->attributes = $tempAttributes;
+            }
+        }
+        $product->attributeCatalogue = $attributeCatalogues;
+        return $product;
+    }
+
     private function payload()
     {
         return [
             'name',
             'slug',
             'price',
+            'del',
             'info',
             'sku',
             'short_desc',
@@ -291,6 +348,8 @@ class ProductService implements ProductServiceInterface
             'description',
             'info',
             'price',
+            'del',
+            'sku',
             'brand_id',
             'user_id',
             'attributeCatalogue',
