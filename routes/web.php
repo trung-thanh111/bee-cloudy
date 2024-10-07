@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
 use App\Http\Controllers\Fontend\ShopController;
+
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -118,3 +119,13 @@ Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 // get attribute & load
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
 Route::get('/ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
+
+// home
+Route::get('home', [HomeController::class, 'index'])->name('home.index');
+
+// login gg & fb
+// Route để bắt đầu quá trình đăng nhập với Google
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
+
+// Route để xử lý callback từ Google
+Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
