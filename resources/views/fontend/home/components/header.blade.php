@@ -246,7 +246,7 @@
                         </div>
                         <div class="icon-item">
                             <span class="box-icon-profile">
-                                <a href="#">
+                                <a href="{{ route('cart.index') }}">
                                     <i class="fa-solid fa-cart-shopping" data-bs-toggle="tooltip"
                                         data-bs-title="Giỏ hàng"></i>
                                 </a>

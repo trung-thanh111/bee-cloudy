@@ -543,7 +543,7 @@
         html += ' <div class="col-lg-4">';
         html += ' <label for="" class="control-label ">Số lượng</label>';
         html +=
-            ' <input type="text" class="form-control int" id="variantQuantity" name="variant_quantity" value="'+variantData.variant_quantity+'">';
+            ' <input type="text" class="form-control int" id="variantQuantity" required name="variant_quantity" value="'+variantData.variant_quantity+'">';
         html += " </div>";
         html += ' <div class="col-lg-4">';
         html += ' <label for="" class="control-label">SKU</label>';
