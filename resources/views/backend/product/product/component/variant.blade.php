@@ -112,8 +112,9 @@
 
     // load giữ lại thông tin khi submit form
     //old() là một mảng nhuneg json-endcode chỉ nhận một chuỗi -> sd base64_endcode
+
     var attribute =
-        '{{ base64_encode(json_encode(old('attribute') ?? (isset($product->attribute) ? $product->attribute : []))) }}'
+        '{{ base64_encode(json_encode(old('attribute') ?? (isset($product->attribute) ? $product->attribute : []))) }}';
     var variant =
         '{{ base64_encode(json_encode(old('variant') ?? (isset($product->variant) ? json_decode($product->variant, true) : []))) }}'
 </script>
