@@ -4,6 +4,7 @@
     FS.splideCarousel = () => {
         let mainCarousel = new Splide("#main-carousel", {
             type: "fade",
+            autoplay: true,
             heightRatio: 1,
             pagination: false,
             arrows: false,
@@ -22,7 +23,7 @@
             fixedHeight: 60,
             gap: 10,
             rewind: true,
-            pagination: false,
+            pagination: true,
             // responsive image thumbnail
             breakpoints: {
                 1200: { fixedWidth: 90, fixedHeight: 55 },
@@ -45,11 +46,12 @@
             });
         }
     };
-    FS.setupVariantGallery = (gallery) => {
+    FS.setupVariantGallery = (res) => {
+        let albumVariant = res.productVariant.album.split(",");
         let html = `<div id="main-carousel" style="margin-bottom: 10px;" class="splide " aria-label="Main Carousel">
                         <div class="splide__track ">
                             <ul class="splide__list position-relative">`;
-        gallery.forEach(function (image) {
+                            albumVariant.forEach(function (image) {
             html += `<li class="splide__slide image-product image-product">
                         <img src="${image}" alt="${image}" class="img-fluid">
                      </li>`;
@@ -67,16 +69,57 @@
         <div id="thumbnail-carousel" class="splide mb-5">
             <div class="splide__track">
                 <ul class="splide__list">`;
-        gallery.forEach(function (image) {
+                albumVariant.forEach(function (image) {
             html += `<li class="splide__slide image-product">
                         <img src="${image}" alt="${image}" class="img-fluid">
                      </li>`;
         });
         html += `</ul>
             </div>
-        </div>`;
+        </div>
+        <div class="box-sku d-flex justify-content-between align-items-center">
+                            <div class="detail-sku">
+                                <span class="fz-14">
+                                    <span>Sku: </span>
+                                    <strong>${res.productVariant.sku}</strong>
+                                </span>
+                            </div>
+                            <div class="share">
+                                <span class="fz-14">
+                                    <ul class="p-0 d-flex justify-content-around align-items-center w-75">
 
-        if (gallery.length) {
+                                        <li class="list-unstyled mx-2">
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::url()) }}"
+                                                target="_blank" class="text-decoration-none text-dark fz-20 fw-normal">
+                                                <img width="25" height="25"
+                                                    src="https://img.icons8.com/color/25/facebook.png" alt="facebook"
+                                                    data-bs-toggle="tooltip" data-bs-title="Chia sẻ lên Facebook" />
+                                            </a>
+                                        </li>
+                                        <li class="list-unstyled mx-2">
+                                            <a href="https://www.messenger.com/t?link={{ urlencode(Request::url()) }}"
+                                                target="_blank" class="text-decoration-none text-dark fz-20 fw-normal">
+                                                <img width="25" height="25"
+                                                    src="https://img.icons8.com/fluency/25/facebook-messenger--v2.png"
+                                                    alt="facebook-messenger--v2" data-bs-toggle="tooltip"
+                                                    data-bs-title="Chia sẻ qua Messenger" />
+                                            </a>
+                                        </li>
+                                        <li class="list-unstyled mx-2">
+                                            <a href="https://zalo.me/share?url={{ urlencode(Request::url()) }}"
+                                                target="_blank" class="text-decoration-none text-dark fz-20 fw-normal">
+                                                <img width="25" height="25"
+                                                    src="https://img.icons8.com/color/25/zalo.png" alt="zalo"
+                                                    data-bs-toggle="tooltip" data-bs-title="Chia sẻ qua Zalo" />
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </div>
+                        </div>
+        `;
+
+        if (albumVariant.length) {
             // Cập nhật lại HTML
             $(".galleryVariant").html(html);
             // gọi lại slipde hoạt động
@@ -114,8 +157,7 @@
 
                 success: function (res) {
                     // xử lý sau khi đã có dữ liệu trả về
-                    let albumVariant = res.productVariant.album.split(",");
-                    FS.setupVariantGallery(albumVariant);
+                    FS.setupVariantGallery(res);
                     FS.setUpVariantName(res)
                     FS.setUpVariantPrice(res)
                     FS.productVariantSold(res)
@@ -137,9 +179,11 @@
         $('.product-variant-sold').html(productVariantSold)
     }
     FS.activeVariantFirst = () => {
-        let attributeCatalogue = JSON.parse($('.attributeCatalogue').val())
-        if(typeof attributeCatalogue != 'undefined' && attributeCatalogue.length) {
-        FS.handleAttribute()
+        if($('.attributeCatalogue').length){
+            let attributeCatalogue = JSON.parse($('.attributeCatalogue').val())
+            if(typeof attributeCatalogue != 'undefined' && attributeCatalogue.length) {
+            FS.handleAttribute()
+            }
         }
     }
     // gọi hàm
