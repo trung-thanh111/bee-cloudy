@@ -593,11 +593,11 @@ Trang Chủ
     <div class="sub-banner my-5">
         <div class="container-fluid p-0">
             <div class="row">
-                <!-- <div class="col-lg-5 col-md-6 col-12 mb-4">
-                    <img src="libaries/images/banner-sub1.webp" class="img-fluid" alt="...">
-                </div> -->
+                {{-- <div class="col-lg-5 col-md-6 col-12 mb-4">
+                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-sub1.webp" class="img-fluid" alt="...">
+                </div> --}}
                 <div class="col-lg-6 col-md-6 col-12 mb-4"></div>
-                    <img src="libaries/images/banner-sub2.jpg" class="img-fluid" alt="...">
+                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-sub2.jpg" class="img-fluid" alt="...">
                 </div>
             </div>
         </div>   
