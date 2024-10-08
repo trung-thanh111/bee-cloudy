@@ -503,25 +503,12 @@
                                         @php
                                             $shownColors = []; // Mảng để theo dõi các màu đã được hiển thị
 
-                                            // $badge = '';
-                                            // if ($product->quantity >= 20) {
-                                            //     $badge =
-                                            //         '<span class="badge text-center w-100 fz-12 bg-success-subtle text-success text-uppercase px-3 py-2">Cửa hàng còn ' .
-                                            //         $product->quantity .
-                                            //         ' sản phẩm</span>';
-                                            // } elseif ($product->quantity >= 1) {
-                                            //     $badge =
-                                            //         '<span class="badge text-center w-100 fz-12 bg-warning-subtle text-warning text-uppercase px-3 py-2">Cửa hàng chỉ còn ' .
-                                            //         $product->quantity .
-                                            //         ' sản phẩm</span>';
-                                            // } else {
-                                            //     $badge =
-                                            //         '<span class="badge text-center w-100 fz-12 bg-warning-subtle text-warning text-uppercase px-3 py-2">Hiện tại đang hết hàng. Quý khách thông cảm!</span>';
-                                            // }
                                             $promotion =
                                                 $product->del != 0 && $product->del != null
                                                     ? (($product->price - $product->del) / $product->price) * 100
                                                     : '0';
+
+                                            $price = ($product->del != 0 && $product->del != null) ?number_format($product->del, '0', ',', '.') : number_format($product->price, '0', ',', '.')
                                         @endphp
                                         <div class="col-lg-4 col-md-6 col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 pt-0">
@@ -580,7 +567,7 @@
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
                                                         <span
-                                                            class="text-danger fz-20 fw-medium me-3">{{ ($product->del != 0 && $product->del != null) ?number_format($product->del, '0', ',', '.') : number_format($product->price, '0', ',', '.') }}đ 
+                                                            class="text-danger fz-20 fw-medium me-3 product-variant-price " data-price="{{ $price.'' }}">{{ $price }}đ 
                                                         </span>
                                                         <span
                                                             class="mt-1 ">
@@ -592,7 +579,7 @@
                                                         <a href="{{ route('product.detail', ['slug' => $product->slug]) }}" class="action-cart-item-buy">
                                                             <span>Xem chi tiết</span>
                                                         </a>
-                                                        <a href="#" class="action-cart-item-add">
+                                                        <a href="#" class="action-cart-item-add addToCart" data-id="{{ $product->id }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
                                                         </a>

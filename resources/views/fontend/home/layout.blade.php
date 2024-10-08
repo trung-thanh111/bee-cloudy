@@ -4,13 +4,16 @@
 <head>
     {{-- head  --}}
     @include('fontend.home.components.head')
+    
 </head>
 
-<body>
+<body >
     <!-- header  -->
     @include('fontend.home.components.header')
     <!-- end header  -->
-    @yield('content')
+    <div id="app">
+        @yield('content')
+    </div>
     <!-- back to top  -->
     <!-- footer  -->
     @include('fontend.home.components.footer')

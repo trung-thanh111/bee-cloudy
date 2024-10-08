@@ -24,10 +24,7 @@ class ProductController extends Controller
         //bắt attribute id và product_id của sản phẩm đc chọn và sort nhỏ -> lớn
         $get = $request->input();
         $attributeId = $get['attribute_id'];
-        $attributeId = array_map('trim', $attributeId);
-        sort($attributeId, SORT_NUMERIC);
-        $attributeId = implode(',', $attributeId);
-        
+        $attributeId = sortAttributeId( $attributeId);
         //tim kiếm variant 
         $productVariant = $this->productVariantRepository->findVariant($attributeId, $get['product_id']);
         return response()->json([
