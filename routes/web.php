@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
 use App\Http\Controllers\Ajax\CartController as AjaxCartController;
+use App\Http\Controllers\Fontend\CartController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PostCatalogueController;
@@ -20,9 +21,28 @@ use App\Http\Controllers\Fontend\ShopController;
 
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('');
-// });
+// AJAX 
+Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
+Route::get('/ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
+Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
+Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->name('ajax.cart.addToCart');
+Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])->name('ajax.cart.updateCart');
+Route::delete('/ajax/cart/destroyCart', [AjaxCartController::class, 'destroyCart'])->name('ajax.cart.destroyCart');
+Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])->name('ajax.cart.clearCart');
+
+//FONTEND
+Route::get('home', [HomeController::class, 'index'])->name('home.index');
+Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
+Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
+
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
+    });
+});
+
+//BACKEND
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -112,30 +132,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
 
-Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
+//AUTH
 Route::get('login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('store-login', [LoginController::class, 'login'])->name('store.login');
 Route::get('register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('register-store', [RegisterController::class, 'register'])->name('store.register');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
-
-// get attribute & load
-Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
-Route::get('/ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
-Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->name('ajax.cart.addToCart');
-// search attribute product 
-
-Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
-
-// home
-Route::get('home', [HomeController::class, 'index'])->name('home.index');
-
-// login gg & fb
-// Route để bắt đầu quá trình đăng nhập với Google
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
-
-// Route để xử lý callback từ Google
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
