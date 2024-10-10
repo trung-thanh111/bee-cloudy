@@ -11,7 +11,7 @@
     <!-- header  -->
     @include('fontend.home.components.header')
     <!-- end header  -->
-    <div id="app">
+    <div class="container-fluid" id="app">
         @yield('content')
     </div>
     <!-- back to top  -->

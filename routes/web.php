@@ -116,10 +116,14 @@ Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])
 
 Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
+
 Route::get('login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('store-login', [LoginController::class, 'login'])->name('store.login');
+
 Route::get('register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('register-store', [RegisterController::class, 'register'])->name('store.register');
+Route::get('/confirm-registration/{token}', [RegisterController::class, 'confirmRegistration'])->name('confirm.registration');
+
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // get attribute & load
@@ -134,8 +138,6 @@ Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVaria
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 
 // login gg & fb
-// Route để bắt đầu quá trình đăng nhập với Google
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 
-// Route để xử lý callback từ Google
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
