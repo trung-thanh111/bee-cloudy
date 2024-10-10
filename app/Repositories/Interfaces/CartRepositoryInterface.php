@@ -14,7 +14,7 @@ namespace App\Repositories\Interfaces;
 
 interface CartRepositoryInterface
 {
-    public function getCartByUser();
+    // public function getCartByUser();
     // public function addToCart($request, array $payload);
     // public function updateCart($itemId, array $payload);
     // public function removeFromCart($itemId);

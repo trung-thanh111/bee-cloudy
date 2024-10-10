@@ -37,7 +37,7 @@ class BrandService implements BrandServiceInterface
             $this->selectColumn(),
             $condition,
             [],
-            ['id', 'ASC'],
+            ['id', 'DESC'],
             $perPage,
         );
         return $brands;

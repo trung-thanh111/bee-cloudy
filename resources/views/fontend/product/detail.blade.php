@@ -51,7 +51,7 @@
                     }
                 @endphp
                 <!-- content detail -->
-                <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5">
+                <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5 productVariantId">
                     <div class="col-lg-5 col-md-12 col-sm-12 mb-md-4 mb-sm-3 mb-xs-2 galleryVariant">
                         <div id="main-carousel" style="margin-bottom: 10px;" class="splide " aria-label="Main Carousel">
                             <div class="splide__track ">
@@ -183,6 +183,7 @@
                         <div class="content-product px-2">
                             <div class="title-product ">
                                 <h4 class="fs-4 fw-bold mb-1 product-variant-title">{{ $product->name }}</h4>
+                                <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">{{ $product->id }}</h4>
                                 <div class="hstack gap-3 fz-14 flex-wrap">
                                     <div class="py-2">Đánh giá ({{ $totalReviewCount }})</div>
                                     <div class="py-2">
@@ -264,7 +265,6 @@
                             {{-- <form action="{{ route('cart.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="product_variant_id" value="">
                                 <input type="hidden" name="quantity" value="">
                                 <input type="hidden" name="price" value="">
                             </form> --}}

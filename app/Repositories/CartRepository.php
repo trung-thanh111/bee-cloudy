@@ -3,10 +3,7 @@
 namespace App\Repositories;
 
 use App\Repositories\Interfaces\CartRepositoryInterface;
-use App\Models\Cart;
-use App\Models\CartItem;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
 /** class BaseRepository
  * @package App\Repositories
@@ -18,73 +15,21 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
 
     protected $model;
 
-    public function __construct(Cart $model)
+    public function __construct(Order $model)
     {
         $this->model = $model;
     }
-    public function getCartByUser()
-    {
-        return $this->model->where('user_id', Auth::id())->first();
+    public function all(array $relations = [], array $conditions = []) {
+        $query = $this->model->with($relations);
+        
+        foreach ($conditions as $condition) {
+            if (is_array($condition) && count($condition) === 3) {
+                $query->where($condition[0], $condition[1], $condition[2]);
+            } elseif (is_array($condition) && count($condition) === 2) {
+                $query->where($condition[0], $condition[1]);
+            }
+        }
+        
+        return $query->first();
     }
-
-    public function createCart($payload){
-        return $this->model->create($payload);
-    }
-    // public function addToCart($request, array $payload)
-    // {
-    //     $cart = $this->getOrCreateCart();
-
-    //     $cartItem = $cart->items()->where('product_variant_id', $payload['product_variant_id'])->first();
-
-    //     if ($cartItem) {
-    //         $cartItem->quantity += $payload['quantity'];
-    //         $cartItem->total = $cartItem->quantity * $cartItem->price;
-    //         $cartItem->save();
-    //     } else {
-    //         $cart->items()->create([
-    //             'product_variant_id' => $payload['product_variant_id'],
-    //             'quantity' => $payload['quantity'],
-    //             'price' => $payload['price'],
-    //             'total' => $payload['quantity'] * $payload['price']
-    //         ]);
-    //     }
-    // }
-
-    // public function updateCart($itemId, array $payload)
-    // {
-    //     $cartItem = CartItem::findOrFail($itemId);
-    //     $cartItem->quantity = $payload['quantity'];
-    //     $cartItem->total = $cartItem->quantity * $cartItem->price;
-    //     $cartItem->save();
-    // }
-
-    // public function removeFromCart($itemId)
-    // {
-    //     CartItem::destroy($itemId);
-    // }
-
-    // public function clearCart()
-    // {
-    //     $cart = $this->getCartByUser();
-    //     if ($cart) {
-    //         $cart->items()->delete();
-    //     }
-    // }
-
-    // public function getTotal()
-    // {
-    //     $cart = $this->getCartByUser();
-    //     return $cart ? $cart->items->sum('total') : 0;
-    // }
-
-    // public function getCartItemCount()
-    // {
-    //     $cart = $this->getCartByUser();
-    //     return $cart ? $cart->items->sum('quantity') : 0;
-    // }
-
-    // private function getOrCreateCart()
-    // {
-    //     return Cart::firstOrCreate(['user_id' => Auth::id()]);
-    // }
 }
