@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Http\Controllers\Fontend\CartController;
+use App\Services\CartService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,8 +44,19 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(
+        CartService $cartService,
+    ): void
     {
+        {
+            // Sử dụng view composer để chia sẻ biến $cateMenu với mọi view
+            View::composer('*', function ($view) use ($cartService) {
+                $productInCart = $cartService->countProductIncart();
+
+                $view
+                    ->with('productInCart', $productInCart);
+            });
+        }
         // mặc định giá trị cho shcema 
         Schema::defaultStringLength(255);
     }

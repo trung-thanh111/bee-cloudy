@@ -1261,6 +1261,15 @@ footer {
     top: 20px !important;
     z-index: 9999 !important;
 }
-/* .fl-flasher.fl-container.fl-show{
-    padding: 6px 10px !important;
-} */
+
+
+.fl-main-container .fl-container.fl-flasher {
+    background-color: #ffffff !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .2), 0 4px 6px -2px rgba(0, 0, 0, .1) !important;
+    color: #4b5563 !important;
+}
+.count-element{
+    top: 15px !important;
+    width: 22px !important;
+    height: 20px !important;
+}

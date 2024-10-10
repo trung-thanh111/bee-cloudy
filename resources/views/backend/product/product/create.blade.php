@@ -87,7 +87,6 @@
                                         <textarea class="form-control ck-editor" id="ckContent" data-height="300" name="description">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
-
                                 {{-- sản phẩm nhiều phiên bản  --}}
                                 @include('backend.product.product.component.variant')
                                 {{-- kết thúc nhiều phiên bản  --}}
