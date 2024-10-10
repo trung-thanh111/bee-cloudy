@@ -39,7 +39,7 @@ class PostCatalogueService implements PostCatalogueServiceInterface
             $this->selectColumn(),
             $condition,
             ['parentReference'],
-            ['id', 'ASC'],
+            ['id', 'DESC'],
             $perPage,
         );
         return $postCatalogues;

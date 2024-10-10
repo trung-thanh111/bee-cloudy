@@ -18,6 +18,8 @@ class Product extends Model
         'id',
         'name',
         'image',
+        'album',
+        'instock',
         'slug',
         'short_desc',
         'description',

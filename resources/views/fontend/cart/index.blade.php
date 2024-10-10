@@ -3,694 +3,436 @@
     Giỏ hàng
 @endsection
 @section('content')
-<section>
-    <article>
-        <div class="container p-0 w-100">
-            <!-- breadcrumb  -->
-            <nav class="pt-3 pb-3" aria-label="breadcrumb">
-                <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
-                    <li class="breadcrumb-item "><a href="{{ route('shop.index') }}" class="text-decoration-none text-muted">Cửa hàng</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
-                </ol>
-            </nav>
-            <!-- end breadcrumb  -->
-            <div class="bg-cart position-relative z-2">
-                <img src="/libaries/templates/bee-cloudy-user/libaries/images/cart_icon2.png" alt="" height="200" class="z-1 w-100 object-fit-contain position-absolute top-50 start-50 translate-middle">
-            </div>
-            <!-- content -->
-            <div class="main-cart row flex-wrap text-muted pt-3 mx-0 mb-5">
-                <!-- giỏ hàng rỗng  -->
-                <!-- <div class="no-product text-center p-3">
+    <section>
+        <article>
+            <div class="container p-0 w-100">
+                <!-- breadcrumb  -->
+                <nav class="pt-3 pb-3" aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
+                        <li class="breadcrumb-item "><a href="{{ route('shop.index') }}"
+                                class="text-decoration-none text-muted">Cửa hàng</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                    </ol>
+                </nav>
+                <!-- end breadcrumb  -->
+                @if ($countCart != 0)
+                    <div class="bg-cart position-relative z-2">
+                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/cart_icon2.png" alt=""
+                            height="200"
+                            class="z-1 w-100 object-fit-contain position-absolute top-50 start-50 translate-middle">
+                    </div>
+                @endif
+                <!-- content -->
+                <div class="main-cart row flex-wrap text-muted pt-3 mx-0 mb-5">
+                    @if ($countCart != 0)
+                        <!-- có sản phẩm  -->
+                        <div class="col-lg-8 col-md-12 col-sm-12 mb-md-4 mb-sm-3 ps-0 rounded-1">
+                            <div class="card-header bg-light shadow-sm border-0 mb-3">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title mb-0 p-3">Giỏ hàng</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive bg-white shadow-sm p-2">
+                                <table class="table align-middle table-hover h-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th class="text-end">Đơn giá</th>
+                                            <th class="text-center">Số Lượng</th>
+                                            <th class="text-end">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach ($carts->orderItems as $key => $cartItem)
+                                            <tr class="cart-item">
+                                                <td>
+                                                    <div class="card-body">
+                                                        <div class="row gy-3">
+                                                            <div class="col-sm-auto">
+                                                                <div class="bg-light rounded p-1">
+                                                                    @if ($cartItem->productVariants)
+                                                                        <img src="{{ explode(',', $cartItem->productVariants->album)[0] }}"
+                                                                            alt="image-product" width="90"
+                                                                            height="90"
+                                                                            class="img-fluid d-block object-fit-cover rounded-2 text-break">
+                                                                    @elseif ($cartItem->products)
+                                                                        <img src="{{ $cartItem->products->image }}"
+                                                                            alt="image-product" width="90"
+                                                                            height="90"
+                                                                            class="img-fluid d-block object-fit-cover rounded-2">
+                                                                    @else
+                                                                        <img src="/libaries/upload/libaries/images/img-notfound.png"
+                                                                            alt="Product Image" width="90"
+                                                                            height="90"
+                                                                            class="img-fluid d-block object-fit-cover rounded-2">
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm" style="width: 250px;">
+                                                                <p class="fz-16 text-break lh-sm fw-500 mb-2">
+                                                                    <a href="#" class="text-muted">
+                                                                        @if ($cartItem->productVariants)
+                                                                            {{ $cartItem->productVariants->name }}
+                                                                        @else
+                                                                            {{ $cartItem->products->name }}
+                                                                        @endif
+                                                                    </a>
+                                                                </p>
+                                                                <ul class="list-inline text-muted fz-14 mb-1">
+                                                                    @if ($cartItem->productVariants)
+                                                                        @foreach ($cartItem->productVariants->attributes as $attribute)
+                                                                            <li class="list-inline-item ">
+                                                                                {{ $attribute->name }}</li>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </ul>
+                                                                <a href="javascript:void(0)"
+                                                                    class="d-block text-danger fz-14 destroyCart"
+                                                                    data-id="{{ $cartItem->products->id ?? '' }}"
+                                                                    data-variant-id="{{ $cartItem->productVariants->id ?? '' }}">
+                                                                    <i
+                                                                        class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
+                                                                    <span class="mt-1 align-middle"> xóa</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="product-price fw-medium text-muted"
+                                                        data-price="{{ $cartItem->price }}">
+                                                        {{ number_format($cartItem->price, 0, ',', '.') }}đ
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="input-group componant-quantity justify-content-end shadow-sm flex-grow"
+                                                        style="max-width: 130px; margin: 0 auto;">
+                                                        <button class="quantity-minus updateCart w-md-100 rounded-3"
+                                                            type="button" data-id="{{ $cartItem->id }}">
+                                                            <i class='bx bx-minus fw-medium'></i>
+                                                        </button>
+                                                        <input type="text" name="quantity-input"
+                                                            class="form-control border-0 fz-20 text-center fw-600"
+                                                            value="{{ $cartItem->quantity }}" min="1"
+                                                            style="max-width: 60px;" readonly>
+                                                        @if ($cartItem->productVariants)
+                                                            <input type="hidden" name="product_variant_id"
+                                                                class="product-variant-id"
+                                                                value="{{ $cartItem->productVariants->id }}">
+                                                            <input type="hidden" name="product_id" class="product-id"
+                                                                value="">
+                                                        @elseif ($cartItem->products)
+                                                            <input type="hidden" name="product_variant_id"
+                                                                class="product-variant-id" value="">
+                                                            <input type="hidden" name="product_id" class="product-id"
+                                                                value="{{ $cartItem->products->id }}">
+                                                        @endif
+                                                        <button class="quantity-plus updateCart w-md-100" type="button"
+                                                            data-id="{{ $cartItem->id }}">
+                                                            <i class='bx bx-plus'></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td class="text-end">
+                                                    <span
+                                                        class="fw-medium product-total-price">{{ number_format($cartItem->price * $cartItem->quantity, 0, ',', '.') }}đ</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+
+
+                                </table>
+                                <div class="footer-cart d-flex justify-content-between align-items-center py-3">
+                                    <a href="#" class="back-to-product fz-14 text-muted ms-3">
+                                        <i class="fa-solid fa-chevron-left fz-3 me-2"></i>
+                                        <span>Xem sản phẩm</span>
+                                    </a>
+                                    <a href="javascript:void(0)"
+                                        class="back-to-product btn btn-outline-danger fz-14 rounded-1 clearCart"
+                                        data-bs-toggle="modal" data-bs-target="#clearCartModal"
+                                        data-order-id="{{ $cartItem->order_id }}">
+                                        <i class="fa-solid fa-trash-alt fz-3 me-2"></i>
+                                        <span>Xóa giỏ hàng</span>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="clearCartModal" tabindex="-1"
+                                        aria-labelledby="clearCartModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="clearCartModalLabel">Xóa toàn bộ sản
+                                                        phẩm trong giỏ hàng</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="fz-16">Bạn có chắc chắn muốn xóa hết sản phẩm trong giỏ hàng
+                                                        hay không?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" id="cancelClearCart"
+                                                        class="btn btn-light rounded-1"
+                                                        data-bs-dismiss="modal">Hủy</button>
+                                                    <button type="button" id="confirmClearCart"
+                                                        class="btn btn-danger rounded-1">Xác nhận xóa</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-12 pe-0 ps-3">
+                            <div class="card border-0 rounded-2 shadow-sm">
+                                <div class="card-header border-0 py-3">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <h5 class="card-title mb-0">Đơn hàng</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="table-responsive table-card">
+                                        <table class="table table-borderless align-middle mb-0">
+                                            <tbody>
+                                                @if (!is_null($carts) && !empty($carts))
+                                                    @php
+                                                        $total = 0;
+                                                    @endphp
+                                                    @foreach ($carts->orderItems as $cartItem)
+                                                        <tr class="cart-item">
+                                                            <td class="p-0">
+                                                                <div class="avatar-md bg-light rounded p-1">
+                                                                    @if ($cartItem->productVariants)
+                                                                        <img src="{{ explode(',', $cartItem->productVariants->album)[0] }}"
+                                                                            alt="" width="60" height="60"
+                                                                            class="img-fluid object-fit-cover">
+                                                                    @elseif ($cartItem->products)
+                                                                        <img src="{{ $cartItem->products->image }}"
+                                                                            alt="" width="60" height="60"
+                                                                            class="img-fluid object-fit-cover">
+                                                                    @else
+                                                                        <img src="/libaries/upload/libaries/images/img-notfound.png"
+                                                                            alt="Product Image" width="60"
+                                                                            height="60"
+                                                                            class="img-fluid object-fit-cover rounded-2">
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="fz-14 text-break">
+                                                                    <a href="#" class="text-body">
+                                                                        @if ($cartItem->productVariants)
+                                                                            {{ $cartItem->productVariants->name }}
+                                                                        @else
+                                                                            {{ $cartItem->products->name }}
+                                                                        @endif
+                                                                    </a>
+                                                                </h5>
+                                                                <p class="text-muted mb-0 fz-14">
+                                                                    {{ number_format($cartItem->price, 0, ',', '.') }}đ
+                                                                    <strong
+                                                                        class="text-info orderQuantity">x{{ $cartItem->quantity }}</strong>
+                                                                </p>
+                                                            </td>
+                                                            <td class="text-end fz-14 fw-medium orderPrice">
+                                                                {{ number_format($cartItem->price * $cartItem->quantity, 0, ',', '.') }}đ
+                                                            </td>
+                                                        </tr>
+                                                        @php
+                                                            $total += $cartItem->price * $cartItem->quantity;
+                                                        @endphp
+                                                    @endforeach
+                                                @endif
+                                                <tr style="height: 10px;">
+                                                    <td colspan="3">
+                                                        <hr>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <div class="bg-light-subtle border-success-subtle p-0"></div>
+                                                        <div class="text-start">
+                                                            <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
+                                                        </div>
+                                                        <div class="hstack gap-2">
+                                                            <input class="form-control me-auto" type="text"
+                                                                placeholder="Nhập mã voucher" name="discount">
+                                                            <button type="button"
+                                                                class="btn btn-success fw-500 w-25 rounded-1">Áp
+                                                                mã</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 50px;">
+                                                    <td class="fz-16" colspan="2">Thành tiền:</td>
+                                                    <td class="fw-semibold text-end">
+                                                        {{ number_format($total, 0, ',', '.') }}đ
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 50px;">
+                                                    <td class="fz-16" colspan="2">Giảm giá:
+                                                    </td>
+                                                    <td class="fw-semibold text-end">0</td>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td class="fz-16" colspan="2">Phí vận chuyển:</td>
+                                                    <td class="fw-semibold text-end">25.000đ</td>
+                                                </tr>
+
+                                                <tr class="" style="height: 50px;">
+                                                    <th colspan="2">Tổng tiền:</th>
+                                                    <td class="text-end">
+                                                        <span class="fw-semibold" id="cart-total-price">
+                                                            {{ number_format($total + 25000, '0', ',', '.') . 'đ' }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="" style="height: 50px;">
+                                                    <td colspan="3">
+                                                        <a href="#"
+                                                            class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
+                                                            hành thanh toán</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <!-- giỏ hàng rỗng  -->
+                        <div class="no-product text-center p-3">
                             <a href="#">
-                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/image-add-to-cart.png" alt="" class="img-fluid object-fit-cover " width="200">
+                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/image-add-to-cart.png"
+                                    alt="" class="img-fluid object-fit-cover " width="200">
                                 <div class="mt-1 text-white">
                                     <h6 class=" text-muted text-uppercase mb-2">Bạn chưa có sản phẩm nào!</h6>
-                                    <a href="#" class="btn btn-success"><i class="mdi mdi-home me-1"></i>Xem sản phẩm</a>
+                                    <a href="{{ route('shop.index') }}" class="btn btn-success"><i
+                                            class="mdi mdi-home me-1"></i>Xem sản phẩm</a>
                                 </div>
                             </a>
-                        </div> -->
-                <!-- có sản phẩm  -->
-                <div class="col-lg-8 col-md-12 col-sm-12 mb-md-4 mb-sm-3 ps-0 rounded-1">
-                    <div class="card-header bg-light shadow-sm border-0 mb-3">
-                        <div class="d-flex">
-                            <div class="flex-grow-1">
-                                <h5 class="card-title mb-0 p-3">Giỏ hàng</h5>
-                            </div>
                         </div>
-                    </div>
-                    <div class="table-responsive bg-white shadow-sm p-2">
-                        <table class="table align-middle table-hover h-100">
-                            <thead>
-                                <tr>
-                                    <th>Sản phẩm</th>
-                                    <th class="text-end">Đơn giá</th>
-                                    <th class="text-center">Số Lượng</th>
-                                    <th class="text-end">Thành tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="card-body">
-                                            <div class="row gy-3">
-                                                <div class="col-sm-auto">
-                                                    <div class="bg-light rounded p-1">
-                                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao_polo2.png" alt=""
-                                                            width="90" height="90"
-                                                            class="img-fluid d-block object-fit-cover me-2">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm" style="width: 250px;">
-                                                    <h5 class="fz-16 text-break">
-                                                        <a href="#" class="text-muted">Áo polo nam sọc ngang
-                                                            ngắn
-                                                            tay thấm hút mát
-                                                            mẻ thoải máy</a>
-                                                    </h5>
-                                                    <ul class="list-inline text-muted fz-14 mb-2">
-                                                        <li class="list-inline-item">Màu : <span
-                                                                class="fw-medium">Đen</span></li>
-                                                        <li class="list-inline-item">Size : <span
-                                                                class="fw-medium">M</span></li>
-                                                    </ul>
-                                                    <a href="#" class="d-block text-danger fz-14 ">
-                                                        <i
-                                                            class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
-                                                        <span class="mt-1 align-middle"> Xóa</span>
-                                                    </a>
 
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end">
-                                        <span class="fw-medium text-muted"> 259.000đ</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <div class="input-group componant-quantity justify-content-center shadow-sm flex-grow"
-                                                style="max-width: 120px;">
-                                                <button class="quantity-minus w-md-100 rounded-3 " type="button"
-                                                    id="button-addon1">
-                                                    <i class='bx bx-minus fw-medium'></i>
-                                                </button>
-                                                <input type="text" name="quantity w-sm-25 "
-                                                    class="form-control border-0 fz-20 text-center fw-600"
-                                                    value="1" min="1" style="max-width: 60px;">
-                                                <input type="hidden" name="quantity" value="">
-                                                <button class="quantity-plus w-md-100 " type="button"
-                                                    id="button-addon2">
-                                                    <i class='bx bx-plus'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end">
-                                        <span class="fw-medium text-muted"> 259.000đ</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="card-body">
-                                            <div class="row gy-3">
-                                                <div class="col-sm-auto">
-                                                    <div class="bg-light rounded p-1">
-                                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao_polo2.png" alt=""
-                                                            width="90" height="90"
-                                                            class="img-fluid d-block object-fit-cover me-2">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm" style="width: 250px;">
-                                                    <h5 class="fz-16 text-break">
-                                                        <a href="#" class="text-muted">Áo polo nam sọc ngang
-                                                            ngắn
-                                                            tay thấm hút mát
-                                                            mẻ thoải máy</a>
-                                                    </h5>
-                                                    <ul class="list-inline text-muted fz-14 mb-2">
-                                                        <li class="list-inline-item">Màu : <span
-                                                                class="fw-medium">Đen</span></li>
-                                                        <li class="list-inline-item">Size : <span
-                                                                class="fw-medium">M</span></li>
-                                                    </ul>
-                                                    <a href="#" class="d-block text-danger fz-14 ">
-
-                                                        <i
-                                                            class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
-                                                        <span class="mt-1 align-middle"> Xóa</span>
-                                                    </a>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end">
-                                        <span class="fw-medium text-muted"> 259.000đ</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <div class="input-group componant-quantity justify-content-center shadow-sm flex-grow"
-                                                style="max-width: 120px;">
-                                                <button class="quantity-minus w-md-100 rounded-3 " type="button"
-                                                    id="button-addon1">
-                                                    <i class='bx bx-minus fw-medium'></i>
-                                                </button>
-                                                <input type="text" name="quantity w-sm-25 "
-                                                    class="form-control border-0 fz-20 text-center fw-600"
-                                                    value="1" min="1" style="max-width: 60px;">
-                                                <input type="hidden" name="quantity" value="">
-                                                <button class="quantity-plus w-md-100 " type="button"
-                                                    id="button-addon2">
-                                                    <i class='bx bx-plus'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end">
-                                        <span class="fw-medium text-muted"> 259.000đ</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="card-body">
-                                            <div class="row gy-3">
-                                                <div class="col-sm-auto">
-                                                    <div class="bg-light rounded p-1">
-                                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao_polo2.png" alt=""
-                                                            width="90" height="90"
-                                                            class="img-fluid d-block object-fit-cover me-2">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm" style="width: 250px;">
-                                                    <h5 class="fz-16 text-break">
-                                                        <a href="#" class="text-muted">Áo polo nam sọc ngang
-                                                            ngắn
-                                                            tay thấm hút mát
-                                                            mẻ thoải máy</a>
-                                                    </h5>
-                                                    <ul class="list-inline text-muted fz-14 mb-2">
-                                                        <li class="list-inline-item">Màu : <span
-                                                                class="fw-medium">Đen</span></li>
-                                                        <li class="list-inline-item">Size : <span
-                                                                class="fw-medium">M</span></li>
-                                                    </ul>
-                                                    <a href="#" class="d-block text-danger fz-14 ">
-                                                        <i
-                                                            class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
-                                                        <span class="mt-1 align-middle"> Xóa</span>
-                                                    </a>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end">
-                                        <span class="fw-medium text-muted"> 259.000đ</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <div class="input-group componant-quantity justify-content-center shadow-sm flex-grow"
-                                                style="max-width: 120px;">
-                                                <button class="quantity-minus w-md-100 rounded-3 " type="button"
-                                                    id="button-addon1">
-                                                    <i class='bx bx-minus fw-medium'></i>
-                                                </button>
-                                                <input type="text" name="quantity w-sm-25 "
-                                                    class="form-control border-0 fz-20 text-center fw-600"
-                                                    value="1" min="1" style="max-width: 60px;">
-                                                <input type="hidden" name="quantity" value="">
-                                                <button class="quantity-plus w-md-100 " type="button"
-                                                    id="button-addon2">
-                                                    <i class='bx bx-plus'></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end">
-                                        <span class="fw-medium text-muted"> 259.000đ</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-
-                        </table>
-                        <div class="footer-cart d-flex justify-content-between align-items-center py-3">
-                            <a href="#" class="back-to-product fz-14 text-muted ms-3">
-                                <i class="fa-solid fa-chevron-left fz-3 me-2"></i>
-                                <span>Xem sản phẩm</span>
-                            </a>
-                            <a href="#" class="back-to-product btn btn-outline-danger fz-14 rounded-1"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fa-solid fa-trash-alt fz-3 me-2"></i>
-                                <span>Xóa giỏ hàng</span>
-                            </a>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa toàn bộ
-                                                sản phẩm
-                                                trong giỏ hàng</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p class=" fz-16">Bạn có chắc chắn muốn xóa hết sản phẩm trong
-                                                giỏ hàng
-                                                hay không?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light rounded-1"
-                                                data-bs-dismiss="modal">Hủy</button>
-                                            <button type="button" class="btn btn-danger rounded-1">Xác nhận
-                                                xóa</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                 </div>
-                <div class="col-lg-4 col-md-12 col-12 pe-0 ps-3">
-                    <div class="card border-0 rounded-2 shadow-sm">
-                        <div class="card-header border-0 py-3">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <h5 class="card-title mb-0">Đơn hàng</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body ">
-                            <div class="table-responsive table-card">
-                                <table class="table table-borderless align-middle mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td class="p-0">
-                                                <div class="avatar-md bg-light rounded p-1">
-                                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao_polo2.png" alt=""
-                                                        width="90" height="90"
-                                                        class="img-fluid d-block object-fit-cover me-2">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h5 class="fz-14 text-break">
-                                                    <a href="#" class="text-body">Áo polo nam sọc ngang ngắn
-                                                        tay thấm hút mát
-                                                        mẻ thoải máy</a>
-                                                </h5>
-                                                <p class="text-muted mb-0 fz-14">259.000đ <strong
-                                                        class="text-info">x2</strong></p>
-                                            </td>
-                                            <td class="text-end fz-14 fw-medium ">518.000đ</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="p-0">
-                                                <div class="avatar-md bg-light rounded p-1">
-                                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao_polo2.png" alt=""
-                                                        width="90" height="90"
-                                                        class="img-fluid d-block object-fit-cover me-2">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h5 class="fz-14 text-break">
-                                                    <a href="#" class="text-body">Áo polo nam sọc ngang ngắn
-                                                        tay thấm hút mát
-                                                        mẻ thoải máy</a>
-                                                </h5>
-                                                <p class="text-muted mb-0 fz-14">259.000đ <strong
-                                                        class="text-info">x2</strong></p>
-                                            </td>
-                                            <td class="text-end fz-14 fw-medium ">518.000đ</td>
-                                        </tr>
-                                        <tr style="height: 10px;">
-                                            <td colspan="3">
-                                                <hr>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="3">
-                                                <div class="bg-light-subtle border-success-subtle p-0"></div>
-                                                <div class="text-start">
-                                                    <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
-                                                </div>
-                                                <div class="hstack gap-2">
-                                                    <input class="form-control me-auto" type="text"
-                                                        placeholder="Nhập mã voucher">
-                                                    <button type="button"
-                                                        class="btn btn-success fw-500 w-25 rounded-1">Áp
-                                                        mã</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td class="fz-16" colspan="2">Thành tiền:</td>
-                                            <td class="fw-semibold text-end">2.000.000đ</td>
-                                        </tr>
-                                        <tr style="height: 50px;">
-                                            <td class="fz-16" colspan="2">Giảm giá:
-                                            </td>
-                                            <td class="fw-semibold text-end">- 100.000đ</td>
-                                        </tr>
-                                        <tr style="height: 60px;">
-                                            <td class="fz-16" colspan="2">Phí vận chuyển:</td>
-                                            <td class="fw-semibold text-end">16.500đ</td>
-                                        </tr>
-
-                                        <tr class="" style="height: 50px;">
-                                            <th colspan="2">Tổng tiền:</th>
-                                            <td class="text-end">
-                                                <span class="fw-semibold">
-                                                    1.000.000đ
+                <hr class="border-2">
+                <!-- product similar  -->
+                <div class="product-similar mb-3 text-muted">
+                    <div class="title-product mt-4 mb-3">
+                        <h5 class="fs-4 fw-500 mb-3 text-uppercase">
+                            sản phẩm mới
+                            <hr class=" border-4 border-info mb-2" style="width: 160px;">
+                        </h5>
+                    </div>
+                    <div class="row flex-wrap">
+                        @if (count($productNews) != 0 && !empty($productNews))
+                            @foreach ($productNews as $key => $valProductSimilar)
+                                @php
+                                    $shownColors = [];
+                                    $promotion =
+                                        $valProductSimilar->del != 0 && $valProductSimilar->del != null
+                                            ? (($valProductSimilar->price - $valProductSimilar->del) /
+                                                    $valProductSimilar->price) *
+                                                100
+                                            : '0';
+                                @endphp
+                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                        <div class="position-absolute z-1 w-100">
+                                            <div class="head-card ps-0 d-flex justify-content-between">
+                                                <span
+                                                    class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $valProductSimilar->del == 0 || $valProductSimilar->del == null ? 'hidden-visibility' : '' }}">
+                                                    giảm {{ round($promotion, 1) . '%' }}
                                                 </span>
-                                            </td>
-                                        </tr>
-                                        <tr class="" style="height: 50px;">
-                                            <td colspan="3">
+                                                <span class="text-end mt-2 me-2 text-muted" data-bs-toggle="tooltip"
+                                                    data-bs-title="Thêm vào yêu thích">
+                                                    <i class="fa-regular fa-bookmark fz-16"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="image-main-product position-relative">
+                                            <img src="{{ $valProductSimilar->image }}" alt="product image"
+                                                width="100%" height="250"
+                                                class="img-fluid object-fit-cover rounded-top-2" style="height: 300px">
+                                            <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                <div class="hstack gap-3">
+                                                    <div class="p-2 overflow-x-hidden w-50">
+                                                        <span
+                                                            class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                            @foreach ($valProductSimilar->productCatalogues as $catalogue)
+                                                                {{ $catalogue->name }}
+                                                            @endforeach
+                                                        </span>
+                                                    </div>
+                                                    <div class="p-2 ms-auto">
+                                                        <div class="product-image-color ">
+                                                            @foreach ($valProductSimilar->productVariant as $variant)
+                                                                @foreach ($variant->attributes as $attribute)
+                                                                    @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                        <img src="{{ $attribute->image }}"
+                                                                            alt="{{ $attribute->name }}" width="14"
+                                                                            height="14"
+                                                                            class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                        @php
+                                                                            // Đánh dấu màu này đã được hiển thị
+                                                                            $shownColors[] = $attribute->name;
+                                                                        @endphp
+                                                                    @endif
+                                                                @endforeach
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
                                                 <a href="#"
-                                                    class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
-                                                    hành thanh toán</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                                    class="text-break w-100 text-muted">{{ $valProductSimilar->name }}</a>
+                                            </h6>
+                                            <div class="d-flex justify-content-start mb-2 ">
+                                                <span
+                                                    class="text-danger fz-20 fw-medium me-3">{{ $valProductSimilar->del != 0 && $valProductSimilar->del != null ? number_format($valProductSimilar->del, '0', ',', '.') : number_format($valProductSimilar->price, '0', ',', '.') }}đ
+                                                </span>
+                                                <span class="mt-1 ">
+                                                    <del
+                                                        class="text-secondary fz-14 {{ $valProductSimilar->del == 0 && $valProductSimilar->del == null ? 'hidden-visibility' : '' }}">{{ number_format($valProductSimilar->price, '0', ',', '.') }}đ</del>
+                                                </span>
+                                            </div>
+                                            <div class="box-action">
+                                                <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}"
+                                                    class="action-cart-item-buy">
+                                                    <span>Xem chi tiết</span>
+                                                </a>
+                                                <a href="#" class="action-cart-item-add">
+                                                    <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
+                                                    <span>thêm giỏ hàng</span>
+                                                </a>
+                                            </div>
+                                            <div class="head-card d-flex p-1">
+                                                <span class="fz-14 ">
+                                                    Mã sản phẩm
+                                                </span>
+                                                <span
+                                                    class="ms-auto text-dark fw-500 fz-14">{{ $valProductSimilar->sku }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
-            <hr class="border-2">
-            <!-- product similar  -->
-            <div class="product-similar mb-3 text-muted">
-                <div class="title-product mt-4 mb-3">
-                    <h5 class="fs-4 fw-500 mb-3 text-uppercase">
-                        sản phẩm mới
-                        <hr class=" border-4 border-info mb-2" style="width: 160px;">
-                    </h5>
-                </div>
-                <div class="row flex-wrap">
-                    <div class="col-lg-3 col-md-6 col-12 mb-3">
-                        <div class="card card-product shadow-sm border-0">
-                            <div class="head-card d-flex p-2">
-                                <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
-                                <span class="ms-auto text-muted" data-bs-toggle="tooltip"
-                                    data-bs-title="Thêm vào yêu thích">
-                                    <i class="fa-regular fa-bookmark fz-16"></i>
-                                </span>
-                            </div>
-                            <div class="image-main-product position-relative">
-                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg" alt="product image" width="100%"
-                                    height="250" class="img-fluid">
-                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                    <div class="hstack gap-3">
-                                        <div class="p-2">
-                                            <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
-                                                nam</span>
-                                        </div>
-                                        <div class="p-2 ms-auto">
-                                            <div class="product-image-color">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/blue.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/yellow.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2">
-                                <h6 class="fw-medium">
-                                    <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
-                                        Vải Pique
-                                        Ngắn Tay
-                                        mát mẻ, thoải mái</a>
-                                </h6>
-                                <div class="d-flex justify-content-start mb-2">
-                                    <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
-                                    <span class="mt-1">
-                                        <del class="text-secondary fz-14 ">559.000đ</del>
-                                    </span>
-                                </div>
-                                <div class="box-action">
-                                    <a href="#" class="action-cart-item-buy">
-                                        <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
-                                        <span>Mua ngay</span>
-                                    </a>
-                                    <a href="#" class="action-cart-item-add">
-                                        <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
-                                        <span>thêm giỏ hàng</span>
-
-                                    </a>
-                                </div>
-                                <div class="head-card d-flex p-0">
-                                    <span class="fz-14 ">
-                                        <div class="rating">
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                        </div>
-                                    </span>
-                                    <span class="ms-auto fz-14">25</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12 mb-3">
-                        <div class="card card-product shadow-sm border-0">
-                            <div class="head-card d-flex p-2">
-                                <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
-                                <span class="ms-auto text-muted" data-bs-toggle="tooltip"
-                                    data-bs-title="Thêm vào yêu thích">
-                                    <i class="fa-regular fa-bookmark fz-16"></i>
-                                </span>
-                            </div>
-                            <div class="image-main-product position-relative">
-                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg" alt="product image" width="100%"
-                                    height="250" class="img-fluid">
-                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                    <div class="hstack gap-3">
-                                        <div class="p-2">
-                                            <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
-                                                nam</span>
-                                        </div>
-                                        <div class="p-2 ms-auto">
-                                            <div class="product-image-color">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/blue.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/yellow.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2">
-                                <h6 class="fw-medium">
-                                    <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
-                                        Vải Pique
-                                        Ngắn Tay
-                                        mát mẻ, thoải mái</a>
-                                </h6>
-                                <div class="d-flex justify-content-start mb-2">
-                                    <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
-                                    <span class="mt-1">
-                                        <del class="text-secondary fz-14 ">559.000đ</del>
-                                    </span>
-                                </div>
-                                <div class="box-action">
-                                    <a href="#" class="action-cart-item-buy">
-                                        <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
-                                        <span>Mua ngay</span>
-                                    </a>
-                                    <a href="#" class="action-cart-item-add">
-                                        <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
-                                        <span>thêm giỏ hàng</span>
-
-                                    </a>
-                                </div>
-                                <div class="head-card d-flex p-0">
-                                    <span class="fz-14 ">
-                                        <div class="rating">
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                        </div>
-                                    </span>
-                                    <span class="ms-auto fz-14">25</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12 mb-3">
-                        <div class="card card-product shadow-sm border-0">
-                            <div class="head-card d-flex p-2">
-                                <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
-                                <span class="ms-auto text-muted" data-bs-toggle="tooltip"
-                                    data-bs-title="Thêm vào yêu thích">
-                                    <i class="fa-regular fa-bookmark fz-16"></i>
-                                </span>
-                            </div>
-                            <div class="image-main-product position-relative">
-                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg" alt="product image" width="100%"
-                                    height="250" class="img-fluid">
-                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                    <div class="hstack gap-3">
-                                        <div class="p-2">
-                                            <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
-                                                nam</span>
-                                        </div>
-                                        <div class="p-2 ms-auto">
-                                            <div class="product-image-color">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/blue.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/yellow.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2">
-                                <h6 class="fw-medium">
-                                    <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
-                                        Vải Pique
-                                        Ngắn Tay
-                                        mát mẻ, thoải mái</a>
-                                </h6>
-                                <div class="d-flex justify-content-start mb-2">
-                                    <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
-                                    <span class="mt-1">
-                                        <del class="text-secondary fz-14 ">559.000đ</del>
-                                    </span>
-                                </div>
-                                <div class="box-action">
-                                    <a href="#" class="action-cart-item-buy">
-                                        <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
-                                        <span>Mua ngay</span>
-                                    </a>
-                                    <a href="#" class="action-cart-item-add">
-                                        <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
-                                        <span>thêm giỏ hàng</span>
-
-                                    </a>
-                                </div>
-                                <div class="head-card d-flex p-0">
-                                    <span class="fz-14 ">
-                                        <div class="rating">
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                        </div>
-                                    </span>
-                                    <span class="ms-auto fz-14">25</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12 mb-3">
-                        <div class="card card-product shadow-sm border-0">
-                            <div class="head-card d-flex p-2">
-                                <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
-                                <span class="ms-auto text-muted" data-bs-toggle="tooltip"
-                                    data-bs-title="Thêm vào yêu thích">
-                                    <i class="fa-regular fa-bookmark fz-16"></i>
-                                </span>
-                            </div>
-                            <div class="image-main-product position-relative">
-                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg" alt="product image" width="100%"
-                                    height="250" class="img-fluid">
-                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                    <div class="hstack gap-3">
-                                        <div class="p-2">
-                                            <span class="fz-14 text-uppercase text-dark fw-600">Áo thun
-                                                nam</span>
-                                        </div>
-                                        <div class="p-2 ms-auto">
-                                            <div class="product-image-color">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/blue.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/yellow.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png" alt="image color product"
-                                                    width="14" height="14"
-                                                    class="rounded-circle img-fluid me-1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body p-2">
-                                <h6 class="fw-medium">
-                                    <a href="#" class="text-break w-100 text-muted">AIRism Cotton Áo Polo
-                                        Vải Pique
-                                        Ngắn Tay
-                                        mát mẻ, thoải mái</a>
-                                </h6>
-                                <div class="d-flex justify-content-start mb-2">
-                                    <span class="text-danger fz-20 fw-medium me-3">259.000đ </span>
-                                    <span class="mt-1">
-                                        <del class="text-secondary fz-14 ">559.000đ</del>
-                                    </span>
-                                </div>
-                                <div class="box-action">
-                                    <a href="#" class="action-cart-item-buy">
-                                        <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
-                                        <span>Mua ngay</span>
-                                    </a>
-                                    <a href="#" class="action-cart-item-add">
-                                        <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
-                                        <span>thêm giỏ hàng</span>
-
-                                    </a>
-                                </div>
-                                <div class="head-card d-flex p-0">
-                                    <span class="fz-14 ">
-                                        <div class="rating">
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                            <span class="fa fa-star text-warning"></span>
-                                        </div>
-                                    </span>
-                                    <span class="ms-auto fz-14">25</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </article>
-</section>
+        </article>
+    </section>
 
 @endsection
