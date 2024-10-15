@@ -87,6 +87,30 @@
                                         <textarea class="form-control ck-editor" id="ckContent" data-height="300" name="description">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label for="album-product">ALbum </label>
+                                            <div class="click-to-upload-album text-center ">
+                                                <div class="icon"> <a type="button" class="upload-variant-picture">
+                                                        <img src="/libaries/upload/images/img-notfound.png"
+                                                            alt=""
+                                                            class="render-image object-fit-cover rounded-1 mb-2 position-relative "
+                                                            width="96" height="96"> </a> </div>
+                                                <div class="small-text"> <span>Sử dụng nút chọn hình hoặc click vào đây
+                                                        để thêm hình ảnh.</span> </div>
+                                            </div>
+                                            <div class="upload-album">
+                                                <div class="row">
+                                                    <ul id="sortable3"
+                                                        class="clearfix data-album sortui ui-sortable d-lg-flex justify-content-start flex-wrap">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {{-- sản phẩm nhiều phiên bản  --}}
                                 @include('backend.product.product.component.variant')
                                 {{-- kết thúc nhiều phiên bản  --}}

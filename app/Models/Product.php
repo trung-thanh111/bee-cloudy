@@ -36,7 +36,7 @@ class Product extends Model
         'created_at',
 
     ];
-    
+
     // casts chuyển json thành mảng khi lấy ra và thành json khi insert vào 
     protected $casts = [
         'attribute' => 'json'

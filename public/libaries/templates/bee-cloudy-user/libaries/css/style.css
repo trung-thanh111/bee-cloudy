@@ -396,6 +396,39 @@ a {
     border-radius: 3px;
 }
 
+.title-head-post {
+    position: relative;
+    background-color: #14b6a0;
+    color: white;
+    /* padding: 8px 0 0 10px; */
+    border-radius: 15px;
+    max-width: 250px;
+    z-index: 999;
+}
+
+.title-head-post::before {
+    content: '';
+    position: absolute;
+    background-color: #14b6a0;
+    width: 30px;
+    height: 50px;
+    padding: 0;
+    z-index: -1;
+}
+
+.title-head-post::after {
+    /* content: '';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 20px;
+    background-color: white;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%; */
+}
+
 .dropdown-icon-profile {
     display: none;
     background-color: #ffffff;
@@ -529,14 +562,14 @@ hr {
 }
 
 /* search recent */
-.search-recent-item {
+.search-recent-item.search-item {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 13px;
     padding: 6px 20px;
     display: inline-block;
 }
 
-.search-recent-item:hover {
+.search-recent-item.search-item:hover {
     background-color: #c2c4d0;
     color: #ffffff;
 }

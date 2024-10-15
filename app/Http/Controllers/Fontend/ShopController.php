@@ -27,7 +27,6 @@ class ShopController extends Controller
     {   
         $productCatalogues = $this->productCatalogueRepository->all();
         $productShops = $this->shopService->paginate($request);
-        // dd($productShops);
         return view('fontend.product.shop', compact(
             'productShops',
             'productCatalogues'
