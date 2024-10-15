@@ -38,15 +38,16 @@ Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
-Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
+ Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
+ Route::get('search/result', [AjaxSearchController::class, 'searchResult'])->name('search.result');
+
 
 // CART
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
     });
-    Route::get('/voucher', [VoucherController::class, 'showAllVouchers'])->name('voucher.list');
-    Route::post('/voucher/receive/{voucher}', [VoucherController::class, 'receiveVoucher'])->name('voucher.receive');
+    
 });
 
 // order 
@@ -128,13 +129,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
 
-    Route::group(['prefix' => 'voucher'], function () {
-
-        Route::get('index', [VoucherController::class, 'index'])->name('voucher.index');
-        Route::get('create', [VoucherController::class, 'create'])->name('voucher.create');
-        Route::post('create', [VoucherController::class, 'store'])->name('voucher.store');
-        Route::delete('delete/{id}', [VoucherController::class, 'destroy'])->name('voucher.destroy');
-    });
 
     //post catalogues
     Route::group(['prefix' => 'post/catalogue'], function () {
