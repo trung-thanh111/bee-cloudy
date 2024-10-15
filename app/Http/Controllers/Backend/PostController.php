@@ -30,7 +30,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts = $this->postService->paginate($request);
-         // dd($posts);
+        //  dd($posts);
         $template = 'backend.post.post.index';
         return view('backend.dashboard.layout', compact(
             'template',

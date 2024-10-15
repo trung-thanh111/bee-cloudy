@@ -54,7 +54,8 @@
                             </div>
                         </div>
                     </td>
-                    <td class="cre text-center">Theo {{ $item->cre }}</td>
+                    
+                    <td class="cre text-center">Theo {{ ($item->cre) ? $item->cre : $item->users->name }}</td>
                     <td class="status text-center">
                         {!! $badge !!}
                     </td>

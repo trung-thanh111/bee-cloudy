@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class OrderItem extends Model
+class CartItem extends Model
 {
     use HasFactory;
-    protected $table = 'order_items';
+    protected $table = 'cart_items';
     protected $fillable = [
         'id',
-        'order_id',
+        'cart_id',
         'product_id',
         'product_name',
         'quantity',
@@ -23,8 +23,8 @@ class OrderItem extends Model
 
     
     //khai báo quan hệ với bảng order_items
-    public function order():BelongsTo{
-        return $this->belongsTo(Order::class, 'order_id', 'id');
+    public function cart():BelongsTo{
+        return $this->belongsTo(Cart::class, 'cart_id', 'id');
     }
 
     // Khai báo quan hệ belongsTo với bảng products
