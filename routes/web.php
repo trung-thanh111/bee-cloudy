@@ -20,7 +20,7 @@ use App\Http\Controllers\Fontend\HomeController;
 use App\Http\Controllers\Fontend\OrderController;
 use App\Http\Controllers\Fontend\PostController as FontendPostController;
 use App\Http\Controllers\Fontend\ShopController;
-use App\Models\Order;
+
 use Illuminate\Support\Facades\Route;
 
 // AJAX 
@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
     });
+    Route::get('/voucher', [VoucherController::class, 'showAllVouchers'])->name('voucher.list');
+    Route::post('/voucher/receive/{voucher}', [VoucherController::class, 'receiveVoucher'])->name('voucher.receive');
 });
 
 // order 
@@ -126,6 +128,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
 
+    Route::group(['prefix' => 'voucher'], function () {
+
+        Route::get('index', [VoucherController::class, 'index'])->name('voucher.index');
+        Route::get('create', [VoucherController::class, 'create'])->name('voucher.create');
+        Route::post('create', [VoucherController::class, 'store'])->name('voucher.store');
+        Route::delete('delete/{id}', [VoucherController::class, 'destroy'])->name('voucher.destroy');
+    });
+
     //post catalogues
     Route::group(['prefix' => 'post/catalogue'], function () {
         Route::get('index', [PostCatalogueController::class, 'index'])->name('post.catalogue.index');
@@ -159,6 +169,7 @@ Route::post('store-login', [LoginController::class, 'login'])->name('store.login
 Route::get('register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('register-store', [RegisterController::class, 'register'])->name('store.register');
 Route::get('/confirm-registration/{token}', [RegisterController::class, 'confirmRegistration'])->name('confirm.registration');
+
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
