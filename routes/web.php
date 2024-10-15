@@ -7,8 +7,8 @@ use App\Http\Controllers\Backend\AttributeCatalogueController;
 use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
+use App\Http\Controllers\Ajax\SearchController as AjaxSearchController;
 use App\Http\Controllers\Ajax\CartController as AjaxCartController;
-use App\Http\Controllers\Fontend\CartController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PostCatalogueController;
@@ -17,6 +17,8 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
+use App\Http\Controllers\Fontend\OrderController;
+use App\Http\Controllers\Fontend\PostController as FontendPostController;
 use App\Http\Controllers\Fontend\ShopController;
 
 use Illuminate\Support\Facades\Route;
@@ -29,18 +31,37 @@ Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->n
 Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])->name('ajax.cart.updateCart');
 Route::delete('/ajax/cart/destroyCart', [AjaxCartController::class, 'destroyCart'])->name('ajax.cart.destroyCart');
 Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])->name('ajax.cart.clearCart');
+Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');
 
 
 //FONTEND
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
-Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
+ Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
+ Route::get('search/result', [AjaxSearchController::class, 'searchResult'])->name('search.result');
 
+
+// CART
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
     });
+    
+});
+
+// order 
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('checkout', [OrderController::class, 'checkout'])->name('order.checkout');
+    });
+});
+
+// POST
+Route::group(['prefix' => 'post'], function () {
+    Route::get('page', [FontendPostController::class, 'index'])->name('post.page');
+    Route::get('detail/{slug}', [FontendPostController::class, 'detail'])->name('post.detail');
+    Route::get('search', [FontendPostController::class, 'search'])->name('post.search');
 });
 
 //BACKEND
@@ -108,6 +129,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
 
+
     //post catalogues
     Route::group(['prefix' => 'post/catalogue'], function () {
         Route::get('index', [PostCatalogueController::class, 'index'])->name('post.catalogue.index');
@@ -141,7 +163,7 @@ Route::post('store-login', [LoginController::class, 'login'])->name('store.login
 Route::get('register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('register-store', [RegisterController::class, 'register'])->name('store.register');
 Route::get('/confirm-registration/{token}', [RegisterController::class, 'confirmRegistration'])->name('confirm.registration');
+
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
-

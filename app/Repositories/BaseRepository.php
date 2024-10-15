@@ -28,17 +28,33 @@ class BaseRepository implements BaseRepositoryInterface
     public function allWhere(array $condition = [])
     {
         $query = $this->model;
-        // Duyệt qua các điều kiện, bao gồm cả toán tử so sánh
         foreach ($condition as $val) {
             if (count($val) === 3) {
-                // Nếu điều kiện có 3 phần tử -> sử dụng toán tử (ví dụ: 'slug', '!=', 'value')
                 $query = $query->where($val[0], $val[1], $val[2]);
             } else if (count($val) === 2) {
-                // Nếu điều kiện chỉ có 2 phần tử -> sử dụng toán tử '=' mặc định
                 $query = $query->where($val[0], '=', $val[1]);
             }
         }
         return $query->get();
+    }
+
+    public function getLimit(array $relations = [], array $conditions = [], $limit = 4)
+    {
+        $query = $this->model->with($relations);
+
+        foreach ($conditions as $condition) {
+            if (is_array($condition) && count($condition) === 3) {
+                $query->where($condition[0], $condition[1], $condition[2]);
+            } elseif (is_array($condition) && count($condition) === 2) {
+                if (in_array(strtolower($condition[1]), ['asc', 'desc'])) {
+                    $query->orderBy($condition[0], $condition[1]);
+                } else {
+                    $query->where($condition[0], $condition[1]);
+                }
+            }
+        }
+
+        return $query->limit($limit)->get();
     }
 
     public function pagination(
@@ -115,17 +131,22 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->whereIn('id', $arrayId)->forceDelete();
     }
 
-    public function findByCondition($condition = []){
+    public function findByCondition($condition = [], $excludeId = null) {
         $query = $this->model;
-        foreach($condition as $key => $val){
-            if(count($condition) == 3){
-                $query->where($val[0], $val[1] , $val[2]);
-            }else{
-                $query->where($val[0], '=' , $val[1]);
+        foreach($condition as $key => $val) {
+            if(count($condition) == 3) {
+                $query->where($val[0], $val[1], $val[2]);
+            } else {
+                $query->where($val[0], '=', $val[1]);
             }
         }
-        return $query->first();
+        if ($excludeId) {
+            // Loại trừ bản ghi có id hiện tại
+            $query->where('id', '<>', $excludeId);
+        }
+        return $query->get();
     }
+    
 
     // hàm sử dụng để insert 1 lần nhiều bản ghi 
     public function createBatch($payload = []){

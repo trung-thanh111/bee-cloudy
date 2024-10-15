@@ -23,7 +23,6 @@ class HomeController extends Controller
     public function index(Request $request)
     {   
         $productCatalogues = $this->productCatalogueRepository->all();
-
         return view('fontend.index.home_index', compact( 'productCatalogues'));
     }
 }

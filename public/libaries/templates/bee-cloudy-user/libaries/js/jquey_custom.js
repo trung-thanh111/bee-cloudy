@@ -228,9 +228,20 @@
     });
   };
   FS.nextTab = () => {
-    $(document).on('click', '.next-tab', function() {
-        var nextTab = $(this).data('nexttab');
-        $('#' + nextTab).tab('show')
+    $('.btnNext').click(function() {
+        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('button')[0];
+        if (nextTabLinkEl) {
+            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+            nextTab.show();
+        }
+    });
+    
+    $('.btnPrevious').click(function() {
+        const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('button')[0];
+        if (prevTabLinkEl) {
+            const prevTab = new bootstrap.Tab(prevTabLinkEl);
+            prevTab.show();
+        }
     });
 }
 FS.CheckBox = () => {
