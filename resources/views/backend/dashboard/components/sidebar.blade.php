@@ -65,6 +65,44 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarPagesvoucher">
+                        <i class="ri-pages-line"></i> <span data-key="t-pages">Voucher</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarPagesvoucher">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">Nhóm thuộc tính</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a href="{{ route('attribute.index') }}" class="nav-link">Thuộc tính</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('brand.index') }}" class="nav-link">Thương hiệu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('product.catalogue.index') }}" class="nav-link">Nhóm sản phẩm</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarProfile" > Voucher
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarProfile">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="" class="nav-link" >
+                                                Danh sách</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('voucher.create') }}" class="nav-link">Thêm mới </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPageposts" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPageposts">
                         <i class="fa-solid fa-newspaper"></i></i> <span data-key="t-pageposts">Bài viết</span>
