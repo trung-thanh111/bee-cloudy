@@ -19,9 +19,9 @@
                         </div>
                     </div>
                     <div class="search-final">
-                        <form action="#" method="get" class="app-search d-none d-md-block ">
+                        <form action="#" method="get" class="app-search d-none d-md-block">
                             <div class="input-group input-group-sm w-100 position-relative ">
-                                <input type="text" name="keyword" class="form-control search-header py-0"
+                                <input type="text" id="keyword" name="keyword" class="form-control search-header py-0"
                                     placeholder="Bạn đang cần gì?">
                                 <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
                                     <i class='bx bx-search-alt-2'></i>

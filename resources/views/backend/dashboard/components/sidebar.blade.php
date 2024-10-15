@@ -46,10 +46,10 @@
                                 <a href="{{ route('product.catalogue.index') }}" class="nav-link">Nhóm sản phẩm</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProfile" > Sản phẩm
+                                <a href="#sidebarProduct" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarProduct" > Sản phẩm
                                 </a>
-                                <div class="collapse menu-dropdown" id="sidebarProfile">
+                                <div class="collapse menu-dropdown" id="sidebarProduct">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{ route('product.index') }}" class="nav-link" >
@@ -75,10 +75,10 @@
                                 <a href="{{ route('post.catalogue.index') }}" class="nav-link">Nhóm bài viết</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProfile" > Bài viết
+                                <a href="#sidebarPost" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarPost" > Bài viết
                                 </a>
-                                <div class="collapse menu-dropdown" id="sidebarProfile">
+                                <div class="collapse menu-dropdown" id="sidebarPost">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{ route('post.index') }}" class="nav-link" >

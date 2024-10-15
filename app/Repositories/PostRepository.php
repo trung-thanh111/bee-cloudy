@@ -21,6 +21,34 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
         $this->model = $model;
     }
 
+    public function getLimitOrder(array $relations = [], array $conditions = [],  array $orderBy = ['created_at', 'asc'], array $postCatalogueId = [], $limit = 4,)
+    {
+        $query = $this->model->with($relations);
+
+        foreach ($conditions as $condition) {
+            if (is_array($condition) && count($condition) === 3) {
+                $query->where($condition[0], $condition[1], $condition[2]);
+            } elseif (is_array($condition) && count($condition) === 2) {
+                if (in_array(strtolower($condition[1]), ['asc', 'desc'])) {
+                    $query->orderBy($condition[0], $condition[1]);
+                } else {
+                    $query->where($condition[0], $condition[1]);
+                }
+            }
+        }
+        // orderBy
+        foreach ($orderBy as $order) {
+            $query->orderBy($order[0], $order[1]);
+        }
+        // relation pivot 
+        if (!empty($postCatalogueId)) {
+            $query->whereHas('postCatalogues', function ($q) use ($postCatalogueId) {
+                $q->whereIn('post_catalogue_id', $postCatalogueId);
+            });
+        }
+
+        return $query->limit($limit)->get();
+    }
     public function create($payload = [])
     {
         $post = $this->model->create($payload);

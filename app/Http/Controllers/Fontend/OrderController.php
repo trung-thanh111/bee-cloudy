@@ -11,7 +11,7 @@ use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CartController extends FontendController
+class OrderController extends FontendController
 {
     protected $productRepository;
     protected $cartRepository;
@@ -26,19 +26,14 @@ class CartController extends FontendController
         $this->cartService = $cartService;
         $this->productRepository = $productRepository;
     }
-    public function destroyCart(Request $request)
-    {
-        if (!Auth::check()) {
-            flash()->erorr('Bạn cần đăng nhập để sử dụng chức năng.');
-            return redirect()->route('auth.login');
-        }
-            $destroy = $this->cartService->destroy($request);
-            if ($destroy) {
-                flash()->success('sản phẩm đã xóa khỏi giỏ hàng!');
-                return redirect()->back();
-            } else {
-                flash()->error('Có lỗi xảy ra!');
-                return redirect()->back();
-            }
+    
+
+    public function checkout(){
+        $carts = $this->cartService->all();
+        // dd($carts);
+        return view('fontend.order.checkout', compact(
+            'carts'
+        ));
+
     }
 }
