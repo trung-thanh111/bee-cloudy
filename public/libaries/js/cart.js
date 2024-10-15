@@ -82,18 +82,18 @@
 
             // đổ vào đơn hàng
 
-            //         let htmlOrderQuantity = `<strong class="text-info orderPrice">x${quantity}</strong>`;
-            //         $(".orderQuantity").html(htmlOrderQuantity);
+            //         let htmlcartQuantity = `<strong class="text-info cartPrice">x${quantity}</strong>`;
+            //         $(".cartQuantity").html(htmlcartQuantity);
 
             //         let formattedPrice = Number(newTotalPrice).toLocaleString("vi-VN", {
             //             style: "currency",
             //             currency: "VND",
             //         });
-            //         let htmlOrderPrice = `
+            //         let htmlcartPrice = `
             // <td class="text-end fz-14 fw-medium ">
             //     ${formattedPrice}
             // </td>`;
-            //         $(".orderPrice").html(htmlOrderPrice);
+            //         $(".cartPrice").html(htmlcartPrice);
 
             FS.updateCartTotal();
 
@@ -146,41 +146,43 @@
                     }
                 },
                 error: function () {
-                    flasher.error("Có lỗi xảy ra khi cập nhật giỏ hàng."); 
+                    flasher.error("Có lỗi xảy ra khi cập nhật giỏ hàng.");
                 },
             });
         });
     };
     FS.clearCart = () => {
-        const modal = new bootstrap.Modal(document.getElementById('clearCartModal'));
-    
+        const modal = new bootstrap.Modal(
+            document.getElementById("clearCartModal")
+        );
+
         $(document).on("click", ".clearCart", function (e) {
             e.preventDefault();
-            const orderId = $(this).data('order-id');
-            $('#confirmClearCart').data('order-id', orderId);
+            const cartId = $(this).data("cart-id");
+            $("#confirmClearCart").data("cart-id", cartId);
             modal.show();
         });
-    
-        $('#cancelClearCart').on('click', () => modal.hide());
-    
-        $('#confirmClearCart').on('click', function() {
-            const orderId = $(this).data('order-id');
+
+        $("#cancelClearCart").on("click", () => modal.hide());
+
+        $("#confirmClearCart").on("click", function () {
+            const cartId = $(this).data("cart-id");
             modal.hide();
             $.ajax({
                 url: "/ajax/cart/clearCart",
                 type: "DELETE",
                 data: {
-                    order_id: orderId,
-                    _token: _token 
+                    cart_id: cartId,
+                    _token: _token,
                 },
                 success: function (res) {
                     if (res.code == 10) {
-                        $('.cart-item').empty();
-                        flasher.success(res.message);
+                        $(".cart-item").empty();
                         setTimeout(function () {
                             window.location.href = res.redirect;
-                        }, 500)
-                    } 
+                        }, 1);
+                        flasher.success(res.message);
+                    }
                 },
                 error: function () {
                     flasher.error("Có lỗi xảy ra khi xóa giỏ hàng.");

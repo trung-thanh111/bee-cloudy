@@ -56,38 +56,17 @@
                         <div id="main-carousel" style="margin-bottom: 10px;" class="splide " aria-label="Main Carousel">
                             <div class="splide__track ">
                                 <ul class="splide__list position-relative">
-                                    <li class="splide__slide image-product image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_1.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_2.webp"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_3.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_4.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_5.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_6.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_7.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_8.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
+                                    @if ($product)
+                                        <li class="splide__slide image-product">
+                                            <img src="{{ $product->image }}" alt="" class="img-fluid">
+                                        </li>
+                                    @elseif($product->productVariant)
+                                        <li class="splide__slide image-product">
+                                            <img src="{{ explode(',', $product->productVariant->album) }}" alt=""
+                                                class="img-fluid">
+                                        </li>
+                                    @endif
+
                                 </ul>
                                 <div class="box-favourite position-absolute z-3" data-bs-toggle="tooltip"
                                     data-bs-title="Thêm vào yêu thích">
@@ -103,38 +82,16 @@
                         <div id="thumbnail-carousel" class="splide mb-5">
                             <div class="splide__track">
                                 <ul class="splide__list">
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_1.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_2.webp"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_3.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_4.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_5.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_6.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_7.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
-                                    <li class="splide__slide image-product">
-                                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/shoes_8.jpg"
-                                            alt="" class="img-fluid">
-                                    </li>
+                                    @if ($product)
+                                        <li class="splide__slide image-product">
+                                            <img src="{{ $product->image }}" alt="" class="img-fluid">
+                                        </li>
+                                    @elseif($product->productVariant)
+                                        <li class="splide__slide image-product">
+                                            <img src="{{ explode(',', $product->productVariant->album) }}" alt=""
+                                                class="img-fluid">
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -207,7 +164,8 @@
                             </h4>
 
                             <div class="hstack gap-3 fz-14 mb-3">
-                                <h4 class="fs-4 fw-bold text-danger mb-1 product-variant-price" data-price="{{ $price }}">{{ $price }}</h4>
+                                <h4 class="fs-4 fw-bold text-danger mb-1 product-variant-price"
+                                    data-price="{{ $price }}">{{ $price }}</h4>
                                 <span
                                     class="mb-1 ms-auto {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
 

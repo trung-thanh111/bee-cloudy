@@ -20,6 +20,8 @@
 <script src="/libaries/js/choose_variant.js"></script>
 {{-- cart  --}}
 <script src="/libaries/js/cart.js"></script>
+{{-- search  --}}
+<script src="/libaries/js/search_suggestions.js"></script>
 {{-- flaher notify  --}}
 <script defer src="https://cdn.jsdelivr.net/npm/@flasher/flasher@1.2.4/dist/flasher.min.js"></script>
 {{-- vue js  --}}
