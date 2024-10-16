@@ -9,6 +9,7 @@ use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
 use App\Http\Controllers\Ajax\SearchController as AjaxSearchController;
 use App\Http\Controllers\Ajax\CartController as AjaxCartController;
+use App\Http\Controllers\Ajax\WishlistController as AjaxWishlistController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PostCatalogueController;
@@ -27,10 +28,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
 Route::get('/ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
 Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
+// CART AJAX
 Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->name('ajax.cart.addToCart');
 Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])->name('ajax.cart.updateCart');
 Route::delete('/ajax/cart/destroyCart', [AjaxCartController::class, 'destroyCart'])->name('ajax.cart.destroyCart');
 Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])->name('ajax.cart.clearCart');
+
+// WISHLIST AJAX
+Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])->name('ajax.wishlist.toggle');
+
+//SEARCH SUGGESTION AJAX
 Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');
 
 
@@ -38,8 +45,9 @@ Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
- Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
- Route::get('search/result', [AjaxSearchController::class, 'searchResult'])->name('search.result');
+Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
+Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
+
 
 
 // CART
@@ -47,7 +55,12 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
     });
-    
+});
+// WISHLIST
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'wishlist'], function () {
+        Route::get('index', [AjaxWishlistController::class, 'index'])->name('wishlist.index');
+    });
 });
 
 // order 
@@ -61,7 +74,6 @@ Route::middleware(['auth'])->group(function () {
 Route::group(['prefix' => 'post'], function () {
     Route::get('page', [FontendPostController::class, 'index'])->name('post.page');
     Route::get('detail/{slug}', [FontendPostController::class, 'detail'])->name('post.detail');
-    Route::get('search', [FontendPostController::class, 'search'])->name('post.search');
 });
 
 //BACKEND
