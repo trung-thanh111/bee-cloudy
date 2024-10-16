@@ -31,22 +31,24 @@ Voucher
             </tr>
         </thead>
         <tbody>
-            @foreach($vouchers as $voucher)
+           @foreach($promotions as $promotion)
+            @if($promotion->usage_limit > 0)
                 <tr>
-                    <td>{{ $voucher->name }}</td>
-                    <td>{{ $voucher->code }}</td>
-                    <td>{{ $voucher->start_date }}</td>
-                    <td>{{ $voucher->end_date }}</td>
-                    <td>{{ $voucher->discount_value }}</td>
-                    <td>{{ $voucher->usage_limit }}</td>
+                    <td>{{ $promotion->name }}</td>
+                    <td>{{ $promotion->code }}</td>
+                    <td>{{ $promotion->start_date }}</td>
+                    <td>{{ $promotion->end_date }}</td>
+                    <td>{{ $promotion->discount_value }}</td>
+                    <td class="usage-limit">{{ $promotion->usage_limit }}</td>
                     <td>
-                        <form action="{{ route('voucher.receive', $voucher->id) }}" method="POST">
+                        <form action="{{ route('promotion.receive', $promotion->id) }}" method="POST" class="promotion-form">
                             @csrf
-                            <button type="submit" class="btn btn-primary">Nhận Voucher</button>
+                            <button type="submit" class="btn btn-primary">Nhận Promotion</button>
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @endif
+        @endforeach
         </tbody>
     </table>
 </div>
