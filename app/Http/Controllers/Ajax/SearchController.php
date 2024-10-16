@@ -36,33 +36,55 @@ class SearchController extends Controller
         return response()->json($products);
     }
 
-    public function searchResult(Request $request, $keyword = '')
+    public function search(Request $request)
     {
         $keyword = $request->input('keyword');
-
-        $products = Product::where('name', $keyword)
-        ->where('publish', 1)
-        ->with('productCatalogues', 'productVariant', 'productVariant.attributes')
-        ->get();
-
-    if ($products->isNotEmpty()) {
-        // Nếu có kết quả chính xác, chỉ trả về kết quả đó
-        $resultSearchs = new \Illuminate\Pagination\LengthAwarePaginator(
-            $products,
-            $products->count(),
-            9
-        );
-    } else {
         
-        // Nếu không có kết quả chính xác, thực hiện tìm kiếm mở rộng
-        $resultSearchs = Product::where(function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', "%{$keyword}%")
-                      ->where('publish', 1);
-            })
-            ->with('productCatalogues', 'productVariant', 'productVariant.attributes')
-            ->paginate(9);
-            
-    }
-        return view('fontend.index.search', compact('resultSearchs','keyword'));
+        $type = $request->input('type');
+        if ($type === 'product') {
+            $results = Product::where('name', 'LIKE', "%{$keyword}%")
+                ->where('publish', 1)
+                ->with('productCatalogues', 'productVariant', 'productVariant.attributes')
+                ->paginate(9);
+            if ($results->isNotEmpty()) {
+                // Nếu có kết quả chính xác
+                $resultSearchs = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $results,
+                    $results->count(),
+                    12
+                );
+            } else {
+                $resultSearchs = Product::where(function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', "%{$keyword}%")
+                        ->where('publish', 1);
+                })
+                    ->with('productCatalogues', 'productVariant', 'productVariant.attributes')
+                    ->paginate(12);
+            }
+        } elseif ($type === 'post') {
+            $results = Post::where('name', 'LIKE', "%{$keyword}%")
+                ->where('publish', 1)
+                ->with('users')
+                ->paginate(12);
+            if ($results->isNotEmpty()) {
+                // Nếu có kết quả chính xác
+                $resultSearchs = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $results,
+                    $results->count(),
+                    12
+                );
+            } else {
+                $resultPostSearchs = Post::where(function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', "%{$keyword}%")
+                        ->where('publish', 1);
+                })
+                    ->with('users')
+                    ->paginate(9);
+            }
+        } else {
+            $results = collect([]); // Trả về collection rỗng nếu type không hợp lệ
+        }
+
+        return view('fontend.index.search', compact('results', 'keyword', 'type'));
     }
 }

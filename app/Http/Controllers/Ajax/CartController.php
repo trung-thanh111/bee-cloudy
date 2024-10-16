@@ -29,6 +29,7 @@ class CartController extends FontendController
     public function index()
     {
         $carts = $this->cartService->all();
+        // dd($carts);
         $productNews = $this->productRepository->getLimit(
             ['productVariant', 'productCatalogues', 'productVariant.attributes'],
             [

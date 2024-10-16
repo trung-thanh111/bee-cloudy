@@ -516,9 +516,12 @@
                                                             class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
                                                             giảm {{ round($promotion, 1) . '%' }}
                                                         </span>
-                                                        <span class="text-end mt-2 me-2 text-muted"
-                                                            data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích">
+                                                        <span class="text-end mt-2 me-2 text-muted toggleWishlist"
+                                                            data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích" data-id="{{ $product->id }}" >
                                                             <i class="fa-regular fa-bookmark fz-16"></i>
+                                                            <span class="product_id_wishlist d-none">
+                                                                {{ $product->id }}
+                                                            </span>
                                                         </span>
                                                     </div>
                                                 </div>
