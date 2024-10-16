@@ -18,7 +18,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
 use App\Http\Controllers\Fontend\ShopController;
-use App\Http\Controllers\Backend\VoucherController;
+use App\Http\Controllers\Backend\PromotionController;
 use Illuminate\Support\Facades\Route;
 
 // AJAX 
@@ -40,8 +40,10 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
     });
-    Route::get('/voucher', [VoucherController::class, 'showAllVouchers'])->name('voucher.list');
-    Route::post('/voucher/receive/{voucher}', [VoucherController::class, 'receiveVoucher'])->name('voucher.receive');
+    Route::get('/promotion', [PromotionController::class, 'showAllPromotions'])->name('promotion.index');
+
+    Route::post('/promotion/receive/{promotion}', [PromotionController::class, 'receivePromotion'])->name('promotion.receive');
+    // Route::get('/my-vouchers', [PromotionController::class, 'myVouchers'])->name('promotion.my_vouchers');
 });
 
 //BACKEND
@@ -109,12 +111,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
 
-    Route::group(['prefix' => 'voucher'], function () {
+    Route::group(['prefix' => 'promotion'], function () {
 
-        Route::get('index', [VoucherController::class, 'index'])->name('voucher.index');
-        Route::get('create', [VoucherController::class, 'create'])->name('voucher.create');
-        Route::post('create', [VoucherController::class, 'store'])->name('voucher.store');
-        Route::delete('delete/{id}', [VoucherController::class, 'destroy'])->name('voucher.destroy');
+        Route::get('/create', [PromotionController::class, 'create'])->name('promotions.catalogue.create');
+        Route::get('/index', [PromotionController::class, 'index'])->name('promotions.index');
+        Route::get('/edit/{id}', [PromotionController::class, 'edit'])->name('promotions.catalogue.edit');
+        Route::put('/update/{id}', [PromotionController::class, 'update'])->name('promotions.update');
+        Route::post('/index', [PromotionController::class, 'store'])->name('promotions.catalogue.store');
     });
 
     //post catalogues
@@ -152,7 +155,7 @@ Route::get('register', [RegisterController::class, 'index'])->name('auth.registe
 Route::post('register-store', [RegisterController::class, 'register'])->name('store.register');
 Route::get('/confirm-registration/{token}', [RegisterController::class, 'confirmRegistration'])->name('confirm.registration');
 // bấm để nhận voucher cho người dùng 
-Route::post('/receive-voucher/{voucher}', [VoucherController::class, 'receiveVoucher'])->name('user.receiveVoucher');
+// Route::post('/receive-voucher/{voucher}', [VoucherController::class, 'receiveVoucher'])->name('user.receiveVoucher');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
