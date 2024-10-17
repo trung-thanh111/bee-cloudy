@@ -19,58 +19,55 @@
                         </div>
                     </div>
                     <div class="search-final">
-                        <form action="{{ route('search.result') }}" method="get" class="app-search d-none d-md-block ">
+                        <form action="{{ route('search') }}" method="get" class="app-search d-none d-md-block ">
                             <div class="input-group input-group-sm w-100 position-relative">
-                                <input type="text" id="keyword" name="keyword" class="form-control search-header py-0" placeholder="Bạn đang cần gì?">
+                                <input type="text" id="keyword" name="keyword"
+                                    class="form-control search-header py-0" placeholder="Bạn đang cần gì?">
+                                <input type="hidden" name="type" value="product">
                                 <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
                                     <i class='bx bx-search-alt-2'></i>
                                 </button>
                             </div>
-                            <div class="wallpaper d-none position-absolute start-50 translate-middle z-3" style="top: 200px">
-                                <div class="card p-2 border-0 rounded-1 shadow-sm justify-content-center" style="width: 500px !important">
+                            <div class="position-relative">
+                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3"
+                                style="top: 165px; height: auto">
+                                <div class="card p-2 border-0 rounded-1 shadow-sm justify-content-center"
+                                    style="width: 500px !important">
                                     <div class="card-body py-2 px-2">
                                         <div class="title-search-recent">
-                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Tìm kiếm nổi bật</h6>
+                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Sản phẩm mới</h6>
                                         </div>
                                         <div class="content-search-recent mt-3">
-                                            <span class="search-recent-item search-item m-1 fz-14">
-                                                <a href="#" class="text-decoration-none text-muted">
-                                                    <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">Sản phẩm độc quyền của chúng tôi</span>
-                                                </a>
-                                            </span>
-                                            <span class="search-recent-item search-item m-1 fz-14">
-                                                <a href="#" class="text-decoration-none text-muted">
-                                                    <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">ip 15 promax</span>
-                                                </a>
-                                            </span>
-                                            <span class="search-recent-item search-item m-1 fz-14">
-                                                <a href="#" class="text-decoration-none text-muted">
-                                                    <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">iphone xs max</span>
-                                                </a>
-                                            </span>
-                                            <span class="search-recent-item search-item m-1 fz-14">
-                                                <a href="#" class="text-decoration-none text-muted">
-                                                    <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">iphone 16 pro</span>
-                                                </a>
-                                            </span>
+                                            @if ($nameStand->isNotEmpty())
+                                                @foreach ($nameStand as $key => $keywordStand)
+                                                    <span class="search-recent-item search-item m-1 fz-14 text-truncate"
+                                                        style="max-width: 200px">
+                                                        <a href="javascipt:void(0)"
+                                                            class="text-decoration-none text-muted">
+                                                            <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                            <span
+                                                                class="keyword-recent ">{{ $keywordStand->name }}</span>
+                                                        </a>
+                                                    </span>
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
-                                    <div class="card-body py-2 px-2 " >
+                                    <div class="card-body list-search d-none py-2 px-2 ">
                                         <div class="title-search-recent">
-                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách tìm kiếm</h6>
+                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách tìm
+                                                kiếm</h6>
                                         </div>
-                                        <div class="content-search-hot mt-3 d-block overflow-y-auto" style="max-height: 100px">
+                                        <div class="content-search-hot mt-3 d-block overflow-y-auto"
+                                            style="max-height: 100px">
                                             <ul id="suggestions-list" class="list-unstyled">
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+                            </div>
+
                         </form>
                     </div>
                     <div class="fw-medium d-none d-lg-block">
@@ -153,9 +150,14 @@
                         <div class="dropdown icon-item">
                             <a class="position-relative box-icon-profile gear-profile dropdown-toggle" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                                <button type="button"
+                                    class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle"
+                                    id="page-header-notifications-dropdown" data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-solid fa-bell fz-16"></i>
-                                    <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-circle text-danger" style="top: 5px">3</span>
+                                    <span
+                                        class="position-absolute topbar-badge fs-10 translate-middle badge rounded-circle text-danger"
+                                        style="top: 5px">3</span>
                                 </button>
                             </a>
                             <div class="dropdown-menu dropdown-menu-notify dropdown-menu-end border-0 shadow-lg p-0">
@@ -217,7 +219,7 @@
                         </div>
                         <div class="icon-item">
                             <span class="box-icon-profile">
-                                <a class="" role="button">
+                                <a href="{{ route('wishlist.index') }}" type="button" >
                                     <i class="fa-solid fa-bookmark" data-bs-toggle="tooltip"
                                         data-bs-title="Yêu thích"></i>
                                 </a>
@@ -225,15 +227,17 @@
                         </div>
                         <div class="icon-item">
                             <span class="box-icon-profile">
-                                <a href="{{ route('cart.index') }}" type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" >
-                                        <i class="fa-solid fa-cart-shopping fz-16" data-bs-toggle="tooltip"
+                                <a href="{{ route('cart.index') }}" type="button"
+                                    class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle">
+                                    <i class="fa-solid fa-cart-shopping fz-16" data-bs-toggle="tooltip"
                                         data-bs-title="Giỏ hàng"></i>
-                                        <span class="position-absolute topbar-badge fs-10 translate-middle badge count-element rounded-pill bg-info {{ $productInCart == 0 ? 'hidden-visibility': '' }}">{{ !is_null($productInCart) ? $productInCart : '' }}</span>
+                                    <span
+                                        class="position-absolute topbar-badge fs-10 translate-middle badge count-element rounded-pill bg-info {{ $productInCart == 0 ? 'hidden-visibility' : '' }}">{{ !is_null($productInCart) ? $productInCart : '' }}</span>
                                 </a>
                             </span>
                         </div>
                         <div class="icon-item dropdown">
-                            
+
 
                             <!-- đã đăng nhập  -->
                             @if (Auth::check())
@@ -254,7 +258,7 @@
                                     <ul class="ul-menu p-0 mb-1 text-muted">
                                         <li class="li-menu-header p-2">
                                             <span class="text-decoration-none fw-medium fz-14 ps-1">
-                                                Xin chào {{$user->name }}!
+                                                Xin chào {{ $user->name }}!
                                             </span>
                                         </li>
                                         <li class="li-menu-header p-2">
@@ -263,14 +267,16 @@
                                             </a>
                                         </li>
                                         @if ($user->user_catalogue_id == 2)
-                                        <li class="li-menu-header p-2">
-                                            <a href="{{ route('dashboard.index') }}" class="text-decoration-none fz-13 ps-1">
-                                                <i class="fa-solid fa-pen me-2"></i>Quản trị Website
-                                            </a>
-                                        </li>
+                                            <li class="li-menu-header p-2">
+                                                <a href="{{ route('dashboard.index') }}"
+                                                    class="text-decoration-none fz-13 ps-1">
+                                                    <i class="fa-solid fa-pen me-2"></i>Quản trị Website
+                                                </a>
+                                            </li>
                                         @endif
                                         <li class="li-menu-header p-2">
-                                            <a href="{{ route('auth.logout') }}" class="text-decoration-none fz-13 ps-1 text-danger">
+                                            <a href="{{ route('auth.logout') }}"
+                                                class="text-decoration-none fz-13 ps-1 text-danger">
                                                 <i
                                                     class="fa-solid fa-arrow-right-from-bracket me-2 text-danger"></i>Đăng
                                                 xuất
@@ -285,13 +291,13 @@
                                     </ul>
                                 </div>
                             @else
-                            <!-- chưa đăng nhập  -->
-                            <span class="box-icon-profile">
-                                <a class="acount-profile" href="{{ route('auth.login') }}">
-                                    <i class="fa-solid fa-user fz-20 p-3" data-bs-toggle="tooltip"
-                                        data-bs-title="đăng nhập"></i>
-                                </a>
-                            </span> 
+                                <!-- chưa đăng nhập  -->
+                                <span class="box-icon-profile">
+                                    <a class="acount-profile" href="{{ route('auth.login') }}">
+                                        <i class="fa-solid fa-user fz-20 p-3" data-bs-toggle="tooltip"
+                                            data-bs-title="đăng nhập"></i>
+                                    </a>
+                                </span>
                             @endif
 
                         </div>
@@ -300,4 +306,5 @@
             </nav>
         </div>
     </header>
+    
 </section>
