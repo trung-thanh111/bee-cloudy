@@ -68,14 +68,18 @@
                                     @endif
 
                                 </ul>
-                                <div class="box-favourite position-absolute z-3" data-bs-toggle="tooltip"
+                                <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
                                     data-bs-title="Thêm vào yêu thích">
                                     <div class="position-relative">
-                                        <a href="#" class="position-absolute start-50 translate-middle"
+                                        <button type="button" class="position-absolute start-50 translate-middle "
                                             style="top: 20px;">
-                                            <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted"></i>
-                                        </a>
+                                            <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
+                                        </button>
                                     </div>
+                                    <span class="product_variant_id_wishlist d-none"></span>
+                                    <span class="product_id_wishlist d-none">
+                                        {{ $product->id }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +144,12 @@
                         <div class="content-product px-2">
                             <div class="title-product ">
                                 <h4 class="fs-4 fw-bold mb-1 product-variant-title">{{ $product->name }}</h4>
-                                <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">{{ $product->id }}</h4>
+                                <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">
+                                    {{ $product->id }}
+                                </h4>
+                                {{-- @if (isset($product->productVariant) && $product->productVariant->isNotEmpty())
+                                        {{ $product->productVariant->first()->id ?? null }}
+                                    @endif --}}
                                 <div class="hstack gap-3 fz-14 flex-wrap">
                                     <div class="py-2">Đánh giá ({{ $totalReviewCount }})</div>
                                     <div class="py-2">
@@ -764,9 +773,18 @@
                                                     class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $valProductSimilar->del == 0 || $valProductSimilar->del == null ? 'hidden-visibility' : '' }}">
                                                     giảm {{ round($promotion, 1) . '%' }}
                                                 </span>
-                                                <span class="text-end mt-2 me-2 text-muted" data-bs-toggle="tooltip"
-                                                    data-bs-title="Thêm vào yêu thích">
+                                                <span class="text-end mt-2 me-2 text-muted toggleWishlist"
+                                                    data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích"
+                                                    data-id="{{ $product->id }}">
                                                     <i class="fa-regular fa-bookmark fz-16"></i>
+                                                </span>
+                                                <span class="product_variant_id_wishlist">
+                                                    @if (isset($product->productVariant) && $product->productVariant->isNotEmpty())
+                                                        {{ $product->productVariant->first()->id ?? null }}
+                                                    @endif
+                                                </span>
+                                                <span class="product_id_wishlist">
+                                                    {{ $product->id }}
                                                 </span>
                                             </div>
                                         </div>

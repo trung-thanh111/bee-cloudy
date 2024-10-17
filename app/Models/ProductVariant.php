@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductVariant extends Model
 {
@@ -39,5 +40,10 @@ class ProductVariant extends Model
     // khai báo quan hệ với bảng attribute thông qua bảng pivot
     public function attributes ():BelongsToMany {
         return $this->belongsToMany(Attribute::class, 'product_variant_attribute', 'product_variant_id', 'attribute_id');
+    }
+
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(WishList::class, 'product_vairant_id', 'id');
     }
 }
