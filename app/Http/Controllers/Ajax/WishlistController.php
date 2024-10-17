@@ -45,13 +45,11 @@ class WishlistController extends FontendController
             $userId = Auth::id();
             $productId = $request->input('product_id');
             $variantId = $request->input('product_variant_id');
-
-            $wishlists = $this->wishlistService->toggle($request, $userId, $productId, $variantId);
-            return response()->json([
-                'code' => 10,
-                'message' => 'Đã thêm vào yêu thích.',
-                'wishlists' => $wishlists,
-            ]);
+    
+            // Nhận thông báo từ service
+            $result = $this->wishlistService->toggle($request, $userId, $productId, $variantId);
+    
+            return response()->json($result);
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 11,
