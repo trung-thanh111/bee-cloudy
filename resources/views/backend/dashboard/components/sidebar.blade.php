@@ -74,15 +74,6 @@
                             <li class="nav-item">
                                 <a href="" class="nav-link">Nhóm thuộc tính</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a href="{{ route('attribute.index') }}" class="nav-link">Thuộc tính</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('brand.index') }}" class="nav-link">Thương hiệu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('product.catalogue.index') }}" class="nav-link">Nhóm sản phẩm</a>
-                            </li> -->
                             <li class="nav-item">
                                 <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
                                     role="button" aria-controls="sidebarProfile" > Voucher

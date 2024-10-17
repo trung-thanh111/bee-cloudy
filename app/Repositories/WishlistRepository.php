@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Interfaces\WishlistRepositoryInterface;
 use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 
 /** class BaseRepository
  * @package App\Repositories
@@ -34,12 +35,18 @@ class WishlistRepository extends BaseRepository implements WishlistRepositoryInt
         return $query->first();
     }
     // tìm bản ghi đã tồn tại hay chưa
-    public function findByUserProductVariant($userId, $productId, $variantId = null)
+    public function findByUserProductVariant($userId, $productId = null, $variantId = null)
     {
         return $this->model->where('user_id', $userId)
-            ->where('product_id', $productId)
+            ->when($productId, function ($query) use ($productId) {
+                $query->where('product_id', $productId);
+            }, function ($query) {
+                $query->whereNull('product_id');
+            })
             ->when($variantId, function ($query) use ($variantId) {
-                return $query->where('product_variant_id', $variantId);
+                $query->where('product_variant_id', $variantId);
+            }, function ($query) {
+                $query->whereNull('product_variant_id');
             })
             ->first();
     }
