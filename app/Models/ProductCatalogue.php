@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductCatalogue extends Model
@@ -27,6 +28,11 @@ class ProductCatalogue extends Model
     ];
 
 
+    // tham chiếu đến danh mục con
+    public function childrenReference(): HasMany
+    {
+        return $this->hasMany(ProductCatalogue::class, 'parent_id');
+    }
     // khia bao quan he tham chieu den parent_id
     public function parentReference(): BelongsTo
     {

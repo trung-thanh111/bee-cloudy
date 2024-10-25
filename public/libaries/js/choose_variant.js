@@ -46,8 +46,13 @@
             });
         }
     };
+    
+    
+    // console.log(productWishlistId)
     FS.setupVariantGallery = (res) => {
         let product_id = $(".product_id_wishlist").html() ?? null; 
+        // bắt mảng id từ blade và loại bỏ null
+        let WishlistId = productInWishlist.filter(id => id != null);
         
         let albumVariant = res.productVariant.album.split(",");
         let html = `<div id="main-carousel" style="margin-bottom: 10px;" class="splide " aria-label="Main Carousel">
@@ -59,10 +64,10 @@
                      </li>`;
         });
         html += `</ul>
-                <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích" >
+                <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip" data-bs-title="${WishlistId.includes(res.productVariant.id) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}" >
                     <div class="position-relative">
                         <a href="#" class="position-absolute start-50 translate-middle" style="top: 20px;">
-                            <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted"></i>
+                            <i class="icon-favourite fa-${WishlistId.includes(res.productVariant.id) ? 'solid' : 'regular'} fa-bookmark fz-20 text-muted"></i>
                         </a>
                     </div>
                    <span class="product_variant_id_wishlist d-none">${res.productVariant ? res.productVariant.id : ''}</span>
@@ -175,7 +180,6 @@
         $(".product-variant-id").html(productVariantId);
     };
     FS.setUpVariantName = (res) => {
-        console.log(res);
         let productVariantName = res.productVariant.name;
         $(".product-variant-title").html(productVariantName);
     };
