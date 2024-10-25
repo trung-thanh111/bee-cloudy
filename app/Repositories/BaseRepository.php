@@ -153,4 +153,6 @@ class BaseRepository implements BaseRepositoryInterface
         // dùng insert để insert mảng nhiều bảng ghi 
         return $this->model->insert($payload);
     }
+
+    
 }
