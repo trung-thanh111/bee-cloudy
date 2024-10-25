@@ -13,15 +13,22 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 20);
+            $table->string('code', 20)->unique();
             $table->string('full_name');
+            $table->string('email');
             $table->string('phone', 20);
+            $table->integer('ward_id');
+            $table->integer('district_id');
+            $table->integer('province_id');
+            $table->longText('cart');
             $table->string('address');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->double('total_amount');
             $table->integer('total_items')->default(1);
-            $table->enum('status', ['pending', 'processing', 'confirmed', 'delivered', 'cancelled', 'returned'])->default('pending');
-            $table->enum('payment_method', ['unpaid', 'paid']);
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->enum('status', ['pending', 'confirmed', 'shipping', 'canceled', 'completed'])->default('pending');
+            $table->string('payment_method', 50);
             $table->timestamps();
         });
     }

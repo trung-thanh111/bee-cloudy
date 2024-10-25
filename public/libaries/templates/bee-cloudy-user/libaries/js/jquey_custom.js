@@ -2,23 +2,35 @@
   "use strict";
   var FS = {};
   FS.animateMenuLink = () => {
-    $(document).on("click", ".menu-item-a", function (e) {
-      let _this = $(this);
-      // Xóa class 'active' khỏi tất cả các item trước khi thêm vào item hiện tại
-      $(".menu-item-a").removeClass("active");
-      _this.addClass("active").animate(
-        {
-          left: "60px",
-        },
-        300
-      );
-      e.preventDefault();
+    // Check if there's a stored active menu item
+    const activeMenuItem = localStorage.getItem('activeMenuItem');
+    if (activeMenuItem) {
+        $(`.menu-item-a[href="${activeMenuItem}"]`).addClass('active');
+    }
+
+    $(document).on("click", ".menu-item-a", function(e) {
+        // Không preventDefault() để cho phép chuyển trang
+        let $this = $(this);
+        let href = $this.attr('href');
+
+        // Lưu href của menu item vừa click vào localStorage
+        localStorage.setItem('activeMenuItem', href);
+
+        // Xóa class active khỏi tất cả items
+        $(".menu-item-a").removeClass("active");
+        
+        // Thêm active và animation cho item được click
+        $this.addClass("active").animate({
+            left: "60px",
+        }, 300, function() {
+            // Sau khi animation hoàn thành thì chuyển trang
+            window.location.href = href;
+        });
     });
-  };
+};
   // menu aside acount
   FS.showSubMenu = () => {
     $(".nav-item-main").click(function (e) {
-      e.preventDefault();
 
       let $submenu = $(this).next(".sub-menu-lv2");
       let $iconRight = $(this).find(".fa-chevron-right");
@@ -68,53 +80,7 @@
     });
   };
   // search key
-  FS.searchKeyUpShowPaper = () => {
-    // Bắt sự kiện lần đầu nhập vào input -> one()
-    $(document).one("keyup", ".search-header", function () {
-      if (
-        $(".search-header").val().length == 0 ||
-        $(".search-header") === undefined
-      ) {
-        
-        $(".wallpaper").addClass("d-none");
-      } else {
-        $(".wallpaper").removeClass("d-none");
-        $(".list-search").removeClass("d-none");
-      }
-      //call back
-      FS.searchKeyUpShowPaper();
-    });
-    $(document).on("mouseenter", ".search-header, .wallpaper", function () {
-      $(".wallpaper").removeClass("d-none");
-    });
-    $(document).on("mouseleave", ".search-header, .wallpaper", function () {
-      setTimeout(function () {
-        if (
-          !$(".search-header").is(":hover") &&
-          !$(".wallpaper").is(":hover")
-        ) {
-          $(".wallpaper").addClass("d-none");
-        }
-      }, 500);
-    });
-    $(document).on("focus", ".search-header", function () {
-      if ($(".search-header").val().length > 0 || $(".wallpaper").length) {
-        $(".wallpaper").removeClass("d-none");
-      }
-    });
-  };
-  FS.getKeywordClickKeywordRecent = () => {
-    $(document).on("click", ".search-recent-item", function () {
-      let _this = $(this);
-      //sử dụng this để lấy ra 1 phần tử đc click
-      let keywordRecent = $.trim(_this.find(".keyword-recent").text());
-      if($(".search-header").val() > 0){
-        $(".search-header").val() = " "
-      }else{
-        $(".search-header").val(keywordRecent)
-      }
-    });
-  };
+  
 
   FS.setUpSelect2 = () => {
     $(".setUpSelect2").select2();
@@ -268,12 +234,11 @@ FS.CheckBox = () => {
 }
 
 
+
   $(document).ready(function () {
     FS.animateMenuLink();
     FS.showSubMenu();
     FS.showSubMenuLv3();
-    FS.searchKeyUpShowPaper();
-    FS.getKeywordClickKeywordRecent();
     FS.setUpSelect2();
     FS.clickShowPass();
     FS.activeColorChoosed();
