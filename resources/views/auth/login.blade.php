@@ -25,7 +25,7 @@
                             </div>
                             <div class="mb-3">
                                 <div class="float-end">
-                                    <a href="#" class="text-muted fz-14">Quên mật khẩu?</a>
+                                    <a href="{{ route('password.request') }}" class="text-muted fz-14">Quên mật khẩu?</a>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="password-input">Mật khẩu</label>
