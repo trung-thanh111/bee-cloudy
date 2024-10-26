@@ -25,7 +25,7 @@ class ConfirmEmail extends Mailable
 
     public function build()
     {
-        return $this->view('auth.mail')
+        return $this->view('auth.mail.confirm-email')
             ->with([
                 'token' => $this->pendingUser->token,
                 'email' => $this->pendingUser->email,
