@@ -10,6 +10,7 @@ use App\Http\Controllers\Ajax\ProductController as AjaxProductController;
 use App\Http\Controllers\Ajax\SearchController as AjaxSearchController;
 use App\Http\Controllers\Ajax\CartController as AjaxCartController;
 use App\Http\Controllers\Ajax\WishlistController as AjaxWishlistController;
+use App\Http\Controllers\Ajax\OrderController as AjaxOrderController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PostCatalogueController;
@@ -18,13 +19,11 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
-use App\Http\Controllers\Fontend\OrderController;
+use App\Http\Controllers\Fontend\OrderController as FontendOrderController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Fontend\PostController as FontendPostController;
 use App\Http\Controllers\Fontend\ShopController;
 use App\Http\Controllers\Backend\PromotionController;
-use App\Http\Controllers\ContentController;
-use App\Http\Controllers\ImageUploadController;
-use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Route;
 
 //ĐÁNH GIÁ SẢN PHẨM
@@ -59,8 +58,20 @@ Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])-
 // WISHLIST AJAX
 Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])->name('ajax.wishlist.toggle');
 
+// ORDER UPDATE AJAX
+Route::post('/ajax/order/editNote', [AjaxOrderController::class, 'edit'])->name('ajax.order.edit');
+Route::post('/ajax/order/updateStatus', [AjaxOrderController::class, 'updateStatus'])->name('ajax.order.updateStatus');
+
 //SEARCH SUGGESTION AJAX
 Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');
+
+
+// PAYMENT VNPAY
+Route::get('return/vnpay', [VnpayController::class, 'vnpayReturn'])->name('vnpay.return');
+Route::get('return/vnpay_ipn', [VnpayController::class, 'vnpayIpn'])->name('vnpay.ipn');
+// PAYMENT momo
+Route::get('return/momo', [MomoController::class, 'momoReturn'])->name('momo.return');
+Route::get('return/momo_ipn', [MomoController::class, 'momoIpn'])->name('momo.ipn');
 
 
 //FONTEND
@@ -72,24 +83,37 @@ Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
 
 
 
-// CART
 Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('info', [FontendUserController::class, 'info'])->name('account.info');
+        Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
+        Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
+
+    });
+
+    // CART
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
     });
+    // promotion 
     Route::get('/promotion', [PromotionController::class, 'showAllPromotions'])->name('promotion.index');
-
     Route::post('/promotion/receive/{promotion}', [PromotionController::class, 'receivePromotion'])->name('promotion.receive');
     // Route::get('/my-vouchers', [PromotionController::class, 'myVouchers'])->name('promotion.my_vouchers');
-});
-// WISHLIST
-Route::middleware(['auth'])->group(function () {
+    
+    // ORDER 
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('checkout', [FontendOrderController::class, 'checkout'])->name('order.checkout');
+        Route::post('store', [FontendOrderController::class, 'store'])->name('store.order');
+        Route::get('success', [FontendOrderController::class, 'success'])->name('order.success');
+        Route::get('failed', [FontendOrderController::class, 'failed'])->name('order.failed');
+    });
+    // WISHLIST
     Route::group(['prefix' => 'wishlist'], function () {
         Route::get('index', [AjaxWishlistController::class, 'index'])->name('wishlist.index');
     });
 });
 
-// order
+// order 
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('checkout', [OrderController::class, 'checkout'])->name('order.checkout');
@@ -155,6 +179,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
     });
 
+    
+
     //product
     Route::group(['prefix' => 'product'], function () {
         Route::get('index', [ProductController::class, 'index'])->name('product.index');
@@ -200,17 +226,23 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('destroy/{id}', [PostController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.destroy');
         Route::delete('bulk-delete', [PostController::class, 'destroyMultiple'])->name('post.bulkdelete');
     });
+
+    //order
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('index', [OrderController::class, 'index'])->name('order.index');
+        Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
+        
+    });
 });
 
 // AUTH
-Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
+
 Route::get('login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('store-login', [LoginController::class, 'login'])->name('store.login');
 Route::get('register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('register-store', [RegisterController::class, 'register'])->name('store.register');
 Route::get('/confirm-registration/{token}', [RegisterController::class, 'confirmRegistration'])->name('confirm.registration');
-// bấm để nhận voucher cho người dùng
+// bấm để nhận voucher cho người dùng 
 // Route::post('/receive-voucher/{voucher}', [VoucherController::class, 'receiveVoucher'])->name('user.receiveVoucher');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');

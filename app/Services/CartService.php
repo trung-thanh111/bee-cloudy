@@ -51,7 +51,7 @@ class CartService implements CartServiceInterface
             ]
         );
         $count = 0;
-        if($carts){
+        if ($carts) {
             $cart = Cart::with('cartItems.products', 'cartItems.productVariants')->find($carts->id);
             foreach ($cart->cartItems as $item) {
                 if ($item->products || $item->productVariants) {
@@ -133,23 +133,23 @@ class CartService implements CartServiceInterface
                     ]
                 );
                 if ($cart) {
-                    // loop qua các item trong giỏ hàng
+                    // loop qua các item trong giỏ hàng 
                     foreach ($cart->cartItems as $item) {
                         $payload = $request->input();
-
+                
                         // product_variant_id tồn tại trong payload (request)
                         if ($payload['product_variant_id'] && $item->productVariants && $item->productVariants->id == $payload['product_variant_id']) {
                             // Cập nhật
                             $quantity = $payload['quantity'];
                             $item->update(['quantity' => $quantity]);
-
+                
                         } elseif ($payload['product_id'] && $item->products && $item->products->id == $payload['product_id']) {
                             $quantity = $payload['quantity'];
                             $item->update(['quantity' => $quantity]);
                         }
                     }
                 }
-
+            
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -166,13 +166,13 @@ class CartService implements CartServiceInterface
 
             $id = $payload['product_id'] ? $payload['product_id'] : $payload['product_variant_id'];
             // lấy ra item dựa trên mối quan hệ                         // closure
-            $cartItem = CartItem::whereHas('productVariants', function($query) use ($id) {
+            $cartItem = CartItem::whereHas('productVariants', function ($query) use ($id) {
                 $query->where('product_variant_id', $id);
             })
-            ->orWhereHas('products', function($query) use ($id) {
-                $query->where('product_id', $id);
-            })
-            ->first();
+                ->orWhereHas('products', function ($query) use ($id) {
+                    $query->where('product_id', $id);
+                })
+                ->first();
             if ($cartItem) {
                 $cartItem->delete();
             }
@@ -184,19 +184,19 @@ class CartService implements CartServiceInterface
             return false;
         }
     }
-    public function clear(Request $request)
-{
-    DB::beginTransaction();
-    try {
-        $cartId = $request->input('cart_id');
-        $cart = Cart::where('user_id', Auth::id())
-                      ->first();
-        $cart->delete();
-        DB::commit();
-        return true;
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return false;
+    public function clear()
+    {
+        DB::beginTransaction();
+        try {
+            // $cartId = $request->input('cart_id');
+            $cart = Cart::where('user_id', Auth::id())
+                ->first();
+            $cart->delete();
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
-}
 }

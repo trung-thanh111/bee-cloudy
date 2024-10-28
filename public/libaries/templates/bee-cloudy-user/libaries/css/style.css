@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
@@ -163,7 +165,7 @@
     --bs-gradient: none;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 body {
@@ -172,8 +174,21 @@ body {
     box-sizing: border-box;
     scroll-behavior: smooth;
     background-color: #f3f3f9 !important;
+    font-family: 'Sans-serif', Arial, Helvetica, sans-serif;
 }
 
+/* html,
+body,
+p,
+a,
+span,
+button {
+    font-family: '', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Bạn có thể tùy chỉnh trọng lượng chữ */
+/* } */
 a {
     color: #6c757d;
     cursor: pointer;
@@ -190,6 +205,10 @@ a {
 
 .fz-8 {
     font-size: 8px !important;
+}
+
+.fz-9 {
+    font-size: 9px !important;
 }
 
 .fz-10 {
@@ -372,6 +391,108 @@ a {
     overflow-y: auto;
 }
 
+
+.menu-dropdown-v2 {
+    display: none;
+    width: 200px;
+    background-color: #fff;
+    z-index: 1000;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    padding: 0;
+}
+
+.menu-dropdown-v2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 10px;
+    height: 100%;
+}
+
+.menu-item-v2:hover>.menu-dropdown-v2,
+.menu-dropdown-v2:hover {
+    display: block;
+}
+
+.menu-dropdown-v3 {
+    display: none;
+    width: 200px;
+    background-color: #fff;
+    z-index: 1000;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    padding: 0;
+}
+
+.menu-dropdown-v3::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 10px;
+    height: 100%;
+}
+
+.menu-item-v2:hover>.menu-dropdown-v3,
+.menu-dropdown-v3:hover {
+    display: block;
+}
+
+.menu-item-v2 {
+    padding-right: 10px;
+    position: relative;
+}
+
+.menu-item-v3 {
+    padding-right: 10px;
+    position: relative;
+}
+
+.menu-dropdown-v2 ul {
+    margin: 0;
+    padding: 10px;
+}
+
+.menu-dropdown-v2,
+.menu-dropdown-v3 {
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    display: block;
+}
+
+.menu-item-v2:hover>.menu-dropdown-v2,
+.menu-dropdown-v2:hover,
+.menu-item-v2:hover>.menu-dropdown-v3,
+.menu-dropdown-v3:hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+    white-space: nowrap;
+}
+
+
+.menu-item-v2r>.d-flex::after,
+.menu-item-v2>.d-flex::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 0;
+    width: 10px;
+    height: 100%;
+}
+
+
 /* breadcumd  */
 
 .bg-main-color {
@@ -383,14 +504,14 @@ a {
 }
 
 .header-profile {
-    background-image: url('/libaries/images/bg-profile.jpg');
+    background-image: url('/libaries/templates/bee-cloudy-user/libaries/images/bg-profile.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
 .header-post {
-    background-image: url('/libaries/images/bg-title.jpg');
+    background-image: url('/libaries/templates/bee-cloudy-user/libaries/images/bg-title.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 3px;
@@ -416,18 +537,6 @@ a {
     z-index: -1;
 }
 
-.title-head-post::after {
-    /* content: '';
-    position: absolute;
-    bottom: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 20px;
-    background-color: white;
-    border-bottom-left-radius: 50%;
-    border-bottom-right-radius: 50%; */
-}
 
 .dropdown-icon-profile {
     display: none;
@@ -628,16 +737,17 @@ hr {
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #595c5f !important;
-    line-height: 33px !important; 
+    line-height: 33px !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height : 35px !important;
+    height: 35px !important;
     position: absolute;
     top: 1px;
     right: 5px !important;
     width: 20px;
 }
+
 
 /* change pass  */
 .input-group-password {
@@ -1215,10 +1325,10 @@ hr {
     padding-left: 30px !important;
 }
 
-.bg-cart{
+.bg-cart {
     border-radius: 5px;
     margin-bottom: 10px;
-    height: 250px ;
+    height: 250px;
     background-color: #7793db;
     box-shadow: 1px 1px 2px rgba(255, 255, 255);
 }
@@ -1247,15 +1357,16 @@ hr {
 .input-group button {
     border-radius: 0 !important;
 }
+
 /* Trang chủ */
 .category-item {
     position: relative;
-    height: 550px; 
+    height: 550px;
     overflow: hidden;
 }
 
 .category-item img {
-    width: 100%; 
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
@@ -1271,9 +1382,10 @@ hr {
 }
 
 /* giới thiệu */
-.img-about{
+.img-about {
     max-width: 100%;
 }
+
 /* .text-justify-css{
     text-align: justify;
 } */
@@ -1290,6 +1402,7 @@ footer {
     color: #2565db !important;
     text-decoration: underline !important;
 }
+
 .fl-wrapper {
     top: 20px !important;
     z-index: 9999 !important;
@@ -1301,8 +1414,32 @@ footer {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .2), 0 4px 6px -2px rgba(0, 0, 0, .1) !important;
     color: #4b5563 !important;
 }
-.count-element{
+
+.count-element {
     top: 15px !important;
     width: 22px !important;
     height: 20px !important;
+}
+
+
+/* custom more */
+.truncate-custom {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 5rem;
+    line-height: 1.5em;
+}
+
+.nav-tabs .nav-link.active {
+    border: 0px solid #14b6a0 !important;
+    background-color: #fff !important;
+    color: #14b6a0 !important;
+    border-bottom: 3px solid #14b6a0 !important;
+}
+
+.order-detail-table .table thead {
+    color: #fff !important;
+    background-color: #14b6a0 !important;
 }
