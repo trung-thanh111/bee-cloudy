@@ -30,6 +30,10 @@
 <script src="/libaries/js/cart.js"></script>
 {{-- wishlist  --}}
 <script src="/libaries/js/wishlist.js"></script>
+{{-- address  --}}
+<script src="/libaries/js/address_vn.js"></script>
+{{-- set up val order final  --}}
+<script src="/libaries/js/val_order.js"></script>
 {{-- search  --}}
 <script src="/libaries/js/search_suggestions.js"></script>
 {{-- flaher notify  --}}

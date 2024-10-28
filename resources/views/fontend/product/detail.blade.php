@@ -42,8 +42,10 @@
                     //-- //
                     $totalSoldCount = 0;
                     $totalReviewCount = 0;
+                    $variantId = 0;
                     foreach ($product->productVariant as $variant) {
                         $totalSoldCount += $variant->sold_count;
+                        $variantId = $variant->id;
                     }
 
                     foreach ($product->productVariant as $variant) {
@@ -68,12 +70,13 @@
                                     @endif
 
                                 </ul>
+                                {{-- @dd($variantId) --}}
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
-                                    data-bs-title="Thêm vào yêu thích">
+                                    data-bs-title="{{ in_array($variantId, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}">
                                     <div class="position-relative">
                                         <button type="button" class="position-absolute start-50 translate-middle "
                                             style="top: 20px;">
-                                            <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
+                                            <i class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
                                         </button>
                                     </div>
                                     <span class="product_variant_id_wishlist d-none"></span>
@@ -861,6 +864,10 @@
             </div>
         </div>
     </section>
+    <script>
+        // tuyền mảng id product và productvariant sang js đổ vào chuổi
+        let productInWishlist = @json($productInWishlist);
+    </script>
 @endsection
 @section('js')
     <script>
@@ -945,7 +952,7 @@
                     const options = {
                         day: '2-digit',
                         month: '2-digit',
-                        year: 'numeric',
+                        year: 'numeric',p
                         hour: '2-digit',
                         minute: '2-digit',
                         second: '2-digit',
