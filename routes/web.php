@@ -22,12 +22,34 @@ use App\Http\Controllers\Fontend\OrderController;
 use App\Http\Controllers\Fontend\PostController as FontendPostController;
 use App\Http\Controllers\Fontend\ShopController;
 use App\Http\Controllers\Backend\PromotionController;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Route;
 
-// AJAX 
+//ĐÁNH GIÁ SẢN PHẨM
+Route::get('/producreview', [ProductReviewController::class, 'index']);
+Route::get('/information', [ProductReviewController::class, 'view_order']);
+Route::get('/producreview-data/{slug}', [ProductReviewController::class, 'data']);
+Route::post('/producreview/create/{slug}', [ProductReviewController::class, 'create']);
+Route::post('/producreview-delete', [ProductReviewController::class, 'delete']);
+Route::post('/producreview-update', [ProductReviewController::class, 'update']);
+
+
+// BÌNH LUẬN BÀI VIẾT
+Route::get('/view-content', [ContentController::class, 'view_content']);
+Route::get('/view-content-data', [ContentController::class, 'data']);
+Route::post('/view-content-create', [ContentController::class, 'create']);
+Route::post('/view-content-delete', [ContentController::class, 'delete']);
+Route::post('/view-content-update', [ContentController::class, 'update']);
+
+
+
+// AJAX
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
 Route::get('/ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
 Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
+
 // CART AJAX
 Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->name('ajax.cart.addToCart');
 Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])->name('ajax.cart.updateCart');
@@ -67,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-// order 
+// order
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('checkout', [OrderController::class, 'checkout'])->name('order.checkout');
@@ -97,7 +119,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [AttributeCatalogueController::class, 'destroyMultiple'])->name('attribute.catalogue.bulkdelete');
     });
 
-    // attribute 
+    // attribute
     Route::group(['prefix' => 'attribute'], function () {
         Route::get('index', [AttributeController::class, 'index'])->name('attribute.index');
         Route::get('create', [AttributeController::class, 'create'])->name('attribute.create');
@@ -188,7 +210,7 @@ Route::post('store-login', [LoginController::class, 'login'])->name('store.login
 Route::get('register', [RegisterController::class, 'index'])->name('auth.register');
 Route::post('register-store', [RegisterController::class, 'register'])->name('store.register');
 Route::get('/confirm-registration/{token}', [RegisterController::class, 'confirmRegistration'])->name('confirm.registration');
-// bấm để nhận voucher cho người dùng 
+// bấm để nhận voucher cho người dùng
 // Route::post('/receive-voucher/{voucher}', [VoucherController::class, 'receiveVoucher'])->name('user.receiveVoucher');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
