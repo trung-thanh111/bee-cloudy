@@ -549,7 +549,7 @@
                                             <tr style="height: 50px;">
                                                 <td class="fz-16" colspan="2">Thành tiền:</td>
                                                 <td class="fw-semibold text-end">
-                                                    {{ number_format($total, 0, ',', '.') }}đ
+                                                    {{-- {{ number_format($total, 0, ',', '.') }}đ --}}
                                                 </td>
                                             </tr>
                                             <tr style="height: 50px;">
@@ -566,7 +566,7 @@
                                                 <th colspan="2">Tổng tiền:</th>
                                                 <td class="text-end">
                                                     <span class="fw-semibold" id="cart-total-price">
-                                                        {{ number_format($total + 25000, '0', ',', '.') . 'đ' }}
+                                                        {{-- {{ number_format($total + 25000, '0', ',', '.') . 'đ' }} --}}
                                                     </span>
                                                 </td>
                                             </tr>

@@ -4,10 +4,10 @@
 <head>
     {{-- head  --}}
     @include('fontend.home.components.head')
-    
+
 </head>
 
-<body >
+<body>
     <!-- header  -->
     @include('fontend.home.components.header')
     <!-- end header  -->
@@ -19,6 +19,8 @@
     @include('fontend.home.components.footer')
 
     <!-- end footer  -->
+    @yield('js')
+
 </body>
 {{-- script  --}}
 @include('fontend.home.components.script')
