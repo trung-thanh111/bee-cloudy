@@ -43,6 +43,10 @@ public function userVouchers()
 {
     return $this->hasMany(UserVoucher::class, 'promotion_id');
 }
+public function getPromotionProducts()
+{
+    return PromotionProductVariant::where('promotion_id', $this->id)->pluck('product_id')->toArray();
+}
 
 
 

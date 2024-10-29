@@ -311,8 +311,8 @@ Giỏ hàng
                                             <tr style="height: 50px;">
                                                 <td class="fz-16" colspan="2">Giảm giá:</td>
                                                 <td class="fw-semibold text-end" id="discount-amount">
-                                                    @if(session()->has('discount'))
-                                                        -{{ number_format(session('discount'), 0, ',', '.') }}đ
+                                                    @if(session()->has('total_discount'))
+                                                        {{ number_format(session('total_discount'), 0, ',', '.') }}đ
                                                     @else
                                                         0 đ
                                                     @endif
@@ -336,8 +336,9 @@ Giỏ hàng
                                                     <span class="fw-semibold" id="cart-total-price">
                                                         @php
                                                             $totalPrice = $total;
-                                                            $shippingFee = session()->has('shipping_fee') ? 0 : 25000;
+                                                            $shippingFee = session()->has('shipping_fee') ? session('shipping_fee') : 25000;
                                                             $totalPriceWithShipping = $totalPrice + $shippingFee;
+
                                                             if (isset($userPromotion) && $userPromotion->apply_for === 'all' && session()->has('discount')) {
                                                                 $totalPriceWithShipping -= session('discount');
                                                             }

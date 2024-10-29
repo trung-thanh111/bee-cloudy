@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('product_variant_id')->references('id')->on('product_variants')->onDelete('cascade');
             $table->integer('quantity')->default(0);
             $table->double('price')->default(0);
+            $table->decimal('original_price', 10, 2)->nullable()->after('price');
             $table->timestamps();
         });
     }

@@ -35,5 +35,14 @@ class Cart extends Model
     {
         return $this->belongsToMany(Promotion::class, 'cart_promotions', 'cart_id', 'promotion_id');
     }
+    public function calculateTotals(): float|int
+    {
+        $total = 0;
+        foreach ($this->cartItems as $item) {
+            $total += $item->price * $item->quantity;
+        }
+        return $total;
+    }
+
 
 }
