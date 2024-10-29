@@ -130,25 +130,26 @@ class CartService implements CartServiceInterface
                 ['cartItems', 'cartItems.productVariants', 'cartItems.productVariants.attributes', 'cartItems.products'],
                 [
                     ['user_id', Auth::id()],
-                ]
-            );
-            if ($cart) {
-                // loop qua các item trong giỏ hàng 
-                foreach ($cart->cartItems as $item) {
-                    $payload = $request->input();
-
-                    // product_variant_id tồn tại trong payload (request)
-                    if ($payload['product_variant_id'] && $item->productVariants && $item->productVariants->id == $payload['product_variant_id']) {
-                        // Cập nhật
-                        $quantity = $payload['quantity'];
-                        $item->update(['quantity' => $quantity]);
-                    } elseif ($payload['product_id'] && $item->products && $item->products->id == $payload['product_id']) {
-                        $quantity = $payload['quantity'];
-                        $item->update(['quantity' => $quantity]);
+                    ]
+                );
+                if ($cart) {
+                    // loop qua các item trong giỏ hàng 
+                    foreach ($cart->cartItems as $item) {
+                        $payload = $request->input();
+                
+                        // product_variant_id tồn tại trong payload (request)
+                        if ($payload['product_variant_id'] && $item->productVariants && $item->productVariants->id == $payload['product_variant_id']) {
+                            // Cập nhật
+                            $quantity = $payload['quantity'];
+                            $item->update(['quantity' => $quantity]);
+                
+                        } elseif ($payload['product_id'] && $item->products && $item->products->id == $payload['product_id']) {
+                            $quantity = $payload['quantity'];
+                            $item->update(['quantity' => $quantity]);
+                        }
                     }
                 }
-            }
-
+            
             DB::commit();
             return true;
         } catch (\Exception $e) {

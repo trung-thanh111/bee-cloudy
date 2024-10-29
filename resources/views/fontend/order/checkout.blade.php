@@ -407,62 +407,59 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr>
-                                                    <td colspan="3">
-                                                        <div class="bg-light-subtle border-success-subtle p-0"></div>
-                                                        <div class="text-start">
-                                                            <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
-                                                        </div>
-                                                        <div class="hstack gap-2">
-                                                            <input class="form-control me-auto" type="text"
-                                                                placeholder="Nhập mã voucher">
-                                                            <button type="button"
-                                                                class="btn btn-success fw-500 w-25 rounded-1">Áp
-                                                                mã</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr style="height: 50px;">
-                                                    <td class="fz-16" colspan="2">Thành tiền:</td>
-                                                    <td class="fw-semibold text-end">
-                                                        {{ number_format($total, 0, ',', '.') }}đ
-                                                    </td>
-                                                </tr>
-                                                <tr style="height: 50px;">
-                                                    <td class="fz-16" colspan="2">Giảm giá:
-                                                    </td>
-                                                    <td class="fw-semibold text-end">0</td>
-                                                </tr>
-                                                <tr style="height: 60px;">
-                                                    <td class="fz-16" colspan="2">Phí vận chuyển:</td>
-                                                    <td class="fw-semibold text-end">25.000đ</td>
-                                                </tr>
-                                                <tr class="" style="height: 50px;">
-                                                    <th colspan="2">Tổng tiền:</th>
-                                                    <td class="text-end">
-                                                        <span class="fw-semibold" id="cart-total-price">
-                                                            {{ number_format($total + 25000, '0', ',', '.') . 'đ' }}
-                                                        </span>
-                                                        <input type="hidden" name="total_amount" id="total_amount"
-                                                            value="{{ $total + 25000 }}">
-                                                    </td>
-                                                </tr>
-                                                <tr class="" style="height: 50px;">
-                                                    <td colspan="3">
-                                                        <a href="{{ route('order.checkout') }}"
-                                                            class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
-                                                            hành thanh toán</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <div class="bg-light-subtle border-success-subtle p-0"></div>
+                                                    <div class="text-start">
+                                                        <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
+                                                    </div>
+                                                    <div class="hstack gap-2">
+                                                        <input class="form-control me-auto" type="text"
+                                                            placeholder="Nhập mã voucher" name="discount">
+                                                        <button type="button"
+                                                            class="btn btn-success fw-500 w-25 rounded-1">Áp
+                                                            mã</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td class="fz-16" colspan="2">Thành tiền:</td>
+                                                <td class="fw-semibold text-end">
+                                                    {{ number_format($total, 0, ',', '.') }}đ
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 50px;">
+                                                <td class="fz-16" colspan="2">Giảm giá:
+                                                </td>
+                                                <td class="fw-semibold text-end">0</td>
+                                            </tr>
+                                            <tr style="height: 60px;">
+                                                <td class="fz-16" colspan="2">Phí vận chuyển:</td>
+                                                <td class="fw-semibold text-end">25.000đ</td>
+                                            </tr>
+
+                                            <tr class="" style="height: 50px;">
+                                                <th colspan="2">Tổng tiền:</th>
+                                                <td class="text-end">
+                                                    <span class="fw-semibold" id="cart-total-price">
+                                                        {{ number_format($total + 25000, '0', ',', '.') . 'đ' }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr class="" style="height: 50px;">
+                                                <td colspan="3">
+                                                    <a href="{{ route('order.checkout') }}"
+                                                        class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
+                                                        hành thanh toán</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                </form>
+                </div>
                 <hr class="border-2">
                 <!-- product similar  -->
                 <div class="product-similar mb-3 text-muted">

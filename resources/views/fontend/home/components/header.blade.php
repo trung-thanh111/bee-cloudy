@@ -29,43 +29,43 @@
                                 </button>
                             </div>
                             <div class="position-relative">
-                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3 card-height-100">
-                                    <div class="card card-height-100 p-2 border-0 rounded-1 shadow-sm justify-content-center"
-                                        style="width: 500px !important">
-                                        <div class="card-body py-2 px-2">
-                                            <div class="title-search-recent">
-                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Sản phẩm
-                                                    mới</h6>
-                                            </div>
-                                            <div class="content-search-recent mt-3">
-                                                @if ($nameStand->isNotEmpty())
-                                                    @foreach ($nameStand as $key => $keywordStand)
-                                                        <span
-                                                            class="search-recent-item search-item m-1 fz-14 text-truncate"
-                                                            style="max-width: 200px">
-                                                            <a href="javascipt:void(0)"
-                                                                class="text-decoration-none text-muted">
-                                                                <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                                <span
-                                                                    class="keyword-recent ">{{ $keywordStand->name }}</span>
-                                                            </a>
-                                                        </span>
-                                                    @endforeach
-                                                @endif
-                                            </div>
+                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3"
+                                style="top: 165px; height: auto">
+                                <div class="card p-2 border-0 rounded-1 shadow-sm justify-content-center"
+                                    style="width: 500px !important">
+                                    <div class="card-body py-2 px-2">
+                                        <div class="title-search-recent">
+                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Sản phẩm mới</h6>
                                         </div>
-                                        <div class="card-body list-search d-none py-2 px-2">
-                                            <div class="title-search-recent">
-                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách tìm kiếm</h6>
-                                            </div>
-                                            <div class="content-search-hot mt-3 d-block overflow-y-auto"
-                                                style="max-height: 100px">
-                                                <ul id="suggestions-list" class="list-unstyled">
-                                                </ul>
-                                            </div>
+                                        <div class="content-search-recent mt-3">
+                                            @if ($nameStand->isNotEmpty())
+                                                @foreach ($nameStand as $key => $keywordStand)
+                                                    <span class="search-recent-item search-item m-1 fz-14 text-truncate"
+                                                        style="max-width: 200px">
+                                                        <a href="javascipt:void(0)"
+                                                            class="text-decoration-none text-muted">
+                                                            <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                            <span
+                                                                class="keyword-recent ">{{ $keywordStand->name }}</span>
+                                                        </a>
+                                                    </span>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="card-body list-search d-none py-2 px-2 ">
+                                        <div class="title-search-recent">
+                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách tìm
+                                                kiếm</h6>
+                                        </div>
+                                        <div class="content-search-hot mt-3 d-block overflow-y-auto"
+                                            style="max-height: 100px">
+                                            <ul id="suggestions-list" class="list-unstyled">
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
 
                         </form>
@@ -183,25 +183,17 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="menu-li-item px-2 py-3 align-items-center position-relative">
-                                <a href="{{ route('post.page') }}"
-                                    class="menu-item-a text-uppercase text-decoration-none fz-16">Bài viết
-                                    <i class="fa-solid fa-minus fz-12 fw-bold"></i>
-                                </a>
-                                <ul class="ul-menu-header p-0 dropdown-content list-unstyled">
-                                    @if ($postCatalogues)
-                                        @foreach ($postCatalogues as $keyPostCate => $valPostCate)
-                                            <li class="nav-item li-menu-header">
-                                                <a href="#"
-                                                    class="d-flex justify-content-between align-items-center px-1">
-                                                    <span class="nav-link menu-link p-0 text-muted">
-                                                        {{ $valPostCate->name }}
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    @endif
-
+                            <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                <a href="#"
+                                    class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Bài
+                                    viết <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                <ul class="ul-menu-header p-0 dropdown-content">
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Danh mục</a></li>
                                 </ul>
                             </li>
 
@@ -388,4 +380,5 @@
             </nav>
         </div>
     </header>
+    
 </section>

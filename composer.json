@@ -10,7 +10,6 @@
     "require": {
         "php": "^8.2",
         "anayarojo/shoppingcart": "^4.2",
-        "doctrine/dbal": "^4.2",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.16",
