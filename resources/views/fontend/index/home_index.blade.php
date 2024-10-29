@@ -962,4 +962,12 @@ Trang Chủ
         </a>
     </div> -->
 </div>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1">  </script>
+    <df-messenger
+    intent="WELCOME"
+    chat-title="Bee-Cloud"
+    agent-id="77464b2d-dda6-4e14-84b3-f3f333581334"
+    language-code="vi"
+></df-messenger>
+
 @endsection
