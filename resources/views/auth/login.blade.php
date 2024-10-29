@@ -3,8 +3,33 @@
     Đăng nhập
 @endsection
 @section('content')
-    <section>
-        <div class="row justify-content-center">
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-lg-4 col-xl-4">
+            <div class="card border-0 shadow-sm mt-4 card-bg-fill">
+                <div class="card-body p-4">
+                    <div class="text-center mt-2">
+                        <h5 class="text-body fz-18">Đăng nhập</h5>
+                        <p class="text-muted fz-14">Chào mừng bạn đã trở lại!</p>
+                    </div>
+                    <div class="p-2 mt-4">
+                        <form action="{{ route('store.login') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" name="email" id="email"
+                                    placeholder="Nhập email" value="{{ old('email') }}">
+                                @if ($errors->has('email'))
+                                    <span class="text-danger fz-12 mt-1">{{ $errors->first('email') }}</span>
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <div class="float-end">
+                                    <a href="{{ route('password.request') }}" class="text-muted fz-14">Quên mật khẩu?</a>
+                                </div>
+
+        {{-- <div class="row justify-content-center">
+>>>>>>> c78590fd (suaformDN)
             <div class="col-md-4 col-lg-4 col-xl-4">
                 <div class="card border-0 shadow-sm mt-4 card-bg-fill">
                     <div class="card-body p-4">
@@ -26,7 +51,7 @@
                                 <div class="mb-3">
                                     <div class="float-end">
                                         <a href="#" class="text-muted fz-14">Quên mật khẩu?</a>
-                                    </div>
+                                    </div> --}}
                                     <div class="mb-3">
                                         <label class="form-label" for="password-input">Mật khẩu</label>
                                         <div class="input-group flex-nowrap">
@@ -42,9 +67,9 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                    <label class="form-check-label fz-14" for="auth-remember-check">Ghi nhớ đăng
+                                <div class="form-check d-flex align-items-center">
+                                    <input class="form-check-input " type="checkbox" value="" id="auth-remember-check">
+                                    <label class="form-check-label fz-14 " for="auth-remember-check"> Ghi nhớ đăng
                                         nhập</label>
                                 </div>
                                 <div class="mt-4">

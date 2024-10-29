@@ -4,6 +4,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@yield('page_title')</title>
 <!-- css  -->
+<style>
+    .on-top{
+        margin-bottom: 50px; 
+    }
+</style>
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/comment.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/acount.css">

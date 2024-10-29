@@ -1763,7 +1763,7 @@
     <!-- back to top  -->
     <!-- footer  -->
     <section>
-        <div class="">
+        <div class="on-top">
             <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
                 style="bottom: 60px; right: 30px;">
                 <div class=" border-2 rounded-circle">
