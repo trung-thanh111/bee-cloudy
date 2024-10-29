@@ -27,9 +27,12 @@
                                 <div class="float-end">
                                     <a href="{{ route('password.request') }}" class="text-muted fz-14">Quên mật khẩu?</a>
                                 </div>
-
         {{-- <div class="row justify-content-center">
 >>>>>>> c78590fd (suaformDN)
+=======
+    <section>
+        <div class="row justify-content-center">
+>>>>>>> be52a451821e28bdfa427f9c68a22be32c01ce40
             <div class="col-md-4 col-lg-4 col-xl-4">
                 <div class="card border-0 shadow-sm mt-4 card-bg-fill">
                     <div class="card-body p-4">
@@ -40,6 +43,7 @@
                         <div class="p-2 mt-4">
                             <form action="{{ route('store.login') }}" method="POST">
                                 {{ csrf_field() }}
+
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="text" class="form-control" name="email" id="email"
