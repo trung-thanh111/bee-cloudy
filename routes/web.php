@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
 use App\Http\Controllers\Fontend\OrderController as FontendOrderController;
@@ -24,6 +25,10 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Fontend\PostController as FontendPostController;
 use App\Http\Controllers\Fontend\ShopController;
 use App\Http\Controllers\Backend\PromotionController;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\Fontend\MomoController;
+use App\Http\Controllers\Fontend\VnpayController;
+use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Route;
 
 //ĐÁNH GIÁ SẢN PHẨM
