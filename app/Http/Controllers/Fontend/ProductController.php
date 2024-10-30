@@ -59,4 +59,5 @@ class ProductController extends Controller
             // 'isColor',
         ));
     }
+    
 }

@@ -149,7 +149,7 @@ class ShopService implements ShopServiceInterface
             $maxPrice = $priceRange[1];
             $query->whereBetween('price', [$minPrice, $maxPrice]);
         }
-        dd($query->toSql());
+        
 
 
         // Lấy kết quả

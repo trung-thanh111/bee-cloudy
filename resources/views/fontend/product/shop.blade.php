@@ -19,8 +19,8 @@
                 <!-- content detail -->
                 <div class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
-                        <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
-                            <h2 class="text-uppercase">Cửa hàng</h2>
+                        <div class="title-category  position-absolute top-50 w-75 translate-middle" style="left: 50%;">
+                            <h2 class="text-uppercase text-start">Cửa hàng</h2>
                             <p class="fz-14">Bạn có thể tham khảo các mẫu áo quần tại đây.</p>
                         </div>
                     </div>
@@ -31,13 +31,13 @@
                                     @if ($productCatalogues)
                                         @foreach ($productCatalogues as $keyPCate => $valPCate)
                                             <li class="splide__slide">
-                                                <a href="#">
+                                                <a href="{{ route('product.category', ['id' => $valPCate->id]) }}">
                                                     <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
                                                         <img src="{{ $valPCate->image }}" alt="product image" width="100%"
                                                             height="160" class=" rounded-top-3 object-fit-cover">
                                                         <div class="card-body bg-light p-2 rounded-bottom-3">
                                                             <h5 class="fw-medium">
-                                                                <a href="#"
+                                                                <a href="{{ route('product.category', ['id' => $valPCate->id]) }}"
                                                                     class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">{{ $valPCate->name }}</a>
                                                             </h5>
                                                             <div class="catagory-item-text">
@@ -345,6 +345,7 @@
                                                             data-id="{{ $product->id }}">
                                                             <i
                                                                 class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
                                                             <span class="product_id_wishlist d-none">
                                                                 {{ $product->id }}
                                                             </span>

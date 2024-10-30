@@ -35,6 +35,7 @@ class ShopController extends Controller
     }
     public function index(Request $request)
     {
+
         $productCatalogues = $this->productCatalogueRepository->allWhere([
             ['publish', 1]
         ]);
@@ -54,7 +55,6 @@ class ShopController extends Controller
             ['attribute_catalogue_id', 2]
         ]);
         $productFilter = $this->shopService->productFilter($request);
-        // dd($productFilter);
         // -- //
         return view('fontend.product.shop', compact(
             'productShops',
