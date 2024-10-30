@@ -206,7 +206,7 @@ class OrderService implements OrderServiceInterface
             'keyword' => addslashes($request->input('keyword')),
             'where' => [
                 ['customer_id', '=',  Auth::id()],
-                ['status', '=',  'pending']
+                ['status', '=',  'pending'],
             ]
         ];
         $condition['created_at'] = $request->input('created_at') ;

@@ -122,22 +122,30 @@
   };
   FS.boxQuantity = () => {
     $(".quantity-minus, .quantity-plus").click(function () {
-      var $inputVisible = $(this).siblings("input.form-control");
-      var $inputHidden = $(this).siblings('input[name="quantity"]');
-      var $quantityCart = $(this).siblings('input[name="quantity-product-cart"]')
+        var $inputVisible = $(this).siblings("input.form-control");
+        var $inputHidden = $(this).siblings('input[name="quantity"]');
+        var $quantityCart = $(this).siblings('input[name="quantity-product-cart"]');
 
-      var value = parseInt($inputVisible.val(), 10);
-      if ($(this).hasClass("quantity-minus") && value > 1) {
-        value--;
-      } else if ($(this).hasClass("quantity-plus")) {
-        value++;
-      }
+        // Lấy giá trị hiện tại và giới hạn min/max
+        var value = parseInt($inputVisible.val(), 10);
+        var max = parseInt($inputVisible.attr('max'), 10);
+        var min = parseInt($inputVisible.attr('min'), 10) || 1;
 
-      $inputVisible.val(value);
-      $inputHidden.val(value);
-      $quantityCart.val(value);
+        // Giảm giá trị nếu nhấn nút "minus" và lớn hơn min
+        if ($(this).hasClass("quantity-minus") && value > min) {
+            value--;
+        } 
+        // Tăng giá trị nếu nhấn nút "plus" và nhỏ hơn max
+        else if ($(this).hasClass("quantity-plus") && (!max || value < max)) {
+            value++;
+        }
+
+        $inputVisible.val(value);
+        $inputHidden.val(value);
+        $quantityCart.val(value);
     });
-  };
+};
+
   // FS.boxQuantityCart = () => {
   //   $(".quantity-minus, .quantity-plus").click(function () {
   //     var $inputVisible = $(this).siblings("input.form-control");

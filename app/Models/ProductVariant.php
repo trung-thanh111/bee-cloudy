@@ -46,4 +46,5 @@ class ProductVariant extends Model
     {
         return $this->hasMany(WishList::class, 'product_vairant_id', 'id');
     }
+    
 }

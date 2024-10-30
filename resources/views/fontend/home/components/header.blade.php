@@ -110,9 +110,9 @@
                                         @foreach ($productCategories as $keyPCate => $productCate)
                                             <li
                                                 class="nav-item li-menu-header {{ $productCate->childrenReference->isNotEmpty() ? 'menu-item-v2' : '' }} position-relative">
-                                                <a href=""
+                                                <a href="{{ route('product.category', ['id' => $productCate->id]) }}"
                                                     class="d-flex justify-content-between align-items-center px-1 position-relative ">
-                                                    <span class="nav-link menu-link p-0  text-muted" href="#">
+                                                    <span class="nav-link menu-link p-0 text-muted">
                                                         <span>{{ $productCate->name }}</span>
                                                     </span>
                                                     <i
@@ -128,7 +128,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-between align-items-center px-1 position-relative">
                                                                         <a class="nav-link menu-link p-0 menu-item-v3"
-                                                                            href="#">
+                                                                            href="{{ route('product.category', ['id' => $valChild->id]) }}">
                                                                             <span>{{ $valChild->name }}</span>
                                                                         </a>
                                                                         {{-- <i
@@ -153,7 +153,7 @@
                                         @endforeach
                                     @endif
                                     <li
-                                        class="nav-item li-menu-header menu-item-v2 {{ $brands == null ? 'd-none' : '' }} position-relative">
+                                        class="nav-item li-menu-header menu-item-v2 {{ $brandHeaders == null ? 'd-none' : '' }} position-relative">
                                         <a href=""
                                             class="d-flex justify-content-between align-items-center px-1 position-relative ">
                                             <span class="nav-link menu-link p-0  text-muted" href="#">
@@ -164,8 +164,8 @@
                                         <div
                                             class="menu-dropdown-v2 position-absolute start-100 top-0 p-0 shadow-sm w-100">
                                             <ul class="menu-link p-0 list-unstyled">
-                                                @if ($brands)
-                                                    @foreach ($brands as $keyBrand => $valBrand)
+                                                @if ($brandHeaders)
+                                                    @foreach ($brandHeaders as $keyBrand => $valBrand)
                                                         <li
                                                             class="nav-item li-menu-header position-relative ps-2 menu-item-v2">
                                                             <a href="#"

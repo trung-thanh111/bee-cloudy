@@ -89,6 +89,34 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarMembers" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarMembers">
+                        <i class="ri-group-fill"></i> <span data-key="t-pages">Thành viên</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarMembers">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('user.catalogue.index') }}" class="nav-link" data-key="t-starter"> Nhóm thành viên </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarUser" class="nav-link" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="false" aria-controls="sidebarUser" data-key="t-User"> Thành viên
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarUser">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('user.index') }}" class="nav-link" data-key="t-simple-page"> Quản lý</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('user.create') }}" class="nav-link" data-key="t-simple-page"> Thêm mới</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPagesvoucher">
                         <i class="fa-solid fa-ticket"></i> <span data-key="t-pages">Voucher</span>

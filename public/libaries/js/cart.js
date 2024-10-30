@@ -21,7 +21,6 @@
 
             let attribute_id = [];
             $(".attribute-value .choose-attribute").each(function (e) {
-                // e.preventDefault();
                 let _this = $(this);
                 if (_this.hasClass("active")) {
                     attribute_id.push(_this.attr("data-attributeId"));

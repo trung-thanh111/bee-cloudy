@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Attribute;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Repositories\CartRepository;
@@ -35,7 +36,7 @@ class CartService implements CartServiceInterface
     public function all()
     {
         return $this->cartRepository->all(
-            ['cartItems', 'cartItems.productVariants', 'cartItems.productVariants.attributes', 'cartItems.products'],
+            ['cartItems', 'cartItems.productVariants', 'cartItems.products'],
             [
                 ['user_id', Auth::id()],
             ]
@@ -45,7 +46,7 @@ class CartService implements CartServiceInterface
     public function countProductIncart()
     {
         $carts = $this->cartRepository->all(
-            ['cartItems', 'cartItems.productVariants', 'cartItems.productVariants.attributes', 'cartItems.products'],
+            ['cartItems', 'cartItems.productVariants', 'cartItems.products'],
             [
                 ['user_id', Auth::id()],
             ]
@@ -84,7 +85,7 @@ class CartService implements CartServiceInterface
             if (isset($payload['attribute_id']) && $payload['attribute_id']) {
                 $attributeId = sortAttributeId($payload['attribute_id']);
                 $productVariant = $this->productVariantRepository->findVariant($attributeId, $product->id);
-
+                // dd($productVariant->id);
                 $data['product_id'] = null;
                 $data['product_variant_id'] = $productVariant->id;
                 $data['price'] = str_replace('.', '', $productVariant->price);
@@ -103,17 +104,10 @@ class CartService implements CartServiceInterface
                 $cartItem->quantity += $data['quantity'];
                 $cartItem->save();
             } else {
-                $cartItem = new CartItem();
-                $cartItem->cart_id = $data['cart_id'];
-                $cartItem->product_id = $data['product_id'];
-                $cartItem->product_variant_id = $data['product_variant_id'];
-                $cartItem->quantity = $data['quantity'];
-                $cartItem->price = $data['price'];
-                $cartItem->save();
+                CartItem::create($data);
             }
-            // dd($cartItem);
             DB::commit();
-            return true;
+            return;
         } catch (\Exception $e) {
             DB::rollBack();
             echo $e->getMessage();
@@ -127,7 +121,7 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $cart = $this->cartRepository->all(
-                ['cartItems', 'cartItems.productVariants', 'cartItems.productVariants.attributes', 'cartItems.products'],
+                ['cartItems', 'cartItems.productVariants', 'cartItems.products'],
                 [
                     ['user_id', Auth::id()],
                 ]
@@ -174,6 +168,8 @@ class CartService implements CartServiceInterface
                 ->first();
             if ($cartItem) {
                 $cartItem->delete();
+            } else {
+                return redirect()->back();
             }
             DB::commit();
             return true;
@@ -197,5 +193,20 @@ class CartService implements CartServiceInterface
             DB::rollBack();
             return false;
         }
+    }
+    public function findAttributesByCode()
+    {
+        $carts = $this->all();
+        $attributesByCartItem = [];
+        foreach ($carts->cartItems as $cartItem) {
+            if ($cartItem->productVariants) {
+                $codeIds = explode(',', $cartItem->productVariants->code);
+                $attributes = Attribute::whereIn('id', $codeIds)->get();
+
+                //lấy dúng attribut của cartitem đó
+                $attributesByCartItem[$cartItem->id] = $attributes;
+            }
+        }
+        return $attributesByCartItem;
     }
 }

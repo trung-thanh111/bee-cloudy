@@ -40,36 +40,30 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         ->paginate($perPage);
     }
 
-    public function create(array $payload){
-        $model = $this->model->create($payload);
-        // fresh() se tai lai ban ghi vua dc tao vs du lieu moi nhat
-        return $model->fresh();
-    }
 
-    public function findById(int $id = 0, array $relation = [])
+    // public function findById(int $id = 0, array $relation = [])
+    // {
+    //     $model = $this->model;
+
+    //     if (!empty($relation)) {
+    //         $model = $model->with($relation);
+    //     }
+    //     return $model->findOrFail($id);
+    // }
+
+    // public function findBySlug(string $slug = '', array $relation = [])
+    // {
+    //     $model = $this->model->where('slug', $slug);
+    //     //neu co quan he can tai thi sudung with truyen vao quan he
+    //     if (!empty($relation)) {
+    //         $model = $model->with($relation);
+    //     }
+    //     return $model->first();
+    // }
+
+    public function updateById($id = 0, array $payload = [])
     {
-        $model = $this->model;
-
-        if (!empty($relation)) {
-            $model = $model->with($relation);
-        }
-        return $model->findOrFail($id);
-    }
-
-    public function findBySlug(string $slug = '', array $relation = [])
-    {
-        $model = $this->model->where('slug', $slug);
-        //neu co quan he can tai thi sudung with truyen vao quan he
-        if (!empty($relation)) {
-            $model = $model->with($relation);
-        }
-        return $model->first();
-    }
-
-    public function update(string $slug = '', array $payload = [])
-    {
-        // tim theo ban ghi k can quan he K truyen ralation
-        $model = $this->findBySlug($slug);
+        $model = $this->findById($id);
         if ($model) {
             $model->update($payload);
             return $model->fresh();
@@ -77,14 +71,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         return false;
     }
 
-    // xoa mem
-    public function delete(int $id = 0){
-        return $this->findById($id)->delete();
-    }
+    // // xoa mem
+    // public function delete(int $id = 0){
+    //     return $this->findById($id)->delete();
+    // }
 
-    // xoa cung
-    public function forceDelete(int $id = 0){
-        return $this->findById($id)->forceDelete();
-    }
+    // // xoa cung
+    // public function forceDelete(int $id = 0){
+    //     return $this->findById($id)->forceDelete();
+    // }
 }
 

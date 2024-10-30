@@ -165,22 +165,6 @@
                         <tr>
                             <td style="width: 60%">
                                 <div class="product-info">
-
-                                    {{-- @if ($val->productVariants && $val->productVariants->album != '0' && !empty($val->productVariants->album))
-                                        @php
-                                            $images = explode(',', $val->productVariants->album);
-                                            $imageUrl = $BASE_URL . '/' . trim($images[0]);
-                                        @endphp
-                                        <img src="{{ $imageUrl }}" alt="Product Variant Image" width="60"
-                                            height="40" style="border-radius: 5px;">
-                                    @elseif ($val->products && !empty($val->products->image))
-                                        <img src="{{ $BASE_URL . $val->products->image }}" alt="Product Image"
-                                            width="60" height="40" style="border-radius: 5px;">
-                                    @else
-                                        <img src="{{ $BASE_URL }}/libaries/upload/libaries/images/img-notfound.png"
-                                            alt="Product Image" width="60" height="40"
-                                            style="border-radius: 5px;">
-                                    @endif --}}
                                     <div class="product-details">
                                         <span class="product-name">{{ $val->product_name }}</span>
                                     </div>

@@ -9,6 +9,7 @@ use App\Repositories\ProductRepository;
 use App\Repositories\AttributeCatalogueRepository;
 use App\Repositories\AttributeRepository;
 use App\Repositories\ProductVariantAttributeRepository;
+use App\Repositories\ProductVariantRepository;
 use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,7 @@ use Illuminate\Support\Str;
 class ProductService implements ProductServiceInterface
 {
     protected $productRepository;
+    protected $productVariantRepository;
     protected $attributeCatalogueRepository;
     protected $attributeRepository;
     protected $productVariantAttributeRepository;
@@ -29,13 +31,15 @@ class ProductService implements ProductServiceInterface
         ProductRepository $productRepository,
         AttributeCatalogueRepository $attributeCatalogueRepository,
         AttributeRepository $attributeRepository,
-        ProductVariantAttributeRepository $productVariantAttributeRepository
+        ProductVariantAttributeRepository $productVariantAttributeRepository,
+        ProductVariantRepository $productVariantRepository
 
     ) {
         $this->productRepository = $productRepository;
         $this->attributeCatalogueRepository = $attributeCatalogueRepository;
         $this->attributeRepository = $attributeRepository;
         $this->productVariantAttributeRepository = $productVariantAttributeRepository;
+        $this->productVariantRepository = $productVariantRepository;
     }
 
     public function all()
@@ -322,6 +326,71 @@ class ProductService implements ProductServiceInterface
         }
         $product->attributeCatalogue = $attributeCatalogues;
         return $product;
+    }
+
+    public function checkAttributeVariantQuantity(string $slug = '')
+    {
+        $productVariants = $this->productRepository->getVariantFindBySlug(
+            [
+                'productCatalogues',
+                'productVariant' => function ($query) {
+                    $query->where('quantity', '>', 0);
+                },
+                'productVariant.attributes'
+            ],
+            [
+                ['slug', $slug],
+            ]
+        );
+
+        $result = [
+            'color' => [], // màu
+            'size' => [], // kích thước
+        ];
+        // dd($productVariants);
+        foreach ($productVariants->productVariant as $variant) {
+            // dd($variant->code);
+            if ($variant->code) {
+                $codes = explode(',', $variant->code);
+                if (count($codes) === 2) {
+                    list($colorId, $sizeId) = $codes;
+
+                    if (!in_array((int)$colorId, $result['color'])) {
+                        $result['color'][] = (int)$colorId;
+                    }
+                    if (!in_array((int)$sizeId, $result['size'])) {
+                        $result['size'][] = (int)$sizeId;
+                    }
+                } elseif (count($codes) === 1) {
+                    list($colorId) = $codes;
+
+                    $arrayColorId = $this->isColor();
+
+                    if (in_array((int)$colorId, $arrayColorId)) {
+                        if (!in_array((int)$colorId, $result['color'])) {
+                            $result['color'][] = (int)$colorId;
+                        }
+                    } else {
+                        // if (!in_array((int)$sizeId, $result['size'])) {
+                        //     $result['size'][] = (int)$sizeId;
+                        // }
+                    }
+                }
+            }
+        }
+        // dd($result);
+        return $result;
+    }
+    public function isColor()
+    {
+        $arrayColorId = [];
+        $colors = $this->attributeRepository->allWhere([
+            ['attribute_catalogue_id', 1]
+        ]);
+        foreach ($colors as $color) {
+            $arrayColorId[] = $color->id;
+        }
+        return $arrayColorId;
     }
 
     private function payload()

@@ -45,3 +45,5 @@
 {{-- <script type="text/javascript" src="/libaries/js/variant_v2.js"></script> --}}
 {{-- set up val order final  --}}
 <script src="/libaries/js/val_order.js"></script>
+{{-- address --}}
+<script src="/libaries/js/address_vn.js"></script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Fontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Repositories\ProductRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\ProductCatalogueRepository;
@@ -40,17 +41,22 @@ class ProductController extends Controller
             ['publish', '=', 1],
         ]);
         $categoryIds = $product->productCatalogues->pluck('id')->toArray();
-        $productSimilars = Product::whereHas('productCatalogues', function($query) use ($categoryIds) {
+        $productSimilars = Product::whereHas('productCatalogues', function ($query) use ($categoryIds) {
             $query->whereIn('product_catalogues.id', $categoryIds);
         })->where('publish', 1)
-          ->where('id', '!=', $product->id)
-          ->limit(4)
-          ->get();
+            ->where('id', '!=', $product->id)
+            ->limit(4)
+            ->get();
+
+        $attributeVariant = $this->productService->checkAttributeVariantQuantity($slug);
+        // $isColor = $this->productService->isColor();
         return view('fontend.product.detail', compact(
             'product',
             'brands',
             'categories',
-            'productSimilars'
+            'productSimilars',
+            'attributeVariant',
+            // 'isColor',
         ));
     }
 }
