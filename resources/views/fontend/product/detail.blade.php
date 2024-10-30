@@ -42,8 +42,10 @@
                     //-- //
                     $totalSoldCount = 0;
                     $totalReviewCount = 0;
+                    $variantId = 0;
                     foreach ($product->productVariant as $variant) {
                         $totalSoldCount += $variant->sold_count;
+                        $variantId = $variant->id;
                     }
 
                     foreach ($product->productVariant as $variant) {
@@ -68,12 +70,13 @@
                                     @endif
 
                                 </ul>
+                                {{-- @dd($variantId) --}}
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
-                                    data-bs-title="Thêm vào yêu thích">
+                                    data-bs-title="{{ in_array($variantId, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}">
                                     <div class="position-relative">
                                         <button type="button" class="position-absolute start-50 translate-middle "
                                             style="top: 20px;">
-                                            <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
+                                            <i class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
                                         </button>
                                     </div>
                                     <span class="product_variant_id_wishlist d-none"></span>
@@ -406,15 +409,26 @@
                                     <div class="accordion-body bg-white fz-14">
                                         <div class="product-rating mb-3">
                                             <div class="hstack gap-2">
-                                                <div class="py-2 me-3">
+                                                {{-- <div class="py-2 me-3">
                                                     <span class="fw-500 fz-16">Đánh giá </span>
-                                                </div>
-                                                <div class="py-2">
-                                                    <span><i class="fa-solid fa-star rated fs-2"></i></span>
-                                                    <span><i class="fa-solid fa-star rated fs-2"></i></span>
-                                                    <span><i class="fa-solid fa-star rated fs-2"></i></span>
-                                                    <span><i class="fa-solid fa-star rated fs-2"></i></span>
-                                                    <span><i class="fa-solid fa-star rated fs-2"></i></span>
+                                                </div> --}}
+                                                <div class="item-two">
+                                                    <div class="rating">
+                                                        <label style="margin-right: 5px" for="rating-select">Chất lượng
+                                                            sản phẩm: </label>
+                                                        <select id="rating-select" v-model="create.publish">
+                                                            <option selected value="0" style="color: black">--Chọn số
+                                                                sao--</option>
+                                                            <option class="star" value="1">&#9733;</option>
+                                                            <option class="star" value="2">&#9733;&#9733;</option>
+                                                            <option class="star" value="3">&#9733;&#9733;&#9733;
+                                                            </option>
+                                                            <option class="star" value="4">
+                                                                &#9733;&#9733;&#9733;&#9733;</option>
+                                                            <option class="star" value="5">
+                                                                &#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -429,8 +443,7 @@
                                                                 width="60" height="60">
                                                             <p class="text-center mt-2">
                                                                 <span
-                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">Thanh
-                                                                    trung</span>
+                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
                                                             </p>
                                                         </span>
                                                     </button>
@@ -439,11 +452,12 @@
                                                     class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
                                                     <form>
                                                         <div class="form-group position-relative ">
-                                                            <textarea class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment" rows="4"
-                                                                placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
-                                                            <button type="submit"
+                                                            <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
+                                                                rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
+                                                            <button type="button"
                                                                 class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                style="bottom: 8px ; right: 20px;">Gửi</button>
+                                                                style="bottom: 8px ; right: 20px;"
+                                                                v-on:click="DanhGiaSP()">Gửi</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -451,143 +465,93 @@
                                         </div>
                                         <div class="review-coment mt-3 mb-2">
                                             <div class="py-2 me-3 mb-3">
-                                                <span class="fw-500 fz-16 ">Xem đánh giá (33)</span>
+                                                <span class="fw-500 fz-16 ">Xem đánh giá (@{{ comment }})</span>
                                             </div>
-                                            <div class="row mx-2">
-                                                <div
-                                                    class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
-                                                    <button type="button" class="btn  border-0 px-0">
-                                                        <span class="d-block justify-content-end align-items-center">
-                                                            <img class="rounded-circle header-profile-user"
-                                                                src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
-                                                                alt="Avatar User" class="rounded-circle object-fit-cover"
-                                                                width="50" height="50">
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                                <div
-                                                    class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
-                                                    <div class="box-review">
-                                                        <div class="review-item rounded-2 my-2">
-                                                            <div
-                                                                class="hstack gap-2 d-flex justify-content-start align-items-center">
-                                                                <div class="pt-2 d-inline-block">
-                                                                    <h6 class="fz-18 mb-0">thanh trung</h6>
+                                            <template v-for="(v,k) in list">
+                                                <div class="row mx-2">
+                                                    <div
+                                                        class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
+                                                        <button type="button" class="btn  border-0 px-0">
+                                                            <span class="d-block justify-content-end align-items-center">
+                                                                <img class="rounded-circle header-profile-user"
+                                                                    src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                    alt="Avatar User"
+                                                                    class="rounded-circle object-fit-cover" width="50"
+                                                                    height="50">
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                    <div
+                                                        class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
+                                                        <div class="box-review">
+                                                            <div class="review-item rounded-2 my-2">
+                                                                <div
+                                                                    class="hstack gap-2 d-flex justify-content-start align-items-center">
+                                                                    <div class="pt-2 d-inline-block">
+                                                                        <h6 class="fz-18 mb-0">@{{ v.name }}</h6>
+                                                                    </div>
+                                                                    <div class="pt-2 d-inline-block">
+                                                                        <option class="star" :value="v.publish">
+                                                                            <span
+                                                                                v-html=" '&#9733;'.repeat(v.publish) "></span>
+                                                                        </option>
+                                                                    </div>
+                                                                    <div class="dropdown ms-auto ">
+                                                                        <a class=" dropdown-toggle" href="#"
+                                                                            role="button" data-bs-toggle="dropdown"
+                                                                            aria-expanded="false">
+                                                                            <i
+                                                                                class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
+                                                                        </a>
+                                                                        <ul
+                                                                            class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
+                                                                            <template v-if="v.edit_count == 0">
+                                                                                <li class="p-1"
+                                                                                    v-on:click="edit = Object.assign({},v)"
+                                                                                    data-bs-toggle='modal'
+                                                                                    data-bs-target='#edit'>
+                                                                                    <a href="#"
+                                                                                        class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                        <i
+                                                                                            class="fa-solid fa-circle-info me-2"></i>Chỉnh
+                                                                                        sửa
+                                                                                    </a>
+                                                                                </li>
+                                                                            </template>
+                                                                            <template v-if="v.edit_count ==1">
+                                                                                <li class="p-1">
+                                                                                    <a
+                                                                                        class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                        <i
+                                                                                            class="fa-solid fa-circle-info me-2"></i>Đã
+                                                                                        chỉnh sửa
+                                                                                    </a>
+                                                                                </li>
+                                                                            </template>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="pt-2 d-inline-block">
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
+                                                                <div class="review-time">
+                                                                    <span class="fz-12">@{{ formatDate(v.created_at) }}</span>
                                                                 </div>
-                                                                <div class="dropdown ms-auto ">
-                                                                    <a class=" dropdown-toggle" href="#"
-                                                                        role="button" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <i
-                                                                            class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
-                                                                    </a>
-                                                                    <ul
-                                                                        class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                        <li class="p-1">
-                                                                            <a href="#"
-                                                                                class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                <i
-                                                                                    class="fa-solid fa-circle-info me-2"></i>Báo
-                                                                                xấu
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
+                                                                <div class="content-review mt-2">
+                                                                    <p class="fz-14 fst-italic fw-500">
+                                                                        @{{ v.content }}
+                                                                    </p>
                                                                 </div>
-                                                            </div>
-                                                            <div class="review-time">
-                                                                <span class="fz-12">12:23:53 - 12/12/2323</span>
-                                                            </div>
-                                                            <div class="content-review mt-2">
-                                                                <p class="fz-14 fst-italic fw-500">
-                                                                    Quan trọng là tối ưu tốt thôi bạn. 60Hz của iPhone
-                                                                    cũng như 120Hz bên Android thôi. Chip mạnh + Ram
-                                                                    nhiều + AI bố của thông minh còn đòi gì nữa
-                                                                </p>
-                                                            </div>
-                                                            <div class="icon-reaction pb-2">
-                                                                <a href="#"><i
-                                                                        class="fa-regular fa-heart me-2"></i></a>
-                                                                <span>18 thích</span>
+                                                                <div class="icon-reaction pb-2">
+                                                                    <button v-on:click="Like(k)" :id="'likeBtn-' + k">
+                                                                        <i class="fa-regular fa-heart me-2"></i>
+                                                                    </button>
+                                                                    <span :id="'likeCount-' + k">0</span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </template>
                                             <!-- item review  -->
-                                            <div class="row mx-2">
-                                                <div
-                                                    class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
-                                                    <button type="button" class="btn  border-0 px-0">
-                                                        <span class="d-block justify-content-end align-items-center">
-                                                            <img class="rounded-circle header-profile-user"
-                                                                src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
-                                                                alt="Avatar User" class="rounded-circle object-fit-cover"
-                                                                width="50" height="50">
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                                <div
-                                                    class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
-                                                    <div class="box-review">
-                                                        <div class="review-item rounded-2 my-2">
-                                                            <div
-                                                                class="hstack gap-2 d-flex justify-content-start align-items-center">
-                                                                <div class="pt-2 d-inline-block">
-                                                                    <h6 class="fz-18 mb-0">thanh trung</h6>
-                                                                </div>
-                                                                <div class="pt-2 d-inline-block">
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                    <span><i class="fa-solid fa-star rated"></i></span>
-                                                                </div>
-                                                                <div class="dropdown ms-auto ">
-                                                                    <a class=" dropdown-toggle" href="#"
-                                                                        role="button" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <i
-                                                                            class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
-                                                                    </a>
-                                                                    <ul
-                                                                        class="dropdown-menu border-0 ul-menu p-0 dropdown-menu-end mb-1">
-                                                                        <li class=" p-1">
-                                                                            <a href="#"
-                                                                                class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                <i
-                                                                                    class="fa-solid fa-circle-info me-2"></i>Báo
-                                                                                xấu
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="review-time">
-                                                                <span class="fz-12">12:23:53 - 12/12/2323</span>
-                                                            </div>
-                                                            <div class="content-review mt-2">
-                                                                <p class="fz-14 fst-italic fw-500">
-                                                                    Quan trọng là tối ưu tốt thôi bạn. 60Hz của iPhone
-                                                                    cũng như 120Hz bên Android thôi. Chip mạnh + Ram
-                                                                    nhiều + AI bố của thông minh còn đòi gì nữa
-                                                                </p>
-                                                            </div>
-                                                            <div class="icon-reaction pb-2">
-                                                                <a href="#"><i
-                                                                        class="fa-regular fa-heart me-2"></i></a>
-                                                                <span>18 thích</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <!-- phân trang bình luận  -->
                                             <div class="d-flex justify-content-center align-items-center mt-3">
                                                 <nav aria-label="Page navigation example">
@@ -863,5 +827,142 @@
                 </div>
             </div>
         </article>
+        <div class='modal fade' id='edit' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div class='modal-dialog modal-lg'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <h1 class='modal-title fs-5' id='exampleModalLabel'>Chỉnh sửa đánh giá sản phẩm</h1>
+                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                    </div>
+                    <div class='modal-body'>
+                        <div class="comment-item">
+                            <div class="item-two">
+                                <div class="rating">
+                                    <label style="margin-right: 5px" for="rating-select">Chất lượng sản phẩm: </label>
+                                    <select id="rating-select" v-model="edit.publish">
+                                        <option selected value="0" style="color: black">--Chọn số sao--</option>
+                                        <option class="star" value="1">&#9733;</option>
+                                        <option class="star" value="2">&#9733;&#9733;</option>
+                                        <option class="star" value="3">&#9733;&#9733;&#9733;</option>
+                                        <option class="star" value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                                        <option class="star" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-input">
+                                <input v-model="edit.content" style="width: 460px;outline: none;" type="text"
+                                    class="input-form" placeholder="Nhập nội dung bình luận của bạn!">
+                            </div>
+                            <div class="submit-btn">
+                                <button v-on:click="Update()" class="btn-submit"
+                                    style="background-color: red;color: #fff" data-bs-dismiss='modal'>Gửi đánh
+                                    giá</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    <script>
+        // tuyền mảng id product và productvariant sang js đổ vào chuổi
+        let productInWishlist = @json($productInWishlist);
+    </script>
+@endsection
+@section('js')
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                create: {},
+                edit: {},
+                list: [],
+                image: null,
+                likes: [],
+                comment: 0,
+                imagePath: '',
+            },
+            created() {
+                this.LoadBinhLuan();
+            },
+            methods: {
+
+                LoadBinhLuan() {
+                    const pathname = window.location.pathname;
+                    const slug = pathname.substring(pathname.lastIndexOf('/') + 1);
+                    axios
+                        .get('/producreview-data/' + slug, )
+                        .then((res) => {
+                            this.list = res.data.data;
+                            this.comment = res.data.comment_count;
+                        });
+                },
+                DanhGiaSP() {
+                    const pathname = window.location.pathname;
+                    const slug = pathname.substring(pathname.lastIndexOf('/') + 1);
+                    axios
+                        .post('/producreview/create/' + slug, this.create)
+                        .then((res) => {
+                            if (res.data.status) {
+                                // alert(res.data.message);
+                                this.create = {};
+                                this.LoadBinhLuan();
+                                toaster.success(res.data.message);
+                            } else {}
+                        })
+                        .catch((res) => {
+                            $.each(res.response.data.errors, function(k, v) {});
+                        });
+                },
+                Update() {
+                    axios
+                        .post('/producreview-update', this.edit)
+                        .then((res) => {
+                            if (res.data.status) {
+                                alert(res.data.message);
+                                this.create = {};
+                                this.LoadBinhLuan();
+                            } else {}
+                        })
+                        .catch((res) => {
+                            $.each(res.response.data.errors, function(k, v) {
+                                toastr.error(v[0], 'Error');
+                            });
+                        });
+                },
+                Like(k) {
+                    if (this.likes[k] === 0) {
+                        this.likes[k] = 1;
+                    } else {
+                        this.likes[k] = 0;
+                    }
+                    let likeCountElement = document.getElementById('likeCount-' + k);
+                    likeCountElement.textContent = this.likes[k];
+
+                    let heartIcon = document.getElementById('likeBtn-' + k).querySelector('i');
+                    if (this.likes[k] === 1) {
+                        heartIcon.classList.remove('fa-regular');
+                        heartIcon.classList.add('fa-solid');
+                    } else {
+                        heartIcon.classList.remove('fa-solid');
+                        heartIcon.classList.add('fa-regular');
+                    }
+                },
+                formatDate(dateString) {
+                    const options = {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',p
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false,
+                    };
+
+                    const date = new Date(dateString);
+                    return date.toLocaleString('en-GB', options).replace(',', '');
+                },
+            },
+        });
+    </script>
 @endsection

@@ -1,0 +1,243 @@
+h1,
+h2 {
+    color: #333;
+}
+
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.posts {
+    margin-top: 20px;
+}
+
+.post {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #fafafa;
+}
+
+.btn-content {
+    border: 1px solid #14B6A0;
+    background-color: #fafafa;
+    color: #14B6A0;
+    width: 100%;
+}
+
+.btn-content:hover {
+    color: #fafafa;
+}
+
+
+.btn-create {
+    border: 1px solid #14B6A0;
+    background-color: #fafafa;
+    color: #14B6A0;
+}
+
+.btn-create:hover {
+    color: #fafafa;
+}
+
+.content-body {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.name-img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 50px;
+}
+
+/*  */
+/* .gallery {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+} */
+
+/*  */
+.content-item {
+    display: flex;
+    margin: 10px;
+    height: 50px;
+    justify-content: space-between;
+}
+
+.content-item .name {
+    display: flex;
+}
+
+.content-item .date .fa-solid {
+    margin-top: -15px;
+    margin-right: -5px;
+    opacity: 0.4;
+
+}
+
+.content-item .date {
+    display: flex;
+}
+
+.text-content {
+    text-indent: 30px;
+    margin: 10px;
+}
+
+.img-content {}
+
+
+.image-gallery {
+    display: grid;
+    gap: 10px;
+    margin: 20px;
+}
+
+.image-gallery img {
+    width: 500px;
+    height: auto;
+}
+
+.image-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+
+/* nút like */
+.like-container {
+    display: inline-block;
+}
+
+.like-btn {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    color: #f96d6d;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.like-btn:hover {
+    background-color: #ffffff;
+}
+
+
+
+.like-btn span {
+    margin-left: 8px;
+}
+
+/* ----------------------------------------------------- */
+
+
+/*  */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dots-icon {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px 0;
+    z-index: 1;
+    width: 120px;
+    right: 0;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+.show {
+    display: block;
+}
+
+
+
+
+/* model */
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+input,
+textarea,
+select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"] {
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #F3F3F9;
+    color: red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

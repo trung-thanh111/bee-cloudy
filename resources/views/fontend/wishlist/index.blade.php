@@ -201,21 +201,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end ">
-                            <nav>
-                                <ul class="pagination pagination-sm">
-                                    <li class="page-item disabled">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            {{ $wishlists->onEachSide(3)->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 </div>
@@ -230,9 +216,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                    <a href="zalo">
-                                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                    </a>
-                                                                </div> -->
+                                                                        <a href="zalo">
+                                                                            <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                        </a>
+                                                                    </div> -->
     </div>
 @endsection
