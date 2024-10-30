@@ -9,9 +9,9 @@
                 <!-- breadcrumb  -->
                 <nav class="pt-3 pb-3" aria-label="breadcrumb">
                     <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
-                        <li class="breadcrumb-item "><a href="#" class="text-decoration-none text-muted">Sản phẩm</a>
+                        <li class="breadcrumb-item "><a href="{{ route('home.index') }}" class="text-decoration-none text-muted">Trang Chủ</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Danh mục</li>
+                        <li class="breadcrumb-item active" aria-current="page">Cửa hàng</li>
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->
@@ -19,194 +19,38 @@
                 <div class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
                         <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
-                            <h2 class="text-uppercase">Áo thun nam thời thượng</h2>
-                            <p class="fz-14">Áo thun nam mặt vào mùa hè mát mẻ, thoải mái, năng động hơn </p>
+                            <h2 class="text-uppercase">Cửa hàng</h2>
+                            <p class="fz-14">Bạn có thể tham khảo các mẫu áo quần tại đây.</p>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-8 col-12">
                         <div id="thumbnail-carousel2" class="splide category-slide">
                             <div class="splide__track">
                                 <ul class="splide__list">
+                                    @if($productCatalogues)
+                                    @foreach($productCatalogues as $keyPCate => $valPCate)
                                     <li class="splide__slide">
                                         <a href="#">
                                             <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
+                                                <img src="{{ $valPCate->image }}"
+                                                    alt="product image" width="100%" height="160"
+                                                    class=" rounded-top-3 object-fit-cover">
                                                 <div class="card-body bg-light p-2 rounded-bottom-3">
                                                     <h5 class="fw-medium">
                                                         <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
+                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">{{ $valPCate->name }}</a>
                                                     </h5>
                                                     <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
+                                                        <span class="d-inline-block text-muted fz-14 truncate-custom">
+                                                            {{ $valPCate->description }}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/ao1.jpg"
-                                                    alt="product image" width="180" height="160"
-                                                    class="img-fluid rounded-top-3">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">Áo
-                                                            thời trang nữ</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="text-muted fz-14 me-3">Buồn thay, tác giả cần một
-                                                            ngày mai nhàn nhã...</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    @endforeach
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -217,7 +61,7 @@
                     <div class="col-lg-3 col-md-3 col-12 shadow-sm p-2 h-100">
                         <div class="filter-product-item">
                             <h6 class="text-uppercase fz-16 p-2">
-                                lọc sản phẩm
+                                Lọc sản phẩm
                             </h6>
                             <form action="#" method="#">
                                 <div class="accordion text-muted mb-1 rounded-2" id="default-accordion-example">
@@ -517,8 +361,8 @@
                                                             giảm {{ round($promotion, 1) . '%' }}
                                                         </span>
                                                         <span class="text-end mt-2 me-2 text-muted toggleWishlist"
-                                                            data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích" data-id="{{ $product->id }}" >
-                                                            <i class="fa-regular fa-bookmark fz-16"></i>
+                                                            data-bs-toggle="tooltip" data-bs-title="{{ in_array($product->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}" data-id="{{ $product->id }}" >
+                                                            <i class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
                                                             <span class="product_id_wishlist d-none">
                                                                 {{ $product->id }}
                                                             </span>
@@ -532,9 +376,9 @@
                                                     <div
                                                         class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                         <div class="hstack gap-3">
-                                                            <div class="p-2 overflow-x-hidden w-50">
+                                                            <div class="p-2 overflow-x-hidden">
                                                                 <span
-                                                                    class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                    class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
                                                                     @foreach ($product->productCatalogues as $catalogue)
                                                                         {{ $catalogue->name }}
                                                                     @endforeach

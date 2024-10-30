@@ -51,7 +51,7 @@ class CartService implements CartServiceInterface
             ]
         );
         $count = 0;
-        if($carts){
+        if ($carts) {
             $cart = Cart::with('cartItems.products', 'cartItems.productVariants')->find($carts->id);
             foreach ($cart->cartItems as $item) {
                 if ($item->products || $item->productVariants) {
@@ -163,16 +163,16 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->input();
-            
+
             $id = $payload['product_id'] ? $payload['product_id'] : $payload['product_variant_id'];
             // lấy ra item dựa trên mối quan hệ                         // closure
-            $cartItem = CartItem::whereHas('productVariants', function($query) use ($id) {
+            $cartItem = CartItem::whereHas('productVariants', function ($query) use ($id) {
                 $query->where('product_variant_id', $id);
             })
-            ->orWhereHas('products', function($query) use ($id) {
-                $query->where('product_id', $id);
-            })
-            ->first();
+                ->orWhereHas('products', function ($query) use ($id) {
+                    $query->where('product_id', $id);
+                })
+                ->first();
             if ($cartItem) {
                 $cartItem->delete();
             }
@@ -184,19 +184,19 @@ class CartService implements CartServiceInterface
             return false;
         }
     }
-    public function clear(Request $request)
-{
-    DB::beginTransaction();
-    try {
-        $cartId = $request->input('cart_id');
-        $cart = Cart::where('user_id', Auth::id())
-                      ->first();
-        $cart->delete();
-        DB::commit();
-        return true;
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return false;
+    public function clear()
+    {
+        DB::beginTransaction();
+        try {
+            // $cartId = $request->input('cart_id');
+            $cart = Cart::where('user_id', Auth::id())
+                ->first();
+            $cart->delete();
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
-}
 }

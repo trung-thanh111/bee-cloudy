@@ -14,9 +14,11 @@
                 .find(".product_variant_id_wishlist")
                 .text()
                 .trim();
+                console.log(product_variant_id);
+                
 
             let options = {
-                product_variant_id: product_variant_id || null,
+                product_variant_id: product_variant_id ?? null,
                 product_id: product_variant_id ? null : product_id,
                 _token: _token,
             };
@@ -28,6 +30,9 @@
 
                 success: function (res) {
                     if (res.code == 10) {
+                        if (res.redirect === "back") {
+                            window.location.reload();
+                        }
                         flasher.success(res.message);
                     }
                 },

@@ -84,7 +84,7 @@
         <div class="container-fuild">
             <nav class="navbar navbar-expand-lg shadow-sm bg-white p-0 sticky-nav">
                 <div class="container p-0">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{ route('home.index') }}">
                         <img src="/libaries/upload/images/logo/logo_index.png" class="object-fit-contain logo-index"
                             alt="">
                     </a>
@@ -97,21 +97,90 @@
                         id="navbarSupportedContent">
                         <ul
                             class="nav fw-bold justify-content-lg-center justify-content-md-center justify-content-sm-start align-items-center text-color">
-                            <li class="menu-li-item px-2 py-3">
-                                <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Trang
+                            <li class=" px-2 py-3">
+                                <a href="{{ route('home.index') }}" class=" menu-item-a text-uppercase text-decoration-none fz-16">Trang
                                     chủ</a>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">
                                 <a href="{{ route('shop.index') }}"
                                     class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Cửa
                                     hàng <i class="fas fa-minus fz-12 fw-bold"></i></a>
-                                <ul class="ul-menu-header p-0 dropdown-content">
-                                    <li class="li-menu-header"><a href="#"
-                                            class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
-                                    <li class="li-menu-header"><a href="#"
-                                            class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
-                                    <li class="li-menu-header"><a href="#"
-                                            class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                <ul class="ul-menu-header p-0 dropdown-content list-unstyled">
+                                    @if ($productCategories)
+                                        @foreach ($productCategories as $keyPCate => $productCate)
+                                            <li
+                                                class="nav-item li-menu-header {{ $productCate->childrenReference->isNotEmpty() ? 'menu-item-v2' : '' }} position-relative">
+                                                <a href=""
+                                                    class="d-flex justify-content-between align-items-center px-1 position-relative ">
+                                                    <span class="nav-link menu-link p-0  text-muted" href="#">
+                                                        <span>{{ $productCate->name }}</span>
+                                                    </span>
+                                                    <i
+                                                        class="fa-solid fa-chevron-right fz-12 text-muted {{ $productCate->childrenReference->isEmpty() ? 'd-none' : '' }}"></i>
+                                                </a>
+                                                <div
+                                                    class="menu-dropdown-v2 position-absolute start-100 top-0 p-0 shadow-sm w-100">
+                                                    <ul class="menu-link p-0 list-unstyled">
+                                                        @if ($productCate->childrenReference->isNotEmpty())
+                                                            @foreach ($productCate->childrenReference as $keyChild => $valChild)
+                                                                <li
+                                                                    class="nav-item li-menu-header position-relative ps-2 menu-item-v2">
+                                                                    <div
+                                                                        class="d-flex justify-content-between align-items-center px-1 position-relative">
+                                                                        <a class="nav-link menu-link p-0 menu-item-v3"
+                                                                            href="#">
+                                                                            <span>{{ $valChild->name }}</span>
+                                                                        </a>
+                                                                        {{-- <i
+                                                                        class="fa-solid fa-chevron-right fz-12 text-muted"></i> --}}
+                                                                    </div>
+                                                                    {{-- <div
+                                                            class="menu-dropdown-v3 position-absolute start-100 top-0 p-0 shadow-sm w-100">
+                                                            <ul class="menu-link p-0 list-unstyled">
+                                                                <li
+                                                                    class="nav-item li-menu-header position-relative ps-2 menu-item-v3">
+                                                                    <a href="#" class="nav-link menu-link p-0">Quản
+                                                                        lý</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div> --}}
+                                                                </li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                                    <li
+                                        class="nav-item li-menu-header menu-item-v2 {{ $brands == null ? 'd-none' : '' }} position-relative">
+                                        <a href=""
+                                            class="d-flex justify-content-between align-items-center px-1 position-relative ">
+                                            <span class="nav-link menu-link p-0  text-muted" href="#">
+                                                <span>Thương hiệu</span>
+                                            </span>
+                                            <i class="fa-solid fa-chevron-right fz-12 text-muted"></i>
+                                        </a>
+                                        <div
+                                            class="menu-dropdown-v2 position-absolute start-100 top-0 p-0 shadow-sm w-100">
+                                            <ul class="menu-link p-0 list-unstyled">
+                                                @if ($brands)
+                                                    @foreach ($brands as $keyBrand => $valBrand)
+                                                        <li
+                                                            class="nav-item li-menu-header position-relative ps-2 menu-item-v2">
+                                                            <a href="#"
+                                                                class="d-flex justify-content-between align-items-center px-1 position-relative">
+                                                                <span
+                                                                    class="nav-link menu-link p-0 menu-item-v3 text-muted">
+                                                                    {{ $valBrand->name }}
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">
@@ -127,6 +196,7 @@
                                             class="text-decoration-none fz-16 text-color">Danh mục</a></li>
                                 </ul>
                             </li>
+
                             <li class="menu-li-item px-2 py-3">
                                 <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
                                     hệ</a>
@@ -136,12 +206,16 @@
                                     class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Trang
                                     khác <i class="fas fa-minus fz-12 fw-bold"></i></a>
                                 <ul class="ul-menu-header p-0 dropdown-content">
-                                    <li class="li-menu-header"><a href="#"
-                                            class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
-                                    <li class="li-menu-header"><a href="#"
-                                            class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
-                                    <li class="li-menu-header"><a href="#"
-                                            class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    <li class="li-menu-header">
+                                        <a href="#" class="text-decoration-none fz-16 text-color">Sản phẩm</a>
+                                    </li>
+                                    <li class="li-menu-header">
+                                        <a href="#" class="text-decoration-none fz-16 text-color">Thương
+                                            hiệu</a>
+                                    </li>
+                                    <li class="li-menu-header">
+                                        <a href="#" class="text-decoration-none fz-16 text-color">Danh mục</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -219,7 +293,7 @@
                         </div>
                         <div class="icon-item">
                             <span class="box-icon-profile">
-                                <a href="{{ route('wishlist.index') }}" type="button" >
+                                <a href="{{ route('wishlist.index') }}" type="button">
                                     <i class="fa-solid fa-bookmark" data-bs-toggle="tooltip"
                                         data-bs-title="Yêu thích"></i>
                                 </a>
@@ -262,7 +336,8 @@
                                             </span>
                                         </li>
                                         <li class="li-menu-header p-2">
-                                            <a href="#" class="text-decoration-none fz-13 ps-1 text-muted">
+                                            <a href="{{ route('account.info') }}"
+                                                class="text-decoration-none fz-13 ps-1 text-muted">
                                                 <i class="fa-solid fa-user p-0 me-2"></i>Thông tin cá nhân
                                             </a>
                                         </li>
@@ -299,7 +374,6 @@
                                     </a>
                                 </span>
                             @endif
-
                         </div>
                     </div>
                 </div>

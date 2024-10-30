@@ -25,7 +25,9 @@ class ShopController extends Controller
     }
     public function index(Request $request)
     {   
-        $productCatalogues = $this->productCatalogueRepository->all();
+        $productCatalogues = $this->productCatalogueRepository->allWhere([
+            ['publish', 1]
+        ]);
         $productShops = $this->shopService->paginate($request);
         return view('fontend.product.shop', compact(
             'productShops',
