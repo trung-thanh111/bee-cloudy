@@ -70,7 +70,7 @@
                                 <div>
                                     <label class="form-label" for="info">Thông tin</label>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="info" data-height="100" name="info">{{ old('info') }}</textarea>
+                                        <textarea class="form-control " rows="6" name="info">{{ old('info') }}</textarea>
                                         @if ($errors->has('info'))
                                             <span class="text-danger fz-12 mt-1">{{ $errors->first('info') }}</span>
                                         @endif
@@ -232,7 +232,7 @@
                                         <div class="position-relative d-inline-block">
                                             {{-- image-target dùng dể choose image hthi cho ngxem  --}}
                                             <span class="image-target">
-                                                <img src="{{ old('old_image', $product->image ?? '/libaries/upload/images/img-notfound.png') }}"
+                                                <img src="{{ old('image', $product->image ?? '/libaries/upload/images/img-notfound.png') }}"
                                                     alt="Product Image"
                                                     class="render-image object-fit-cover rounded-1 mb-2 position-relative"
                                                     width="96" height="96">

@@ -21,7 +21,6 @@
 
             let attribute_id = [];
             $(".attribute-value .choose-attribute").each(function (e) {
-                // e.preventDefault();
                 let _this = $(this);
                 if (_this.hasClass("active")) {
                     attribute_id.push(_this.attr("data-attributeId"));
@@ -79,22 +78,8 @@
                 .closest("tr")
                 .find(".product-total-price")
                 .text(Number(newTotalPrice).toLocaleString("vi-VN") + "đ");
-
-            // đổ vào đơn hàng
-
-            //         let htmlcartQuantity = `<strong class="text-info cartPrice">x${quantity}</strong>`;
-            //         $(".cartQuantity").html(htmlcartQuantity);
-
-            //         let formattedPrice = Number(newTotalPrice).toLocaleString("vi-VN", {
-            //             style: "currency",
-            //             currency: "VND",
-            //         });
-            //         let htmlcartPrice = `
-            // <td class="text-end fz-14 fw-medium ">
-            //     ${formattedPrice}
-            // </td>`;
-            //         $(".cartPrice").html(htmlcartPrice);
-
+            FS.updateQuantityOrder();
+            FS.updateTotalPriceOrder();
             FS.updateCartTotal();
 
             $.ajax({
@@ -127,6 +112,7 @@
             let _this = $(this);
             let product_id = _this.attr("data-id");
             let product_variant_id = _this.attr("data-variant-id");
+            let destroy_id = _this.attr("data-destroy-id");
 
             let datas = {
                 product_id: product_id,
@@ -139,7 +125,12 @@
                 data: datas,
                 success: function (res) {
                     if (res.code == 10) {
-                        _this.closest(".cart-item").remove();
+                        // xóa sản phẩm ở phía giao diện cart và order
+                        $(
+                            '.cart-item[data-destroy-id="' + destroy_id + '"]'
+                        ).remove();
+                        // cập nhật giá
+                        FS.updateTotalPrice();
                         flasher.success(res.message);
                     } else {
                         flasher.error("Có lỗi xảy ra khi cập nhật giỏ hàng.");
@@ -151,10 +142,48 @@
             });
         });
     };
-    FS.clearCart = () => {
-        const modal = new bootstrap.Modal(
-            document.getElementById("clearCartModal")
+
+    FS.updateQuantityOrder = () => {
+        $("input[name=quantity-input]").each(function () {
+            let quantity = $(this).val();
+            let destroyId = $(this).closest(".cart-item").attr("data-destroy-id");
+            $('.order .cart-item[data-destroy-id="' + destroyId + '"] .orderQuantity').text('x' + quantity);
+        });
+    };
+    
+    FS.updateTotalPriceOrder = () => {
+        $(".cart-item").each(function () {
+            let price = $(this).find(".orderPrice").text().replace(/[^0-9]/g, ''); // Loại bỏ ký tự không phải số
+            let quantity = $(this).find(".orderQuantity").text().replace('x', ''); // Loại bỏ ký tự 'x' và chuyển về số
+            let totalPrice = price * quantity;
+            
+            $(this).find(".totalPriceOrder").text(new Intl.NumberFormat('vi-VN').format(totalPrice) + 'đ');
+        });
+    };
+    
+    FS.updateTotalPrice = () => {
+        let total = 0;
+        $(".orderPrice").each(function () {
+            // Lấy giá trị của từng .orderPrice, loại bỏ ký tự "đ" và dấu phẩy
+            let itemPrice = parseInt(
+                $(this)
+                    .text()
+                    .replace(/[^0-9]/g, "")
+            );
+            total += itemPrice;
+        });
+
+        $("#cart-price").text(
+            new Intl.NumberFormat("vi-VN").format(total) + "đ"
         );
+    };
+    FS.clearCart = () => {
+        let modal;
+
+        const modelE = document.getElementById("clearCartModal");
+        if (modelE) {
+            modal = new bootstrap.Modal(modelE);
+        }
 
         $(document).on("click", ".clearCart", function (e) {
             e.preventDefault();

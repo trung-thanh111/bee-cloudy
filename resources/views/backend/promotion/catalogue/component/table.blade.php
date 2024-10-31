@@ -27,7 +27,6 @@
                         <td>{{ $item->usage_limit }}</td>
                         <td>{{ $item->minimum_amount }}</td>
                         <td>{{ $item->apply_for }}</td>
-
                         <td class="status text-center">
                             {!! $item->status == 'active'
                 ? '<span class="badge bg-success-subtle text-success text-uppercase p-2">Đang hoạt động</span>'
@@ -40,7 +39,6 @@
                                     <i class="ri-more-2-fill fs-5"></i>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink5" style="">
-                                  
                                     <li><a class="dropdown-item text-info"
                                             href="{{ route('promotions.catalogue.edit', $item->id) }}"> <i
                                                 class="ri-edit-box-line"></i>
@@ -58,3 +56,4 @@
         </tbody>
     </table>
 </div>
+

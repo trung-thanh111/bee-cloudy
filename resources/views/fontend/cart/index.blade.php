@@ -90,6 +90,7 @@ Giỏ hàng
                                                                     @else
                                                                         {{ $cartItem->products->name }}
                                                                     @endif
+
                                                                 </a>
                                                             </p>
                                                             <ul class="list-inline text-muted fz-14 mb-1">
@@ -231,6 +232,7 @@ Giỏ hàng
                                                         <td>
                                                             <h5 class="fz-14 text-break">
                                                                 <a href="#" class="text-body">
+
                                                                     @if ($cartItem->productVariants)
                                                                         {{ $cartItem->productVariants->name }}
                                                                     @else
@@ -264,6 +266,7 @@ Giỏ hàng
                                                     <hr>
                                                 </td>
                                             </tr>
+
 
                                             <!-- Display applied vouchers -->
                                             @if(session()->has('promotions'))
@@ -318,6 +321,7 @@ Giỏ hàng
                                                     @endif
                                                 </td>
                                             </tr>
+
 
                                             <tr style="height: 60px;">
                                                 <td class="fz-16" colspan="2">Phí vận chuyển:</td>
@@ -436,6 +440,7 @@ Giỏ hàng
                                                                         $shownColors[] = $attribute->name;
                                                                     @endphp
                                                                 @endif
+
                                                             @endforeach
                                                         @endforeach
                                                     </div>

@@ -37,7 +37,6 @@
 </div>
     <form action="" method="GET">
         <div class="row g-4 mb-3 fz-12 text-muted">
-           
             <div class="col-sm">
                 <div class="d-flex justify-content-sm-end">
                     <div class="search-box ms-2">
@@ -55,7 +54,7 @@
                 <div class="d-flex">
                     <div class="record ms-2">
                         <select name="perpage" id="" class="form-control setUpSelect2" style="width: 280px">
-                          
+
                         </select>
                     </div>
                 </div>

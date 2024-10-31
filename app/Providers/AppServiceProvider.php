@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+use App\Repositories\BrandRepository;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Http\Controllers\Fontend\CartController;
 use App\Services\CartService;
+use App\Repositories\ProductRepository;
+use App\Repositories\ProductCatalogueRepository;
+use App\Repositories\PostCatalogueRepository;
+use App\Repositories\WishlistRepository;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\PostCatalogueServiceInterface' => 'App\Services\PostCatalogueService',
         'App\Services\Interfaces\PostServiceInterface' => 'App\Services\PostService',
         'App\Services\Interfaces\CartServiceInterface' => 'App\Services\CartService',
+        'App\Services\Interfaces\WishlistServiceInterface' => 'App\Services\WishlistService',
+        'App\Services\Interfaces\OrderServiceInterface' => 'App\Services\OrderService',
+        'App\Services\Interfaces\UserCatalogueServiceInterface' => 'App\Services\UserCatalogueService',
     ];
 
     public function register(): void
@@ -46,17 +54,66 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(
         CartService $cartService,
-    ): void
-    {
-        {
-            // Sử dụng view composer để chia sẻ biến $cateMenu với mọi view
-            View::composer('*', function ($view) use ($cartService) {
-                $productInCart = $cartService->countProductIncart();
+        WishlistRepository $wishlistRepository,
+        ProductRepository $productRepository,
+        ProductCatalogueRepository $productCatalogueRepository,
+        BrandRepository $brandRepository,
+        PostCatalogueRepository $postCatalogueRepository,
+    ): void {
+        View::composer('*', function ($view) use (
+            $cartService,
+            $wishlistRepository,
+            $productRepository,
+            $productCatalogueRepository,
+            $brandRepository,
+            $postCatalogueRepository,
+        ) {
+            // Số lượng sản phẩm trong giỏ hàng
+            $productInCart = $cartService->countProductIncart();
+            $nameStand = $productRepository->getLimitOrder(
+                [],
+                [['publish', 1]],
+                [['created_at', 'asc']],
+                3
+            );
 
-                $view
-                    ->with('productInCart', $productInCart);
-            });
-        }
+            $productCategories = $productCatalogueRepository->getWithCondition(
+                [
+                    'childrenReference'
+                ],
+                [
+                    ['parent_id', 'is', null],
+                    ['publish', '=', 1],
+                ]
+            );
+            $brandHeaders = $brandRepository->allWhere([['publish', '=', 1]]);
+
+            // -- // 
+            $postCatalogues = $postCatalogueRepository->allWhere([['publish', '=', 1]]);
+            // -- //
+        
+            $wishlists = $wishlistRepository->allWhere([
+                ['user_id', '=', Auth::id()],
+                ['deleted_at', '=', null]
+            ]);
+    
+            $wishlist = [
+                'product_ids' => $wishlists->pluck('product_id')->toArray(),
+                'variant_ids' => $wishlists->pluck('product_variant_id')->toArray()
+            ];
+            $productInWishlist = array_merge($wishlist['product_ids'], $wishlist['variant_ids']);
+            
+
+            $view->with([
+                'productInCart' => $productInCart,
+                'nameStand' => $nameStand,
+                'productCategories' => $productCategories,
+                'brandHeaders' => $brandHeaders,
+                'postCatalogues' => $postCatalogues,
+                'productInWishlist' => $productInWishlist,
+            ]);
+        });
+
         // mặc định giá trị cho shcema 
         Schema::defaultStringLength(255);
     }

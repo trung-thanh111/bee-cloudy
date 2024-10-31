@@ -13,6 +13,7 @@ use App\Models\CartItem;
 use App\Models\Promotion;
 use App\Models\UserVoucher;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends FontendController
@@ -59,6 +60,7 @@ class CartController extends FontendController
             'userPromotion'
         ));
     }
+
 
 
     public function addToCart(Request $request)

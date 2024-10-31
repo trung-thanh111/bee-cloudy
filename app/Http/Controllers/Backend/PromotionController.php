@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use Carbon\Carbon;
+
 class PromotionController extends Controller
 {
     public function index()
@@ -160,6 +161,7 @@ class PromotionController extends Controller
 
 
 
+
     public function myPromotions()
     {
         $userId = Auth::id();
@@ -195,6 +197,7 @@ class PromotionController extends Controller
             'minimum_amount' => 'nullable|numeric|min:0',
             'usage_limit' => 'nullable|integer|min:0',
             'apply_for' => 'required|in:specific_products,freeship,all',
+
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -212,7 +215,6 @@ class PromotionController extends Controller
         ]);
 
         $promotions = Promotion::all();
-
         // Trả về view để hiển thị form chỉnh sửa, truyền dữ liệu khuyến mãi hiện tại
         $template = 'backend.promotion.catalogue.index';
         return view('backend.dashboard.layout', compact('template', 'promotions'))->with('success', 'Cập nhật khuyến mãi thành công!');
@@ -254,6 +256,7 @@ class PromotionController extends Controller
             return redirect()->route('promotions.index')->with('warning', 'Không có bản ghi nào được chọn để xóa.');
         }
     }
+
 
 
 }

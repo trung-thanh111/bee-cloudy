@@ -65,6 +65,87 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarOrders">
+                        <i class="fa-brands fa-shopify"></i> <span data-key="t-Orders">Đơn hàng</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarOrders">
+                        <ul class="nav nav-sm flex-column">
+                            
+                            <li class="nav-item">
+                                <a href="#sidebarorder" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarorder" > Quản lý
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarorder">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('order.index') }}" class="nav-link" >
+                                                Danh sách</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarMembers" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarMembers">
+                        <i class="ri-group-fill"></i> <span data-key="t-pages">Thành viên</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarMembers">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('user.catalogue.index') }}" class="nav-link" data-key="t-starter"> Nhóm thành viên </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarUser" class="nav-link" data-bs-toggle="collapse" role="button"
+                                    aria-expanded="false" aria-controls="sidebarUser" data-key="t-User"> Thành viên
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarUser">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('user.index') }}" class="nav-link" data-key="t-simple-page"> Quản lý</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('user.create') }}" class="nav-link" data-key="t-simple-page"> Thêm mới</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarPagesvoucher">
+                        <i class="fa-solid fa-ticket"></i> <span data-key="t-pages">Voucher</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarPagesvoucher">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Nhóm thuộc tính</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarProfile" > Voucher
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarProfile">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="" class="nav-link" >
+                                                Danh sách</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="" class="nav-link">Thêm mới </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPageposts" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPageposts">
                         <i class="fa-solid fa-newspaper"></i></i> <span data-key="t-pageposts">Bài viết</span>
