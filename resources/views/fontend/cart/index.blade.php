@@ -73,7 +73,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm text-start" style="width: 250px;">
-                                                                <p class="fz-16 text-break lh-sm fw-500 mb-2">
+                                                                <p class="fz-16 text-break lh-sm fw-500 mb-2 overflow-hidden" style="max-height: 40px">
                                                                     <a href="#" class="text-muted">
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}

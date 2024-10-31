@@ -237,7 +237,13 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <span class="text-warning">Đang vận chuyển</span>
+                                                    <button
+                                                        class="btn btn-success py-2 px-4 rounded-2 fz-13 fw-medium dropdown-toggle updateStatus"
+                                                        type="button" data-bs-toggle="dropdown" data-status="completed">
+                                                        Đã nhận được hàng
+                                                    </button>
+                                                    <input type="hidden" name="order_id" class="orderId"
+                                                        value="{{ $order->id }}">
                                                 </div>
                                             </div>
                                         @elseif($order->status == 'canceled')
@@ -262,7 +268,7 @@
                                                     <img src="/libaries/upload/images/poper-icon.png" alt=""
                                                         width="40" class="me-2">
                                                     <div>
-                                                        <h6 class="mb-1 fz-18">Đơn hàng đá giao thành công!</h6>
+                                                        <h6 class="mb-1 fz-18">Đơn hàng đâ giao thành công!</h6>
                                                         <p class="mb-0 small">Hãy để lại đánh giá về sản phẩm của chúng
                                                             tôi.</p>
                                                     </div>
@@ -401,19 +407,32 @@
                                                                             class="rounded-2 me-2 bg-light">
                                                                     @endif
 
-                                                                    <span
-                                                                        class="text-break fw-medium">{{ $val->product_name }}</span>
+                                                                    <div>
+                                                                        <a href="#"
+                                                                            class="text-break text-muted fw-medium">{{ $val->product_name }}</a>
+                                                                        <ul class="list-inline text-muted fz-12 my-1">
+                                                                            @if (isset($attributesByOderItem[$val->id]))
+                                                                                @foreach ($attributesByOderItem[$val->id] as $attribute)
+                                                                                    <li class="list-inline-item">
+                                                                                        {{ $attribute->name }}
+                                                                                    </li>
+                                                                                @endforeach
+                                                                            @endif
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-2 text-end">{{ $val->final_quantity }}
                                                                 </div>
                                                                 <div class="col-2 text-end">
                                                                     {{ number_format($val->final_price, '0', ',', '.') }}đ
+                                                                    
                                                                 </div>
                                                                 <div class="col-2 text-end fw-bold">
                                                                     {{ number_format($moneyCheckout, '0', ',', '.') }}đ
                                                                 </div>
                                                             </div>
-                                                            <div class="row p-3 {{ ($order->status != 'completed') ? 'd-none': '' }}">
+                                                            <div
+                                                                class="row p-3 {{ $order->status != 'completed' ? 'd-none' : '' }}">
                                                                 <div class="col text-end">
                                                                     <div class="d-flex justify-content-end gap-2 ">
                                                                         <a href="#"
@@ -441,7 +460,7 @@
                                                 Thanh toán
                                             </h6>
                                             <div class="bg-light p-3 rounded-3">
-                                                
+
                                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                                     <div>
                                                         <span class="text-muted">Phương thức thanh toán</span>
@@ -489,8 +508,6 @@
                     </div>
                 </div>
             </div>
-            </div>
-            </div>
         </article>
     </section>
     <div class="">
@@ -501,9 +518,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                                                                        <a href="zalo">
-                                                                                                                                                                                            <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                                                        </a>
-                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                <a href="zalo">
+                                                                                                                                                                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                                                                                                                                </a>
+                                                                                                                                                                                            </div> -->
     </div>
 @endsection
