@@ -193,19 +193,18 @@ class CartService implements CartServiceInterface
             DB::rollBack();
             return false;
         }
-
     }
     public function findAttributesByCode()
     {
         $carts = $this->all();
         $attributesByCartItem = [];
-        if(isset($carts->cartItems) && count($carts->cartItems ) > 0){
+        if (isset($carts->cartItems) && count($carts->cartItems) > 0) {
 
             foreach ($carts->cartItems as $cartItem) {
                 if ($cartItem->productVariants) {
                     $codeIds = explode(',', $cartItem->productVariants->code);
                     $attributes = Attribute::whereIn('id', $codeIds)->get();
-    
+
                     //lấy dúng attribut của cartitem đó
                     $attributesByCartItem[$cartItem->id] = $attributes;
                 }

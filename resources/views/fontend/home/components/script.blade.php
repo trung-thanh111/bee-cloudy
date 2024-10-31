@@ -34,11 +34,8 @@
 <script src="/libaries/js/address_vn.js"></script>
 {{-- set up val order final  --}}
 <script src="/libaries/js/val_order.js"></script>
-<<<<<<< HEAD
 {{-- set up val filter final  --}}
 <script src="/libaries/js/filter_product.js"></script>
-=======
->>>>>>> fc8250f5071a0d65c234873629c31b1ba1604ce2
 {{-- search  --}}
 <script src="/libaries/js/search_suggestions.js"></script>
 {{-- flaher notify  --}}

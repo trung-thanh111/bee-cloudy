@@ -8,11 +8,9 @@
         let ward = $("#ward");
         let url =
             "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json";
-        // update load
         let province_id = window.province_id;
         let district_id = window.district_id;
         let ward_id = window.ward_id;
-
         province
             .empty()
             .append(
@@ -88,6 +86,7 @@
                     if (ward_id) {
                         ward.trigger("change");
                     }
+
                 });
             }
         });

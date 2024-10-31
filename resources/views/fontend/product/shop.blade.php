@@ -21,6 +21,7 @@
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
                         <div class="title-category  position-absolute top-50 w-75 translate-middle" style="left: 50%;">
                             <h2 class="text-uppercase text-start">Cửa hàng</h2>
+
                             <p class="fz-14">Bạn có thể tham khảo các mẫu áo quần tại đây.</p>
                         </div>
                     </div>

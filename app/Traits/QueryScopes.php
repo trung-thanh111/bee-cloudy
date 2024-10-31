@@ -25,7 +25,6 @@ trait QueryScopes
                             $q->orWhere('id', 'like', '%' . $keyword . '%');
 
                         }
-
                 });
             }
         }

@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
 use App\Http\Controllers\Fontend\OrderController as FontendOrderController;
@@ -28,7 +29,6 @@ use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\Fontend\MomoController;
-use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\VnpayController;
 use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Route;
@@ -105,9 +105,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/promotion', [PromotionController::class, 'showAllPromotions'])->name('promotion.index');
     Route::post('/promotion/receive/{promotion}', [PromotionController::class, 'receivePromotion'])->name('promotion.receive');
     // Route::get('/my-vouchers', [PromotionController::class, 'myVouchers'])->name('promotion.my_vouchers');
-});
-// WISHLIST
-Route::middleware(['auth'])->group(function () {
+    
+    // ORDER 
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('checkout', [FontendOrderController::class, 'checkout'])->name('order.checkout');
+        Route::post('store', [FontendOrderController::class, 'store'])->name('store.order');
+        Route::get('success', [FontendOrderController::class, 'success'])->name('order.success');
+        Route::get('failed', [FontendOrderController::class, 'failed'])->name('order.failed');
+    });
+    // WISHLIST
     Route::group(['prefix' => 'wishlist'], function () {
         Route::get('index', [AjaxWishlistController::class, 'index'])->name('wishlist.index');
     });
@@ -204,6 +210,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
     });
 
+    
+
     //product
     Route::group(['prefix' => 'product'], function () {
         Route::get('index', [ProductController::class, 'index'])->name('product.index');
@@ -252,6 +260,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
         Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
+
     });
 });
 
