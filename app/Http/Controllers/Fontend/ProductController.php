@@ -49,7 +49,6 @@ class ProductController extends Controller
             ->get();
 
         $attributeVariant = $this->productService->checkAttributeVariantQuantity($slug);
-
         return view('fontend.product.detail', compact(
             'product',
             'brands',

@@ -15,6 +15,7 @@
         </thead>
         <tbody class="list form-check-all">
             @foreach ($posts as $key => $item)
+            
                 @php
                     $badge = '';
                     if ($item->publish == 1) {
