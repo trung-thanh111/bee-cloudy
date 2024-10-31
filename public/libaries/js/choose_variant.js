@@ -208,8 +208,6 @@
     FS.quantityProductVariantMax = (res) => {
         
         let productVariantQuantiyMax = res.productVariant.quantity;
-        
-        console.log(productVariantQuantiyMax);
         $(".quantity-product-variant").attr("max", productVariantQuantiyMax);
     };
     // gọi hàm
