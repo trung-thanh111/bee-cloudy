@@ -51,8 +51,6 @@
         let product_id = $(".product_id_wishlist").html() ?? null; 
         // bắt mảng id từ blade và loại bỏ null
         let WishlistId = productInWishlist.filter(id => id != null);
-        
-
         let albumVariant = res.productVariant.album.split(",");
         let html = `<div id="main-carousel" style="margin-bottom: 10px;" class="splide " aria-label="Main Carousel">
                         <div class="splide__track ">
@@ -214,7 +212,6 @@
         console.log(productVariantQuantiyMax);
         $(".quantity-product-variant").attr("max", productVariantQuantiyMax);
     };
-    
     // gọi hàm
     $(document).ready(function () {
         FS.selectVairantProduct();

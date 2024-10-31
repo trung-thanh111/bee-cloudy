@@ -86,7 +86,6 @@
                     if (ward_id) {
                         ward.trigger("change");
                     }
-
                 });
             }
         });

@@ -86,7 +86,6 @@ class AppServiceProvider extends ServiceProvider
                     ['publish', '=', 1],
                 ]
             );
-
             $brandHeaders = $brandRepository->allWhere([['publish', '=', 1]]);
 
             // -- // 

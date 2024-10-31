@@ -113,7 +113,6 @@ class ShopService implements ShopServiceInterface
     {
         $payload = $request->only('brand', 'category', 'size', 'color', 'price');
         $query = Product::query();
-
         // Filter theo thương hiệu
         if (!empty($payload['brand'])) {
             $query->whereHas('brands', function ($q) use ($payload) {
