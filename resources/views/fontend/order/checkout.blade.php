@@ -363,28 +363,49 @@
                                                                     @if ($cartItem->productVariants)
                                                                         <img src="{{ explode(',', $cartItem->productVariants->album)[0] }}"
                                                                             alt="" width="60" height="60"
+<<<<<<< HEAD
                                                                             class="img-fluid object-fit-cover">
                                                                     @elseif ($cartItem->products)
                                                                         <img src="{{ $cartItem->products->image }}"
                                                                             alt="" width="60" height="60"
                                                                             class="img-fluid object-fit-cover">
+=======
+                                                                            class=" object-fit-cover">
+                                                                    @elseif ($cartItem->products)
+                                                                        <img src="{{ $cartItem->products->image }}"
+                                                                            alt="" width="60" height="60"
+                                                                            class=" object-fit-cover">
+>>>>>>> thanhtrung
                                                                     @else
                                                                         <img src="/libaries/upload/libaries/images/img-notfound.png"
                                                                             alt="Product Image" width="60"
                                                                             height="60"
+<<<<<<< HEAD
                                                                             class="img-fluid object-fit-cover rounded-2">
+=======
+                                                                            class=" object-fit-cover rounded-2">
+>>>>>>> thanhtrung
                                                                     @endif
                                                                 </div>
                                                             </td>
                                                             <td>
+<<<<<<< HEAD
                                                                 <h5 class="fz-14 text-break">
                                                                     <a href="#" class="text-body">
+=======
+                                                                <h5 class="fz-14">
+                                                                    <p  class=" text-break text-body overflow-hidden" style="max-height: 36px">
+>>>>>>> thanhtrung
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}
                                                                         @else
                                                                             {{ $cartItem->products->name }}
                                                                         @endif
+<<<<<<< HEAD
                                                                     </a>
+=======
+                                                                    </p>
+>>>>>>> thanhtrung
                                                                 </h5>
                                                                 <p class="text-muted mb-0 fz-14">
                                                                     {{ number_format($cartItem->price, 0, ',', '.') }}đ
@@ -407,59 +428,62 @@
                                                     </td>
                                                 </tr>
 
-                                            <tr>
-                                                <td colspan="3">
-                                                    <div class="bg-light-subtle border-success-subtle p-0"></div>
-                                                    <div class="text-start">
-                                                        <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
-                                                    </div>
-                                                    <div class="hstack gap-2">
-                                                        <input class="form-control me-auto" type="text"
-                                                            placeholder="Nhập mã voucher" name="discount">
-                                                        <button type="button"
-                                                            class="btn btn-success fw-500 w-25 rounded-1">Áp
-                                                            mã</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr style="height: 50px;">
-                                                <td class="fz-16" colspan="2">Thành tiền:</td>
-                                                <td class="fw-semibold text-end">
-                                                    {{ number_format($total, 0, ',', '.') }}đ
-                                                </td>
-                                            </tr>
-                                            <tr style="height: 50px;">
-                                                <td class="fz-16" colspan="2">Giảm giá:
-                                                </td>
-                                                <td class="fw-semibold text-end">0</td>
-                                            </tr>
-                                            <tr style="height: 60px;">
-                                                <td class="fz-16" colspan="2">Phí vận chuyển:</td>
-                                                <td class="fw-semibold text-end">25.000đ</td>
-                                            </tr>
-
-                                            <tr class="" style="height: 50px;">
-                                                <th colspan="2">Tổng tiền:</th>
-                                                <td class="text-end">
-                                                    <span class="fw-semibold" id="cart-total-price">
-                                                        {{ number_format($total + 25000, '0', ',', '.') . 'đ' }}
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr class="" style="height: 50px;">
-                                                <td colspan="3">
-                                                    <a href="{{ route('order.checkout') }}"
-                                                        class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
-                                                        hành thanh toán</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <div class="bg-light-subtle border-success-subtle p-0"></div>
+                                                        <div class="text-start">
+                                                            <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
+                                                        </div>
+                                                        <div class="hstack gap-2">
+                                                            <input class="form-control me-auto" type="text"
+                                                                placeholder="Nhập mã voucher">
+                                                            <button type="button"
+                                                                class="btn btn-success fw-500 w-25 rounded-1">Áp
+                                                                mã</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 50px;">
+                                                    <td class="fz-16" colspan="2">Thành tiền:</td>
+                                                    <td class="fw-semibold text-end">
+                                                        {{ number_format($total, 0, ',', '.') }}đ
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: 50px;">
+                                                    <td class="fz-16" colspan="2">Giảm giá:
+                                                    </td>
+                                                    <td class="fw-semibold text-end">0</td>
+                                                </tr>
+                                                <tr style="height: 60px;">
+                                                    <td class="fz-16" colspan="2">Phí vận chuyển:</td>
+                                                    <td class="fw-semibold text-end">25.000đ</td>
+                                                </tr>
+                                                <tr class="" style="height: 50px;">
+                                                    <th colspan="2">Tổng tiền:</th>
+                                                    <td class="text-end">
+                                                        <span class="fw-semibold" id="cart-total-price">
+                                                            {{ number_format($total + 25000, '0', ',', '.') . 'đ' }}
+                                                        </span>
+                                                        <input type="hidden" name="total_amount" id="total_amount"
+                                                            value="{{ $total + 25000 }}">
+                                                    </td>
+                                                </tr>
+                                                <tr class="" style="height: 50px;">
+                                                    <td colspan="3">
+                                                        <a href="{{ route('order.checkout') }}"
+                                                            class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
+                                                            hành thanh toán</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                </div>
+                </form>
                 <hr class="border-2">
                 <!-- product similar  -->
                 <div class="product-similar mb-3 text-muted">

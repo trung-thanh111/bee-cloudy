@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\CartServiceInterface' => 'App\Services\CartService',
         'App\Services\Interfaces\WishlistServiceInterface' => 'App\Services\WishlistService',
         'App\Services\Interfaces\OrderServiceInterface' => 'App\Services\OrderService',
+        'App\Services\Interfaces\UserCatalogueServiceInterface' => 'App\Services\UserCatalogueService',
     ];
 
     public function register(): void
@@ -85,7 +86,7 @@ class AppServiceProvider extends ServiceProvider
                     ['publish', '=', 1],
                 ]
             );
-            $brands = $brandRepository->allWhere([['publish', '=', 1]]);
+            $brandHeaders = $brandRepository->allWhere([['publish', '=', 1]]);
 
             // -- // 
             $postCatalogues = $postCatalogueRepository->allWhere([['publish', '=', 1]]);
@@ -107,7 +108,7 @@ class AppServiceProvider extends ServiceProvider
                 'productInCart' => $productInCart,
                 'nameStand' => $nameStand,
                 'productCategories' => $productCategories,
-                'brands' => $brands,
+                'brandHeaders' => $brandHeaders,
                 'postCatalogues' => $postCatalogues,
                 'productInWishlist' => $productInWishlist,
             ]);

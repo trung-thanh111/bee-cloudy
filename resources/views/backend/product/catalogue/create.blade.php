@@ -69,7 +69,15 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
+<<<<<<< HEAD
                                         <textarea class="form-control " id="" name="description" rows="7">{{ old('description') }}</textarea>
+=======
+<<<<<<< HEAD
+                                        <textarea class="form-control" id="" name="description" rows="7">{{ old('description') }}</textarea>
+=======
+                                        <textarea class="form-control " id="" name="description" rows="7">{{ old('description') }}</textarea>
+>>>>>>> fc8250f5071a0d65c234873629c31b1ba1604ce2
+>>>>>>> thanhtrung
                                     </div>
                                 </div>
                             </div>
