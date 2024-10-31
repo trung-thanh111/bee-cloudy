@@ -15,7 +15,7 @@ class Promotion extends Model
         'code',
         'start_date',
         'end_date',
-        'discount_value',
+        'discount',
         'minimum_amount',
         'usage_limit',
         'apply_for',
@@ -28,9 +28,24 @@ class Promotion extends Model
 
     // Định nghĩa kiểu dữ liệu cho các trường
     protected $casts = [
-        'discount_value' => 'decimal:2',
+        'discount' => 'decimal:2',
         'minimum_amount' => 'decimal:2',
         'usage_limit' => 'integer',
         'quantity' => 'integer',
     ];
+    public function products()
+{
+    return $this->belongsToMany(Product::class, 'promotion_product_variants')
+                ->withPivot('discount')
+                ->withTimestamps();
+}
+public function userVouchers()
+{
+    return $this->hasMany(UserVoucher::class, 'promotion_id');
+}
+public function getPromotionProducts()
+{
+    return PromotionProductVariant::where('promotion_id', $this->id)->pluck('product_id')->toArray();
+}
+
 }
