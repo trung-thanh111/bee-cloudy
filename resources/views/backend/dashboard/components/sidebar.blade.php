@@ -89,8 +89,6 @@
                     </div>
                 </li>
                 <li class="nav-item">
-<<<<<<< HEAD
-=======
                     <a class="nav-link menu-link" href="#sidebarMembers" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarMembers">
                         <i class="ri-group-fill"></i> <span data-key="t-pages">Thành viên</span>
@@ -119,8 +117,6 @@
                     </div>
                 </li>
                 <li class="nav-item">
-
->>>>>>> thanhtrung
                     <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPagesvoucher">
                         <i class="fa-solid fa-ticket"></i> <span data-key="t-pages">Voucher</span>

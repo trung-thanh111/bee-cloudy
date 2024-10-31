@@ -46,11 +46,6 @@
             });
         }
     };
-<<<<<<< HEAD
-    
-    
-=======
->>>>>>> thanhtrung
     // console.log(productWishlistId)
     FS.setupVariantGallery = (res) => {
         let product_id = $(".product_id_wishlist").html() ?? null; 

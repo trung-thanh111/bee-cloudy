@@ -8,13 +8,10 @@
         let ward = $("#ward");
         let url =
             "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json";
-<<<<<<< HEAD
-=======
         // update load
         let province_id = window.province_id;
         let district_id = window.district_id;
         let ward_id = window.ward_id;
->>>>>>> thanhtrung
 
         province
             .empty()
@@ -30,11 +27,6 @@
 
         $.getJSON(url, function (data) {
             $.each(data, function (index, item) {
-<<<<<<< HEAD
-                let option = `<option value="${item.Id}">${item.Name}</option>`;
-                province.append(option);
-            });
-=======
                 let isSelected = item.Id == province_id ? "selected" : "";
                 let option = `<option value="${item.Id}" ${isSelected}>${item.Name}</option>`;
                 province.append(option);
@@ -43,7 +35,6 @@
             if (province_id) {
                 province.trigger("change");
             }
->>>>>>> thanhtrung
         });
 
         province.on("change", function () {
