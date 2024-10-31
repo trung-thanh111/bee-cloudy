@@ -148,8 +148,6 @@
                                         @endforeach
 
                                     </tbody>
-
-
                                 </table>
                                 <div class="footer-cart d-flex justify-content-between align-items-center py-3">
                                     <a href="#" class="back-to-product fz-14 text-muted ms-3">

@@ -326,7 +326,6 @@
                                                 $product->del != 0 && $product->del != null
                                                     ? (($product->price - $product->del) / $product->price) * 100
                                                     : '0';
-
                                             $price =
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
@@ -930,6 +929,7 @@
                                                                                                                 <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
                                                                                                             </a>
                                                                                                         </div> -->
+
         </div>
     </section>
     <!-- end footer  -->
