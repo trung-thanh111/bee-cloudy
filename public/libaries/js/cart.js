@@ -78,7 +78,6 @@
                 .closest("tr")
                 .find(".product-total-price")
                 .text(Number(newTotalPrice).toLocaleString("vi-VN") + "đ");
-
             FS.updateQuantityOrder();
             FS.updateTotalPriceOrder();
             FS.updateCartTotal();
@@ -180,6 +179,7 @@
     };
     FS.clearCart = () => {
         let modal;
+
         const modelE = document.getElementById("clearCartModal");
         if (modelE) {
             modal = new bootstrap.Modal(modelE);

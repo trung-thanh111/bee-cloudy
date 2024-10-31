@@ -1,5 +1,4 @@
 (function ($) {
-
     "use strict";
     var FS = {};
     FS.animateMenuLink = () => {
@@ -62,9 +61,145 @@
         $iconRightLv3.removeClass("d-none");
         $iconDownLv3.addClass("d-none");
       }
-    });
+ 
   // search key
-  
+  FS.setUpSelect2 = () => {
+    $(".setUpSelect2").select2();
+  };
+
+  FS.clickShowPass = () => {
+    $(document).on("click", ".icon-eye-password", function () {
+      var inputTypePassword = $(this)
+        .closest(".input-group")
+        .find(".input-group-password");
+      if (inputTypePassword.attr("type") == "password") {
+        inputTypePassword.attr("type", "text");
+      } else {
+        inputTypePassword.attr("type", "password");
+      }
+
+      $(this).children().toggleClass("d-none");
+    });
+  };
+  FS.activeColorChoosed = () => {
+    $(document).on("click", ".color-item", function () {
+      let _this = $(this);
+      $(".color-item").removeClass("active");
+      _this.toggleClass("active");
+    });
+  };
+  FS.activeSizeChoosed = () => {
+    $(document).on("click", ".size-item", function () {
+      let _this = $(this);
+      $(".size-item").removeClass("active");
+      _this.toggleClass("active");
+    });
+  };
+  FS.showhideAds = () => {
+    $(document).on("click", ".delete-ads-aside", function () {
+      console.log(2312);
+      $(".image-ads-item").toggleClass("hidden-visibility");
+    });
+  };
+  FS.boxQuantity = () => {
+    $(".quantity-minus, .quantity-plus").click(function () {
+      var $inputVisible = $(this).siblings("input.form-control");
+      var $inputHidden = $(this).siblings('input[name="quantity"]');
+      var $quantityCart = $(this).siblings('input[name="quantity-product-cart"]')
+
+      var value = parseInt($inputVisible.val(), 10);
+      if ($(this).hasClass("quantity-minus") && value > 1) {
+        value--;
+      } else if ($(this).hasClass("quantity-plus")) {
+        value++;
+      }
+
+      $inputVisible.val(value);
+      $inputHidden.val(value);
+      $quantityCart.val(value);
+    });
+  };
+  // FS.boxQuantityCart = () => {
+  //   $(".quantity-minus, .quantity-plus").click(function () {
+  //     var $inputVisible = $(this).siblings("input.form-control");
+  //     var $inputHidden = $(this).siblings('input[name="quantity-product-cart"]');
+
+  //     var value = parseInt($inputVisible.val(), 10);
+  //     if ($(this).hasClass("quantity-minus") && value > 1) {
+  //       value--;
+  //     } else if ($(this).hasClass("quantity-plus")) {
+  //       value++;
+  //     }
+
+  //     $inputVisible.val(value);
+  //     $inputHidden.val(value);
+  //   });
+  // };
+  FS.backToTop = () => {
+    window.addEventListener("scroll", () => {
+      // bắt sự kiện cuộn mà hình theo chiều thẳng đứng hơn 300 ...
+      if (window.scrollY > 300) {
+        $(".back-to-top").removeClass("d-none");
+      } else {
+        $(".back-to-top").addClass("d-none");
+      }
+    });
+    $(document).on("click", ".back-to-top", () => {
+      // bắt sk click và scroll về top 0
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  };
+
+  // FS.chooseOneSize = () => {
+  //   $(document).on("click", ".choose-size-item input", function () {
+
+  //     if ($(this).is(":checked")) {
+  //       console.log("Selected size:", $(this).next('p').text());
+  //     }
+  //   });
+  // }
+
+  FS.chooseColorActive = () => {
+    $(document).on("click", ".img-choose-color", function () {
+      // chỉ một phàn tuer cùng class đc click đc active
+      $(".img-choose-color").removeClass("active");
+      $(this).addClass("active");
+    });
+  };
+  FS.chooseMoneyActive = () => {
+    $(document).on("click", ".box-item-choose-money", function () {
+      // chỉ một phàn tuer cùng class đc click đc active
+      $(".box-item-choose-money").removeClass("active");
+      $(this).addClass("active");
+    });
+  };
+  FS.nextTab = () => {
+    $('.btnNext').click(function() {
+        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('button')[0];
+        if (nextTabLinkEl) {
+            const nextTab = new bootstrap.Tab(nextTabLinkEl);
+            nextTab.show();
+        }
+    });
+    
+    $('.btnPrevious').click(function() {
+        const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('button')[0];
+        if (prevTabLinkEl) {
+            const prevTab = new bootstrap.Tab(prevTabLinkEl);
+            prevTab.show();
+        }
+    });
+}
+FS.CheckBox = () => {
+    // Xử lý khi checkbox "check-all" được click
+    $('#check-all').on('change', function () {
+        // Đặt thuộc tính 'checked' cho tất cả checkbox "checkbox-item" giống với trạng thái của checkbox "check-all"
+        $('.checkbox-item').prop('checked', this.checked);
+    });
+}
 
     FS.showSubMenuLv3 = () => {
         $(".sub-menu-li").click(function (e) {
@@ -198,6 +333,7 @@
         });
     };
 
+
   $(document).ready(function () {
     FS.animateMenuLink();
     FS.showSubMenu();
@@ -214,5 +350,6 @@
     FS.nextTab()
     FS.CheckBox()
     // FS.boxQuantityCart()
+  });
 
 })(jQuery);

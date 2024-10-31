@@ -18,13 +18,12 @@ trait QueryScopes
                 $query->where(function ($q) use ($keyword) {
                     $q->where('id', 'like', '%' . $keyword . '%')
                         ->orWhere('name', 'like', '%' . $keyword . '%');
-                        // nếu bảng nào k có slug thì kiểm tra như này 
-                        if (Schema::hasColumn('users', 'slug')) {
-                            $q->orWhere('slug', 'like', '%' . $keyword . '%');
-                        }else{
-                            $q->orWhere('id', 'like', '%' . $keyword . '%');
-
-                        }
+                    // nếu bảng nào k có slug thì kiểm tra như này 
+                    if (Schema::hasColumn('users', 'slug')) {
+                        $q->orWhere('slug', 'like', '%' . $keyword . '%');
+                    } else {
+                        $q->orWhere('id', 'like', '%' . $keyword . '%');
+                    }
                 });
             }
         }
@@ -90,13 +89,12 @@ trait QueryScopes
     public function scopeCustomCreated($query, $condition)
     {
         if (!empty($condition)) {
-            $explode = explode(' - ', $condition); 
+            $explode = explode(' - ', $condition);
             $explode = array_map('trim', $explode); //loiaj bỏ khoảng trống
             $startDate = date('Y-m-d 00:00:00', strtotime($explode[0]));
             $endDate = date('Y-m-d 23:59:59', strtotime($explode[1]));
-            
+
             $query->whereBetween('created_at', [$startDate, $endDate]);
-            
         }
         return $query;
     }

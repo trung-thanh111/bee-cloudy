@@ -112,7 +112,6 @@ class CartController extends FontendController
 
         try {
             $destroy = $this->cartService->destroy($request);
-
             if ($destroy) {
                 return response()->json([
                     'code' => 10,

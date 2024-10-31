@@ -21,10 +21,6 @@
                             <div class="row ps-lg-3 pe-lg-3 p-lg-5 p-md-5 p-sm-4 p-xs-3">
                                 @php
                                     $user = Auth::user();
-<<<<<<< HEAD
-
-=======
->>>>>>> thanhtrung
                                 @endphp
                                 <div class="col-lg-4 col-md-4">
                                     <img src="{{ $user->image ?? '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
@@ -201,7 +197,6 @@
                                         <div class="row justify-content-end">
                                             <div class="col-md-6">
                                                 <form action="{{ route('account.order') }}" method="GET">
-<<<<<<< HEAD
                                                     <div class="d-flex shadow-sm rounded-pill py-1 my-3 overflow-hidden bg-white">
                                                         <input 
                                                             type="text" 
@@ -214,7 +209,6 @@
                                                         <button 
                                                             type="submit" 
                                                             class="btn px-4 border-0">
-=======
                                                     <div
                                                         class="d-flex shadow-sm rounded-pill py-1 my-3 overflow-hidden bg-white">
                                                         <input type="text" name="keyword"
@@ -223,7 +217,6 @@
                                                             value="{{ request('keyword') ?: old('keyword') }}"
                                                             style="box-shadow: none;">
                                                         <button type="submit" class="btn px-4 border-0">
->>>>>>> thanhtrung
                                                             <i class="fas fa-search fz-18 text-muted"></i>
                                                         </button>
                                                     </div>
@@ -249,10 +242,6 @@
                                                             <button type="button"
                                                                 class=" nav-link fz-14 fw-medium px-2 py-3 rounded-0 text-bg-light"
                                                                 data-bs-toggle="tab" data-bs-target="#pending">
-<<<<<<< HEAD
-
-=======
->>>>>>> thanhtrung
                                                                 Đang xử lý
                                                             </button>
                                                         </li>
@@ -310,9 +299,6 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-<<<<<<< HEAD
-
-=======
                                                                         // -- //
                                                                         $statusPayment = '';
                                                                         if ($valvOrder->payment == 'unpaid') {
@@ -342,7 +328,6 @@
                                                                         </button>
                                                                     </div>';
                                                                         }
->>>>>>> thanhtrung
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -398,12 +383,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-<<<<<<< HEAD
-                                                                                        <div class="flex-grow-1 px-3">
-=======
                                                                                         <div class="flex-grow-1 px-3"
                                                                                             style="max-width: 80%">
->>>>>>> thanhtrung
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -434,22 +415,14 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-<<<<<<< HEAD
-                                                                                <div class="">
-=======
                                                                                 <div class="d-flex">
->>>>>>> thanhtrung
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
                                                                                     <span
-<<<<<<< HEAD
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrder->total_amount, '0', ',', '.') }}đ</span>
-=======
                                                                                         class="text-danger text-end fw-medium mb-0 me-4">{{ number_format($valvOrder->total_amount, '0', ',', '.') }}đ</span>
                                                                                     <span>{!! $statusPayment !!}</span>
->>>>>>> thanhtrung
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrder->status != 'completed' ? 'd-none' : '' }}">
@@ -503,11 +476,7 @@
                                                     {{-- penđing  --}}
                                                     <div class="tab-pane fade" id="pending">
                                                         <div class="order">
-<<<<<<< HEAD
-                                                            @if (count($order_pending) > 0)
-=======
                                                             @if (count($order_pending) > 0 || count($order_confirmed) > 0)
->>>>>>> thanhtrung
                                                                 @foreach ($order_pending as $keyvOrderPend => $valvOrderPend)
                                                                     @php
                                                                         $statusMap = [
@@ -531,9 +500,6 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-<<<<<<< HEAD
-
-=======
                                                                         // -- //
                                                                         $statusPayment = '';
                                                                         if ($valvOrderPend->payment == 'unpaid') {
@@ -563,7 +529,6 @@
                                                                         </button>
                                                                     </div>';
                                                                         }
->>>>>>> thanhtrung
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -619,12 +584,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-<<<<<<< HEAD
-                                                                                        <div class="flex-grow-1 px-3">
-=======
                                                                                         <div class="flex-grow-1 px-3"
                                                                                             style="max-width: 80%">
->>>>>>> thanhtrung
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -655,22 +616,13 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-<<<<<<< HEAD
-                                                                                <div class="">
-=======
                                                                                 <div class="d-flex">
->>>>>>> thanhtrung
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
-                                                                                    <span
-<<<<<<< HEAD
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderPend->total_amount, '0', ',', '.') }}đ</span>
-=======
-                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderPend->total_amount, '0', ',', '.') }}đ</span>
-                                                                                    <span>{!! $statusPayment !!}</span>
->>>>>>> thanhtrung
+                                                                                    <span class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderPend->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span> 
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderPend->status != 'completed' ? 'd-none' : '' }}">
@@ -693,8 +645,6 @@
                                                                     </div>
                                                                     <hr class="border-3 pb-3 border-dark">
                                                                 @endforeach
-<<<<<<< HEAD
-=======
                                                                 @foreach ($order_confirmed as $keyvOrderConF => $valvOrderConF)
                                                                     @php
                                                                         $statusMap = [
@@ -864,7 +814,6 @@
                                                                     </div>
                                                                     <hr class="border-3 pb-3 border-dark">
                                                                 @endforeach
->>>>>>> thanhtrung
                                                             @else
                                                                 <div class="order-null p-3">
                                                                     <div class="img-null text-center">
@@ -887,10 +836,6 @@
                                                                     </div>
                                                                 </div>
                                                             @endif
-<<<<<<< HEAD
-=======
-
->>>>>>> thanhtrung
                                                         </div>
                                                         <div class="container-fluid">
                                                             {{ $order_pending->onEachSide(3)->links('pagination::bootstrap-5') }}
@@ -923,9 +868,6 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-<<<<<<< HEAD
-
-=======
                                                                         // -- //
                                                                         $statusPayment = '';
                                                                         if ($valvOrderShip->payment == 'unpaid') {
@@ -955,7 +897,6 @@
                                                                         </button>
                                                                     </div>';
                                                                         }
->>>>>>> thanhtrung
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -1011,12 +952,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-<<<<<<< HEAD
-                                                                                        <div class="flex-grow-1 px-3">
-=======
                                                                                         <div class="flex-grow-1 px-3"
                                                                                             style="max-width: 80%">
->>>>>>> thanhtrung
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -1047,22 +984,13 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-<<<<<<< HEAD
-                                                                                <div class="">
-=======
                                                                                 <div class="d-flex">
->>>>>>> thanhtrung
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
-                                                                                    <span
-<<<<<<< HEAD
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderShip->total_amount, '0', ',', '.') }}đ</span>
-=======
-                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderShip->total_amount, '0', ',', '.') }}đ</span>
-                                                                                    <span>{!! $statusPayment !!}</span>
->>>>>>> thanhtrung
+                                                                                    <span class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderShip->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span> 
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderShip->status != 'completed' ? 'd-none' : '' }}">
@@ -1139,9 +1067,6 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-<<<<<<< HEAD
-
-=======
                                                                         // -- //
                                                                         $statusPayment = '';
                                                                         if ($valvOrderComp->payment == 'unpaid') {
@@ -1171,7 +1096,6 @@
                                                                         </button>
                                                                     </div>';
                                                                         }
->>>>>>> thanhtrung
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -1227,12 +1151,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-<<<<<<< HEAD
-                                                                                        <div class="flex-grow-1 px-3">
-=======
                                                                                         <div class="flex-grow-1 px-3"
                                                                                             style="max-width: 80%">
->>>>>>> thanhtrung
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -1263,22 +1183,13 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-<<<<<<< HEAD
-                                                                                <div class="">
-=======
                                                                                 <div class="d-flex">
->>>>>>> thanhtrung
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
-                                                                                    <span
-<<<<<<< HEAD
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderComp->total_amount, '0', ',', '.') }}đ</span>
-=======
-                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderComp->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderComp->total_amount, '0', ',', '.') }}đ</span>
                                                                                     <span>{!! $statusPayment !!}</span>
->>>>>>> thanhtrung
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderComp->status != 'completed' ? 'd-none' : '' }}">
@@ -1356,9 +1267,6 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-<<<<<<< HEAD
-
-=======
                                                                         // -- //
                                                                         $statusPayment = '';
                                                                         if ($valvOrderCancel->payment == 'unpaid') {
@@ -1390,7 +1298,6 @@
                                                                         </button>
                                                                     </div>';
                                                                         }
->>>>>>> thanhtrung
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -1446,12 +1353,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-<<<<<<< HEAD
-                                                                                        <div class="flex-grow-1 px-3">
-=======
                                                                                         <div class="flex-grow-1 px-3"
                                                                                             style="max-width: 80%">
->>>>>>> thanhtrung
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -1467,11 +1370,7 @@
                                                                                                 x{{ $orderItem->final_quantity }}
                                                                                             </p>
                                                                                         </div>
-<<<<<<< HEAD
-                                                                                        <div class="text-end">
-=======
                                                                                         <div class="text-end align-middle">
->>>>>>> thanhtrung
                                                                                             @if ($orderItem->products)
                                                                                                 <del
                                                                                                     class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
@@ -1486,22 +1385,13 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-<<<<<<< HEAD
-                                                                                <div class="">
-=======
                                                                                 <div class="d-flex">
->>>>>>> thanhtrung
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
-                                                                                    <span
-<<<<<<< HEAD
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderCancel->total_amount, '0', ',', '.') }}đ</span>
-=======
-                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderCancel->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderCancel->total_amount, '0', ',', '.') }}đ</span>
                                                                                     <span>{!! $statusPayment !!}</span>
->>>>>>> thanhtrung
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderCancel->status != 'completed' ? 'd-none' : '' }}">
@@ -1573,17 +1463,5 @@
                 <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
             </div>
         </a>
-        <!-- <div class=" live-chat ms-lg-16">
-<<<<<<< HEAD
-                                                                                                                                        <a href="zalo">
-                                                                                                                                            <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                        </a>
-                                                                                                                                    </div> -->
-=======
-                                                                                                                                                    <a href="zalo">
-                                                                                                                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                    </a>
-                                                                                                                                                </div> -->
->>>>>>> thanhtrung
     </div>
 @endsection

@@ -9,12 +9,8 @@
                 <!-- breadcrumb  -->
                 <nav class="pt-3 pb-3" aria-label="breadcrumb">
                     <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
-<<<<<<< HEAD
-                        <li class="breadcrumb-item "><a href="{{ route('home.index') }}" class="text-decoration-none text-muted">Trang Chủ</a>
-=======
                         <li class="breadcrumb-item "><a href="{{ route('home.index') }}"
                                 class="text-decoration-none text-muted">Trang Chủ</a>
->>>>>>> thanhtrung
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Cửa hàng</li>
                     </ol>
@@ -23,13 +19,8 @@
                 <!-- content detail -->
                 <div class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
-<<<<<<< HEAD
                         <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
                             <h2 class="text-uppercase">Cửa hàng</h2>
-=======
-                        <div class="title-category  position-absolute top-50 w-75 translate-middle" style="left: 50%;">
-                            <h2 class="text-uppercase text-start">Cửa hàng</h2>
->>>>>>> thanhtrung
                             <p class="fz-14">Bạn có thể tham khảo các mẫu áo quần tại đây.</p>
                         </div>
                     </div>
@@ -37,31 +28,6 @@
                         <div id="thumbnail-carousel2" class="splide category-slide">
                             <div class="splide__track">
                                 <ul class="splide__list">
-<<<<<<< HEAD
-                                    @if($productCatalogues)
-                                    @foreach($productCatalogues as $keyPCate => $valPCate)
-                                    <li class="splide__slide">
-                                        <a href="#">
-                                            <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                <img src="{{ $valPCate->image }}"
-                                                    alt="product image" width="100%" height="160"
-                                                    class=" rounded-top-3 object-fit-cover">
-                                                <div class="card-body bg-light p-2 rounded-bottom-3">
-                                                    <h5 class="fw-medium">
-                                                        <a href="#"
-                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">{{ $valPCate->name }}</a>
-                                                    </h5>
-                                                    <div class="catagory-item-text">
-                                                        <span class="d-inline-block text-muted fz-14 truncate-custom">
-                                                            {{ $valPCate->description }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    @endforeach
-=======
                                     @if ($productCatalogues)
                                         @foreach ($productCatalogues as $keyPCate => $valPCate)
                                             <li class="splide__slide">
@@ -85,7 +51,6 @@
                                                 </a>
                                             </li>
                                         @endforeach
->>>>>>> thanhtrung
                                     @endif
                                 </ul>
                             </div>
@@ -360,7 +325,6 @@
                                                 $product->del != 0 && $product->del != null
                                                     ? (($product->price - $product->del) / $product->price) * 100
                                                     : '0';
-
                                             $price =
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
@@ -375,17 +339,11 @@
                                                             giảm {{ round($promotion, 1) . '%' }}
                                                         </span>
                                                         <span class="text-end mt-2 me-2 text-muted toggleWishlist"
-<<<<<<< HEAD
-                                                            data-bs-toggle="tooltip" data-bs-title="{{ in_array($product->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}" data-id="{{ $product->id }}" >
-                                                            <i class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
-=======
                                                             data-bs-toggle="tooltip"
                                                             data-bs-title="{{ in_array($product->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
                                                             data-id="{{ $product->id }}">
                                                             <i
                                                                 class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
-
->>>>>>> thanhtrung
                                                             <span class="product_id_wishlist d-none">
                                                                 {{ $product->id }}
                                                             </span>
@@ -402,13 +360,7 @@
                                                             <div class="p-2 overflow-x-hidden">
                                                                 <span
                                                                     class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-<<<<<<< HEAD
-                                                                    @foreach ($product->productCatalogues as $catalogue)
-                                                                        {{ $catalogue->name }}
-                                                                    @endforeach
-=======
                                                                     {{ $product->productCatalogues[0]->name }}
->>>>>>> thanhtrung
                                                                 </span>
                                                             </div>
                                                             <div class="p-2 ms-auto">
@@ -957,7 +909,6 @@
                     </div>
                 </div>
             </div>
-            </div>
         </article>
     </section>
     <!-- back to top  -->
@@ -967,14 +918,16 @@
             <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
                 style="bottom: 60px; right: 30px;">
                 <div class=" border-2 rounded-circle">
-                    <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
+                    <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2">
+                    </i>
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                            <a href="zalo">
-                                                                                                                <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                                            </a>
-                                                                                                        </div> -->
+                                                                                                                    <a href="zalo">
+                                                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                                                    </a>
+                                                                                                                </div> -->
+
         </div>
     </section>
     <!-- end footer  -->

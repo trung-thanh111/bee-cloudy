@@ -311,8 +311,6 @@ class OrderService implements OrderServiceInterface
 
         return $orders;
     }
-
-
     public function findAttributesByCode()
     {
         $orders = $this->all();
@@ -330,6 +328,7 @@ class OrderService implements OrderServiceInterface
         }
         return $attributesByOrderItem;
     }
+
     private function paginateSelect()
     {
         return [
