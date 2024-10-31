@@ -295,6 +295,5 @@
         FS.chooseMoneyActive();
         FS.nextTab();
         FS.CheckBox();
-        // FS.boxQuantityCart()
-    })(jQuery);
-});
+    });
+})(jQuery);
