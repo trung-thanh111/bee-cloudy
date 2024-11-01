@@ -188,10 +188,10 @@
                                     <i class="fa-solid fa-minus fz-12 fw-bold"></i>
                                 </a>
                                 <ul class="ul-menu-header p-0 dropdown-content list-unstyled">
-                                    @if ($postCatalogues)
-                                        @foreach ($postCatalogues as $keyPostCate => $valPostCate)
+                                    @if ($postCatalogueHeaders)
+                                        @foreach ($postCatalogueHeaders as $keyPostCate => $valPostCate)
                                             <li class="nav-item li-menu-header">
-                                                <a href="#"
+                                                <a href="{{ route('post.category', ['id' => $valPostCate->id]) }}"
                                                     class="d-flex justify-content-between align-items-center px-1">
                                                     <span class="nav-link menu-link p-0 text-muted">
                                                         {{ $valPostCate->name }}

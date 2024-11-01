@@ -214,7 +214,7 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive table-card">
-                                        <table class="table table-borderless align-middle mb-0 order">
+                                        <table class="table table-borderless align-middle mb-0 order w-100">
                                             <tbody>
                                                 @if (!is_null($carts) && !empty($carts))
                                                     @php
@@ -284,19 +284,65 @@
 
                                                 <tr>
                                                     <td colspan="3">
-                                                        <div class="bg-light-subtle border-success-subtle p-0"></div>
-                                                        <div class="text-start">
-                                                            <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
-                                                        </div>
-                                                        <div class="hstack gap-2">
-                                                            <input class="form-control me-auto" type="text"
-                                                                placeholder="Nhập mã voucher" name="discount">
-                                                            <button type="button"
-                                                                class="btn btn-success fw-500 w-25 rounded-1">Áp
-                                                                mã</button>
+                                                        <div class="bg-light-subtle border-success-subtle p-0">
+                                                            <div class="text-start">
+                                                                <h6 class="mb-2 pb-2">Bạn có voucher khuyến mãi?</h6>
+
+                                                            </div>
+                                                            <div class="">
+                                                                <form action="{{ route('cart.applyDiscount') }}"
+                                                                    method="POST" class="d-flex">
+                                                                    @csrf
+                                                                    <div class="input-group mb-0">
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Nhập mã voucher"
+                                                                            name="promotion_code" data-bs-toggle="tooltip"
+                                                                            data-bs-title="Áp dụng tối đa 2 mã cho mỗi đơn hàng">
+                                                                        <button type="submit"
+                                                                            class="fz-14 btn btn-success col-3 fw-medium">Sử
+                                                                            dụng</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @if (session()->has('promotions'))
+                                                    <tr style="height: 37px">
+                                                        <td colspan="3">
+                                                            <span class="fw-medium">Mã giảm giá đã áp dụng:</span>
+                                                        </td>
+                                                    </tr>
+                                                    @foreach (session('promotions') as $promotion)
+                                                        <tr style="height: 37px">
+                                                            <td colspan="2" class="">
+                                                                <div class="d-flex align-items-center">
+                                                                    <i class="fa-solid fa-ticket text-success me-2"></i>
+                                                                    <span class="text-success fw-medium text-truncate">
+                                                                        {{ $promotion['code'] }}
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <form
+                                                                    action="{{ route('cart.removeVoucher', $promotion['code']) }}"
+                                                                    method="POST" class="m-0">
+                                                                    @csrf
+                                                                    <button type="submit"
+                                                                        class="btn btn-outline-danger btn-sm border-0" data-bs-toggle="tooltip"
+                                                                        data-bs-title="Xóa mã giảm giá {{ $promotion['code'] }}">
+                                                                        <i class="fa fa-trash me-1"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                    <tr style="height: 10px">
+                                                        <td colspan="3">
+                                                            <hr>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                                 <tr style="height: 50px;">
                                                     <td class=" text-start fz-16" colspan="2">Thành tiền:</td>
                                                     <td class="fw-semibold text-end" id="cart-price">
@@ -304,20 +350,41 @@
                                                     </td>
                                                 </tr>
                                                 <tr style="height: 50px;">
-                                                    <td class=" text-start fz-16" colspan="2">Giảm giá:
+                                                    <td class=" text-start fz-16" colspan="2">Giảm giá:</td>
+                                                    <td class="fw-semibold text-end text-danger" id="discount-amount">
+                                                        @if (session()->has('total_discount'))
+                                                            -{{ number_format(session('total_discount'), 0, ',', '.') }}đ
+                                                        @else
+                                                            0 đ
+                                                        @endif
                                                     </td>
-                                                    <td class="fw-semibold text-end">0</td>
                                                 </tr>
                                                 <tr style="height: 60px;">
                                                     <td class=" text-start fz-16" colspan="2">Phí vận chuyển:</td>
-                                                    <td class="fw-semibold text-end">25.000đ</td>
+                                                    <td class="fw-semibold text-end" id="shopping_fee">
+                                                        @if (session()->has('shipping_fee') && session('shipping_fee') == 0)
+                                                            <span class="text-success">Miễn phí</span>
+                                                        @else
+                                                            25.000đ
+                                                        @endif
+                                                    </td>
                                                 </tr>
 
                                                 <tr class="" style="height: 50px;">
                                                     <th colspan="2">Tổng tiền:</th>
                                                     <td class="text-end">
                                                         <span class="fw-semibold" id="cart-total-price">
-                                                            {{ number_format($total + 25000, '0', ',', '.') . 'đ' }}
+                                                            @php
+                                                                $totalPrice = $total;
+                                                                $shippingFee = session()->has('shipping_fee')
+                                                                    ? session('shipping_fee')
+                                                                    : 25000;
+                                                                $totalPriceWithShipping = $totalPrice + $shippingFee;
+                                                                // Áp dụng tổng số tiền giảm giá từ tất cả mã đã áp dụng
+                                                                $totalDiscount = session()->get('total_discount', 0);
+                                                                $totalPriceWithShipping -= $totalDiscount;
+                                                            @endphp
+                                                            {{ number_format($totalPriceWithShipping, 0, ',', '.') . 'đ' }}
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -459,115 +526,4 @@
             </div>
         </article>
     </section>
-
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Clear cart functionality
-            const clearCartBtn = document.querySelector('.clearCart');
-            const confirmClearCartBtn = document.getElementById('confirmClearCart');
-
-            if (clearCartBtn && confirmClearCartBtn) {
-                confirmClearCartBtn.addEventListener('click', function() {
-                    const cartId = clearCartBtn.getAttribute('data-cart-id');
-                    fetch('{{ route('ajax.cart.clearCart') }}', {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({
-                                cart_id: cartId
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.code === 10) {
-                                window.location.href = data.redirect;
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                });
-            }
-
-            // Update cart functionality
-            const updateCartBtns = document.querySelectorAll('.updateCart');
-            updateCartBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const cartItemId = this.getAttribute('data-id');
-                    const quantityInput = this.closest('.componant-quantity').querySelector(
-                        'input[name="quantity-input"]');
-                    const currentQuantity = parseInt(quantityInput.value);
-                    const newQuantity = this.classList.contains('quantity-minus') ?
-                        currentQuantity - 1 : currentQuantity + 1;
-
-                    if (newQuantity > 0) {
-                        updateCartItem(cartItemId, newQuantity);
-                    }
-                });
-            });
-
-            function updateCartItem(cartItemId, quantity) {
-                fetch('{{ route('ajax.cart.updateCart') }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            id: cartItemId,
-                            quantity: quantity
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.code === 10) {
-                            location.reload();
-                        } else {
-                            alert(data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-
-            // Remove cart item functionality
-            const destroyCartBtns = document.querySelectorAll('.destroyCart');
-            destroyCartBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    const variantId = this.getAttribute('data-variant-id');
-
-                    fetch('{{ route('ajax.cart.destroyCart') }}', {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({
-                                product_id: productId,
-                                product_variant_id: variantId
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.code === 10) {
-                                location.reload();
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                });
-            });
-        });
-    </script>
 @endsection

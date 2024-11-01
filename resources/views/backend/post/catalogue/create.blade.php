@@ -69,7 +69,7 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="ck-editor" data-height="200" name="description">{{ old('description') }}</textarea>
+                                        <textarea class="form-control " name="description" rows="6">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
                             </div>

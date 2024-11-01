@@ -9,7 +9,8 @@
                 <!-- breadcrumb  -->
                 <nav class="pt-3 pb-3" aria-label="breadcrumb">
                     <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
-                        <li class="breadcrumb-item "><a href="{{ route('home.index') }}" class="text-decoration-none text-muted">Trang chủ </a>
+                        <li class="breadcrumb-item "><a href="{{ route('home.index') }}"
+                                class="text-decoration-none text-muted">Trang chủ </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Tìm kiếm</li>
                     </ol>
@@ -188,7 +189,28 @@
                     </div>
                 </div>
                 @if ($results->isEmpty())
-                    <h5 class="text-center fs-2 py-5">Không có bản ghi phù hợp.</h5>
+                    <div class="order-null p-3">
+                        <div class="img-null text-center">
+                            <img src="/libaries/upload/images/order-null.png" alt="" class="" width="300"
+                                height="200">
+                        </div>
+                        <div class="flex flex-col text-center align-items-center">
+                            <h5 class="mb-2  fw-semibold">Tạm thời không có bản ghi phù hợp!
+                            </h5>
+                            <p class="text-center mb-2">
+                                Hãy khám phá những những gì có trong website nhé!
+                            </p>
+                            @if ($type === 'post')
+                            <a href="{{ route('post.page') }}"
+                                class="btn btn-info text-white rounded-pill mt-3">Khám
+                                phá ngay </a>
+                            @elseif($type === 'product')
+                            <a href="{{ route('shop.index') }}"
+                                class="btn btn-info text-white rounded-pill mt-3">Khám
+                                phá ngay </a>
+                            @endif
+                        </div>
+                    </div>
                 @endif
             </div>
         </article>
@@ -201,9 +223,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                            <a href="zalo">
-                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                            </a>
-                        </div> -->
+                                <a href="zalo">
+                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                </a>
+                            </div> -->
     </div>
 @endsection
