@@ -89,7 +89,7 @@ class AppServiceProvider extends ServiceProvider
             $brandHeaders = $brandRepository->allWhere([['publish', '=', 1]]);
 
             // -- // 
-            $postCatalogues = $postCatalogueRepository->allWhere([['publish', '=', 1]]);
+            $postCatalogueHeaders = $postCatalogueRepository->allWhere([['publish', '=', 1]]);
             // -- //
         
             $wishlists = $wishlistRepository->allWhere([
@@ -109,7 +109,7 @@ class AppServiceProvider extends ServiceProvider
                 'nameStand' => $nameStand,
                 'productCategories' => $productCategories,
                 'brandHeaders' => $brandHeaders,
-                'postCatalogues' => $postCatalogues,
+                'postCatalogueHeaders' => $postCatalogueHeaders,
                 'productInWishlist' => $productInWishlist,
             ]);
         });

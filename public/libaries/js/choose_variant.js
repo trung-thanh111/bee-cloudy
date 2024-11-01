@@ -138,7 +138,6 @@
     FS.handleAttribute = (res) => {
         let attribute_id = [];
         let flag = true;
-
         $(".attribute-value .choose-attribute").each(function (e) {
             // e.preventDefault();
             let _this = $(this);

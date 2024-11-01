@@ -494,7 +494,7 @@
                                                         <small class="text-muted">(Đã bao gồm VAT & Giảm giá)</small>
                                                     </div>
                                                     <span
-                                                        class="h6 mb-0 fw-bold">{{ number_format($order->total_amount, '0', ',', '.') }}đ</span>
+                                                        class="h6 mb-0 fw-bold text-danger">{{ number_format($order->total_amount, '0', ',', '.') }}đ</span>
                                                 </div>
                                             </div>
                                         </div>
