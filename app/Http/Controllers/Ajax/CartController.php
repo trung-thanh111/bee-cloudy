@@ -199,12 +199,12 @@ public function applyPromotion(Request $request) {
     }
 
     // Lưu original_price nếu chưa có trước khi áp dụng giảm giá
-    foreach ($cart->cartItems as $item) {
-        if (is_null($item->original_price)) {
-            $item->original_price = $item->price;
-            $item->save();
-        }
-    }
+    // foreach ($cart->cartItems as $item) {
+    //     if (is_null($item->original_price)) {
+    //         $item->original_price = $item->price;
+    //         $item->save();
+    //     }
+    // }
 
     $totalDiscount = session()->get('total_discount', 0);
     $canApplyPromotion = false;
@@ -276,12 +276,12 @@ public function applyPromotion(Request $request) {
             session()->put('promotions', array_values($promotions));
     
             $cart = Cart::where('user_id', Auth::id())->first();
-            foreach ($cart->cartItems as $item) {
-                if (isset($item->original_price)) {
-                    $item->price = $item->original_price;
-                    $item->save();
-                }
-            }
+            // foreach ($cart->cartItems as $item) {
+            //     if (isset($item->original_price)) {
+            //         $item->price = $item->original_price;
+            //         $item->save();
+            //     }
+            // }
     
             $totalDiscount = 0;
             $shippingFee = 25000; // Đặt lại phí vận chuyển mặc định

@@ -238,7 +238,6 @@ class CartService implements CartServiceInterface
         return redirect()->back()->with('success', 'Xóa mã giảm giá thành công.');
     } catch (\Exception $e) {
         // Ghi lỗi chi tiết vào log
-        \Log::error('Lỗi trong clearPromotionsSession: ' . $e->getMessage());
         
         // Thông báo lỗi cho người dùng
         return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa voucher. Vui lòng thử lại sau.');
