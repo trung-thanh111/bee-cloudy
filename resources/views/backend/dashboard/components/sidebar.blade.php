@@ -124,20 +124,17 @@
                     <div class="collapse menu-dropdown" id="sidebarPagesvoucher">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Nhóm thuộc tính</a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProfile" > Voucher
+                                    role="button" aria-controls="sidebarProfile" >Voucher
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarProfile">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="" class="nav-link" >
+                                            <a href="{{ route('promotions.index') }}" class="nav-link" >
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">Thêm mới </a>
+                                            <a href="{{ route('promotions.create') }}" class="nav-link">Thêm mới </a>
                                         </li>
                                     </ul>
                                 </div>

@@ -18,9 +18,6 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('slug', 255);
-            $table->integer('order')->default(0);
-            $table->unsignedBigInteger('user_id')->nullable(); 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->tinyInteger('publish')->default(1);
             $table->timestamps();
             $table->softDeletes();

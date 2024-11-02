@@ -19,7 +19,6 @@ class Attribute extends Model
         'image',
         'description',
         'slug',
-        'user_id',
         'attribute_catalogue_id',
         'publish',
         'created_at',
