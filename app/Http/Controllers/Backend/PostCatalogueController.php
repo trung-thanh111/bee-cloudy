@@ -54,7 +54,6 @@ class PostCatalogueController extends Controller
     public function update($slug)
     {
         $postCatalogue = $this->postCatalogueRepository->findBySlug($slug);
-        $orders = $this->postCatalogueRepository->all();
         // lấy ra tất cả vs điều kiện (không lấy ra bản ghi đàn được find)
         $postCatalogues = $this->postCatalogueRepository->allWhere([
             ['slug', '!=', $postCatalogue->slug]
@@ -65,7 +64,6 @@ class PostCatalogueController extends Controller
             'template',
             'postCatalogue',
             'postCatalogues',
-            'orders',
         ));
     }
     public function edit($slug, UpdatePostCatalogueRequest $request)

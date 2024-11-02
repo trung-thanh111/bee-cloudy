@@ -346,7 +346,7 @@
             $td.append($input)
         })
 
-        $row.append($('<td>').addClass('td-quantity').text('-'))
+        $row.append($('<td>').addClass('td-quantity').text(1))
             .append($('<td>').addClass('td-price').text(mainPrice))
             .append($('<td>').addClass('td-sku').text(mainSku+'-'+classModified))
             .append($td)
@@ -576,7 +576,7 @@
         html += ' <div class="col-lg-4">';
         html += ' <label for="" class="control-label ">Số lượng</label>';
         html +=
-            ' <input type="text" class="form-control int" id="variantQuantity" required name="variant_quantity" value="'+variantData.variant_quantity+'">';
+            ' <input type="text" class="form-control int" id="variantQuantity" required name="variant_quantity" value="'+(parseInt(variantData.variant_quantity) ||1)+'">';
         html += " </div>";
         html += ' <div class="col-lg-4">';
         html += ' <label for="" class="control-label">SKU</label>';

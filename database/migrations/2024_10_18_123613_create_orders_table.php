@@ -28,6 +28,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'confirmed', 'shipping', 'canceled', 'completed'])->default('pending');
+            $table->enum('payment', ['unpaid', 'paid', 'failed'])->default('unpaid')->after('payment_method');
             $table->string('payment_method', 50);
             $table->timestamps();
         });

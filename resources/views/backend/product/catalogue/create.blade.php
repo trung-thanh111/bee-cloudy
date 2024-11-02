@@ -86,7 +86,7 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input" class="form-label">Danh mục</label>
-                                    <select class="form-select" name="parent_id">
+                                    <select class="form-select setUpSelect2" name="parent_id">
                                         <option value="" selected>[ Root ]</option>
                                         @foreach ($productCatalogues as $key => $productCatalogue)
                                             <option value="{{ $productCatalogue->id }}">{{ $productCatalogue->name }}
@@ -104,7 +104,7 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input" class="form-label">Trạng thái</label>
-                                    <select class="form-select" name="publish">
+                                    <select class="form-select setUpSelect2" name="publish">
                                         <option value="">[ Chọn Trạng thái ]</option>
                                         <option value="1"
                                             {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>Hiển thị
