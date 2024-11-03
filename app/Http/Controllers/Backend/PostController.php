@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
+use App\Services\PostService;
 use App\Http\Controllers\Controller;
+use App\Repositories\PostRepository;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Post;
-use App\Repositories\PostRepository;
 use App\Repositories\PostCatalogueRepository;
-use App\Services\PostService;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {

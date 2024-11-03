@@ -35,29 +35,35 @@
                                 <div class="content-product-cate row flex-wrap">
                                     @foreach ($results as $key => $product)
                                         @php
-                                            $shownColors = [];
+                                            $shownColors = []; // Mảng để theo dõi các màu đã được hiển thị
 
                                             $promotion =
                                                 $product->del != 0 && $product->del != null
                                                     ? (($product->price - $product->del) / $product->price) * 100
                                                     : '0';
-
                                             $price =
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
                                         @endphp
-                                        <div class="col-lg-3 col-md-6 col-12 mb-4">
-                                            <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                        <div class="col-lg-3 col-md-6  col-12 mb-4">
+                                            <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
                                                         <span
                                                             class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
                                                             giảm {{ round($promotion, 1) . '%' }}
                                                         </span>
-                                                        <span class="text-end mt-2 me-2 text-muted" data-bs-toggle="tooltip"
-                                                            data-bs-title="Thêm vào yêu thích">
-                                                            <i class="fa-regular fa-bookmark fz-16"></i>
+                                                        <span class="text-end mt-2 me-2 text-muted toggleWishlist"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-title="{{ in_array($product->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
+                                                            data-id="{{ $product->id }}">
+                                                            <i
+                                                                class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
+                                                            <span class="product_id_wishlist d-none">
+                                                                {{ $product->id }}
+                                                            </span>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -71,9 +77,7 @@
                                                             <div class="p-2 overflow-x-hidden">
                                                                 <span
                                                                     class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                                    @foreach ($product->productCatalogues as $catalogue)
-                                                                        {{ $catalogue->name }}
-                                                                    @endforeach
+                                                                    {{ $product->productCatalogues[0]->name }}
                                                                 </span>
                                                             </div>
                                                             <div class="p-2 ms-auto">
@@ -86,6 +90,7 @@
                                                                                     width="14" height="14"
                                                                                     class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
                                                                                 @php
+                                                                                    // Đánh dấu màu này đã được hiển thị
                                                                                     $shownColors[] = $attribute->name;
                                                                                 @endphp
                                                                             @endif
@@ -97,12 +102,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-2">
-                                                    <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                                    <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                         <a href="#"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
-                                                        <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                        <span
+                                                            class="text-danger fz-20 fw-medium me-3 product-variant-price"
                                                             data-price="{{ $price }}">{{ $price }}đ
                                                         </span>
                                                         <span class="mt-1 ">

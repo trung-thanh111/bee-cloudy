@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
+use App\Services\AttributeService;
 use App\Http\Controllers\Controller;
+use App\Repositories\AttributeRepository;
 use App\Http\Requests\StoreAttributeRequest;
 use App\Http\Requests\UpdateAttributeRequest;
-use App\Repositories\AttributeRepository;
 use App\Repositories\AttributeCatalogueRepository;
-use App\Services\AttributeService;
-use Illuminate\Http\Request;
 
 class AttributeController extends Controller
 {

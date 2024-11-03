@@ -122,6 +122,7 @@
                                                         {{ number_format($cartItem->price, 0, ',', '.') }}đ
                                                     </span>
                                                 </td>
+
                                                 <td class="text-center">
                                                     <div class="input-group componant-quantity justify-content-end shadow-sm flex-grow"
                                                         style="max-width: 130px; margin: 0 auto;">
@@ -129,10 +130,20 @@
                                                             type="button" data-id="{{ $cartItem->id }}">
                                                             <i class='bx bx-minus fw-medium'></i>
                                                         </button>
+                                                        @php
+                                                            $maxQuantity = 0;
+                                                            if ($cartItem->productVariants) {
+                                                                $maxQuantity = $cartItem->productVariants->quantity;
+                                                            } elseif ($cartItem->products) {
+                                                                $maxQuantity = $cartItem->products->instock
+                                                                    ? $cartItem->products->instock
+                                                                    : 10;
+                                                            }
+                                                        @endphp
                                                         <input type="text" name="quantity-input"
                                                             class="form-control border-0 fz-20 text-center fw-600"
                                                             value="{{ $cartItem->quantity }}" min="1"
-                                                            style="max-width: 60px;"
+                                                            max="{{ $maxQuantity }}" style="max-width: 60px;"
                                                             data-quantity-cart="{{ $cartItem->quantity }}" readonly>
                                                         @if ($cartItem->productVariants)
                                                             <input type="hidden" name="product_variant_id"
@@ -164,17 +175,19 @@
 
                                 </table>
                                 <div class="footer-cart d-flex justify-content-between align-items-center py-3">
-                                    <a href="#" class="back-to-product fz-14 text-muted ms-3">
+                                    <a href="{{ route('shop.index') }}" class="back-to-product fz-14 text-muted ms-3">
                                         <i class="fa-solid fa-chevron-left fz-3 me-2"></i>
                                         <span>Xem sản phẩm</span>
                                     </a>
-                                    <a href="javascript:void(0)"
-                                        class="back-to-product btn btn-outline-danger fz-14 rounded-1 clearCart"
-                                        data-bs-toggle="modal" data-bs-target="#clearCartModal"
-                                        data-cart-id="{{ $cartItem->cart_id }}">
-                                        <i class="fa-solid fa-trash-alt fz-3 me-2"></i>
-                                        <span>Xóa giỏ hàng</span>
-                                    </a>
+                                    @if ($countCart != 0)
+                                        <a href="javascript:void(0)"
+                                            class="back-to-product btn btn-outline-danger fz-14 rounded-1 clearCart"
+                                            data-bs-toggle="modal" data-bs-target="#clearCartModal"
+                                            data-cart-id="{{ $cartItem->cart_id }}">
+                                            <i class="fa-solid fa-trash-alt fz-3 me-2"></i>
+                                            <span>Xóa giỏ hàng</span>
+                                        </a>
+                                    @endif
                                     <!-- Modal -->
                                     <div class="modal fade" id="clearCartModal" tabindex="-1"
                                         aria-labelledby="clearCartModalLabel" aria-hidden="true">
@@ -329,7 +342,8 @@
                                                                     method="POST" class="m-0">
                                                                     @csrf
                                                                     <button type="submit"
-                                                                        class="btn btn-outline-danger btn-sm border-0" data-bs-toggle="tooltip"
+                                                                        class="btn btn-outline-danger btn-sm border-0"
+                                                                        data-bs-toggle="tooltip"
                                                                         data-bs-title="Xóa mã giảm giá {{ $promotion['code'] }}">
                                                                         <i class="fa fa-trash me-1"></i>
                                                                     </button>
@@ -428,45 +442,55 @@
                     </div>
                     <div class="row flex-wrap">
                         @if (count($productNews) != 0 && !empty($productNews))
-                            @foreach ($productNews as $key => $valProductSimilar)
+                            @foreach ($productNews as $key => $productNew)
                                 @php
                                     $shownColors = [];
                                     $promotion =
-                                        $valProductSimilar->del != 0 && $valProductSimilar->del != null
-                                            ? (($valProductSimilar->price - $valProductSimilar->del) /
-                                                    $valProductSimilar->price) *
-                                                100
+                                        $productNew->del != 0 && $productNew->del != null
+                                            ? (($productNew->price - $productNew->del) / $productNew->price) * 100
                                             : '0';
+
+                                    $price =
+                                        $productNew->del != 0 && $productNew->del != null
+                                            ? number_format($productNew->del, '0', ',', '.')
+                                            : number_format($productNew->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
-                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
-                                                    class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $valProductSimilar->del == 0 || $valProductSimilar->del == null ? 'hidden-visibility' : '' }}">
+                                                    class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $productNew->del == 0 || $productNew->del == null ? 'hidden-visibility' : '' }}">
                                                     giảm {{ round($promotion, 1) . '%' }}
                                                 </span>
-                                                <span class="text-end mt-2 me-2 text-muted" data-bs-toggle="tooltip"
-                                                    data-bs-title="Thêm vào yêu thích">
-                                                    <i class="fa-regular fa-bookmark fz-16"></i>
+                                                <span class="text-end mt-2 me-2 text-muted toggleWishlist"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-title="{{ in_array($productNew->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
+                                                    data-id="{{ $productNew->id }}">
+                                                    <i
+                                                        class="fa-{{ in_array($productNew->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
+                                                    <span class="product_id_wishlist d-none">
+                                                        {{ $productNew->id }}
+                                                    </span>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
-                                            <img src="{{ $valProductSimilar->image }}" alt="product image"
-                                                width="100%" height="250"
-                                                class="img-fluid object-fit-cover rounded-top-2" style="height: 300px">
+                                            <img src="{{ $productNew->image }}" alt="product image" width="100%"
+                                                height="250" class="img-fluid object-fit-cover rounded-top-2"
+                                                style="height: 300px">
                                             <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                 <div class="hstack gap-3">
                                                     <div class="p-2 overflow-x-hidden">
                                                         <span
                                                             class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            {{ $valProductSimilar->productCatalogues[0]->name }}
+                                                            {{ $productNew->productCatalogues[0]->name }}
                                                         </span>
                                                     </div>
                                                     <div class="p-2 ms-auto">
-                                                        <div class="product-image-color ">
-                                                            @foreach ($valProductSimilar->productVariant as $variant)
+                                                        <div class="product-image-color">
+                                                            @foreach ($productNew->productVariant as $variant)
                                                                 @foreach ($variant->attributes as $attribute)
                                                                     @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
                                                                         <img src="{{ $attribute->image }}"
@@ -486,25 +510,26 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-2">
-                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                 <a href="#"
-                                                    class="text-break w-100 text-muted">{{ $valProductSimilar->name }}</a>
+                                                    class="text-break w-100 text-muted">{{ $productNew->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
-                                                <span
-                                                    class="text-danger fz-20 fw-medium me-3">{{ $valProductSimilar->del != 0 && $valProductSimilar->del != null ? number_format($valProductSimilar->del, '0', ',', '.') : number_format($valProductSimilar->price, '0', ',', '.') }}đ
+                                                <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                    data-price="{{ $price }}">{{ $price }}đ
                                                 </span>
                                                 <span class="mt-1 ">
                                                     <del
-                                                        class="text-secondary fz-14 {{ $valProductSimilar->del == 0 && $valProductSimilar->del == null ? 'hidden-visibility' : '' }}">{{ number_format($valProductSimilar->price, '0', ',', '.') }}đ</del>
+                                                        class="text-secondary fz-14 {{ $productNew->del == 0 && $productNew->del == null ? 'hidden-visibility' : '' }}">{{ number_format($productNew->price, '0', ',', '.') }}đ</del>
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}"
+                                                <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}"
                                                     class="action-cart-item-buy">
                                                     <span>Xem chi tiết</span>
                                                 </a>
-                                                <a href="#" class="action-cart-item-add">
+                                                <a href="" class="action-cart-item-add addToCart"
+                                                    data-id="{{ $productNew->id }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -513,8 +538,7 @@
                                                 <span class="fz-14 ">
                                                     Mã sản phẩm
                                                 </span>
-                                                <span
-                                                    class="ms-auto text-dark fw-500 fz-14">{{ $valProductSimilar->sku }}</span>
+                                                <span class="ms-auto text-dark fw-500 fz-14">{{ $productNew->sku }}</span>
                                             </div>
                                         </div>
                                     </div>

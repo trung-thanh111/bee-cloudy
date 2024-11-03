@@ -40,11 +40,11 @@
                     }
                     $gallerys = $albumVairiants;
                     //-- //
-                    $totalSoldCount = 0;
+                    $variantSold = 0;
                     $totalReviewCount = 0;
                     $variantId = 0;
                     foreach ($product->productVariant as $variant) {
-                        $totalSoldCount += $variant->sold_count;
+                        $variantSold += $variant->sold_count;
                         $variantId = $variant->id;
                     }
 
@@ -168,7 +168,7 @@
                                     <div class="vr " style="width: 1px !important;"></div>
                                     <div class="py-2">
                                         <span class="fw-500">Đã bán:</span>
-                                        <span class="product-variant-sold">{{ $totalSoldCount . ' ' }} sản phẩm</span>
+                                        <span class="product-variant-sold">{{ $variantSold ? $variantSold : $product->sold_count }} sản phẩm</span>
                                     </div>
                                 </div>
                             </div>
@@ -235,12 +235,6 @@
                             @endif
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <input type="hidden" class="attributeCatalogue" value="{{ json_encode($attrCatalogues) }}">
-                            {{-- <form action="{{ route('cart.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="quantity" value="">
-                                <input type="hidden" name="price" value="">
-                            </form> --}}
                             <div class="box-choose-size">
                                 <div class="title-choose-size mb-2">
                                     <div class="row d-flex justify-content-between align-items-center  flex-wrap">
@@ -260,6 +254,8 @@
                                                                     size
                                                                     mô phỏng, độ chính xác tương đối.</span>
                                                                 <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-ao.jpg"
+                                                                    alt="" class="img-fluid object-fit-cover">
+                                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-giay.webp"
                                                                     alt="" class="img-fluid object-fit-cover">
                                                             </div>
                                                         </div>
@@ -281,7 +277,7 @@
                                             </button>
                                             <input type="text" name="quantity-product-variant w-sm-25"
                                                 class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
-                                                value="1" min="1" max="">
+                                                value="1" min="1" max="{{ ($product->instock) ? $product->instock : 10}}">
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -299,7 +295,7 @@
                                         </a>
                                         <div class="row w-100 mt-2 ms-0">
                                             <div class="col px-0 w-100 ">
-                                                <a href="#" class="addToCart" data-id="{{ $product->id }}">
+                                                <a href="" class="addToCart" data-id="{{ $product->id }}">
                                                     <!-- d-none d-md-inline-block: Ẩn trên màn hình nhỏ hơn md (< 768px), chỉ hiển thị từ kích thước màn hình md (>= 768px) trở lên. -->
                                                     <button
                                                         class=" btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block">Thêm
@@ -672,12 +668,12 @@
                                 <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="categoryP-item mb-3 overflow-y-scroll">
+                                <div class="categoryP-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($categories) && !empty($categories))
                                             @foreach ($categories as $category)
                                                 <li class="list-group-item item-category">
-                                                    <a href="#"
+                                                    <a href="{{ route('product.category', ['id' => $category->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $category->image }}" alt="{{ $category->name }}"
                                                             width="50" height="50"
@@ -696,12 +692,12 @@
                                 <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="brand-item mb-3 overflow-y-scroll">
+                                <div class="brand-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)
                                                 <li class="list-group-item item-category">
-                                                    <a href="#"
+                                                    <a href=""
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $brand->image }}" alt="{{ $brand->name }}"
                                                             width="50" height="50"
@@ -735,7 +731,7 @@
                                             : '0';
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
-                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
@@ -793,7 +789,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-2">
-                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                 <a href="#"
                                                     class="text-break w-100 text-muted">{{ $valProductSimilar->name }}</a>
                                             </h6>

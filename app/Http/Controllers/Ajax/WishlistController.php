@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers\Ajax;
 
-use App\Http\Controllers\FontendController;
 use Illuminate\Http\Request;
-use App\Repositories\WishlistRepository;
-use App\Repositories\ProductRepository;
 use App\Services\WishlistService;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\ProductRepository;
+use App\Repositories\WishlistRepository;
+use App\Http\Controllers\FontendController;
 
 class WishlistController extends FontendController
 {
+    protected $wishlistService;
     protected $productRepository;
     protected $wishlistRepository;
-    protected $wishlistService;
 
     public function __construct(
-        WishlistRepository $wishlistRepository,
-        ProductRepository $productRepository,
         WishlistService $wishlistService,
+        ProductRepository $productRepository,
+        WishlistRepository $wishlistRepository,
     ) {
-        $this->wishlistRepository = $wishlistRepository;
         $this->wishlistService = $wishlistService;
         $this->productRepository = $productRepository;
+        $this->wishlistRepository = $wishlistRepository;
     }
 
     public function index(Request $request)
