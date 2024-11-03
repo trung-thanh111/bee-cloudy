@@ -18,11 +18,8 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->string('description')->nullable();
             $table->date('birthday')->nullable();
-            $table->integer('province_id')->nullable();
-            $table->integer('district_id')->nullable();
-            $table->integer('ward_id')->nullable();
-            $table->string('address')->nullable();
             $table->unsignedBigInteger('user_catalogue_id')->default(1)->comment('1 la khach hang, > 2 la admin');
+            // $table->foreign('user_catalogue_id')->references('id')->on('user_catalogues')->onUpdate('cascade');
             $table->tinyInteger('publish')->default(1);
             $table->timestamp('deleted_at')->nullable();
             $table->string('email')->unique();

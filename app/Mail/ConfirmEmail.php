@@ -37,7 +37,7 @@ class ConfirmEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Xác thực Email',
+            subject: 'Confirm Email',
         );
     }
 

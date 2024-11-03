@@ -14,7 +14,6 @@ class CartItem extends Model
         'id',
         'cart_id',
         'product_id',
-        'product_variant_id',
         'product_name',
         'quantity',
         'price',
@@ -38,6 +37,6 @@ class CartItem extends Model
     // Khai báo quan hệ belongsTo với bảng productVariants
     public function productVariants():BelongsTo
     {
-        return $this->belongsTo(ProductVariant::class, 'product_variant_id', 'id');
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
 }

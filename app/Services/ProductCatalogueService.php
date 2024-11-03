@@ -39,7 +39,7 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
             $this->selectColumn(),
             $condition,
             ['parentReference'],
-            ['id', 'desc'],
+            ['order', 'ASC'],
             $perPage,
         );
         return $productCatalogues;
@@ -51,32 +51,51 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
         // dùng try-catch để bắt lỗi 
         try {
             $payload = $request->except(['_token', '_submit']);
-            $payload['slug'] = Str::slug($payload['slug'],'-').'-'.rand(10000, 99999);
+            $payload['user_id'] = Auth::id();
+            $payload['order'] = ProductCatalogue::max('order') + 1;
+            $payload['slug'] = Str::slug($payload['slug']);
+
             // thực hiện thêm mới -> gọi tới repository nhận vào một payload
             $this->productCatalogueRepository->create($payload);
-            DB::commit();
+            DB::commit(); // nếu k có lỗi -> commit lên đb
             return true;
         } catch (\Exception $e) {
-            DB::rollBack();
-            echo $e->getMessage();
+            DB::rollBack(); // có lỗi -> rollback lại k commit 
+            echo $e->getMessage(); // hiển thị lỗi 
             return false;
         }
     }
     public function update($slug, $request)
-    {
-        DB::beginTransaction();
-        try {
-            $payload = $request->except(['_token', 'submit']);
-            $payload['slug'] = Str::slug($payload['slug'],'-');
-            $productCatalogue = $this->productCatalogueRepository->findBySlug($slug);
-            $this->productCatalogueRepository->update($slug, $payload);
-            DB::commit();
-            return true;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw new \Exception("Cập nhật thất bại: " . $e->getMessage());
+{
+    DB::beginTransaction();
+    try {
+        $payload = $request->except(['_token', 'submit']);            
+        $productCatalogue = $this->productCatalogueRepository->findBySlug($slug);
+        $orderSameSelected = $this->productCatalogueRepository->findByCondition([
+            ['order', $payload['order']]
+        ], $productCatalogue->id);
+    
+        if ($orderSameSelected) {
+            $originalOrder = $productCatalogue->order;
+        
+            $orderSameSelected->order = $originalOrder;
+            $orderSameSelected->save();
+        
+            $productCatalogue->order = (int)$payload['order'];
+            $productCatalogue->save();
+        } else {
+            $productCatalogue->order = (int)$payload['order'];
+            $productCatalogue->save();
         }
+    
+        $this->productCatalogueRepository->update($slug, $payload);
+        DB::commit();
+        return true;
+    } catch (\Exception $e) {
+        DB::rollBack();
+        throw new \Exception("Cập nhật thất bại: " . $e->getMessage());
     }
+}      
 
     public function destroy($id = 0)
     {
@@ -143,10 +162,10 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
         return [
             'id',
             'parent_id',
-            'slug',
             'name',
             'image',
-            'description',
+            'slug',
+            'order',
             'publish',
         ];
     }

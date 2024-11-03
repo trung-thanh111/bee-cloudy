@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="vn">
+
 <head>
     @include('backend.dashboard.components.head')
 </head>
@@ -12,12 +13,17 @@
         @include('backend.dashboard.components.sidebar')
         <!-- main content -->
         @include($template)
+
+        {{-- @yield('content') --}}
+
         <!-- footer  -->
         @include('backend.dashboard.components.footer')
-        
+
     </div>
     <!-- footer  -->
     @include('backend.dashboard.components.script')
+    {{-- @yield('js') --}}
+
 </body>
 
 </html>

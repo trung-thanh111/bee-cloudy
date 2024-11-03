@@ -35,16 +35,10 @@ return [
         ],
     ],
 
+
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_SECRET_ID'),
         'redirect' => env('GOOGLE_REDIRECT'),
     ],
-
-    // 'paypal' => [
-    //     'sandbox' => [
-    //         'client_id'         => env('PAYPAL_CLIENT_ID', ''),
-    //         'client_secret'     => env('PAYPA_SECRET', ''),
-    //     ],
-    // ]
 ];

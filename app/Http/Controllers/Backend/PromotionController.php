@@ -1,22 +1,20 @@
 <?php
 namespace App\Http\Controllers\Backend;
 
-use Exception;
-use Carbon\Carbon;
-use App\Models\Product;
-use App\Models\Promotion;
-use App\Models\UserVoucher;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Promotion;
+use App\Models\Product;
+use App\Models\UserVoucher;
 use App\Models\PromotionProductVariant;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class PromotionController extends Controller
 {
     public function index()
     {
+        
         $promotions = Promotion::all();
         $template = 'backend.promotion.catalogue.index';
         return view('backend.dashboard.layout', compact(
@@ -34,123 +32,127 @@ class PromotionController extends Controller
     }
     public function store(Request $request)
     {
-        // Validate dữ liệu từ form
-        $validated = $request->validate([
+        // Điều chỉnh quy tắc xác thực
+        $validationRules = [
             'name' => 'required|string|max:255',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-            // 'discount' chỉ bắt buộc nếu apply_for không phải là 'freeship'
-            'discount' => $request->apply_for === 'freeship' ? 'nullable' : 'required|numeric|min:0',
-            'minimum_amount' => 'nullable|numeric|min:0',  // Số tiền tối thiểu để áp dụng khuyến mãi
-            'usage_limit' => 'nullable|integer|min:1',  // Giới hạn số lần sử dụng
-            'apply_for' => 'required|in:specific_products,freeship,all',
-            'status' => 'required|in:active,inactive',
-            'product_id' => 'nullable|exists:products,id',  // Chỉ yêu cầu nếu chọn sản phẩm cụ thể
-        ]);
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'discount_value' => 'required|numeric',
+            'minimum_amount' => 'nullable|numeric',
+            'usage_limit' => 'nullable|integer',
+            'apply_for' => 'required|in:specific_products,new_accounts,all',
+        ];
 
-        // Tạo mã khuyến mãi ngẫu nhiên
-        $code = strtoupper(Str::random(6));
-
-        // Xử lý chiết khấu cho freeship và all
-        if ($validated['apply_for'] === 'freeship') {
-            $discount = 0;  // Nếu là freeship, chiết khấu = 0
-        } else {
-            $discount = $validated['discount'];  // Dùng chiết khấu cho tất cả hoặc sản phẩm cụ thể
+        // Thêm quy tắc xác thực cho sản phẩm cụ thể chỉ khi apply_for là 'specific_products'
+        if ($request->input('apply_for') === 'specific_products') {
+            $validationRules['products'] = 'required|array|min:1';
+            $validationRules['discounts'] = 'required|array|min:1';
+            $validationRules['discounts.*'] = 'required|numeric|min:0|max:100';
         }
 
-        // Tạo mới khuyến mãi trong bảng 'promotions'
+        // Xác thực dữ liệu
+        $validated = $request->validate($validationRules);
+
+        // Tạo mã code ngẫu nhiên cho promotion
+        $randomCode = Str::upper(Str::random(8));
+
+        // Tạo promotion mới
         $promotion = Promotion::create([
-            'name' => $validated['name'],
-            'code' => $code,
-            'start_date' => $validated['start_date'],
-            'end_date' => $validated['end_date'],
-            'discount' => $discount,
-            'minimum_amount' => $validated['minimum_amount'],  // Số tiền tối thiểu
-            'usage_limit' => $validated['usage_limit'],  // Giới hạn sử dụng
-            'apply_for' => $validated['apply_for'],
-            'status' => $validated['status'],
+            'name' => $request->input('name'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'discount_value' => $request->input('discount_value'),
+            'minimum_amount' => $request->input('minimum_amount'),
+            'usage_limit' => $request->input('usage_limit'),
+            'apply_for' => $request->input('apply_for'),
+            'code' => $randomCode,
         ]);
 
-        // Nếu apply_for là 'specific_products', lưu chiết khấu vào bảng promotion_product_variants
-        if ($validated['apply_for'] === 'specific_products') {
-            PromotionProductVariant::create([
-                'promotion_id' => $promotion->id,
-                'product_id' => $validated['product_id'],  // Chỉ một sản phẩm duy nhất
-                'discount' => $discount,  // Chiết khấu cho sản phẩm được chọn
-            ]);
+        // Xử lý sản phẩm cụ thể nếu apply_for là 'specific_products'
+        if ($request->input('apply_for') === 'specific_products') {
+            $products = $request->input('products', []);
+            $discounts = $request->input('discounts', []);
+
+            foreach ($products as $index => $productId) {
+                if (isset($discounts[$index])) {
+                    PromotionProductVariant::create([
+                        'promotion_id' => $promotion->id,
+                        'product_id' => $productId,
+                        'discount' => $discounts[$index]
+                    ]);
+                }
+            }
         }
 
-        return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được tạo thành công!');
+        // Điều hướng sau khi lưu thành công
+        return redirect()->route('promotions.catalogue.store')->with('success', 'Promotion created successfully.');
     }
-
-
-
     public function showAllPromotions()
     {
-        // Fetch all promotions and convert date fields to Carbon instances
-        $promotions = Promotion::all()->map(function ($promotion) {
-            $promotion->start_date = Carbon::parse($promotion->start_date);
-            $promotion->end_date = Carbon::parse($promotion->end_date);
-            return $promotion;
-        });
-
-        return view('fontend.promotion.index', compact(
-            'promotions'
-        ));
-    }
-
-    public function receivePromotion(Promotion $promotion, Request $request)
-    {
         $user = Auth::user();
-
-        // Kiểm tra usage_limit của voucher
-        if ($promotion->usage_limit <= 0) {
-            return redirect()->back()->with('error', 'Voucher đã hết.');
-        }
-
-        // Kiểm tra xem người dùng đã nhận voucher này chưa
-        $existingVoucher = UserVoucher::where('user_id', $user->id)
-            ->where('promotion_id', $promotion->id)
-            ->first();
-        if ($existingVoucher) {
-            return redirect()->back()->with('error', 'Bạn đã nhận voucher này rồi.');
-        }
-
-        // Lấy mã code từ bảng promotion dựa trên promotion_id
-        $voucherCode = $promotion->code;  // Mã code được lấy từ bảng promotions
-
-        // Giảm usage_limit khi voucher được nhận
-        $promotion->usage_limit -= 1;
-        $promotion->save();
-
-        // Tạo voucher cho người dùng với mã từ promotion
-        UserVoucher::create([
-            'user_id' => $user->id,
-            'promotion_id' => $promotion->id,
-            'code' => $voucherCode, // Gán mã code từ bảng promotion vào user_voucher
-            'received_at' => now(),
-        ]);
-
-        return redirect()->back()->with('success', 'Voucher nhận thành công');
+        $promotions = Promotion::where('usage_limit', '>', 0)->get();
+        return view('fontend.promotion.index', compact('promotions','user'));
     }
-    public function confirmDelete($id)
+    public function delete(Request $request)
     {
-        // Tìm khuyến mãi theo ID
-        $promotion = Promotion::findOrFail($id);
-        $template = 'backend.promotion.catalogue.delete';
-        // Trả về trang delete.blade.php để xác nhận
-        return view('backend.dashboard.layout', compact('template', 'promotion'));
+        $ids = explode(',', $request->input('ids'));
+        Promotion::whereIn('id', $ids)->delete();
+        return redirect()->route('promotions.index')->with('success', 'Đã xóa thành công các mục đã chọn.');
     }
 
-    public function destroy($id)
+    public function receivePromotion(Request $request, $promotionId)
     {
-        // Tìm khuyến mãi theo ID
-        $promotion = Promotion::findOrFail($id);
-        $result = $promotion->delete();
-        
+        $userId = Auth::id();
+    
+        DB::beginTransaction();
+    
+        try {
+            $promotion = Promotion::lockForUpdate()->findOrFail($promotionId);
+    
+            if ($promotion->usage_limit < 1) {
+                throw new \Exception('Promotion này đã hết.');
+            }
+    
+            if ($promotion->apply_for !== 'specific_products') {
+                throw new \Exception('Promotion này không áp dụng cho sản phẩm cụ thể.');
+            }
+    
+            $existingPromotion = UserVoucher::where('user_id', $userId)
+                ->where('promotion_id', $promotionId)
+                ->first();
+    
+            if ($existingPromotion) {
+                throw new \Exception('Bạn đã nhận promotion này rồi.');
+            }
+    
+            // Decrement the usage_limit first
+            $promotion->usage_limit -= 1;
+            $promotion->save();
+    
+            // Then create the UserVoucher
+            UserVoucher::create([
+                'user_id' => $userId,
+                'promotion_id' => $promotionId,
+            ]);
+    
+            DB::commit();
+    
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'message' => 'Bạn đã nhận promotion thành công!']);
+            }
+    
+            return redirect()->back()->with('success', 'Bạn đã nhận promotion thành công!');
+        } catch (\Exception $e) {
+            DB::rollback();
+            \Log::error('Error in receivePromotion: ' . $e->getMessage());
+    
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => $e->getMessage()]);
+            }
+    
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
-
-
 
     public function myPromotions()
     {
@@ -183,11 +185,10 @@ class PromotionController extends Controller
             'code' => 'required|string|unique:promotions,code,' . $id,
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'discount' => 'required|numeric|min:0',
+            'discount_value' => 'required|numeric|min:0',
             'minimum_amount' => 'nullable|numeric|min:0',
             'usage_limit' => 'nullable|integer|min:0',
-            'apply_for' => 'required|in:specific_products,freeship,all',
-
+            'apply_for' => 'required|in:specific_products,new_accounts,all',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -197,7 +198,7 @@ class PromotionController extends Controller
             'code' => $request->input('code'),
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date'),
-            'discount' => $request->input('discount'),
+            'discount_value' => $request->input('discount_value'),
             'minimum_amount' => $request->input('minimum_amount'),
             'usage_limit' => $request->input('usage_limit'),
             'apply_for' => $request->input('apply_for'),
@@ -205,46 +206,10 @@ class PromotionController extends Controller
         ]);
 
         $promotions = Promotion::all();
-        // Trả về view để hiển thị form chỉnh sửa, truyền dữ liệu khuyến mãi hiện tại
         $template = 'backend.promotion.catalogue.index';
+
+        // Trả về view để hiển thị form chỉnh sửa, truyền dữ liệu khuyến mãi hiện tại
         return view('backend.dashboard.layout', compact('template', 'promotions'))->with('success', 'Cập nhật khuyến mãi thành công!');
-    }
-    public function show($id)
-    {
-        $promotion = Promotion::with('products')->findOrFail($id);
-
-        return view('backend.dashboard.layout', [
-            'template' => 'backend.promotion.catalogue.show',
-            'promotion' => $promotion
-        ]);
-    }
-    public function bulkDelete(Request $request)
-    {
-        // Retrieve the list of IDs from the input
-        $listId = $request->input('id');
-
-        // Check if listId is provided and not empty
-        if ($listId) {
-            try {
-                // Convert the list of IDs from a string to an array
-                $arrayId = explode(',', $listId);
-
-                // Perform the bulk delete operation
-                Promotion::whereIn('id', $arrayId)->delete();
-
-                // Flash success message
-                return redirect()->route('promotions.index')->with('success', 'Xóa thành công các bản ghi.');
-            } catch (Exception $e) {
-                // Log any exception that occurs
-                Log::error('Bulk delete error: ' . $e->getMessage());
-
-                // Flash error message
-                return redirect()->route('promotions.index')->with('error', 'Xảy ra lỗi khi xóa các bản ghi. Vui lòng thử lại.');
-            }
-        } else {
-            // Flash warning message if no IDs were provided
-            return redirect()->route('promotions.index')->with('warning', 'Không có bản ghi nào được chọn để xóa.');
-        }
     }
 
 

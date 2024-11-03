@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-use App\Services\BrandService;
 use App\Http\Controllers\Controller;
-use App\Repositories\BrandRepository;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
+use App\Repositories\BrandRepository;
+use App\Services\BrandService;
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {

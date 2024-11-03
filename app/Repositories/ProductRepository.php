@@ -64,28 +64,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model
             ->select(['*'])
-            ->with(['productCatalogues',
-             'productVariant' => function ($query) {
-                $query->where('quantity', '>', 0); 
-            }, 
-             'productVariant.attributes'])
+            ->with(['productCatalogues', 'productVariant', 'productVariant.attributes'])
             ->where('slug', $slug)
             ->first();
-    }
-
-    public function getVariantFindBySlug(array $relations = [], array $conditions = [])
-    {
-        $query = $this->model->with($relations);
-
-        foreach($conditions as $key => $val) {
-            if(count($conditions) == 3) {
-                $query->where($val[0], $val[1], $val[2]);
-            } else {
-                $query->where($val[0], '=', $val[1]);
-            }
-        }
-
-        return $query->first();
     }
 
     public function create($payload = [])

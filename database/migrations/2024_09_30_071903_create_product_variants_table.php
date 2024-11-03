@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
             $table->string('name'); 
-            $table->string('code')->comment('mã của thuộc tính')->nullable(); 
+            $table->string('code')->comment('mã của phiên bản')->nullable(); 
             $table->integer('quantity')->default(0); 
             $table->string('sku')->unique()->nullable();
             $table->float('price')->default(0); 
@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('file_url')->nullable(); 
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->tinyInteger('publish')->default(1);
             $table->timestamps();
             $table->softDeletes();

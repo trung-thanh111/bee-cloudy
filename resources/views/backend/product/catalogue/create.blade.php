@@ -69,7 +69,7 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control" id="" name="description" rows="7">{{ old('description') }}</textarea>
+                                        <textarea class="form-control ck-editor" id="ck-editor" data-height="200" name="description">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input" class="form-label">Danh mục</label>
-                                    <select class="form-select setUpSelect2" name="parent_id">
+                                    <select class="form-select" name="parent_id">
                                         <option value="" selected>[ Root ]</option>
                                         @foreach ($productCatalogues as $key => $productCatalogue)
                                             <option value="{{ $productCatalogue->id }}">{{ $productCatalogue->name }}
@@ -104,7 +104,7 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input" class="form-label">Trạng thái</label>
-                                    <select class="form-select setUpSelect2" name="publish">
+                                    <select class="form-select" name="publish">
                                         <option value="">[ Chọn Trạng thái ]</option>
                                         <option value="1"
                                             {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>Hiển thị
@@ -132,7 +132,7 @@
                                             <span class="image-target">
                                                 <img src="/libaries/upload/images/img-notfound.png"
                                                     alt=""
-                                                    class="render-image object-fit-contain rounded-1 mb-2 position-relative "
+                                                    class="render-image object-fit-contait rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}

@@ -9,7 +9,6 @@ use App\Repositories\ProductRepository;
 use App\Repositories\AttributeCatalogueRepository;
 use App\Repositories\AttributeRepository;
 use App\Repositories\ProductVariantAttributeRepository;
-use App\Repositories\ProductVariantRepository;
 use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +22,6 @@ use Illuminate\Support\Str;
 class ProductService implements ProductServiceInterface
 {
     protected $productRepository;
-    protected $productVariantRepository;
     protected $attributeCatalogueRepository;
     protected $attributeRepository;
     protected $productVariantAttributeRepository;
@@ -31,15 +29,13 @@ class ProductService implements ProductServiceInterface
         ProductRepository $productRepository,
         AttributeCatalogueRepository $attributeCatalogueRepository,
         AttributeRepository $attributeRepository,
-        ProductVariantAttributeRepository $productVariantAttributeRepository,
-        ProductVariantRepository $productVariantRepository
+        ProductVariantAttributeRepository $productVariantAttributeRepository
 
     ) {
         $this->productRepository = $productRepository;
         $this->attributeCatalogueRepository = $attributeCatalogueRepository;
         $this->attributeRepository = $attributeRepository;
         $this->productVariantAttributeRepository = $productVariantAttributeRepository;
-        $this->productVariantRepository = $productVariantRepository;
     }
 
     public function all()
@@ -185,13 +181,13 @@ class ProductService implements ProductServiceInterface
     private function createProduct($request)
     {
         $payload = $request->only($this->payload());
+        $payload['user_id'] = Auth::id();
         $payload['del'] = (isset($payload['del'])) ? $payload['del'] : '0';
-        $payload['slug'] = Str::slug($payload['slug'], '-').'-'.rand(10000, 99999);
+        $payload['slug'] = Str::slug($payload['slug'], '-');
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
         $payload['attribute'] = $request->input('attribute');
         $payload['variant'] = $this->formatJson($request, 'variant');
         $product = $this->productRepository->create($payload);
-        // dd($product);
         return $product;
     }
     private function createVariant($product, $request)
@@ -264,6 +260,7 @@ class ProductService implements ProductServiceInterface
                     'file_name' => ($payload['variant']['file_name'][$key]) ?? '',
                     'file_url' => ($payload['variant']['file_url'][$key]) ?? '',
                     'album' => ($payload['variant']['album'][$key]) ?? '',
+                    'user_id' => Auth::id(),
                 ];
             }
         }
@@ -273,7 +270,7 @@ class ProductService implements ProductServiceInterface
     private function updateProduct($product, $request)
     {
         $payload = $request->only($this->payload());
-        $payload['slug'] = Str::slug($payload['slug'], '-');
+        $payload['user_id'] = Auth::id();
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
         if ($request->has('attribute')) {
             $payload['attribute'] = $request->input('attribute');
@@ -327,92 +324,26 @@ class ProductService implements ProductServiceInterface
         return $product;
     }
 
-    public function checkAttributeVariantQuantity(string $slug = '')
-    {
-        $productVariants = $this->productRepository->getVariantFindBySlug(
-            [
-                'productCatalogues',
-                'productVariant' => function ($query) {
-                    $query->where('quantity', '>', 0);
-                },
-                'productVariant.attributes'
-            ],
-            [
-                ['slug', $slug],
-            ]
-        );
-
-        $result = [
-            'color' => [], // màu
-            'size' => [], // kích thước
-        ];
-        // dd($productVariants);
-        foreach ($productVariants->productVariant as $variant) {
-            // dd($variant->code);
-            if ($variant->code) {
-                $codes = explode(',', $variant->code);
-                if (count($codes) === 2) {
-                    list($colorId, $sizeId) = $codes;
-
-                    if (!in_array((int)$colorId, $result['color'])) {
-                        $result['color'][] = (int)$colorId;
-                    }
-                    if (!in_array((int)$sizeId, $result['size'])) {
-                        $result['size'][] = (int)$sizeId;
-                    }
-                } elseif (count($codes) === 1) {
-                    list($colorId) = $codes;
-
-                    $arrayColorId = $this->isColor();
-
-                    if (in_array((int)$colorId, $arrayColorId)) {
-                        if (!in_array((int)$colorId, $result['color'])) {
-                            $result['color'][] = (int)$colorId;
-                        }
-                    } else {
-                        // if (!in_array((int)$sizeId, $result['size'])) {
-                        //     $result['size'][] = (int)$sizeId;
-                        // }
-                    }
-                }
-            }
-        }
-        // dd($result);
-        return $result;
-    }
-    public function isColor()
-    {
-        $arrayColorId = [];
-        $colors = $this->attributeRepository->allWhere([
-            ['attribute_catalogue_id', 1]
-        ]);
-        foreach ($colors as $color) {
-            $arrayColorId[] = $color->id;
-        }
-        return $arrayColorId;
-    }
-
     private function payload()
     {
         return [
             'name',
             'slug',
-            'image',
-            'album',
-            'info',
-            'description',
-            'brand_id',
-            'is_hot',
             'price',
-            'del',
+            'album',
             'instock',
+            'del',
+            'info',
             'sku',
-            'attributeCatalogue', // json
-            'attribute', // json
-            'variant',  // json
+            'short_desc',
+            'image',
+            'brand_id',
+            'description',
             'publish',
             'product_catalogue_id',
-            'created_at',
+            'attributeCatalogue',
+            'attribute',
+            'variant',
         ];
     }
     private function paginateSelect()
@@ -420,21 +351,23 @@ class ProductService implements ProductServiceInterface
         return [
             'id',
             'name',
-            'slug',
             'image',
             'album',
-            'info',
+            'instock',
+            'slug',
+            'short_desc',
             'description',
-            'brand_id',
-            'is_hot',
+            'info',
             'price',
             'del',
-            'instock',
             'sku',
-            'attributeCatalogue', // json
-            'attribute', // json
-            'variant',  // json
+            'brand_id',
+            'user_id',
+            'attributeCatalogue',
+            'attribute',
+            'variant',
             'publish',
+            'created_at'
         ];
     }
 }

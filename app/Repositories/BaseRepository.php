@@ -72,11 +72,13 @@ class BaseRepository implements BaseRepositoryInterface
             ->relation($relation ?? null)
             ->customOrderBy($orderBy ?? null)
             ->paginate($perPage);
+            // ->toSql();
     }
 
     public function create(array $payload)
     {
         $model = $this->model->create($payload);
+        // fresh() se tai lai ban ghi vua dc tao vs du lieu moi nhat
         return $model->fresh();
     }
 
@@ -151,6 +153,4 @@ class BaseRepository implements BaseRepositoryInterface
         // dùng insert để insert mảng nhiều bảng ghi 
         return $this->model->insert($payload);
     }
-
-    
 }

@@ -15,10 +15,10 @@ class CreateAllTablesExceptUserAndProduct extends Migration
             $table->string('code')->unique();  
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->decimal('discount', 10, 2);
+            $table->decimal('discount_value', 10, 2);
             $table->decimal('minimum_amount', 10, 2)->nullable();
             $table->integer('usage_limit')->nullable();
-            $table->enum('apply_for', ['specific_products', 'freeship', 'all'])->default('all');
+            $table->enum('apply_for', ['specific_products', 'new_accounts', 'all'])->default('all');
             $table->enum('status', ['active', 'inactive'])->default('active');
         
             // Các cột mới thêm vào
@@ -31,8 +31,8 @@ class CreateAllTablesExceptUserAndProduct extends Migration
         Schema::create('promotion_product_variants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('promotion_id');
-            $table->decimal('discount', 5, 2)->nullable();
             $table->unsignedBigInteger('product_id');
+            $table->decimal('discount', 5, 2); // discount percentage or amount
             $table->timestamps();
 
             // Add foreign keys
@@ -44,10 +44,8 @@ class CreateAllTablesExceptUserAndProduct extends Migration
         Schema::create('user_vouchers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('code')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('promotion_id');
-            $table->unsignedBigInteger('promotion_product_variant_id')->nullable()->default(null);
+            $table->unsignedBigInteger('promotion_product_variant_id');
             $table->timestamp('claimed_at')->nullable();
             $table->timestamps();
 

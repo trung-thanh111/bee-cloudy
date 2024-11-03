@@ -5,7 +5,8 @@
                 <img src="/libaries/upload/images/logo/bee-cloudy-logo.png" alt="" width="180px" height="auto">
             </span>
             <span class="logo-lg">
-                <img src="/libaries/upload/images/logo/bee-cloudy-logo.png" alt="" width="180px" height="auto">
+                <img src="/libaries/upload/images/logo/bee-cloudy-logo.png" alt="" width="180px"
+                    height="auto">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -25,7 +26,7 @@
                     </a>
                 </li>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span class="text-light">Quản lý</span></li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPages">
@@ -46,13 +47,13 @@
                                 <a href="{{ route('product.catalogue.index') }}" class="nav-link">Nhóm sản phẩm</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarProduct" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProduct" > Sản phẩm
+                                <a href="#sidebarProduct" class="nav-link" data-bs-toggle="collapse" role="button"
+                                    aria-controls="sidebarProduct"> Sản phẩm
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarProduct">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{ route('product.index') }}" class="nav-link" >
+                                            <a href="{{ route('product.index') }}" class="nav-link">
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
@@ -65,76 +66,27 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarOrders">
-                        <i class="fa-brands fa-shopify"></i> <span data-key="t-Orders">Đơn hàng</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarOrders">
-                        <ul class="nav nav-sm flex-column">
-                            
-                            <li class="nav-item">
-                                <a href="#sidebarorder" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarorder" > Quản lý
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarorder">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{ route('order.index') }}" class="nav-link" >
-                                                Danh sách</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarMembers" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarMembers">
-                        <i class="ri-group-fill"></i> <span data-key="t-pages">Thành viên</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarMembers">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('user.catalogue.index') }}" class="nav-link" data-key="t-starter"> Nhóm thành viên </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#sidebarUser" class="nav-link" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="false" aria-controls="sidebarUser" data-key="t-User"> Thành viên
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarUser">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="{{ route('user.index') }}" class="nav-link" data-key="t-simple-page"> Quản lý</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('user.create') }}" class="nav-link" data-key="t-simple-page"> Thêm mới</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPagesvoucher">
-                        <i class="fa-solid fa-ticket"></i> <span data-key="t-pages">Voucher</span>
+                        <i class="ri-pages-line"></i> <span data-key="t-pages">Voucher</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarPagesvoucher">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProfile" >Voucher
+                                <a href="" class="nav-link">Nhóm thuộc tính</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse" role="button"
+                                    aria-controls="sidebarProfile"> Voucher
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarProfile">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{ route('promotions.index') }}" class="nav-link" >
+                                            <a href="" class="nav-link">
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('promotions.create') }}" class="nav-link">Thêm mới </a>
+                                            <a href="" class="nav-link">Thêm mới </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -153,13 +105,13 @@
                                 <a href="{{ route('post.catalogue.index') }}" class="nav-link">Nhóm bài viết</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#sidebarPost" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarPost" > Bài viết
+                                <a href="#sidebarPost" class="nav-link" data-bs-toggle="collapse" role="button"
+                                    aria-controls="sidebarPost"> Bài viết
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarPost">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{ route('post.index') }}" class="nav-link" >
+                                            <a href="{{ route('post.index') }}" class="nav-link">
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
@@ -172,9 +124,17 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('productreview') }}" class="nav-link">
+                        <i class="ri-pencil-ruler-2-line"></i>Quản Lý Đánh Giá</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('comment') }}" class="nav-link">
+                        <i class="ri-pencil-ruler-2-line"></i>Quản Lý Bài Viết</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarLanding">
-                        <i class="ri-rocket-line"></i> 
+                        <i class="ri-rocket-line"></i>
                         <span data-key="t-landing">Landing</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarLanding">
@@ -212,8 +172,7 @@
                                         <a href="ui-badges.html" class="nav-link" data-key="t-badges">Badges</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="ui-buttons.html" class="nav-link"
-                                            data-key="t-buttons">Buttons</a>
+                                        <a href="ui-buttons.html" class="nav-link" data-key="t-buttons">Buttons</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="ui-colors.html" class="nav-link" data-key="t-colors">Colors</a>
@@ -274,8 +233,7 @@
                                             object</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="ui-embed-video.html" class="nav-link"
-                                            data-key="t-embed-video">Embed
+                                        <a href="ui-embed-video.html" class="nav-link" data-key="t-embed-video">Embed
                                             Video</a>
                                     </li>
                                     <li class="nav-item">
@@ -288,16 +246,13 @@
                                     <li class="nav-item">
                                         <a href="ui-links.html" class="nav-link"><span
                                                 data-key="t-links">Links</span> <span
-                                                class="badge badge-pill bg-success"
-                                                data-key="t-new">New</span></a>
+                                                class="badge badge-pill bg-success" data-key="t-new">New</span></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="ui-general.html" class="nav-link"
-                                            data-key="t-general">General</a>
+                                        <a href="ui-general.html" class="nav-link" data-key="t-general">General</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="ui-ribbons.html" class="nav-link"
-                                            data-key="t-ribbons">Ribbons</a>
+                                        <a href="ui-ribbons.html" class="nav-link" data-key="t-ribbons">Ribbons</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="ui-utilities.html" class="nav-link"

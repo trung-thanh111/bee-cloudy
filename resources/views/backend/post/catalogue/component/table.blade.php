@@ -7,9 +7,10 @@
                         <input class="form-check-input" type="checkbox" id="check-all" value="option">
                     </div>
                 </th>
-                <th class="">Nhóm bài viết</th>
-                <th class="text-center" style="width: 160px">Trạng thái</th>
-                <th class="text-end" style="width: 100px">Thao tác</th>
+                <th class="sort" data-sort="name">Nhóm bài viết</th>
+                <th class="sort text-center" data-sort="order" style="width: 160px">Vị trí</th>
+                <th class="sort text-center" data-sort="status" style="width: 160px">Trạng thái</th>
+                <th class="sort text-end" data-sort="action" style="width: 160px">Thao tác</th>
             </tr>
         </thead>
         <tbody class="list form-check-all">
@@ -41,6 +42,7 @@
                             </div>
                         </div>
                     </td>
+                    <td class=" text-center">{{ $item->order }}</td>
                     <td class="status text-center">
                         {!! $item->publish == 1
                             ? '<span class="badge bg-success-subtle text-success text-uppercase p-2">Hiển Thị</span>'

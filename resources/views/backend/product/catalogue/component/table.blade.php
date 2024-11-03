@@ -8,8 +8,9 @@
                     </div>
                 </th>
                 <th class="">Nhóm sản phẩm</th>
+                <th class=" text-center"  style="width: 160px">Vị trí</th>
                 <th class=" text-center" style="width: 160px">Trạng thái</th>
-                <th class=" text-end" style="width: 100px">Thao tác</th>
+                <th class=" text-end" style="width: 160px">Thao tác</th>
             </tr>
         </thead>
         <tbody class="list form-check-all">
@@ -42,6 +43,7 @@
                         </div>
                     </td>
 
+                    <td class="order text-center">{{ $item->order }}</td>
                     <td class="status text-center">
                         {!! $item->publish == 1
                             ? '<span class="badge bg-success-subtle text-success text-uppercase p-2">Hiển Thị</span>'

@@ -73,20 +73,13 @@
 
 }
 .select2-container .select2-selection--multiple {
-    min-height: 37px !important;
+    height: 37px !important;
     border-radius: 2px !important;
     line-height: 1.5rem !important;
     padding-left: 3px;
 }
 .select2-selection__choice {
     background-color: #495057 !important;
-}
-
-
-/* //rangepicke  */
-.rangepicker{
-    height: 37px !important;
-    border: 1px solid #595c5f !important;
 }
 
 /* css product variant  */
@@ -99,8 +92,8 @@
 }
 .variant-checkbox input{
     margin-top:0;
-    width:10px;
-    height:10px;
+    width:16px;
+    height:16px;
 }
 .variant-checkbox label{
     margin-bottom:0;
@@ -213,4 +206,3 @@
 .visibility-none {
     visibility: hidden;
 }
-

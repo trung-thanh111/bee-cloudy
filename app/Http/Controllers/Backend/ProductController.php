@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-use App\Services\ProductService;
 use App\Http\Controllers\Controller;
-use App\Repositories\BrandRepository;
-use App\Repositories\ProductRepository;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Repositories\ProductCatalogueRepository;
 use App\Repositories\AttributeCatalogueRepository;
+use App\Repositories\BrandRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\ProductCatalogueRepository;
+use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     protected $productService;
-    protected $brandRepository;
     protected $productRepository;
-    protected $productCatalogueRepository;
     protected $attributeCatalogueRepository;
+    protected $productCatalogueRepository;
+    protected $brandRepository;
     public function __construct(
         ProductService $productService,
-        BrandRepository $brandRepository,
         ProductRepository $productRepository,
         ProductCatalogueRepository $productCatalogueRepository,
         AttributeCatalogueRepository $attributeCatalogueRepository,
+        BrandRepository $brandRepository,
     ) {
         $this->productService = $productService;
-        $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
-        $this->attributeCatalogueRepository = $attributeCatalogueRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->attributeCatalogueRepository = $attributeCatalogueRepository;
+        $this->brandRepository = $brandRepository;
     }
 
     public function index(Request $request)
@@ -54,10 +54,10 @@ class ProductController extends Controller
         $template = 'backend.product.product.create';
         return view('backend.dashboard.layout', compact(
             'template',
-            'brands',
             'products',
             'productCatalogues',
             'attributeCatalogue',
+            'brands',
         ));
     }
     public function store(StoreProductRequest $request)
@@ -84,10 +84,10 @@ class ProductController extends Controller
         $template = 'backend.product.product.update';
         return view('backend.dashboard.layout', compact(
             'template',
-            'brands',
             'product',
             'productCatalogues',
             'attributeCatalogue',
+            'brands',
         ));
     }
     public function edit($slug, UpdateProductRequest $request)
@@ -98,7 +98,7 @@ class ProductController extends Controller
             return redirect()->route('product.index');
         } else {
             flash()->error('Thất bại. Đã có lỗi xảy ra vui lòng thử lại!');
-            return redirect()->back();
+            // return redirect()->back();
         }
     }
     public function delete($id = 0)

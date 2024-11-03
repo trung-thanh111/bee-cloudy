@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers\Fontend;
 
-use App\Models\Product;
-use App\Services\ProductService;
 use App\Http\Controllers\Controller;
-use App\Repositories\BrandRepository;
+use App\Models\Product;
 use App\Repositories\ProductRepository;
+use App\Repositories\BrandRepository;
 use App\Repositories\ProductCatalogueRepository;
+use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    protected $productService;
-    protected $brandRepository;
     protected $productRepository;
+    protected $brandRepository;
+    protected $productService;
     protected $productCatalogueRepository;
 
     public function __construct(
-        ProductService $productService,
-        BrandRepository $brandRepository,
         ProductRepository $productRepository,
+        BrandRepository $brandRepository,
+        ProductService $productService,
         ProductCatalogueRepository $productCatalogueRepository
     ) {
-        $this->productService = $productService;
-        $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
+        $this->brandRepository = $brandRepository;
+        $this->productService = $productService;
         $this->productCatalogueRepository = $productCatalogueRepository;
     }
     public function index() {}
@@ -39,20 +40,17 @@ class ProductController extends Controller
             ['publish', '=', 1],
         ]);
         $categoryIds = $product->productCatalogues->pluck('id')->toArray();
-        $productSimilars = Product::whereHas('productCatalogues', function ($query) use ($categoryIds) {
+        $productSimilars = Product::whereHas('productCatalogues', function($query) use ($categoryIds) {
             $query->whereIn('product_catalogues.id', $categoryIds);
         })->where('publish', 1)
-            ->where('id', '!=', $product->id)
-            ->limit(4)
-            ->get();
-
-        $attributeVariant = $this->productService->checkAttributeVariantQuantity($slug);
+          ->where('id', '!=', $product->id)
+          ->limit(4)
+          ->get();
         return view('fontend.product.detail', compact(
-            'brands',
             'product',
+            'brands',
             'categories',
-            'productSimilars',
-            'attributeVariant',
+            'productSimilars'
         ));
     }
     

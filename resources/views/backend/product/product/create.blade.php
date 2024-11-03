@@ -63,13 +63,14 @@
                                                     @endif
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="form-label" for="info">Thông tin</label>
                                     <div>
-                                        <textarea class="form-control " rows="6" name="info">{{ old('info') }}</textarea>
+                                        <textarea class="form-control ck-editor" id="info" data-height="100" name="info">{{ old('info') }}</textarea>
                                         @if ($errors->has('info'))
                                             <span class="text-danger fz-12 mt-1">{{ $errors->first('info') }}</span>
                                         @endif
@@ -86,7 +87,7 @@
                                         <textarea class="form-control ck-editor" id="ckContent" data-height="300" name="description">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="card-body">
+                                <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <label for="album-product">ALbum </label>
@@ -108,7 +109,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
                                 {{-- sản phẩm nhiều phiên bản  --}}
                                 @include('backend.product.product.component.variant')
@@ -188,7 +189,7 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label">Giá</label>
                                     <input type="text" name="price" class="form-control"
-                                        value="{{ old('price') }}" min="0">
+                                        value="{{ old('price') }}">
                                     @if ($errors->has('price'))
                                         <span class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
                                     @endif
@@ -196,38 +197,8 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label">Giá giảm</label>
                                     <input type="text" name="del" class="form-control"
-                                        value="{{ old('del') }}" min="0">
+                                        value="{{ old('del') }}">
                                     <span class="text-warning fz-12 mt-1">Có thể bỏ trống nếu không giảm giá!</span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Tồn kho</label>
-                                    <input type="text" name="instock" class="form-control"
-                                        value="{{ old('instock') }}" min="0">
-                                    @if ($errors->has('price'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
-                                    @else
-                                        <span class="text-warning fz-12 mt-1">Đây là số lượng sản phẩm không có phiên
-                                            bản!</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Tiêu điểm</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="choices-is_hot-status-input " class="form-label">Nổi bật</label>
-                                    <select class="form-select setUpSelect2" name="is_hot">
-                                        <option value="0"
-                                            {{ old('is_hot', request('is_hot')) == '0' ? 'selected' : '' }}>Không
-                                        </option>
-                                        <option value="1"
-                                            {{ old('is_hot', request('is_hot')) == '1' ? 'selected' : '' }}>Có</option>
-                                    </select>
-                                    <span class="text-warning fz-12 mt-1">Có thể bỏ qua nếu không là nổi bật!!</span>
-
                                 </div>
                             </div>
                         </div>
@@ -238,7 +209,7 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input " class="form-label">Trạng thái</label>
-                                    <select class="form-select setUpSelect2" name="publish">
+                                    <select class="form-select select2" name="publish">
                                         <option value="">[ Chọn Trạng thái ]</option>
                                         <option value="1"
                                             {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>Hiển thị
@@ -261,7 +232,7 @@
                                         <div class="position-relative d-inline-block">
                                             {{-- image-target dùng dể choose image hthi cho ngxem  --}}
                                             <span class="image-target">
-                                                <img src="{{ old('image', $product->image ?? '/libaries/upload/images/img-notfound.png') }}"
+                                                <img src="{{ old('old_image', $product->image ?? '/libaries/upload/images/img-notfound.png') }}"
                                                     alt="Product Image"
                                                     class="render-image object-fit-cover rounded-1 mb-2 position-relative"
                                                     width="96" height="96">

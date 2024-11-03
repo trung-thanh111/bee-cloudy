@@ -10,10 +10,9 @@ class UserVoucher extends Model
     use HasFactory;
 
     protected $fillable = [
-       'user_id', 
-        'promotion_id', 
-        'code', 
-
+        'user_id',
+        'promotion_id',
+        // Add any other fields that should be fillable here
     ];
 
     // Define relationships if needed
@@ -26,5 +25,4 @@ class UserVoucher extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
-
 }

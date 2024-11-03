@@ -29,8 +29,9 @@
                                 </button>
                             </div>
                             <div class="position-relative">
-                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3 card-height-100">
-                                    <div class="card card-height-100 p-2 border-0 rounded-1 shadow-sm justify-content-center"
+                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3"
+                                    style="top: 165px; height: auto">
+                                    <div class="card p-2 border-0 rounded-1 shadow-sm justify-content-center"
                                         style="width: 500px !important">
                                         <div class="card-body py-2 px-2">
                                             <div class="title-search-recent">
@@ -54,9 +55,11 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="card-body list-search d-none py-2 px-2">
+                                        <div class="card-body list-search d-none py-2 px-2 ">
                                             <div class="title-search-recent">
-                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách tìm kiếm</h6>
+                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách
+                                                    tìm
+                                                    kiếm</h6>
                                             </div>
                                             <div class="content-search-hot mt-3 d-block overflow-y-auto"
                                                 style="max-height: 100px">
@@ -67,6 +70,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                     <div class="fw-medium d-none d-lg-block">
@@ -83,7 +87,7 @@
         <div class="container-fuild">
             <nav class="navbar navbar-expand-lg shadow-sm bg-white p-0 sticky-nav">
                 <div class="container p-0">
-                    <a class="navbar-brand" href="{{ route('home.index') }}">
+                    <a class="navbar-brand" href="#">
                         <img src="/libaries/upload/images/logo/logo_index.png" class="object-fit-contain logo-index"
                             alt="">
                     </a>
@@ -96,113 +100,36 @@
                         id="navbarSupportedContent">
                         <ul
                             class="nav fw-bold justify-content-lg-center justify-content-md-center justify-content-sm-start align-items-center text-color">
-                            <li class=" px-2 py-3">
-                                <a href="{{ route('home.index') }}" class=" menu-item-a text-uppercase text-decoration-none fz-16">Trang
+                            <li class="menu-li-item px-2 py-3">
+                                <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Trang
                                     chủ</a>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">
                                 <a href="{{ route('shop.index') }}"
                                     class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Cửa
                                     hàng <i class="fas fa-minus fz-12 fw-bold"></i></a>
-                                <ul class="ul-menu-header p-0 dropdown-content list-unstyled">
-                                    @if ($productCategories)
-                                        @foreach ($productCategories as $keyPCate => $productCate)
-                                            <li
-                                                class="nav-item li-menu-header {{ $productCate->childrenReference->isNotEmpty() ? 'menu-item-v2' : '' }} position-relative">
-                                                <a href="{{ route('product.category', ['id' => $productCate->id]) }}"
-                                                    class="d-flex justify-content-between align-items-center position-relative ">
-                                                    <span class="nav-link menu-link p-0 text-muted">
-                                                        <span>{{ $productCate->name }}</span>
-                                                    </span>
-                                                    <i
-                                                        class="fa-solid fa-chevron-right fz-12 text-muted {{ $productCate->childrenReference->isEmpty() ? 'd-none' : '' }}"></i>
-                                                </a>
-                                                <div
-                                                    class="menu-dropdown-v2 position-absolute start-100 top-0 p-0 shadow-sm w-100">
-                                                    <ul class="menu-link p-0 list-unstyled">
-                                                        @if ($productCate->childrenReference->isNotEmpty())
-                                                            @foreach ($productCate->childrenReference as $keyChild => $valChild)
-                                                                <li
-                                                                    class="nav-item li-menu-header position-relative ps-2 menu-item-v2">
-                                                                    <div
-                                                                        class="d-flex justify-content-between align-items-center px-1 position-relative">
-                                                                        <a class="nav-link menu-link p-0 menu-item-v3"
-                                                                            href="{{ route('product.category', ['id' => $valChild->id]) }}">
-                                                                            <span>{{ $valChild->name }}</span>
-                                                                        </a>
-                                                                        {{-- <i
-                                                                        class="fa-solid fa-chevron-right fz-12 text-muted"></i> --}}
-                                                                    </div>
-                                                                    {{-- <div
-                                                            class="menu-dropdown-v3 position-absolute start-100 top-0 p-0 shadow-sm w-100">
-                                                            <ul class="menu-link p-0 list-unstyled">
-                                                                <li
-                                                                    class="nav-item li-menu-header position-relative ps-2 menu-item-v3">
-                                                                    <a href="#" class="nav-link menu-link p-0">Quản
-                                                                        lý</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div> --}}
-                                                                </li>
-                                                            @endforeach
-                                                        @endif
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                    <li
-                                        class="nav-item li-menu-header menu-item-v2 {{ $brandHeaders == null ? 'd-none' : '' }} position-relative">
-                                        <a href="javascript:void(0)"
-                                            class="d-flex justify-content-between align-items-center px-1 position-relative ">
-                                            <span class="nav-link menu-link p-0  text-muted">
-                                                <span>Thương hiệu</span>
-                                            </span>
-                                            <i class="fa-solid fa-chevron-right fz-12 text-muted"></i>
-                                        </a>
-                                        <div
-                                            class="menu-dropdown-v2 position-absolute start-100 top-0 p-0 shadow-sm w-100">
-                                            <ul class="menu-link p-0 list-unstyled">
-                                                @if ($brandHeaders)
-                                                    @foreach ($brandHeaders as $keyBrand => $valBrand)
-                                                        <li
-                                                            class="nav-item li-menu-header position-relative ps-2 menu-item-v2">
-                                                            <a href="{{ route('product.brand', ['id' => $valBrand->id]) }}"
-                                                                class="d-flex justify-content-between align-items-center px-1 position-relative">
-                                                                <span
-                                                                    class="nav-link menu-link p-0 menu-item-v3 text-muted">
-                                                                    {{ $valBrand->name }}
-                                                                </span>
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                @endif
-                                            </ul>
-                                        </div>
-                                    </li>
+                                <ul class="ul-menu-header p-0 dropdown-content">
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Danh mục</a></li>
                                 </ul>
                             </li>
-                            <li class="menu-li-item px-2 py-3 align-items-center position-relative">
-                                <a href="{{ route('post.page') }}"
-                                    class="menu-item-a text-uppercase text-decoration-none fz-16">Bài viết
-                                    <i class="fa-solid fa-minus fz-12 fw-bold"></i>
-                                </a>
-                                <ul class="ul-menu-header p-0 dropdown-content list-unstyled">
-                                    @if ($postCatalogueHeaders)
-                                        @foreach ($postCatalogueHeaders as $keyPostCate => $valPostCate)
-                                            <li class="nav-item li-menu-header">
-                                                <a href="{{ route('post.category', ['id' => $valPostCate->id]) }}"
-                                                    class="d-flex justify-content-between align-items-center px-1">
-                                                    <span class="nav-link menu-link p-0 text-muted">
-                                                        {{ $valPostCate->name }}
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    @endif
+                            <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                <a href="#"
+                                    class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Bài
+                                    viết <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                <ul class="ul-menu-header p-0 dropdown-content">
+                                    <li class="li-menu-header"><a href="/view-content"
+                                            class="text-decoration-none fz-16 text-color">Bài Viết</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Danh mục</a></li>
                                 </ul>
                             </li>
-
                             <li class="menu-li-item px-2 py-3">
                                 <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
                                     hệ</a>
@@ -212,16 +139,12 @@
                                     class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Trang
                                     khác <i class="fas fa-minus fz-12 fw-bold"></i></a>
                                 <ul class="ul-menu-header p-0 dropdown-content">
-                                    <li class="li-menu-header">
-                                        <a href="#" class="text-decoration-none fz-16 text-color">Sản phẩm</a>
-                                    </li>
-                                    <li class="li-menu-header">
-                                        <a href="#" class="text-decoration-none fz-16 text-color">Thương
-                                            hiệu</a>
-                                    </li>
-                                    <li class="li-menu-header">
-                                        <a href="#" class="text-decoration-none fz-16 text-color">Danh mục</a>
-                                    </li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                    <li class="li-menu-header"><a href="#"
+                                            class="text-decoration-none fz-16 text-color">Danh mục</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -342,8 +265,7 @@
                                             </span>
                                         </li>
                                         <li class="li-menu-header p-2">
-                                            <a href="{{ route('account.info') }}"
-                                                class="text-decoration-none fz-13 ps-1 text-muted">
+                                            <a href="#" class="text-decoration-none fz-13 ps-1 text-muted">
                                                 <i class="fa-solid fa-user p-0 me-2"></i>Thông tin cá nhân
                                             </a>
                                         </li>
@@ -380,13 +302,12 @@
                                     </a>
                                 </span>
                             @endif
+
                         </div>
                     </div>
                 </div>
             </nav>
         </div>
     </header>
+
 </section>
-<script>
-    window.productInWishlist = @json($productInWishlist)
-</script>

@@ -126,33 +126,15 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Tiêu điểm</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="choices-outstanding-status-input " class="form-label">Nổi bật</label>
-                                    <select class="form-select setUpSelect2" name="outstanding">
-                                        <option value="0" selected>Không</option>
-                                        <option value="1">Có</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
                                 <h5 class="card-title mb-0">Xuất bản</h5>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input " class="form-label">Trạng thái</label>
                                     <select class="form-select select2" name="publish">
-                                        <option value="">[ Chọn Trạng thái ]</option>
-                                        <option value="1"
-                                            {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>Hiển thị
-                                        </option>
-                                        <option value="0"
-                                            {{ old('publish', request('publish')) == '0' ? 'selected' : '' }}>Ẩn
-                                        </option>
+                                        <option value="">[Chọn trạng thái]</option>
+                                        <option value="1">Hiển thị</option>
+                                        <option value="0">Ẩn</option>
                                     </select>
                                 </div>
                             </div>

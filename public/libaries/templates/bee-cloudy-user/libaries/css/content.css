@@ -62,19 +62,6 @@ textarea {
     width: 50px;
 }
 
-/*  */
-/* .gallery {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.gallery img {
-    width: 100%;
-    height: auto;
-} */
-
-/*  */
 .content-item {
     display: flex;
     margin: 10px;
@@ -101,10 +88,6 @@ textarea {
     text-indent: 30px;
     margin: 10px;
 }
-
-.img-content {}
-
-
 .image-gallery {
     display: grid;
     gap: 10px;

@@ -165,7 +165,7 @@
                                     <label for="" class="form-label">Giá</label>
                                     <input type="text" name="price" class="form-control"
                                         placeholder="Nhập giá cho sản phẩm"
-                                        value="{{ old('price', $product->price) }}" min="0">
+                                        value="{{ old('price', $product->price) }}">
                                     @if ($errors->has('price'))
                                         <span class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
                                     @endif
@@ -173,28 +173,8 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label">Giá giảm</label>
                                     <input type="text" name="del" class="form-control"
-                                        value="{{ old('del', $product->del) }}" min="0">
+                                        value="{{ old('del', $product->del) }}">
                                     <span class="text-warning fz-12 mt-1">Có thể bỏ trống nếu không giảm giá!</span>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Tồn kho</label>
-                                    <input type="text" name="instock" class="form-control"
-                                        value="{{ old('instock', $product->instock) }}" min="0">
-                                    <span class="text-warning fz-12 mt-1">Đây là số lượng sản phẩm không có phiên bản!</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Tiêu điểm</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="choices-is_hot-status-input " class="form-label">Nổi bật</label>
-                                    <select class="form-select setUpSelect2" name="is_hot">
-                                        <option value="0" {{ $product->is_hot == 0 ? 'selected' : '' }}>Không</option>
-                                        <option value="1" {{ $product->is_hot == 1 ? 'selected' : '' }}>Có</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>

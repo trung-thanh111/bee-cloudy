@@ -77,10 +77,9 @@
                                 <!-- Số tiền chiết khấu -->
                                 <div class="mb-3">
                                     <label class="form-label">Số tiền chiết khấu:<span class="text-danger fz-18">*</span></label>
-                                    <input type="number" class="form-control" name="discount" value="{{ old('discount', $promotion->discount) }}" placeholder="Số tiền chiết khấu">
-                                    @if ($errors->has('discount'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('discount') }}</span>
-
+                                    <input type="number" class="form-control" name="discount_value" value="{{ old('discount_value', $promotion->discount_value) }}" placeholder="Số tiền chiết khấu">
+                                    @if ($errors->has('discount_value'))
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('discount_value') }}</span>
                                     @endif
                                 </div>
 
@@ -144,7 +143,7 @@
                                     <p><strong>Mã Code:</strong> <span id="preview-code"></span></p>
                                     <p><strong>Thời gian bắt đầu:</strong> <span id="preview-start-date"></span></p>
                                     <p><strong>Thời gian kết thúc:</strong> <span id="preview-end-date"></span></p>
-                                    <p><strong>Số tiền chiết khấu:</strong> <span id="preview-discount"></span></p>
+                                    <p><strong>Số tiền chiết khấu:</strong> <span id="preview-discount-value"></span></p>
                                     <p><strong>Số tiền tối thiểu:</strong> <span id="preview-minimum-amount"></span></p>
                                     <p><strong>Giới hạn sử dụng:</strong> <span id="preview-usage-limit"></span></p>
                                     <p><strong>Áp dụng cho:</strong> <span id="preview-apply-for"></span></p>
@@ -165,7 +164,7 @@
         document.getElementById('preview-code').textContent = document.querySelector('input[name="code"]').value;
         document.getElementById('preview-start-date').textContent = document.querySelector('input[name="start_date"]').value;
         document.getElementById('preview-end-date').textContent = document.querySelector('input[name="end_date"]').value;
-        document.getElementById('preview-discount').textContent = document.querySelector('input[name="discount"]').value;
+        document.getElementById('preview-discount-value').textContent = document.querySelector('input[name="discount_value"]').value;
         document.getElementById('preview-minimum-amount').textContent = document.querySelector('input[name="minimum_amount"]').value;
         document.getElementById('preview-usage-limit').textContent = document.querySelector('input[name="usage_limit"]').value;
         document.getElementById('preview-apply-for').textContent = document.querySelector('select[name="apply_for"]').value;

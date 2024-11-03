@@ -19,6 +19,7 @@ class ProductVariant extends Model
         'quantity',
         'sku',
         'price',
+        'barcode',
         'file_name',
         'file_url',
         'price',
@@ -27,6 +28,7 @@ class ProductVariant extends Model
         'sold_count',
         'favorite_count',
         'album',
+        'user_id',
         'publish',
     ];
 
@@ -44,5 +46,4 @@ class ProductVariant extends Model
     {
         return $this->hasMany(WishList::class, 'product_vairant_id', 'id');
     }
-    
 }

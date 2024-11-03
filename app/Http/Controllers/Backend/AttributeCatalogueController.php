@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\AttributeCatalogueService;
-use App\Repositories\AttributeCatalogueRepository;
 use App\Http\Requests\StoreAttributeCatalogueRequest;
 use App\Http\Requests\UpdateAttributeCatalogueRequest;
+use App\Repositories\AttributeCatalogueRepository;
+use App\Services\AttributeCatalogueService;
+use Illuminate\Http\Request;
 
 class AttributeCatalogueController extends Controller
 {

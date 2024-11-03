@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image')->nullable();
-            $table->string('slug')->unique()->comment('chuoi tu khoa duy nhat');
+            $table->string('keyword')->unique()->comment('chuoi tu khoa duy nhat');
             $table->string('acronym')->nullable()->comment('tu khoa viet tat cua ten');
             $table->string('description')->nullable();
             $table->tinyInteger('publish')->default(1)->comment('1 la hien thi, 0 la an');

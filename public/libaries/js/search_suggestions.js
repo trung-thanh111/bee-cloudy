@@ -22,30 +22,26 @@
                 if (keyword.length > 2) {
                     $.ajax({
                         url: "/ajax/search/suggestion",
-                        type: "GET", 
+                        type: "GET", // method
                         data: {
                             keyword: keyword,
                         },
                         success: function (res) {
                             var suggestionsList = $("#suggestions-list");
-                            let productInWishlist = window.productInWishlist;
                             suggestionsList.empty();
-                            if(res.length == 0){
-                                $('.list-search').addClass('hidden-visibility');
-                            }
+
                             // Duyệt qua từng key của object
                             Object.values(res).forEach(function (item) {
 
                                 const listItem = `
-                                    <li class="d-flex justify-content-between align-items-center text-muted py-2 search-recent-item toggleWishlist" data-id="${item.id}">
-                                        <span class="content-search-mnpoly d-flex text-muted">
+                                    <li class="d-flex justify-content-between align-items-center text-muted py-2 search-recent-item">
+                                        <a href="javascript:void(0)" class="content-search-mnpoly d-flex text-muted">
                                             <img src="${item.image}" alt="${item.name}" width="40" class="me-2 rounded-2">
                                             <span class=" text-truncate keyword-recent pt-2" style="max-width: 350px;">
                                             ${item.name}
                                             </span>
-                                        </span>
-                                        <i class="fa-${(productInWishlist.includes(item.id)) ? 'solid' : 'regular'} fa-bookmark" data-bs-toggle="tooltip" data-bs-title="${(productInWishlist.includes(item.id)) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}"></i>
-                                        <span class="product_id_wishlist d-none">${item.id}</span>
+                                        </a>
+                                        <i class="fa-solid fa-bookmark" data-bs-toggle="tooltip" data-bs-title="top tìm kiếm"></i>
                                     </li>
                                 `;
                                 suggestionsList.append(listItem);
@@ -57,54 +53,7 @@
             }, 300)
         );
     };
-
-    FS.searchKeyUpShowPaper = (res) => {
-        let isTyping = false;
-    
-        $(document).on("mouseenter", ".search-header, .wallpaper", function () {
-            // Kiểm tra xem input có giá trị hay không
-            const hasValue = $(".search-header").val().length > 0;
-            
-            if (!isTyping) {
-                $(".wallpaper").removeClass("d-none").css('top', hasValue ? '165px' : '100px');
-            }
-        });
-    
-        $(document).one("keyup", ".search-header", function () {
-            isTyping = true;
-            if ($(".search-header").val().length == 0) {
-                $(".wallpaper").addClass("d-none");
-            } else {
-                $(".wallpaper").removeClass("d-none").css('top', '165px');
-                $(".list-search").removeClass("d-none");
-            }
-            FS.searchKeyUpShowPaper();
-        });
-    
-        $(document).on("mouseleave", ".search-header, .wallpaper", function () {
-            isTyping = false;
-            setTimeout(function () {
-                if (!$(".search-header").is(":hover") && !$(".wallpaper").is(":hover")) {
-                    $(".wallpaper").addClass("d-none");
-                }
-            }, 500);
-        });
-    }
-      FS.getKeywordClickKeywordRecent = () => {
-        $(document).on("click", ".search-recent-item", function () {
-          let _this = $(this);
-          //sử dụng this để lấy ra 1 phần tử đc click
-          let keywordRecent = $.trim(_this.find(".keyword-recent").text());
-          if($(".search-header").val() > 0){
-            $(".search-header").val() = " "
-          }else{
-            $(".search-header").val(keywordRecent)
-          }
-        });
-      };
     $(document).ready(function () {
         FS.suggestion();
-        FS.searchKeyUpShowPaper();
-    FS.getKeywordClickKeywordRecent();
     });
 })(jQuery);

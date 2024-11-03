@@ -27,10 +27,4 @@ class PromotionProductVariant extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
-    public function products()
-{
-    return $this->belongsToMany(Product::class, 'promotion_product_variants', 'promotion_id', 'product_id')
-                ->withPivot('discount'); // Lấy cả thông tin giảm giá từ bảng liên kết nếu cần
-}
-
 }

@@ -40,18 +40,15 @@
                     }
                     $gallerys = $albumVairiants;
                     //-- //
-                    $variantSold = 0;
+                    $totalSoldCount = 0;
                     $totalReviewCount = 0;
-                    $variantId = 0;
                     foreach ($product->productVariant as $variant) {
-                        $variantSold += $variant->sold_count;
-                        $variantId = $variant->id;
+                        $totalSoldCount += $variant->sold_count;
                     }
 
                     foreach ($product->productVariant as $variant) {
                         $totalReviewCount += $variant->rating_count;
                     }
-                    // -- //
                 @endphp
                 <!-- content detail -->
                 <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5 productVariantId">
@@ -71,16 +68,13 @@
                                     @endif
 
                                 </ul>
-                                {{-- @dd($variantId) --}}
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
-                                    data-bs-title="{{ in_array($variantId, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}">
+                                    data-bs-title="Thêm vào yêu thích">
                                     <div class="position-relative">
-                                        <a href="#" class="position-absolute start-50 translate-middle border-0"
+                                        <button type="button" class="position-absolute start-50 translate-middle "
                                             style="top: 20px;">
-                                            <i
-                                                class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
-                                        </a>
-
+                                            <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
+                                        </button>
                                     </div>
                                     <span class="product_variant_id_wishlist d-none"></span>
                                     <span class="product_id_wishlist d-none">
@@ -168,7 +162,7 @@
                                     <div class="vr " style="width: 1px !important;"></div>
                                     <div class="py-2">
                                         <span class="fw-500">Đã bán:</span>
-                                        <span class="product-variant-sold">{{ $variantSold ? $variantSold : $product->sold_count }} sản phẩm</span>
+                                        <span class="product-variant-sold">{{ $totalSoldCount . ' ' }} sản phẩm</span>
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +183,6 @@
                                         sản phẩm</span>
                                 </span>
                             </div>
-
                             <p class="fz-14">{!! $product->info !!}</p>
                             @if (!is_null($attrCatalogues) && !empty($attrCatalogues))
                                 <div class="product-attributes">
@@ -205,11 +198,12 @@
                                                     </a>
                                                 @endif
                                             </div>
+
                                             @if (!is_null($val->attributes) && is_iterable($val->attributes))
                                                 <div class="attribute-value d-flex flex-wrap gap-3 ps-4 mb-3">
                                                     @foreach ($val->attributes as $keyAttr => $attribute)
                                                         <a href="#"
-                                                            class="choose-attribute {{ $keyAttr == 0 ? 'active' : '' }}  {{ $val->id == 1 ? 'color-item' : 'size-item' }} "
+                                                            class="choose-attribute  {{ $keyAttr == 0 ? 'active' : '' }}  {{ $val->id == 1 ? 'color-item' : 'size-item' }} "
                                                             data-attributeId="{{ $attribute->id }}"
                                                             title="{{ $attribute->name }}">
                                                             <div class="attribute-item">
@@ -235,6 +229,12 @@
                             @endif
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <input type="hidden" class="attributeCatalogue" value="{{ json_encode($attrCatalogues) }}">
+                            {{-- <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="quantity" value="">
+                                <input type="hidden" name="price" value="">
+                            </form> --}}
                             <div class="box-choose-size">
                                 <div class="title-choose-size mb-2">
                                     <div class="row d-flex justify-content-between align-items-center  flex-wrap">
@@ -255,8 +255,6 @@
                                                                     mô phỏng, độ chính xác tương đối.</span>
                                                                 <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-ao.jpg"
                                                                     alt="" class="img-fluid object-fit-cover">
-                                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-giay.webp"
-                                                                    alt="" class="img-fluid object-fit-cover">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -269,15 +267,15 @@
                                     <div class="title-quantity mb-2">
                                         <span class="fw-medium fz-18">Số lượng</span>
                                     </div>
-                                    <div class=" hstack gap-3 ps-5 flex-sm-wrap flex-xs-wrap flex-md-wrap mb-3">
+                                    <div class="  hstack gap-3 ps-5 flex-sm-wrap flex-xs-wrap flex-md-wrap mb-3">
                                         <div class="input-group componant-quantity shadow-sm flex-grow mb-3 w-25">
                                             <button class="quantity-minus w-md-100 rounded-3 " type="button"
                                                 id="button-addon1">
                                                 <i class='bx bx-minus fw-medium'></i>
                                             </button>
-                                            <input type="text" name="quantity-product-variant w-sm-25"
-                                                class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
-                                                value="1" min="1" max="{{ ($product->instock) ? $product->instock : 10}}">
+                                            <input type="text" name="quantity-product-variant w-sm-25 "
+                                                class="form-control border-0 fz-20 text-center fw-600" value="1"
+                                                min="1" max="">
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -295,7 +293,7 @@
                                         </a>
                                         <div class="row w-100 mt-2 ms-0">
                                             <div class="col px-0 w-100 ">
-                                                <a href="" class="addToCart" data-id="{{ $product->id }}">
+                                                <a href="#" class="addToCart" data-id="{{ $product->id }}">
                                                     <!-- d-none d-md-inline-block: Ẩn trên màn hình nhỏ hơn md (< 768px), chỉ hiển thị từ kích thước màn hình md (>= 768px) trở lên. -->
                                                     <button
                                                         class=" btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block">Thêm
@@ -441,26 +439,29 @@
                                                                 alt="Avatar User" class="rounded-circle object-fit-cover"
                                                                 width="60" height="60">
                                                             <p class="text-center mt-2">
-                                                                @if (Auth::check())
-                                                                    <span
-                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
-                                                                @endif
+                                                                <span
+                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
                                                             </p>
                                                         </span>
                                                     </button>
                                                 </div>
                                                 <div
                                                     class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
-                                                    <form>
-                                                        <div class="form-group position-relative ">
-                                                            <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
-                                                                rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
-                                                            <button type="button"
-                                                                class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                style="bottom: 8px ; right: 20px;"
-                                                                v-on:click="DanhGiaSP()">Gửi</button>
-                                                        </div>
-                                                    </form>
+                                                    <template v-if="!check">
+                                                        <form>
+                                                            <div class="form-group position-relative ">
+                                                                <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
+                                                                    rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
+                                                                <button type="button"
+                                                                    class="btn btn-success position-absolute z-3  py-1 px-4"
+                                                                    style="bottom: 8px ; right: 20px;"
+                                                                    v-on:click="DanhGiaSP()">Gửi</button>
+                                                            </div>
+                                                        </form>
+                                                    </template>
+                                                    <template v-else>
+                                                        Bạn đã đánh giá sản phẩm .
+                                                    </template>
                                                 </div>
                                             </div>
                                         </div>
@@ -541,10 +542,10 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="icon-reaction pb-2">
-                                                                    <button v-on:click="Like(k)" :id="'likeBtn-' + k">
+                                                                    <button v-on:click="Like(v)">
                                                                         <i class="fa-regular fa-heart me-2"></i>
                                                                     </button>
-                                                                    <span :id="'likeCount-' + k">0</span>
+                                                                    <span>@{{ v.like_count }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -668,12 +669,12 @@
                                 <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="categoryP-item mb-3 overflow-y-auto">
+                                <div class="ads-item mb-3">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($categories) && !empty($categories))
                                             @foreach ($categories as $category)
-                                                <li class="list-group-item item-category">
-                                                    <a href="{{ route('product.category', ['id' => $category->id]) }}"
+                                                <li class="list-group-item">
+                                                    <a href="#"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $category->image }}" alt="{{ $category->name }}"
                                                             width="50" height="50"
@@ -692,12 +693,12 @@
                                 <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="brand-item mb-3 overflow-y-auto">
+                                <div class="ads-item mb-3">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)
-                                                <li class="list-group-item item-category">
-                                                    <a href=""
+                                                <li class="list-group-item">
+                                                    <a href="#"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $brand->image }}" alt="{{ $brand->name }}"
                                                             width="50" height="50"
@@ -731,7 +732,7 @@
                                             : '0';
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
-                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
+                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
@@ -789,7 +790,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-2">
-                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
                                                 <a href="#"
                                                     class="text-break w-100 text-muted">{{ $valProductSimilar->name }}</a>
                                             </h6>
@@ -865,10 +866,6 @@
             </div>
         </div>
     </section>
-    <script>
-        // tuyền mảng id product và productvariant sang js đổ vào chuổi
-        let productInWishlist = @json($productInWishlist);
-    </script>
 @endsection
 @section('js')
     <script>
@@ -881,33 +878,82 @@
                 image: null,
                 likes: [],
                 comment: 0,
-                imagePath: '',
+                likeCount: [],
+                check: 0,
             },
             created() {
                 this.LoadBinhLuan();
+                this.LoadLike();
+                this.Chekc();
             },
             methods: {
-
                 LoadBinhLuan() {
-                    const pathname = window.location.pathname;
-                    const slug = pathname.substring(pathname.lastIndexOf('/') + 1);
+                    const url = new URL(window.location.href);
+                    const pathname = url.pathname;
+                    const slug = pathname.split('/').filter(Boolean).pop();
                     axios
-                        .get('/producreview-data/' + slug, )
+                        .get('/producreview-data/' + slug)
                         .then((res) => {
                             this.list = res.data.data;
                             this.comment = res.data.comment_count;
                         });
                 },
+
+                LoadLike() {
+                    const url = new URL(window.location.href);
+                    const pathname = url.pathname;
+                    const slug = pathname.split('/').filter(Boolean).pop();
+                    axios
+                        .get('/producreview/like-data/' + slug)
+                        .then((res) => {
+                            this.list = res.data.like_count;
+                        })
+                        .catch((res) => {
+                            // $.each(res.response.data.errors, function(k, v) {});
+                        })
+                },
+
+                Chekc() {
+                    const url = new URL(window.location.href);
+                    const pathname = url.pathname;
+                    const slug = pathname.split('/').filter(Boolean).pop();
+                    axios
+                        .get('/product/check/' + slug)
+                        .then((res) => {
+                            this.check = res.data.check;
+                        })
+                        .catch((res) => {
+                            $.each(res.response.data.errors, function(k, v) {});
+                        })
+                },
+                Like(v) {
+                    axios
+                        .post('/producreview/like', v)
+                        .then((res) => {
+                            if (res.data.status) {
+                                this.LoadLike();
+                                this.likeCount = res.data.like_count;
+                                toaster.success(res.data.message);
+                            }
+
+                        })
+                        .catch((res) => {
+                            // $.each(res.response.data.errors, function(k, v) {});
+                        });
+                },
                 DanhGiaSP() {
-                    const pathname = window.location.pathname;
-                    const slug = pathname.substring(pathname.lastIndexOf('/') + 1);
+                    const url = new URL(window.location.href);
+                    const pathname = url.pathname;
+                    const slug = pathname.split('/').filter(Boolean).pop();
+
                     axios
                         .post('/producreview/create/' + slug, this.create)
                         .then((res) => {
                             if (res.data.status) {
-                                // alert(res.data.message);
+                                this.check = true;
                                 this.create = {};
                                 this.LoadBinhLuan();
+                                this.Chekc();
                                 toaster.success(res.data.message);
                             } else {}
                         })
@@ -931,30 +977,12 @@
                             });
                         });
                 },
-                Like(k) {
-                    if (this.likes[k] === 0) {
-                        this.likes[k] = 1;
-                    } else {
-                        this.likes[k] = 0;
-                    }
-                    let likeCountElement = document.getElementById('likeCount-' + k);
-                    likeCountElement.textContent = this.likes[k];
 
-                    let heartIcon = document.getElementById('likeBtn-' + k).querySelector('i');
-                    if (this.likes[k] === 1) {
-                        heartIcon.classList.remove('fa-regular');
-                        heartIcon.classList.add('fa-solid');
-                    } else {
-                        heartIcon.classList.remove('fa-solid');
-                        heartIcon.classList.add('fa-regular');
-                    }
-                },
                 formatDate(dateString) {
                     const options = {
                         day: '2-digit',
                         month: '2-digit',
                         year: 'numeric',
-                        p
                         hour: '2-digit',
                         minute: '2-digit',
                         second: '2-digit',

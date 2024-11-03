@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <span id="currentYear"></span> © BeeCloudy.
+                <script>document.write(new Date().getFullYear())</script> © BeeCloudy.
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
@@ -11,7 +11,4 @@
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById("currentYear").textContent = new Date().getFullYear();
-    </script>
 </footer>

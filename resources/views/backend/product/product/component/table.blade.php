@@ -10,7 +10,7 @@
                 <th class="sort">Sản phẩm</th>
                 <th class="sort text-center" style="width: 160px">Sku</th>
                 <th class="sort text-center" style="width: 160px">Trạng thái</th>
-                <th class="sort text-end" style="width: 100px">Thao tác</th>
+                <th class="sort text-end" style="width: 160px">Thao tác</th>
             </tr>
         </thead>
         <tbody class="list form-check-all">
@@ -35,7 +35,7 @@
                         <img src="{{ $item->image ? $item->image : '/libaries/upload/images/img-notfound.png' }}"
                             alt="" class="object-fit-contain me-2 text-start" width="120px" height="80px">
                         <div style="line-height: 2.2rem ">
-                            <span class="d-inline-block text-truncate fw-medium fz-16" style="max-width: 500px;">
+                            <span class="d-inline-block text-truncate fw-medium fz-16" style="max-width: 600px;">
                                 {{ $item->name }}
                             </span>
                             <div>

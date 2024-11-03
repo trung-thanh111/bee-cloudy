@@ -16,7 +16,9 @@ class ProductReview extends Model
         'slug_products',
         'id_products',
         'publish',
+        'like_count',
         'edit_count',
+        'check'
 
     ];
 }

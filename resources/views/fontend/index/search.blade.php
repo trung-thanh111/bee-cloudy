@@ -9,8 +9,7 @@
                 <!-- breadcrumb  -->
                 <nav class="pt-3 pb-3" aria-label="breadcrumb">
                     <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
-                        <li class="breadcrumb-item "><a href="{{ route('home.index') }}"
-                                class="text-decoration-none text-muted">Trang chủ </a>
+                        <li class="breadcrumb-item "><a href="{{ route('home.index') }}" class="text-decoration-none text-muted">Trang chủ </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Tìm kiếm</li>
                     </ol>
@@ -35,35 +34,29 @@
                                 <div class="content-product-cate row flex-wrap">
                                     @foreach ($results as $key => $product)
                                         @php
-                                            $shownColors = []; // Mảng để theo dõi các màu đã được hiển thị
+                                            $shownColors = [];
 
                                             $promotion =
                                                 $product->del != 0 && $product->del != null
                                                     ? (($product->price - $product->del) / $product->price) * 100
                                                     : '0';
+
                                             $price =
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
                                         @endphp
-                                        <div class="col-lg-3 col-md-6  col-12 mb-4">
-                                            <div class="card card-product shadow-sm border-0 mb-2 py-0">
+                                        <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                            <div class="card card-product shadow-sm border-0 mb-2 pt-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
                                                         <span
                                                             class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
                                                             giảm {{ round($promotion, 1) . '%' }}
                                                         </span>
-                                                        <span class="text-end mt-2 me-2 text-muted toggleWishlist"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-title="{{ in_array($product->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
-                                                            data-id="{{ $product->id }}">
-                                                            <i
-                                                                class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
-
-                                                            <span class="product_id_wishlist d-none">
-                                                                {{ $product->id }}
-                                                            </span>
+                                                        <span class="text-end mt-2 me-2 text-muted" data-bs-toggle="tooltip"
+                                                            data-bs-title="Thêm vào yêu thích">
+                                                            <i class="fa-regular fa-bookmark fz-16"></i>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -74,10 +67,12 @@
                                                     <div
                                                         class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                         <div class="hstack gap-3">
-                                                            <div class="p-2 overflow-x-hidden">
+                                                            <div class="p-2 overflow-x-hidden w-50">
                                                                 <span
-                                                                    class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                                    {{ $product->productCatalogues[0]->name }}
+                                                                    class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                    @foreach ($product->productCatalogues as $catalogue)
+                                                                        {{ $catalogue->name }}
+                                                                    @endforeach
                                                                 </span>
                                                             </div>
                                                             <div class="p-2 ms-auto">
@@ -90,7 +85,6 @@
                                                                                     width="14" height="14"
                                                                                     class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
                                                                                 @php
-                                                                                    // Đánh dấu màu này đã được hiển thị
                                                                                     $shownColors[] = $attribute->name;
                                                                                 @endphp
                                                                             @endif
@@ -102,13 +96,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-2">
-                                                    <h6 class="fw-medium overflow-hidden " style="height: 39px">
+                                                    <h6 class="fw-medium overflow-hidden " style="height: 35px">
                                                         <a href="#"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
-                                                        <span
-                                                            class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                        <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
                                                             data-price="{{ $price }}">{{ $price }}đ
                                                         </span>
                                                         <span class="mt-1 ">
@@ -195,28 +188,7 @@
                     </div>
                 </div>
                 @if ($results->isEmpty())
-                    <div class="order-null p-3">
-                        <div class="img-null text-center">
-                            <img src="/libaries/upload/images/order-null.png" alt="" class="" width="300"
-                                height="200">
-                        </div>
-                        <div class="flex flex-col text-center align-items-center">
-                            <h5 class="mb-2  fw-semibold">Tạm thời không có bản ghi phù hợp!
-                            </h5>
-                            <p class="text-center mb-2">
-                                Hãy khám phá những những gì có trong website nhé!
-                            </p>
-                            @if ($type === 'post')
-                            <a href="{{ route('post.page') }}"
-                                class="btn btn-info text-white rounded-pill mt-3">Khám
-                                phá ngay </a>
-                            @elseif($type === 'product')
-                            <a href="{{ route('shop.index') }}"
-                                class="btn btn-info text-white rounded-pill mt-3">Khám
-                                phá ngay </a>
-                            @endif
-                        </div>
-                    </div>
+                    <h5 class="text-center fs-2 py-5">Không có bản ghi phù hợp.</h5>
                 @endif
             </div>
         </article>
@@ -229,9 +201,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                <a href="zalo">
-                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                </a>
-                            </div> -->
+                            <a href="zalo">
+                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                            </a>
+                        </div> -->
     </div>
 @endsection

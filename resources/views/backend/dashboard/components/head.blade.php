@@ -7,11 +7,13 @@
 <!-- App favicon -->
 <link rel="shortcut icon" href="/libaries/upload/images/logo/logo_index.png">
 <!-- jsvectormap css -->
-<link href="/libaries/templates/bee-cloudy-admin/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+<link href="/libaries/templates/bee-cloudy-admin/assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet"
+    type="text/css" />
 <link href="/libaries/templates/bee-cloudy-user/libaries/css/style.css" rel="stylesheet" type="text/css" />
 <link href="/libaries/css/custom.css" rel="stylesheet" type="text/css" />
 <!--Swiper slider css-->
-<link href="/libaries/templates/bee-cloudy-admin/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+<link href="/libaries/templates/bee-cloudy-admin/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet"
+    type="text/css" />
 <!-- Layout config Js -->
 <script src="/libaries/templates/bee-cloudy-admin/assets/js/layout.js"></script>
 <!-- Bootstrap Css -->
@@ -29,8 +31,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.css">
 <!-- custom Css-->
 <link href="/libaries/templates/bee-cloudy-admin/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
-{{-- daterangpicker  --}}
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.12/vue.cjs.js"
+    integrity="sha512-iytOXrJii6S43MWPla8yHP4Jt1CTor4HyilK2OOpKthWYBMZdce/L4izaniMAzZD7JVJrNr9tWc9w/spDJJ8Yw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {{-- khai báo base_url để conect ckfinder vs ckeditor  --}}
 <script>
     var BASE_URL = '{{ config('app.url') }}'

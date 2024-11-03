@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\Ajax;
 
+use App\Http\Controllers\FontendController;
 use Illuminate\Http\Request;
+use App\Repositories\WishlistRepository;
+use App\Repositories\ProductRepository;
 use App\Services\WishlistService;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\ProductRepository;
-use App\Repositories\WishlistRepository;
-use App\Http\Controllers\FontendController;
 
 class WishlistController extends FontendController
 {
-    protected $wishlistService;
     protected $productRepository;
     protected $wishlistRepository;
+    protected $wishlistService;
 
     public function __construct(
-        WishlistService $wishlistService,
-        ProductRepository $productRepository,
         WishlistRepository $wishlistRepository,
+        ProductRepository $productRepository,
+        WishlistService $wishlistService,
     ) {
+        $this->wishlistRepository = $wishlistRepository;
         $this->wishlistService = $wishlistService;
         $this->productRepository = $productRepository;
-        $this->wishlistRepository = $wishlistRepository;
     }
 
     public function index(Request $request)
     {
         $wishlists = $this->wishlistService->paginate($request);
+        // dd($wishlists);
         return view('fontend.wishlist.index', compact('wishlists'));
     }
 
@@ -56,5 +57,60 @@ class WishlistController extends FontendController
             ], 500);
         }
     }
-    
+    public function destroyCart(Request $request)
+    {
+        // if (!Auth::check()) {
+        //     flash()->error('Bạn cần đăng nhập để sử dụng chức năng.');
+        //     return redirect()->route('auth.login');
+        // }
+
+        // try {
+        //     $destroy = $this->wishlistService->destroy($request);
+
+        //     if ($destroy) {
+        //         return response()->json([
+        //             'code' => 10,
+        //             'message' => 'Sản phẩm đã được xóa.',
+        //         ]);
+        //     } else {
+        //         return response()->json([
+        //             'code' => 11,
+        //             'message' => 'Có lỗi xảy ra!'
+        //         ]);
+        //     }
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'code' => 11,
+        //         'message' => 'Có lỗi xảy ra!',
+        //     ]);
+        // }
+    }
+    public function clearCart(Request $request)
+    {
+        // if (!Auth::check()) {
+        //     flash()->error('Bạn cần đăng nhập để sử dụng chức năng.');
+        //     return redirect()->route('auth.login');
+        // }
+
+        // try {
+        //     $clear = $this->wishlistService->clear($request);
+        //     if ($clear) {
+        //         return response()->json([
+        //             'code' => 10,
+        //             'message' => 'Giỏ hàng đã được xóa',
+        //             'redirect' => route('cart.index')
+        //         ]);
+        //     } else {
+        //         return response()->json([
+        //             'code' => 11,
+        //             'message' => 'Có lỗi xảy ra!'
+        //         ]);
+        //     }
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'code' => 11,
+        //         'message' => 'Có lỗi xảy ra!'
+        //     ]);
+        // }
+    }
 }

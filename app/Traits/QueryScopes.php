@@ -2,36 +2,20 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Schema;
-
 trait QueryScopes
 {
     // Hàm phạm vi tìm kiếm
-    public function scopeKeyword($query, $keyword, $fieldSearch = [])
+    public function scopeKeyword($query, $keyword)
     {
         if (!empty($keyword)) {
-            if (count($fieldSearch) > 0) {
-                foreach ($fieldSearch as $key => $val) {
-                    $query->orWhere($val, 'like', '%' . $keyword . '%');
-                }
-            } else {
-                $query->where(function ($q) use ($keyword) {
-                    $q->where('id', 'like', '%' . $keyword . '%')
-                        ->orWhere('name', 'like', '%' . $keyword . '%');
-                        // nếu bảng nào k có slug thì kiểm tra như này 
-                        if (Schema::hasColumn('users', 'slug')) {
-                            $q->orWhere('slug', 'like', '%' . $keyword . '%');
-                        }else{
-                            $q->orWhere('id', 'like', '%' . $keyword . '%');
-
-                        }
-                });
-            }
+            $query->where(function ($q) use ($keyword) {
+                $q->where('id', 'like', '%' . $keyword . '%')
+                  ->orWhere('name', 'like', '%' . $keyword . '%')
+                  ->orWhere('slug', 'like', '%' . $keyword . '%');
+            });
         }
         return $query;
     }
-
-
 
     // Hàm phạm vi câu điều kiện
     public function scopeCustomWhere($query, $where = [])
@@ -48,12 +32,12 @@ trait QueryScopes
 
     // Hàm phạm vi trạng thái
     public function scopePublish($query, $publish)
-    {
-        if ($publish !== null) { // Nếu publish có giá trị (1 hoặc 0)
-            $query->where('publish', $publish);
-        }
-        return $query;
+{
+    if ($publish !== null) { // Nếu publish có giá trị (1 hoặc 0)
+        $query->where('publish', $publish);
     }
+    return $query;
+}
 
 
     // Phạm vi về mỗi quan hệ
@@ -83,19 +67,6 @@ trait QueryScopes
     {
         if (!empty($orderBy) && isset($orderBy[0], $orderBy[1])) {
             $query->orderBy($orderBy[0], $orderBy[1]);
-        }
-        return $query;
-    }
-
-    public function scopeCustomCreated($query, $condition)
-    {
-        if (!empty($condition)) {
-            $explode = explode(' - ', $condition);
-            $explode = array_map('trim', $explode); //loiaj bỏ khoảng trống
-            $startDate = date('Y-m-d 00:00:00', strtotime($explode[0]));
-            $endDate = date('Y-m-d 23:59:59', strtotime($explode[1]));
-
-            $query->whereBetween('created_at', [$startDate, $endDate]);
         }
         return $query;
     }

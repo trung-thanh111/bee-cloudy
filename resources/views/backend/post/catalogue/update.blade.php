@@ -73,7 +73,7 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control " rows="6" name="description">{{ old('description', $postCatalogue->description) }}</textarea>
+                                        <textarea class="form-control ck-editor" id="ck-editor" data-height="200" name="description">{{ old('description', $postCatalogue->description) }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +99,24 @@
                                         @endforeach
                                     </select>
                                     <span class="text-danger fz-12 mt-2">Chọn Root nếu không có danh mục cha</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Vị trí</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="choices-publish-status-input" class="form-label">vị trí</label>
+                                    <select class="form-select setUpSelect2" name="order">
+                                        <option value="">[ Root ]</option>
+                                        @foreach ($orders as $key => $order)
+                                            <option value="{{ $order->order }}" {{ $order->order == $postCatalogue->order ? 'selected' : ''}}>
+                                                {{ $order->order }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
