@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Fontend;
 
-use App\Http\Controllers\Controller;
-use App\Services\CartService;
-use App\Services\UserService;
 use Illuminate\Http\Request;
+use App\Services\CartService;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {

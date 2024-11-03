@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Ajax;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Product;
-use App\Models\ProductVariant;
-use App\Services\ProductService;
 use Illuminate\Http\Request;
+use App\Services\ProductService;
+use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
@@ -30,7 +29,6 @@ class SearchController extends Controller
         }
 
         $products = Product::where('name', 'LIKE', "%{$keyword}%")
-            ->limit(3)
             ->get(['id', 'name', 'image']);
 
         return response()->json($products);
@@ -82,7 +80,7 @@ class SearchController extends Controller
                     ->paginate(9);
             }
         } else {
-            $results = collect([]); // Trả về collection rỗng nếu type không hợp lệ
+            $results = collect([]); 
         }
 
         return view('fontend.index.search', compact('results', 'keyword', 'type'));

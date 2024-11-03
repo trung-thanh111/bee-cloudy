@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUserCatalogueRequest;
-use App\Http\Requests\StoreUserCatalogueRequest;
-use App\Repositories\UserCatalogueRepository;
-use App\Services\UserCatalogueService;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\UserCatalogueService;
+use App\Repositories\UserCatalogueRepository;
+use App\Http\Requests\StoreUserCatalogueRequest;
+use App\Http\Requests\UpdateUserCatalogueRequest;
 
 
 class UserCatalogueController extends Controller

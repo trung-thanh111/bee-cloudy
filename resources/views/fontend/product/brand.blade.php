@@ -1,6 +1,6 @@
 @extends('fontend.home.layout')
 @section('page_title')
-    Sản phẩm danh mục
+    Thương hiệu
 @endsection
 @section('content')
     <section>
@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item "><a href="{{ route('shop.index') }}"
                                 class="text-decoration-none text-muted">Cửa hàng</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Danh mục</li>
+                        <li class="breadcrumb-item active" aria-current="page">Thương hiệu</li>
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->
@@ -23,30 +23,30 @@
                 <div class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
                         <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
-                            <h3 class="text-uppercase">{{ $category->name }}</h3>
-                            <p class="fz-14">{!! $category->description !!}</p>
+                            <h3 class="text-uppercase">{{ $brand->name }}</h3>
+                            <p class="fz-14">{!! $brand->description !!}</p>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-8 col-12">
                         <div id="thumbnail-carousel2" class="splide category-slide">
                             <div class="splide__track">
                                 <ul class="splide__list">
-                                    @if ($productCatalogues)
-                                        @foreach ($productCatalogues as $keyPCate => $valPCate)
+                                    @if ($brandAll)
+                                        @foreach ($brandAll as $keyB => $valB)
                                             <li class="splide__slide">
-                                                <a href="{{ route('product.category', ['id' => $valPCate->id]) }}">
+                                                <a href="{{ route('product.category', ['id' => $valB->id]) }}">
                                                     <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                        <img src="{{ $valPCate->image }}" alt="product image" width="100%"
+                                                        <img src="{{ $valB->image }}" alt="product image" width="100%"
                                                             height="160" class=" rounded-top-3 object-fit-cover">
                                                         <div class="card-body bg-light p-2 rounded-bottom-3">
                                                             <h5 class="fw-medium">
-                                                                <a href="{{ route('product.category', ['id' => $valPCate->id]) }}"
-                                                                    class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">{{ $valPCate->name }}</a>
+                                                                <a href="{{ route('product.category', ['id' => $valB->id]) }}"
+                                                                    class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">{{ $valB->name }}</a>
                                                             </h5>
                                                             <div class="catagory-item-text">
                                                                 <span
                                                                     class="d-inline-block text-muted fz-14 truncate-custom">
-                                                                    {!! $valPCate->description !!}
+                                                                    {!! $valB->description !!}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -300,8 +300,8 @@
                                 <h5 class="fs-5 text-uppercase mt-2">Sản phẩm</h5>
                             </div>
                             <div class="content-product-cate row flex-wrap">
-                                @if (count($productInCategories) != 0 && !empty($productInCategories))
-                                    @foreach ($productInCategories as $key => $product)
+                                @if (count($productInBrands) != 0 && !empty($productInBrands))
+                                    @foreach ($productInBrands as $key => $product)
                                         @php
                                             $shownColors = []; // Mảng để theo dõi các màu đã được hiển thị
 
@@ -410,7 +410,7 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pagination pagination-sm">
-                            {{ $productInCategories->appends(request()->except('page'))->onEachSide(3)->links('pagination::bootstrap-5') }}
+                            {{ $productInBrands->appends(request()->except('page'))->onEachSide(3)->links('pagination::bootstrap-5') }}
                         </div>
 
                     </div>
