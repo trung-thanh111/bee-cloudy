@@ -17,22 +17,24 @@ class Product extends Model
     protected $fillable = [
         'id',
         'name',
-        'slug',
         'image',
         'album',
-        'info',
-        'description',
-        'brand_id',
-        'is_hot',
-        'price',
-        'del',
         'instock',
+        'slug',
+        'short_desc',
+        'description',
+        'info',
+        'brand_id',
         'sku',
+        'user_id',
         'attributeCatalogue', // json
         'attribute', // json
         'variant',  // json
+        'price',
+        'del',
         'publish',
         'created_at',
+        'like_count'
 
     ];
     
@@ -51,16 +53,23 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+    // khia báo quan hệ với bảng user (n)
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     //khia báo quan hệ với bảng product variant (1pro - nhiều phiên bản)
     public function productVariant(): HasMany
     {
         return $this->hasMany(ProductVariant::class, 'product_id', 'id');
     }
-    public function promotions()
+    
+    public function wishlists(): HasMany
     {
-        return $this->belongsToMany(Promotion::class, 'promotion_product_variants')
-                    ->withPivot('discount')
-                    ->withTimestamps();
-
+        return $this->hasMany(WishList::class, 'product_id', 'id');
+    }
+    public function vouchers()
+    {
+        return $this->belongsToMany(Voucher::class, 'voucher_products');
     }
 }
