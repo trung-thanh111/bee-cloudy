@@ -21,7 +21,7 @@ class OrderController extends FontendController
         $this->orderService = $orderService;
     }
 
-    // update field note
+    // update  note order
     public function edit(Request $request)
     {
         try {
@@ -51,19 +51,19 @@ class OrderController extends FontendController
             if ($updated) {
                 return response()->json([
                     'code' => 10,
-                    'message' => 'Cập nhật thành công.',
+                    'message' => 'Đơn hàng đã hủy bị hủy!',
                     'redirect' => 'back',
                 ]);
             } else {
                 return response()->json([
                     'code' => 11,
-                    'message' => 'Không thể cập nhật giỏ hàng.',
+                    'message' => 'Hủy đơn hàng thất bại',
                 ], 400);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 11,
-                'message' => 'Có lỗi xảy ra khi cập nhật giỏ hàng.',
+                'message' => 'Có lỗi xảy ra khi hủy đơn hàng.',
             ], 500);
         }
     }

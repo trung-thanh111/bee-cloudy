@@ -83,8 +83,7 @@ class OrderService implements OrderServiceInterface
             $order = $this->orderRepository->create($payload);
             if ($order->id > 0) {
                 $orderItem = $this->createOrderitems($request, $order);
-                // xóa cart sao khi thanh toán hành tất 
-                // $this->cartService->clear($request);
+                
             }
             DB::commit();
             return $order;
@@ -98,12 +97,11 @@ class OrderService implements OrderServiceInterface
     public function sendMail($order)
     {
         $order = $this->all();
-
         $to = $order->email;
         $cc = 'beecloudy2024@gmail.com'; // gửi về mail của hệ thống 
-
         $content = ['order' => $order];
         Mail::to($to)->cc($cc)->send(new OrderMail($content));
+        
     }
 
 
@@ -116,6 +114,7 @@ class OrderService implements OrderServiceInterface
         $payload['cart'] = json_encode($this->cartService->all());
         $payload['total_items'] = $this->cartService->countProductIncart();
         return $payload;
+        dd($payload);
     }
 
     private function createOrderitems($request, $order)

@@ -116,44 +116,41 @@ class ShopService implements ShopServiceInterface
     public function productFilter($request)
     {
         $payload = $request->only('brand', 'category', 'size', 'color', 'price');
-        $query = Product::query();
-        // Filter theo thương hiệu
-        if (!empty($payload['brand'])) {
+        $query = Product::with('productVariant', 'productCatalogues', 'productVariant.attributes');
+
+        if (isset($payload['brand']) && !empty($payload['brand'])) {
             $query->whereHas('brands', function ($q) use ($payload) {
                 $q->where('slug', $payload['brand']);
             });
         }
-
-        // Filter theo danh mục
-        if (!empty($payload['category'])) {
+        if (isset($payload['category']) && !empty($payload['category'])) {
             $query->whereHas('productCatalogues', function ($q) use ($payload) {
                 $q->where('slug', $payload['category']);
             });
         }
 
-        // Filter theo size
-        // if (!empty($payload['size'])) {
-        //     $query->whereHas('sizes', function($q) use ($payload) {
-        //         $q->where('slug', $payload['size']);
-        //     });
-        // }
-
-        // // Filter theo màu sắc  
-        // if (!empty($payload['color'])) {
-        //     $query->whereHas('colors', function($q) use ($payload) {
-        //         $q->where('slug', $payload['color']);
-        //     });
-        // }
-
-        // Filter theo khoảng giá
-        if (!empty($payload['price'])) {
-            $priceRange = explode('-', $payload['price']);
-            $minPrice = $priceRange[0];
-            $maxPrice = $priceRange[1];
+        if (isset($payload['price']) && !empty($payload['price'])) {
+            $price = explode('-', $payload['price']);
+            $minPrice = $price[0];
+            $maxPrice = $price[1];
             $query->whereBetween('price', [$minPrice, $maxPrice]);
         }
-        // Lấy kết quả
-        $products = $query->get();
+        $query->whereHas('productVariant', function ($variantQuery) use ($payload) {
+            if (!empty($payload['size'])) {
+                // SUBSTRING_INDEX là hàm trong sql để cắt chuỗi dựa trên ký tự phân cách 
+                $variantQuery->whereRaw('SUBSTRING_INDEX(code, ",", 1) = ?', [$payload['size']]);
+            }
+        
+            if (!empty($payload['color'])) {
+                $variantQuery->where(function ($query) use ($payload) {
+                    // Kiểm tra xem code có chứa dấu phẩy hay không
+                    $query->whereRaw('code LIKE "%,%"')
+                          ->whereRaw('SUBSTRING_INDEX(code, ",", -1) = ?', [$payload['color']]);
+                });
+            }
+        });
+
+        $products = $query->paginate(9);
         return $products;
     }
 

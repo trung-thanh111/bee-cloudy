@@ -48,10 +48,14 @@
     };
     // console.log(productWishlistId)
     FS.setupVariantGallery = (res) => {
-        let product_id = $(".product_id_wishlist").html() ?? null; 
+        console.log(res.price);
+        
+        let product_id = $(".product_id_wishlist").html() ?? null;
         // bắt mảng id từ blade và loại bỏ null
-        let WishlistId = productInWishlist.filter(id => id != null);
+        let WishlistId = productInWishlist.filter((id) => id != null);
         let albumVariant = res.productVariant.album.split(",");
+        let promotionDetail = (product.del != 0 && product.del != null) ? ((product.price - res.productVariant.price)/product.price)*100 : '0';
+        
         let html = `<div id="main-carousel" style="margin-bottom: 10px;" class="splide " aria-label="Main Carousel">
                         <div class="splide__track ">
                             <ul class="splide__list position-relative">`;
@@ -61,10 +65,22 @@
                      </li>`;
         });
         html += `</ul>
-                <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip" data-bs-title="${WishlistId.includes(res.productVariant.id) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}" >
+            <div class="d-flex justify-content-between">
+                <div>
+                    <div class="mini-coupon z-3 ${promotionDetail == 0 ? 'hidden-visibility' : '' }">- ${promotionDetail}%</div>
+                </div>
+                <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip" data-bs-title="${
+                    WishlistId.includes(res.productVariant.id)
+                        ? "Xóa khỏi yêu thích"
+                        : "Thêm vào yêu thích"
+                }" >
                     <div class="position-relative">
                         <a href="#" class="position-absolute start-50 translate-middle" style="top: 20px;">
-                            <i class="icon-favourite fa-${WishlistId.includes(res.productVariant.id) ? 'solid' : 'regular'} fa-bookmark fz-20 text-muted"></i>
+                            <i class="icon-favourite fa-${
+                                WishlistId.includes(res.productVariant.id)
+                                    ? "solid"
+                                    : "regular"
+                            } fa-bookmark fz-20 text-muted"></i>
                         </a>
                     </div>
                    <span class="product_variant_id_wishlist d-none">${
@@ -72,6 +88,7 @@
                    }</span>
                     <span class="product_id_wishlist d-none">${product_id}</span>
                 </div>
+            </div>
             </div>
         </div>
         <div id="thumbnail-carousel" class="splide mb-5">
@@ -94,10 +111,11 @@
                             </div>
                             <div class="share">
                                 <span class="fz-14">
-                                    <ul class="p-0 d-flex justify-content-around align-items-center w-75">
-
+                                    <ul class="p-0 d-flex justify-content-around align-items-center w-75"
                                         <li class="list-unstyled mx-2">
-                                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::url()) }}"
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                                                window.location.href
+                                            )}"
                                                 target="_blank" class="text-decoration-none text-dark fz-20 fw-normal">
                                                 <img width="25" height="25"
                                                     src="https://img.icons8.com/color/25/facebook.png" alt="facebook"
@@ -105,7 +123,9 @@
                                             </a>
                                         </li>
                                         <li class="list-unstyled mx-2">
-                                            <a href="https://www.messenger.com/t?link={{ urlencode(Request::url()) }}"
+                                            <a href="https://www.messenger.com/t?link=${encodeURIComponent(
+                                                window.location.href
+                                            )}"
                                                 target="_blank" class="text-decoration-none text-dark fz-20 fw-normal">
                                                 <img width="25" height="25"
                                                     src="https://img.icons8.com/fluency/25/facebook-messenger--v2.png"
@@ -114,7 +134,9 @@
                                             </a>
                                         </li>
                                         <li class="list-unstyled mx-2">
-                                            <a href="https://zalo.me/share?url={{ urlencode(Request::url()) }}"
+                                            <a href="https://zalo.me/share?url=${encodeURIComponent(
+                                                window.location.href
+                                            )}"
                                                 target="_blank" class="text-decoration-none text-dark fz-20 fw-normal">
                                                 <img width="25" height="25"
                                                     src="https://img.icons8.com/color/25/zalo.png" alt="zalo"
@@ -205,7 +227,6 @@
         }
     };
     FS.quantityProductVariantMax = (res) => {
-        
         let productVariantQuantiyMax = res.productVariant.quantity;
         $(".quantity-product-variant").attr("max", productVariantQuantiyMax);
     };

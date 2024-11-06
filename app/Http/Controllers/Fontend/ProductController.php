@@ -27,7 +27,7 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
     }
-    public function index() {}
+    
     public function detail($slug)
     {
         $product = $this->productRepository->getProductBySlug($slug);
