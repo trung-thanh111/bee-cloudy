@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Repositories\UserRepository;
-use App\Repositories\UserCatalogueRepository;
-use App\Services\UserService;
-use App\Services\UserCatalogueService;
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Repositories\UserRepository;
+use App\Http\Controllers\Controller;
+use App\Services\UserCatalogueService;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Repositories\UserCatalogueRepository;
 
 class UserController extends Controller
 {
     protected $userService;
-    protected $userCatalogueService;
-    protected $userCatalogueRepository;
     protected $userRepository;
     protected $provinceRepository;
+    protected $userCatalogueService;
+    protected $userCatalogueRepository;
     public function __construct(
         UserService $userService,
         UserRepository $userRepository,

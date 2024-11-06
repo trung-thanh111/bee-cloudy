@@ -17,12 +17,10 @@ class ProductCatalogue extends Model
     protected $fillable = [
         'id',
         'parent_id',
+        'slug',
         'name',
         'image',
         'description',
-        'slug',
-        'order',
-        'user_id',
         'publish',
         'created_at',
     ];

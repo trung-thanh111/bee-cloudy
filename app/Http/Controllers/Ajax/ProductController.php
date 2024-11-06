@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers\Ajax;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
 

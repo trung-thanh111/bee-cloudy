@@ -307,6 +307,7 @@
         return tHead
     }
     FS.createVairantRow = (attributeItem, variantItem) => {
+
         let attributeString = Object.values(attributeItem).join(', ')
         let attributeId = Object.values(variantItem).join(', ')
         // chuyyển tất cả dấu , trong chuỗi attributeId thành -
@@ -346,7 +347,7 @@
             $td.append($input)
         })
 
-        $row.append($('<td>').addClass('td-quantity').text('-'))
+        $row.append($('<td>').addClass('td-quantity').text(1))
             .append($('<td>').addClass('td-price').text(mainPrice))
             .append($('<td>').addClass('td-sku').text(mainSku+'-'+classModified))
             .append($td)
@@ -509,6 +510,8 @@
     }
     // nội dung html edit pb sản phẩm
     FS.updateVariantHtml = (variantData) => {
+    
+        
         // chuyển chuổi thành mảng -> load ra
         let variantAlbum = variantData.variant_album.split(',');
         let vatiantAlbumItem = FS.variantAlbumList(variantAlbum)
@@ -576,7 +579,7 @@
         html += ' <div class="col-lg-4">';
         html += ' <label for="" class="control-label ">Số lượng</label>';
         html +=
-            ' <input type="text" class="form-control int" id="variantQuantity" required name="variant_quantity" value="'+variantData.variant_quantity+'">';
+            ' <input type="text" class="form-control int" id="variantQuantity" required name="variant_quantity" value="'+ (variantData.variant_quantity ? variantData.variant_quantity : 1) +'">';
         html += " </div>";
         html += ' <div class="col-lg-4">';
         html += ' <label for="" class="control-label">SKU</label>';
@@ -708,6 +711,8 @@
     FS.productVariant = () => {
         // bắt lại biến variant bên blade 
         variant = JSON.parse(atob(variant))
+        let variantQuantity = window.variantQuantities;
+
         const findIndexVariantBySku = (sku) => variant.sku.findIndex((item) => item === sku)
 
         // loop qua từng row và đổ dữ liệu vào 
@@ -716,9 +721,14 @@
             let variantKey = _this.attr('class').match(/tr-variant-(\d+-\d+)/)[1];
             let dataIndex = variant.sku.findIndex(sku => sku.includes(variantKey));
             // console.log(variantKey, dataIndex)
+            let newQuantity = variant.quantity[dataIndex]; // giá trị mặc định
+            if (variantQuantity && variantQuantity[dataIndex]) {
+                newQuantity = variantQuantity[dataIndex].quantity;
+            }
             if(dataIndex !== -1){
                 let inputHidenFields = [
-                    {name: 'variant[quantity][]', class: 'variant_quantity', value: variant.quantity[dataIndex]},
+                    
+                    {name: 'variant[quantity][]',class: 'variant_quantity', value: newQuantity},
                     {name: 'variant[sku][]', class: 'variant_sku', value: variant.sku[dataIndex]},
                     {name: 'variant[price][]', class: 'variant_price', value: variant.price[dataIndex]},
                     {name: 'variant[file_name][]', class: 'variant_filename',value: variant.file_name[dataIndex]},
@@ -733,7 +743,7 @@
                 // đổ vào input trong td table
                 let album = variant.album[dataIndex]
                 let variantAvtImage = (album) ? album.split(',')[0] : ''
-                _this.find('.td-quantity').html(variant.quantity[dataIndex])
+                _this.find('.td-quantity').html(newQuantity)
                 _this.find('.td-price').html(variant.price[dataIndex])
                 _this.find('.td-sku').html(variant.sku[dataIndex])
                 _this.find('.imageSrc').attr('src', variantAvtImage)

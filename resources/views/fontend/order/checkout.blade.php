@@ -9,9 +9,9 @@
                 <!-- breadcrumb  -->
                 <nav class="pt-3 pb-3" aria-label="breadcrumb">
                     <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
-                        <li class="breadcrumb-item "><a href="#" class="text-decoration-none text-muted">Trang chủ</a>
+                        <li class="breadcrumb-item "><a href="{{ route('cart.index') }}" class="text-decoration-none text-muted">Giỏ hàng</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+                        <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->

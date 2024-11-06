@@ -31,8 +31,8 @@ class CreateAllTablesExceptUserAndProduct extends Migration
         Schema::create('promotion_product_variants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('promotion_id');
+            $table->decimal('discount', 5, 2)->nullable();
             $table->unsignedBigInteger('product_id');
-            $table->decimal('discount', 5, 2); // discount percentage or amount
             $table->timestamps();
 
             // Add foreign keys
@@ -44,6 +44,8 @@ class CreateAllTablesExceptUserAndProduct extends Migration
         Schema::create('user_vouchers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('code')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('promotion_id');
             $table->unsignedBigInteger('promotion_product_variant_id')->nullable()->default(null);
             $table->timestamp('claimed_at')->nullable();

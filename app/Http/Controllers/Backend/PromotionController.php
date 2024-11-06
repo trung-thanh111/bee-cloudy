@@ -1,24 +1,22 @@
 <?php
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Promotion;
-use App\Models\Product;
-use App\Models\UserVoucher;
-use App\Models\PromotionProductVariant;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Exception;
 use Carbon\Carbon;
+use App\Models\Product;
+use App\Models\Promotion;
+use App\Models\UserVoucher;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Models\PromotionProductVariant;
 
 class PromotionController extends Controller
 {
     public function index()
     {
-
         $promotions = Promotion::all();
         $template = 'backend.promotion.catalogue.index';
         return view('backend.dashboard.layout', compact(
@@ -148,17 +146,9 @@ class PromotionController extends Controller
     {
         // Tìm khuyến mãi theo ID
         $promotion = Promotion::findOrFail($id);
-
-        // Xóa khuyến mãi
-        $promotion->delete();
-
-        // Chuyển hướng với thông báo thành công
-        return redirect()->route('promotions.index')->with('success', 'Voucher đã được xóa thành công!');
+        $result = $promotion->delete();
+        
     }
-
-
-
-
 
 
 

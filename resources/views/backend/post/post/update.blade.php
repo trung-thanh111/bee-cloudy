@@ -122,6 +122,20 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
+                                <h5 class="card-title mb-0">Tiêu điểm</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="choices-outstanding-status-input " class="form-label">Nổi bật</label>
+                                    <select class="form-select setUpSelect2" name="outstanding">
+                                        <option value="0" {{ $post->outstanding == 0 ? 'selected' : '' }}>Không</option>
+                                        <option value="1" {{ $post->outstanding == 1 ? 'selected' : '' }}>Có</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
                                 <h5 class="card-title mb-0">Xuất bản</h5>
                             </div>
                             <div class="card-body">
