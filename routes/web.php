@@ -90,6 +90,13 @@ Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
 Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
 
+//Page FONTEND
+Route::get('faq', [HomeController::class, 'faq'])->name('home.faq');
+Route::get('contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('terms_and_conditions', [HomeController::class, 'terms_and_conditions'])->name('home.terms_and_conditions');
+Route::get('return_and_warranty_policy', [HomeController::class, 'return_and_warranty_policy'])->name('home.return_and_warranty_policy');
+Route::get('about_us', [HomeController::class, 'about_us'])->name('home.about_us');
+Route::get('security_center', [HomeController::class, 'security_center'])->name('home.security_center');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -102,9 +109,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
         Route::post('/apply-discount', [AjaxCartController::class, 'applyPromotion'])->name('cart.applyDiscount');
         Route::post('/remove-voucher/{voucherId}', [AjaxCartController::class, 'removeVoucher'])->name('cart.removeVoucher');
-
     });
-
 });
 //promotion
 Route::middleware(['auth'])->group(function () {
@@ -219,7 +224,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
     });
 
-    
+
 
     //product
     Route::group(['prefix' => 'product'], function () {
@@ -244,7 +249,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->name('promotions.confirm_delete');
         Route::delete('/delete/{id}', [PromotionController::class, 'destroy'])->name('promotions.destroy');
         Route::delete('/bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
-
     });
     Route::group(['prefix' => 'promotion'], function () {
         Route::get('/create', [PromotionController::class, 'create'])->name('promotions.catalogue.create');
