@@ -64,12 +64,17 @@
                     </div>
                     <hr class="border-5 border-secondary rounded-pill my-4">
                     <div class="main-post">
-                        <div class="title-head-post">
-                            <h5 class="fs-5 fw-500 mb-3 text-uppercase">
-                                Nổi bật
-                                <hr class=" border-4 border-info mb-2" style="width: 80px;">
-
-                            </h5>
+                        <div class="title-product mb-4 col-2">
+                            <div class="price-banner">
+                                <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                    <div class="price-icon">
+                                        <i class="fa-solid fa-star text-white"></i>
+                                    </div>
+                                    <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                        nổi bật
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
                         <div class="row flex-wrap">
                             <div class="col-lg-8 col-md-8 col-12">
@@ -207,10 +212,18 @@
                         </div>
                         <!-- bài viết nhiều like nhất sl6 -->
                         <div class="title-post-host mt-4">
-                            <h5 class="fs-5 fw-500 mb-3 text-uppercase">
-                                Yêu thích
-                                <hr class=" border-4 border-info mb-2" style="width: 80px;">
-                            </h5>
+                            <div class="title-product mb-4 col-2">
+                                <div class="price-banner">
+                                    <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                        <div class="price-icon">
+                                            <i class="fa-solid fa-heart text-white"></i>
+                                        </div>
+                                        <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                            yêu thích
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row mb-3 row-cols-3 bg-white shadow-sm rounded-2">
                             @if ($postLikes != null)
@@ -230,10 +243,18 @@
                             @endif
                         </div>
                         <div class="title-post-host mt-4">
-                            <h5 class="fs-5 fw-500 mb-3 text-uppercase">
-                                tin mỗi ngày
-                                <hr class=" border-4 border-info mb-2" style="width: 80px;">
-                            </h5>
+                            <div class="title-product mb-4 col-2">
+                                <div class="price-banner">
+                                    <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                        <div class="price-icon">
+                                            <i class="fa-solid fa-newspaper text-white"></i>
+                                        </div>
+                                        <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                            tin mỗi ngày
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row bg-white py-3 rounded-2">
                             <div class="col-lg-9 col-md-9 col-12 ">

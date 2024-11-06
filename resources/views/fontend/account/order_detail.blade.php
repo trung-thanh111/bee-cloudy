@@ -208,7 +208,9 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <span class="text-secondary">Chờ xác nhận</span>
+                                                    <button type="submit"
+                                                        class="updateStatus btn btn-danger fz-14"
+                                                        data-status="canceled">Hủy đơn</button>
                                                 </div>
                                             </div>
                                         @elseif($order->status == 'confirmed')
@@ -515,4 +517,28 @@
             </div>
         </a>
     </div>
+
+{{-- // update cancled order  --}}
+<div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Xác nhận hủy đơn </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>
+                    Mã đơn hàng #{{ $order->code }}
+                </h6>
+                <p>Bạn có chắc chắn muốn hủy đơn hàng này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary fz-14" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger fz-14" id="confirmCancel">Xác nhận hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="order_id" class="orderId" value="{{ $order->id }}">
+
 @endsection
