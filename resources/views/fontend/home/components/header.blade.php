@@ -219,7 +219,7 @@
                             </li>
 
                             <li class="menu-li-item px-2 py-3">
-                                <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
+                                <a href="{{ route('home.contact') }}" class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
                                     hệ</a>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">

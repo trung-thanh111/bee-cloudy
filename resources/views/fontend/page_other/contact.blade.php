@@ -70,7 +70,7 @@ Thanh toán thất bại
                                 <textarea class=" textarea-content form-control rounded-2  shadow-sm" id="content"
                                     rows="5" placeholder="Viết cho chúng tôi ngay!"></textarea>
                                 <button type="submit" class="btn btn-success position-absolute z-3 py-1 px-4"
-                                    style="bottom: 8px ; right: 20px;">Gửi</button>
+                                    style="bottom: 20px ; right: 20px;">Gửi</button>
                             </div>
                         </form>
                     </div>
