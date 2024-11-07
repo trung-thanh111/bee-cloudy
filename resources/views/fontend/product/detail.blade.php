@@ -432,16 +432,12 @@
                                                         <label style="margin-right: 5px" for="rating-select">Chất lượng
                                                             sản phẩm: </label>
                                                         <select id="rating-select" v-model="create.publish">
-                                                            <option selected value="0" style="color: black">--Chọn số
-                                                                sao--</option>
-                                                            <option class="star" value="1">&#9733;</option>
-                                                            <option class="star" value="2">&#9733;&#9733;</option>
-                                                            <option class="star" value="3">&#9733;&#9733;&#9733;
-                                                            </option>
-                                                            <option class="star" value="4">
-                                                                &#9733;&#9733;&#9733;&#9733;</option>
-                                                            <option class="star" value="5">
-                                                                &#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                                            <option selected value="0" style="color: black">--Chọn số sao--</option>
+                                                            <option style="color: gold; font-size: 20px;" value="1">&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="2">&#9733;&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="3">&#9733;&#9733;&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -508,10 +504,11 @@
                                                                         <h6 class="fz-18 mb-0">@{{ v.name }}</h6>
                                                                     </div>
                                                                     <div class="pt-2 d-inline-block">
-                                                                        <option class="star" :value="v.publish">
-                                                                            <span
-                                                                                v-html=" '&#9733;'.repeat(v.publish) "></span>
-                                                                        </option>
+                                                                        <span v-for="i in v.publish"
+                                                                                :key="i" class="star-icon"
+                                                                                style="color: gold;">
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                        </span>
                                                                     </div>
                                                                     <div class="dropdown ms-auto ">
                                                                         <a class=" dropdown-toggle" href="#"
@@ -557,7 +554,7 @@
                                                                     </p>
                                                                 </div>
                                                                 <div class="icon-reaction pb-2">
-                                                                    <button v-on:click="Like(k)" :id="'likeBtn-' + k">
+                                                                    <button v-on:click="Like(k)" :id="'likeBtn-' + k" style="border: none; background: none; padding: 0;">
                                                                         <i class="fa-regular fa-heart me-2"></i>
                                                                     </button>
                                                                     <span :id="'likeCount-' + k">0</span>
@@ -898,100 +895,134 @@
     </script>
 @endsection
 @section('js')
-    <script>
-        new Vue({
-            el: '#app',
-            data: {
-                create: {},
-                edit: {},
-                list: [],
-                image: null,
-                likes: [],
-                comment: 0,
-                imagePath: '',
-            },
-            created() {
-                this.LoadBinhLuan();
-            },
-            methods: {
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            create: {},
+            edit: {},
+            list: [],
+            image: null,
+            likes: [],
+            comment: 0,
+            likeCount: [],
+            check: 0,
+            isLiked: false
+        },
+        created() {
+            this.LoadBinhLuan();
+            this.LoadLike();
+            this.Chekc();
+        },
+        methods: {
+            toggleLike() {
+                this.isLiked = !this.isLiked;
 
-                LoadBinhLuan() {
-                    const pathname = window.location.pathname;
-                    const slug = pathname.substring(pathname.lastIndexOf('/') + 1);
-                    axios
-                        .get('/producreview-data/' + slug, )
-                        .then((res) => {
-                            this.list = res.data.data;
-                            this.comment = res.data.comment_count;
-                        });
-                },
-                DanhGiaSP() {
-                    const pathname = window.location.pathname;
-                    const slug = pathname.substring(pathname.lastIndexOf('/') + 1);
-                    axios
-                        .post('/producreview/create/' + slug, this.create)
-                        .then((res) => {
-                            if (res.data.status) {
-                                // alert(res.data.message);
-                                this.create = {};
-                                this.LoadBinhLuan();
-                                toaster.success(res.data.message);
-                            } else {}
-                        })
-                        .catch((res) => {
-                            $.each(res.response.data.errors, function(k, v) {});
-                        });
-                },
-                Update() {
-                    axios
-                        .post('/producreview-update', this.edit)
-                        .then((res) => {
-                            if (res.data.status) {
-                                alert(res.data.message);
-                                this.create = {};
-                                this.LoadBinhLuan();
-                            } else {}
-                        })
-                        .catch((res) => {
-                            $.each(res.response.data.errors, function(k, v) {
-                                toastr.error(v[0], 'Error');
-                            });
-                        });
-                },
-                Like(k) {
-                    if (this.likes[k] === 0) {
-                        this.likes[k] = 1;
-                    } else {
-                        this.likes[k] = 0;
-                    }
-                    let likeCountElement = document.getElementById('likeCount-' + k);
-                    likeCountElement.textContent = this.likes[k];
-
-                    let heartIcon = document.getElementById('likeBtn-' + k).querySelector('i');
-                    if (this.likes[k] === 1) {
-                        heartIcon.classList.remove('fa-regular');
-                        heartIcon.classList.add('fa-solid');
-                    } else {
-                        heartIcon.classList.remove('fa-solid');
-                        heartIcon.classList.add('fa-regular');
-                    }
-                },
-                formatDate(dateString) {
-                    const options = {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                        p
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false,
-                    };
-
-                    const date = new Date(dateString);
-                    return date.toLocaleString('en-GB', options).replace(',', '');
-                },
             },
-        });
-    </script>
+            LoadBinhLuan() {
+                const url = new URL(window.location.href);
+                const pathname = url.pathname;
+                const slug = pathname.split('/').filter(Boolean).pop();
+                axios
+                    .get('/producreview-data/' + slug)
+                    .then((res) => {
+                        this.list = res.data.data;
+                        this.comment = res.data.comment_count;
+                    });
+            },
+
+            LoadLike() {
+                const url = new URL(window.location.href);
+                const pathname = url.pathname;
+                const slug = pathname.split('/').filter(Boolean).pop();
+                axios
+                    .get('/producreview/like-data/' + slug)
+                    .then((res) => {
+                        this.list = res.data.like_count;
+                    })
+                    .catch((res) => {})
+            },
+
+            Chekc() {
+                const url = new URL(window.location.href);
+                const pathname = url.pathname;
+                const slug = pathname.split('/').filter(Boolean).pop();
+                axios
+                    .get('/product/check/' + slug)
+                    .then((res) => {
+                        this.check = res.data.check;
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {});
+                    })
+            },
+            Like(v) {
+                axios
+                    .post('/producreview/like', v)
+                    .then((res) => {
+                        if (res.data.status) {
+                            this.LoadLike();
+                            this.likeCount = res.data.like_count;
+                            toaster.success(res.data.message);
+                        }
+
+                    })
+                    .catch((res) => {
+                        // $.each(res.response.data.errors, function(k, v) {});
+                    });
+            },
+            DanhGiaSP() {
+                const url = new URL(window.location.href);
+                const pathname = url.pathname;
+                const slug = pathname.split('/').filter(Boolean).pop();
+
+                axios
+                    .post('/producreview/create/' + slug, this.create)
+                    .then((res) => {
+                        if (res.data.status) {
+                            this.check = true;
+                            this.create = {};
+                            this.LoadBinhLuan();
+                            this.Chekc();
+                            toaster.success(res.data.message);
+                        } else {}
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {});
+                    });
+            },
+            Update() {
+                axios
+                    .post('/producreview-update', this.edit)
+                    .then((res) => {
+                        if (res.data.status) {
+                            alert(res.data.message);
+                            this.create = {};
+                            this.LoadBinhLuan();
+                        } else {}
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {
+                            toastr.error(v[0], 'Error');
+                        });
+                    });
+            },
+
+            formatDate(dateString) {
+                const options = {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false,
+                };
+
+                const date = new Date(dateString);
+                return date.toLocaleString('en-GB', options).replace(',', '');
+            },
+        },
+    });
+</script>
 @endsection
