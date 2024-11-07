@@ -68,125 +68,7 @@
                     </div>
                     <div class="body-profile">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 flex-grow-1 mb-3">
-                                <div class="card border-0 card-height-100 ">
-                                    <div class="card-header align-items-center d-flex">
-                                        <h6 class="card-title mb-0 flex-grow-1 fz-18 pt-2 pb-2">Thông tin </h6>
-                                    </div>
-                                    <div class="card-body p-0 mt-3">
-                                        <ul class="p-0">
-                                            <li class="list-unstyled fz-16">
-                                                <div class="nav-item-main" role="button">
-                                                    <a class="nav-link fw-400 d-flex justify-content-between align-items-center"
-                                                        href="#" role="button">
-                                                        <span class="fz-16 fw-400">
-                                                            <i class="fa-solid fa-circle-user fz-16 me-2"></i>
-                                                            Thông tin cá nhân
-                                                        </span>
-                                                        <i class="fa-solid fa-chevron-down fz-12 d-none"></i>
-                                                        <i class="fa-solid fa-chevron-right fw-bolder fz-12"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="sub-menu-lv2 d-none">
-                                                    <ul class="sub-menu-ul flex-column text-muted ps-0">
-                                                        <li class="sub-menu-li list-unstyled ps-4">
-                                                            <a href="#" class="nav-link p-2">
-                                                                <i class='bx bx-circle fz-8 me-2'></i>
-                                                                <span>Cập nhật</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="sub-menu-li list-unstyled ps-4">
-                                                            <a href="#" class="nav-link p-2">
-                                                                <i class='bx bx-circle fz-8 me-2'></i>
-                                                                <span>Đổi mật khẩu</span>
-                                                            </a>
-                                                        </li>
-
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="list-unstyled fz-16">
-                                                <div class="nav-item-main">
-                                                    <a class="nav-link fw-400 d-flex justify-content-between align-items-center"
-                                                        href="{{ route('account.order') }}">
-                                                        <span class="fz-16 fw-400"> <i
-                                                                class='bx bxs-package fz-18 me-2'></i>
-                                                            Đơn hàng</span>
-                                                        <i class="fa-solid fa-chevron-down fz-12 d-none"></i>
-                                                        <i class="fa-solid fa-chevron-right fw-bolder fz-12"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="sub-menu-lv2 d-none">
-                                                    <ul class="sub-menu-ul flex-column text-muted ps-0">
-                                                        <li class="sub-menu-li list-unstyled ps-4">
-                                                            <a href="{{ route('account.order') }}" type="submit"
-                                                                class="nav-link p-2">
-                                                                <i class='bx bx-circle fz-8 me-2'></i>
-                                                                <span>Theo dõi đơn hàng</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="sub-menu-li list-unstyled ps-4">
-                                                            <a class="nav-link fw-400 d-flex justify-content-between align-items-center p-2"
-                                                                href="#" role="button">
-                                                                <div>
-                                                                    <i class='bx bx-circle fz-8 me-2'></i>
-                                                                    <span>Starter</span>
-                                                                </div>
-                                                                <i
-                                                                    class="fa-solid fa-chevron-down lv3 fw-bolder fz-12 pe-12 d-none"></i>
-                                                                <i
-                                                                    class="fa-solid fa-chevron-right lv3 fw-bolder fz-12 pe-12"></i>
-                                                            </a>
-                                                            <div class="sub-menu-lv3 d-none">
-                                                                <div class="sub-sub-menu">
-                                                                    <ul class="flex-column sub-sub-menu-ul ps-15">
-                                                                        <li class="sub-sub-menu-li">
-                                                                            <a href="#" class="nav-link p-2">Simple
-                                                                                Page</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="sub-menu-lv3 d-none">
-                                                                <div class="sub-sub-menu">
-                                                                    <ul class="flex-column sub-sub-menu-ul ps-15">
-                                                                        <li class="sub-sub-menu-li">
-                                                                            <a href="#" class="nav-link p-2">Simple
-                                                                                Page</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="list-unstyled fz-16">
-                                                <div class="nav-item-main">
-                                                    <a class="nav-link fw-400 d-flex justify-content-between align-items-center"
-                                                        href="#" role="button">
-                                                        <span class="fz-16 fw-400"> <i
-                                                                class='fa-solid fa-bell fz-18 me-2'></i> Thông
-                                                            báo</span>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            <li class="list-unstyled fz-16">
-                                                <div class="nav-item-main">
-                                                    <a class="nav-link fw-400 d-flex justify-content-between align-items-center"
-                                                        href="#" role="button">
-                                                        <span class="fz-16 fw-400"> <i
-                                                                class="fa-solid fa-ticket fz-18 me-2"></i>
-                                                            Voucher</span>
-                                                    </a>
-                                                </div>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                    <!-- end cardbody -->
-                                </div>
-                            </div>
+                            @include('fontend.account.components.aside')
                             <div class="col-lg-9 col-md-8 flex-grow-1">
                                 <div class="article-profile">
                                     <div class="card border-0 bg-white">
@@ -297,7 +179,7 @@
                                                         class="d-flex align-items-center p-3 bg-light shadow-sm rounded-3">
                                                         <i class=" text-muted far fa-calendar-alt h4 mb-0 me-3 "></i>
                                                         <div>
-                                                            <div class="text-muted small">Ngày đặt hàng</div>
+                                                            <div class="text-muted small">Thời gian đặt hàng</div>
                                                             <div class="fw-medium">
                                                                 {{ date('H:i:sa d-m-Y', strtotime($order->created_at)) }}
                                                             </div>
