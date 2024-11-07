@@ -86,10 +86,36 @@
             }
         });
     };
+    
+    //aside acount
+    FS.showSubMenuProfile = () => {
+        $(".nav-item-profile").off('click').click(function (e) {
+            let $submenu = $(this).next(".sub-menu-lv2");
+            let $iconRight = $(this).find(".fa-chevron-right");
+            let $iconDown = $(this).find(".fa-chevron-down");
+            // khi click vào li thì active và xóa clas active cũ
+            $(".nav-item-profile").removeClass("active");
+            $(this).addClass("active");
+            if ($submenu.hasClass("d-none")) {
+                $submenu
+                    .hide()
+                    .removeClass("d-none")
+                    .addClass("active")
+                    .slideDown(300);
+                $iconRight.addClass("d-none");
+                $iconDown.removeClass("d-none");
+            } else {
+                $submenu.slideUp(300, function () {
+                    $(this).addClass("d-none").removeClass("active");
+                });
+                $iconRight.removeClass("d-none");
+                $iconDown.addClass("d-none");
+            }
+        });
+    };
 
     FS.showSubMenuLv3 = () => {
         $(".sub-menu-li").click(function (e) {
-            e.preventDefault();
 
             let $submenuLv3 = $(this).find(".sub-menu-lv3");
             let $iconRightLv3 = $(this).find(".fa-chevron-right.lv3");
@@ -267,6 +293,7 @@
     $(document).ready(function () {
         FS.animateMenuLink();
         FS.showSubMenu();
+        FS.showSubMenuProfile();
         FS.showSubMenuLv3();
         FS.setUpSelect2();
         FS.clickShowPass();
