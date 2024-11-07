@@ -2,35 +2,60 @@
 
 namespace App\Services;
 
+use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\UserVoucher;
 use App\Models\PromotionProductVariant;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PromotionService
 {
-    public function getAllPromotions()
+    public function getFilteredPromotions(array $filters)
     {
-        return Promotion::all();
+        $query = Promotion::query();
+
+        if (!empty($filters['keyword'])) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('id', 'like', '%' . $filters['keyword'] . '%')
+                  ->orWhere('name', 'like', '%' . $filters['keyword'] . '%');
+            });
+        }
+
+        if (isset($filters['publish'])) {
+            $query->where('status', $filters['publish']);
+        }
+
+        $perPage = $filters['perpage'] ?? 10;
+        return $query->paginate($perPage);
     }
 
-    public function createPromotion(Request $request)
+    public function getAllProducts()
     {
-        // Xác thực dữ liệu
-        $data = $request->validate([
+        return Product::all();
+    }
+
+    public function createPromotion(array $data)
+    {
+        $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'discount' => $request->apply_for === 'freeship' ? 'nullable' : 'required|numeric|min:0',
+            'description' => 'required|string|max:255',
+            'discount' => 'required_unless:apply_for,freeship|numeric|min:0',
             'minimum_amount' => 'nullable|numeric|min:0',
             'usage_limit' => 'nullable|integer|min:1',
             'apply_for' => 'required|in:specific_products,freeship,all',
             'status' => 'required|in:active,inactive',
-            'product_id' => 'nullable|exists:products,id',
-            'description' => 'nullable|string',
+            'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
         ]);
+
+        if ($validator->fails()) {
+            throw new Exception($validator->errors()->first());
+        }
 
         $code = strtoupper(Str::random(6));
         $discount = $data['apply_for'] === 'freeship' ? 0 : $data['discount'];
@@ -41,7 +66,7 @@ class PromotionService
             'start_date' => $data['start_date'],
             'end_date' => $data['end_date'],
             'discount' => $discount,
-            'description' => $data['description'] ?? '',
+            'description' => $data['description'],
             'minimum_amount' => $data['minimum_amount'] ?? null,
             'usage_limit' => $data['usage_limit'] ?? null,
             'apply_for' => $data['apply_for'],
@@ -59,24 +84,34 @@ class PromotionService
         return $promotion;
     }
 
-    public function updatePromotion(Promotion $promotion, Request $request)
+    public function getPromotionById($id)
     {
-        $data = $request->validate([
+        return Promotion::findOrFail($id);
+    }
+
+    public function updatePromotion($id, array $data)
+    {
+        $promotion = $this->getPromotionById($id);
+
+        $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
-            'code' => 'required|string|unique:promotions,code,' . $promotion->id,
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'discount' => 'required|numeric|min:0',
+            'discount' => 'required_unless:apply_for,freeship|numeric|min:0',
             'minimum_amount' => 'nullable|numeric|min:0',
             'usage_limit' => 'nullable|integer|min:0',
             'apply_for' => 'required|in:specific_products,freeship,all',
             'status' => 'required|in:active,inactive',
-            'description' => 'nullable|string',
+            'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
+
         ]);
+
+        if ($validator->fails()) {
+            throw new Exception($validator->errors()->first());
+        }
 
         $promotion->update([
             'name' => $data['name'],
-            'code' => $data['code'],
             'start_date' => $data['start_date'],
             'end_date' => $data['end_date'],
             'discount' => $data['discount'],
@@ -84,7 +119,6 @@ class PromotionService
             'usage_limit' => $data['usage_limit'] ?? null,
             'apply_for' => $data['apply_for'],
             'status' => $data['status'],
-            'description' => $data['description'] ?? '',
         ]);
 
         if ($data['apply_for'] === 'specific_products') {
@@ -104,16 +138,36 @@ class PromotionService
 
     public function deletePromotion($id)
     {
-        $promotion = Promotion::findOrFail($id);
+        $promotion = $this->getPromotionById($id);
         return $promotion->delete();
     }
 
-    public function receivePromotion(Promotion $promotion)
+    public function bulkDeletePromotions(array $ids)
     {
+        return Promotion::whereIn('id', $ids)->delete();
+    }
+
+    public function getPromotionWithProducts($id)
+    {
+        return Promotion::with('products')->findOrFail($id);
+    }
+
+    public function getAllPromotionsWithDates()
+    {
+        return Promotion::all()->map(function ($promotion) {
+            $promotion->start_date = Carbon::parse($promotion->start_date);
+            $promotion->end_date = Carbon::parse($promotion->end_date);
+            return $promotion;
+        });
+    }
+
+    public function receivePromotion($id)
+    {
+        $promotion = $this->getPromotionById($id);
         $user = Auth::user();
 
         if ($promotion->usage_limit <= 0) {
-            return 'Voucher đã hết.';
+            return ['type' => 'error', 'text' => 'Voucher đã hết.'];
         }
 
         $existingVoucher = UserVoucher::where('user_id', $user->id)
@@ -121,7 +175,7 @@ class PromotionService
             ->first();
 
         if ($existingVoucher) {
-            return 'Bạn đã nhận voucher này rồi.';
+            return ['type' => 'error', 'text' => 'Bạn đã nhận voucher này rồi.'];
         }
 
         $promotion->decrement('usage_limit');
@@ -133,21 +187,12 @@ class PromotionService
             'received_at' => now(),
         ]);
 
-        return 'Voucher nhận thành công';
+        return ['type' => 'success', 'text' => 'Voucher nhận thành công'];
     }
 
-    public function getUserPromotions($userId)
+    public function getUserPromotions()
     {
+        $userId = Auth::id();
         return UserVoucher::where('user_id', $userId)->get();
-    }
-
-    public function getPromotionWithProducts($id)
-    {
-        return Promotion::with('products')->findOrFail($id);
-    }
-
-    public function bulkDeletePromotions(array $ids)
-    {
-        Promotion::whereIn('id', $ids)->delete();
     }
 }

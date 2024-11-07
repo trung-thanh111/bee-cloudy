@@ -21,7 +21,7 @@ class FPromotionController extends Controller
 
     public function index()
     {
-        $promotions = $this->promotionService->getAllPromotions()->map(function ($promotion) {
+        $promotions = $this->promotionService->getAllPromotionsWithDates()->map(function ($promotion) {
             $promotion->start_date = Carbon::parse($promotion->start_date);
             $promotion->end_date = Carbon::parse($promotion->end_date);
             return $promotion;

@@ -48,9 +48,8 @@
                 </div>
                 <div class="voucher-actions mt-4 p-2 d-flex justify-content-between align-items-center">
                     <a href="{{ route('account.promotions') }}" class="btn btn-outline-primary btn-lg">
-                        <i class="bi bi-arrow-left me-2"></i>Quay lại
+                        Quay lại
                     </a>
-                    
                         <a href="{{ route('cart.index') }}" class="btn btn-primary btn-lg">Sử dụng Voucher</a>
                 </div>
             </div>
