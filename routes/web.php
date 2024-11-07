@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Fontend\FPromotionController;
 use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
@@ -97,6 +98,8 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'account'], function () {
         Route::get('info', [FontendUserController::class, 'info'])->name('account.info');
         Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
+        Route::get('view_promotion', [FPromotionController::class, 'view_promotion'])->name('account.promotions');
+        Route::get('view_promotion/{id}', [FPromotionController::class, 'show'])->name('account.promotion.show');
         Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
     });
     Route::group(['prefix' => 'cart'], function () {
@@ -234,7 +237,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
     //promotion_dashboar
-    Route::group(['prefix' => 'promotion'], function () {
+    Route::group(['prefix' => 'dashboard/promotion'], function () {
 
         Route::get('index', [PromotionController::class, 'index'])->name('promotions.index');
         Route::get('create', [PromotionController::class, 'create'])->name('promotions.create');

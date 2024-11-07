@@ -20,6 +20,7 @@ class Promotion extends Model
         'usage_limit',
         'apply_for',
         'status',
+        'description',
         'quantity',
     ];
 
