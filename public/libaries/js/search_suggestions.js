@@ -37,14 +37,16 @@
                             Object.values(res).forEach(function (item) {
 
                                 const listItem = `
-                                    <li class="d-flex justify-content-between align-items-center text-muted py-2 search-recent-item toggleWishlist" data-id="${item.id}">
+                                    <li class="d-flex justify-content-between align-items-center text-muted py-2 search-recent-item " >
                                         <span class="content-search-mnpoly d-flex text-muted">
                                             <img src="${item.image}" alt="${item.name}" width="40" class="me-2 rounded-2">
                                             <span class=" text-truncate keyword-recent pt-2" style="max-width: 350px;">
                                             ${item.name}
                                             </span>
                                         </span>
+                                        <span class="toggleWishlist" data-id="${item.id}">
                                         <i class="fa-${(productInWishlist.includes(item.id)) ? 'solid' : 'regular'} fa-bookmark" data-bs-toggle="tooltip" data-bs-title="${(productInWishlist.includes(item.id)) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}"></i>
+                                        </span>
                                         <span class="product_id_wishlist d-none">${item.id}</span>
                                     </li>
                                 `;
