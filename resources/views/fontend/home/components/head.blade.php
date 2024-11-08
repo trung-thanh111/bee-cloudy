@@ -48,5 +48,7 @@
     integrity="sha512-iytOXrJii6S43MWPla8yHP4Jt1CTor4HyilK2OOpKthWYBMZdce/L4izaniMAzZD7JVJrNr9tWc9w/spDJJ8Yw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+<script>
+    var BASE_URL = '{{ config('app.url') }}'
+</script>
 @vite(['resources/css/app.css'])
