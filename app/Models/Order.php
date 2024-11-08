@@ -30,6 +30,7 @@ class Order extends Model
         'status',
         'payment_method',
         'payment',
+        'paid_at',
         'created_at',
     ];
 

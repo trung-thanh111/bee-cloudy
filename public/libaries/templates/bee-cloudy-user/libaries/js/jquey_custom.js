@@ -34,7 +34,7 @@
     };
     // menu aside acount
     FS.showSubMenu = () => {
-        $(".nav-item-main").click(function (e) {
+        $(".nav-item-main").off('click').click(function (e) {
             $(document).on("click", ".menu-item-a", function (e) {
                 // Không preventDefault() để cho phép chuyển trang
                 let $this = $(this);
@@ -62,7 +62,7 @@
     };
     // menu aside acount
     FS.showSubMenu = () => {
-        $(".nav-item-main").click(function (e) {
+        $(".nav-item-main").off('click').click(function (e) {
             let $submenu = $(this).next(".sub-menu-lv2");
             let $iconRight = $(this).find(".fa-chevron-right");
             let $iconDown = $(this).find(".fa-chevron-down");
@@ -88,7 +88,7 @@
     };
 
     FS.showSubMenuLv3 = () => {
-        $(".sub-menu-li").click(function (e) {
+        $(".sub-menu-li").off('click').click(function (e) {
             e.preventDefault();
 
             let $submenuLv3 = $(this).find(".sub-menu-lv3");

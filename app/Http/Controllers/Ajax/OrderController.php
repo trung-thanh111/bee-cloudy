@@ -51,19 +51,42 @@ class OrderController extends FontendController
             if ($updated) {
                 return response()->json([
                     'code' => 10,
-                    'message' => 'Đơn hàng đã hủy bị hủy!',
                     'redirect' => 'back',
                 ]);
             } else {
                 return response()->json([
                     'code' => 11,
-                    'message' => 'Hủy đơn hàng thất bại',
                 ], 400);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 11,
                 'message' => 'Có lỗi xảy ra khi hủy đơn hàng.',
+            ], 500);
+        }
+    }
+    public function updatePaidAt(Request $request)
+    {
+        try {
+            $payload = [
+                'paid_at' => now()->format('Y-m-d H:i:s'), 
+            ];
+            $orderId = $request->input('id');
+            $updated = $this->orderService->updatePaidAt($orderId, $payload);
+            if ($updated) {
+                return response()->json([
+                    'code' => 10,
+                    'redirect' => 'back',
+                ]);
+            } else {
+                return response()->json([
+                    'code' => 11,
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => 11,
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
