@@ -152,14 +152,7 @@
                                     @endif --}}
                                 <div class="hstack gap-3 fz-14 flex-wrap">
                                     <div class="py-2">Đánh giá ({{ $totalReviewCount }})</div>
-                                    <div class="py-2">
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                    </div>
-                                    <div class="vr " style="width: 1px !important;"></div>
+                                    <div class="vr" style="width: 1px !important;"></div>
                                     <div class="py-2">
                                         <span class="fw-500">Đã bán:</span>
                                         <span class="product-variant-sold">{{ $totalSoldCount . ' ' }} sản phẩm</span>
@@ -274,8 +267,9 @@
                                                 <i class='bx bx-minus fw-medium'></i>
                                             </button>
                                             <input type="text" name="quantity-product-variant w-sm-25 "
-                                                class="form-control border-0 fz-20 text-center fw-600" value="1"
-                                                min="1" max="">
+                                                class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
+                                                value="1" min="1"
+                                                max="{{ $product->instock ? $product->instock : 10 }}">
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -285,33 +279,25 @@
                                     </div>
                                 </div>
                                 <div class="btn-group-add ">
-                                    <div class="mb-3 w-100">
-                                        <a type="submit" href="#" class="btn w-100 btn-success fw-medium fz-18">
-                                            <i class="fa-solid fa-cart-shopping me-2"></i>Mua Ngay
-                                            <p class="fz-14 fw-normal mb-0"> Giao hàng tận nơi hoặc nhận tại cửa hàng
-                                            </p>
-                                        </a>
-                                        <div class="row w-100 mt-2 ms-0">
-                                            <div class="col px-0 w-100 ">
-                                                <a href="#" class="addToCart" data-id="{{ $product->id }}">
-                                                    <!-- d-none d-md-inline-block: Ẩn trên màn hình nhỏ hơn md (< 768px), chỉ hiển thị từ kích thước màn hình md (>= 768px) trở lên. -->
-                                                    <button
-                                                        class=" btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block">Thêm
-                                                        vào giỏ hàng</button>
-                                                    <!-- d-block d-md-none: Hiển thị trên các màn hình nhỏ hơn md (< 768px), bao gồm màn hình < 480px. -->
-                                                    <button
-                                                        class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-block d-md-none "
-                                                        data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng"><i
-                                                            class="fa-solid fa-cart-plus "></i></button>
-                                                </a>
-                                            </div>
-                                            <div class="col pe-0">
-                                                <a href="#">
-                                                    <button
-                                                        class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm">Mua
-                                                        Trả Góp</button>
-                                                </a>
-                                            </div>
+                                    <div class="hstack gap-2 my-3">
+                                        <div class="">
+                                            <a href="#" class="addToCart" data-id="{{ $product->id }}">
+                                                <button
+                                                    class=" btn btn-outline-danger p-3 fz-18 fw-medium shadow-sm d-none d-md-inline-block"
+                                                    data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng"
+                                                    data-id="{{ $product->id }}">
+                                                    <i class="fa-solid fa-cart-plus fz-20"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="w-100 ms-auto">
+                                            <a href="{{ route('cart.index') }}"
+                                                class="btn btn-success fw-medium fz-18 w-100 addToCart buyNow"
+                                                data-id="{{ $product->id }}">
+                                                <i class="fa-solid fa-cart-shopping me-2"></i>Mua Ngay
+                                                <p class="fz-14 fw-normal mb-0">Giao hàng tận nơi hoặc nhận tại cửa hàng
+                                                </p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -544,14 +530,12 @@
                                                                 <div id="app">
                                                                     <div class="icon-reaction pb-2"
                                                                         v-for="(v, index) in list" :key="v.id">
-                                                                        
-                                                                            <button class="like-button"
-                                                                                v-on:click="Like(v)"
-                                                                                style="border: none; background: none; padding: 0;"
-                                                                               >
-                                                                                <i class="fa-regular fa-heart me-2"></i>
-                                                                            </button>
-                                                                        
+
+                                                                        <button class="like-button" v-on:click="Like(v)"
+                                                                            style="border: none; background: none; padding: 0;">
+                                                                            <i class="fa-regular fa-heart me-2"></i>
+                                                                        </button>
+
                                                                         <span>@{{ v.like_count }}</span>
                                                                     </div>
                                                                 </div>
@@ -763,39 +747,42 @@
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
-                                            <img src="{{ $valProductSimilar->image }}" alt="product image"
-                                                width="100%" height="250"
-                                                class="img-fluid object-fit-cover rounded-top-2" style="height: 300px">
-                                            <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                                <div class="hstack gap-3">
-                                                    <div class="p-2 overflow-x-hidden w-50">
-                                                        <span
-                                                            class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            @foreach ($valProductSimilar->productCatalogues as $catalogue)
-                                                                {{ $catalogue->name }}
-                                                            @endforeach
-                                                        </span>
-                                                    </div>
-                                                    <div class="p-2 ms-auto">
-                                                        <div class="product-image-color ">
-                                                            @foreach ($valProductSimilar->productVariant as $variant)
-                                                                @foreach ($variant->attributes as $attribute)
-                                                                    @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
-                                                                        <img src="{{ $attribute->image }}"
-                                                                            alt="{{ $attribute->name }}" width="14"
-                                                                            height="14"
-                                                                            class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
-                                                                        @php
-                                                                            // Đánh dấu màu này đã được hiển thị
-                                                                            $shownColors[] = $attribute->name;
-                                                                        @endphp
-                                                                    @endif
+                                            <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}">
+                                                <img src="{{ $valProductSimilar->image }}" alt="product image"
+                                                    width="100%" height="250"
+                                                    class="img-fluid object-fit-cover rounded-top-2"
+                                                    style="height: 300px">
+                                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                    <div class="hstack gap-3">
+                                                        <div class="p-2 overflow-x-hidden w-50">
+                                                            <span
+                                                                class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                @foreach ($valProductSimilar->productCatalogues as $catalogue)
+                                                                    {{ $catalogue->name }}
                                                                 @endforeach
-                                                            @endforeach
+                                                            </span>
+                                                        </div>
+                                                        <div class="p-2 ms-auto">
+                                                            <div class="product-image-color ">
+                                                                @foreach ($valProductSimilar->productVariant as $variant)
+                                                                    @foreach ($variant->attributes as $attribute)
+                                                                        @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                            <img src="{{ $attribute->image }}"
+                                                                                alt="{{ $attribute->name }}"
+                                                                                width="14" height="14"
+                                                                                class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                            @php
+                                                                                // Đánh dấu màu này đã được hiển thị
+                                                                                $shownColors[] = $attribute->name;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 35px">
@@ -812,11 +799,14 @@
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}"
-                                                    class="action-cart-item-buy">
-                                                    <span>Xem chi tiết</span>
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $valProductSimilar->id }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
                                                 </a>
-                                                <a href="#" class="action-cart-item-add">
+                                                <a href="" class="action-cart-item-add addToCart"
+                                                    data-id="{{ $valProductSimilar->id }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -845,39 +835,48 @@
                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>
                     <div class='modal-body' style="padding: 20px; font-family: Arial, sans-serif;">
-                        <div class="comment-item" style="background-color: #f9f9f9; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                        <div class="comment-item"
+                            style="background-color: #f9f9f9; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
                             <div class="item-two" style="margin-bottom: 15px;">
                                 <div class="rating" style="display: flex; align-items: center;">
-                                    <label for="rating-select" style="margin-right: 10px; font-weight: bold; color: #333;">Chất lượng sản phẩm:</label>
-                                    <select id="rating-select" v-model="edit.publish" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; font-size: 16px;">
+                                    <label for="rating-select"
+                                        style="margin-right: 10px; font-weight: bold; color: #333;">Chất lượng sản
+                                        phẩm:</label>
+                                    <select id="rating-select" v-model="edit.publish"
+                                        style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; font-size: 16px;">
                                         <option selected value="0" style="color: #333;">--Chọn số sao--</option>
                                         <option style="color: gold;" value="1">&#9733;</option>
                                         <option style="color: gold;" value="2">&#9733;&#9733;</option>
                                         <option style="color: gold;" value="3">&#9733;&#9733;&#9733;</option>
                                         <option style="color: gold;" value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                             <div class="text-input" style="margin-bottom: 15px;">
-                                <label for=""  style="margin-bottom: 10px; font-weight: bold; color: #333;">Nhập nội dung: </label>
-                                <input v-model="edit.content" type="text" class="input-form" placeholder="Nhập nội dung bình luận của bạn!" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; font-size: 16px; color: #333;">
+                                <label for="" style="margin-bottom: 10px; font-weight: bold; color: #333;">Nhập
+                                    nội dung: </label>
+                                <input v-model="edit.content" type="text" class="input-form"
+                                    placeholder="Nhập nội dung bình luận của bạn!"
+                                    style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; font-size: 16px; color: #333;">
                             </div>
                             <div class="submit-btn" style="text-align: right;">
-                                <button v-on:click="Update()" class="btn-submit" style="padding: 10px 20px; background-color: #14B6A0; color: #fff; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;" data-bs-dismiss='modal'>Gửi đánh giá</button>
+                                <button v-on:click="Update()" class="btn-submit"
+                                    style="padding: 10px 20px; background-color: #14B6A0; color: #fff; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;"
+                                    data-bs-dismiss='modal'>Gửi đánh giá</button>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <script>
         // tuyền mảng id product và productvariant sang js đổ vào chuổi
-        let productInWishlist = @json($productInWishlist);///
+        let productInWishlist = @json($productInWishlist); ///
         // truyền sản phẩm lên để lấy giá -> tính discount
         let product = @json($product);
-        
     </script>
 @endsection
 @section('js')
@@ -1013,4 +1012,3 @@
         });
     </script>
 @endsection
-
