@@ -93,7 +93,7 @@
                                                                     height="60">
                                                                 <p class="text-center mt-2">
                                                                     <span
-                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ (Auth::check()) ? Auth::user()->name : 'Không xác định' }}</span>
                                                                 </p>
                                                             </span>
                                                         </button>
