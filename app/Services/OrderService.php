@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Mail\OrderMail;
 use App\Models\Attribute;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -217,6 +218,96 @@ class OrderService implements OrderServiceInterface
             echo $e->getMessage();
             return false;
         }
+    }
+
+    // DASHBOARD
+    public function totalMoneyOrder() {
+        $totalOrder = $this->orderRepository->allWhere([
+            [DB::raw('YEAR(created_at)'), '=', Carbon::now()->year],
+            ['payment', 'paid'],
+            ['status', 'completed'],
+            ['paid_at', '!=', null],
+        ]);
+        $totalMoney = 0;
+        if(count($totalOrder) > 0){
+            foreach($totalOrder as $val){
+                $totalMoney += (float) $val->total_amount;
+            }
+        }
+        return $totalMoney;
+    }
+    public function countTotalOrder(){
+        $count = $this->orderRepository->allWhere([
+            [DB::raw('YEAR(created_at)'), '=', Carbon::now()->year],
+            ['payment', 'paid'],
+            ['status', 'completed'],
+            ['paid_at', '!=', null],
+        ])->count();
+        return $count;
+    }
+    public function countTotalOrderMonth(){
+        $count = $this->orderRepository->allWhere([
+            [DB::raw('MONTH(created_at)'), '=', Carbon::now()->month],
+            ['payment', 'paid'],
+            ['status', 'completed'],
+            ['paid_at', '!=', null],
+        ])->count();
+        return $count;
+    }
+
+    public function countOrderFul12Month(){
+        $orders = DB::table('orders')
+        ->select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
+        ->where('payment', 'paid')
+        ->where('status', 'completed')
+        ->where('paid_at', '!=', null)
+        ->whereYear('created_at', Carbon::now()->year)
+        ->groupBy(DB::raw('MONTH(created_at)'))
+        ->pluck('count', 'month');
+        $monthValCounts = array_fill(1, 12, 0); // đủ 12 cho dù có tháng = 0
+
+        foreach ($orders as $month => $count) {
+            $monthValCounts[$month] = $count;
+        }
+    
+        return $monthValCounts;
+        
+    }
+    public function countMoneyFul12Month(){
+        $orders = DB::table('orders')
+        ->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(total_amount) as total_value'))
+        ->where('payment', 'paid')
+        ->where('status', 'completed')
+        ->where('paid_at', '!=', null)
+        ->whereYear('created_at', Carbon::now()->year)
+        ->groupBy(DB::raw('MONTH(created_at)'))
+        ->pluck('total_value', 'month');
+        $monthValCounts = array_fill(1, 12, 0); // đủ 12 cho dù có tháng = 0
+
+        foreach ($orders as $month => $total) {
+            $monthValCounts[$month] = $total;
+        }
+    
+        return $monthValCounts;
+    }
+
+    public function orderRecent(){
+        $condition = [
+            'where' => [
+                ['status', '!=', 'pending'],
+            ]
+        ];
+        $relation = ['user'];
+        $perPage = 5;
+        $orders = $this->orderRepository->pagination(
+            $this->paginateSelect(),
+            $condition,
+            $relation,
+            ['created_at', 'desc'],
+            $perPage,
+        );
+
+        return $orders;
     }
 
     // FONTEND
