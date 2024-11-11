@@ -39,9 +39,28 @@ Route::get('/producreview', [ProductReviewController::class, 'index']);
 Route::get('/information', [ProductReviewController::class, 'view_order']);
 Route::get('/producreview-data/{slug}', [ProductReviewController::class, 'data']);
 Route::post('/producreview/create/{slug}', [ProductReviewController::class, 'create']);
+Route::post('/producreview/like', [ProductReviewController::class, 'like']);
+Route::get('/producreview/like-data/{slug}', [ProductReviewController::class, 'likedata']);
+Route::get('/product/check/{slug}', [ProductReviewController::class, 'checkIfRated']);
 Route::post('/producreview-delete', [ProductReviewController::class, 'delete']);
 Route::post('/producreview-update', [ProductReviewController::class, 'update']);
 
+//view đánh giá admin
+Route::get('/admin/producreview-view', [ProductReviewController::class, 'view'])->name('productreview');
+Route::get('/admin/producreview-data', [ProductReviewController::class, 'getdata']);
+Route::post('/producreview-update-admin', [ProductReviewController::class, 'updateadmin']);
+Route::post('/producreview-delete-admin', [ProductReviewController::class, 'deleteadmin']);
+// view post data
+Route::get('/post-home/data', [PostController::class, 'datahome']);
+Route::get('/post-home/data-2', [PostController::class, 'dataPOST']);
+
+
+
+//view comment bài viết admin
+Route::get('/admin/comment-view', [ContentController::class, 'view'])->name('comment');
+Route::get('/admin/comment-data', [ContentController::class, 'getdata']);
+Route::post('/comment-update-admin', [ContentController::class, 'updateadmin']);
+Route::post('/comment-delete-admin', [ContentController::class, 'deleteadmin']);
 
 // BÌNH LUẬN BÀI VIẾT
 Route::get('/view-content', [ContentController::class, 'view_content']);
@@ -49,8 +68,6 @@ Route::get('/view-content-data', [ContentController::class, 'data']);
 Route::post('/view-content-create', [ContentController::class, 'create']);
 Route::post('/view-content-delete', [ContentController::class, 'delete']);
 Route::post('/view-content-update', [ContentController::class, 'update']);
-
-
 
 // AJAX
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
@@ -69,6 +86,7 @@ Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])-
 // ORDER UPDATE AJAX
 Route::post('/ajax/order/editNote', [AjaxOrderController::class, 'edit'])->name('ajax.order.edit');
 Route::post('/ajax/order/updateStatus', [AjaxOrderController::class, 'updateStatus'])->name('ajax.order.updateStatus');
+Route::post('/ajax/order/updatePaidAt', [AjaxOrderController::class, 'updatePaidAt'])->name('ajax.order.updatePaidAt');
 
 //SEARCH SUGGESTION AJAX
 Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');
@@ -250,6 +268,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
         Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
         Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
+
     });
 
 

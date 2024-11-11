@@ -391,6 +391,26 @@ class ProductService implements ProductServiceInterface
         }
         return $arrayColorId;
     }
+    // dashboard
+    public function productSaler(){
+        $condition = [
+            'where' => [
+                ['publish', '=',  1],
+                ['sold_count', '>=',  5]
+            ]
+        ];
+        $relation = ['productVariant', 'productVariant.attributes'];
+        $perPage = 5;
+        $products = $this->productRepository->pagination(
+            $this->paginateSelect(),
+            $condition,
+            $relation,
+            ['sold_count', 'DESC'],
+            $perPage,
+        );
+
+        return $products;
+    }
 
     private function payload()
     {
@@ -430,6 +450,7 @@ class ProductService implements ProductServiceInterface
             'price',
             'del',
             'instock',
+            'sold_count',
             'sku',
             'attributeCatalogue', // json
             'attribute', // json

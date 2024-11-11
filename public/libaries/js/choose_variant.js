@@ -48,7 +48,6 @@
     };
     // console.log(productWishlistId)
     FS.setupVariantGallery = (res) => {
-        console.log(res.price);
         
         let product_id = $(".product_id_wishlist").html() ?? null;
         // bắt mảng id từ blade và loại bỏ null
@@ -67,7 +66,7 @@
         html += `</ul>
             <div class="d-flex justify-content-between">
                 <div>
-                    <div class="mini-coupon z-3 ${promotionDetail == 0 ? 'hidden-visibility' : '' }">- ${promotionDetail}%</div>
+                    <div class="mini-coupon z-3 ${promotionDetail == 0 ? 'hidden-visibility' : '' }">${Math.ceil(promotionDetail)}%</div>
                 </div>
                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip" data-bs-title="${
                     WishlistId.includes(res.productVariant.id)

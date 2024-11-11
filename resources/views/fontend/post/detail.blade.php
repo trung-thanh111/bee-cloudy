@@ -93,7 +93,7 @@
                                                                     height="60">
                                                                 <p class="text-center mt-2">
                                                                     <span
-                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ (Auth::check()) ? Auth::user()->name : 'Không xác định' }}</span>
                                                                 </p>
                                                             </span>
                                                         </button>
@@ -101,12 +101,12 @@
                                                     <div
                                                         class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
                                                         <form>
-                                                            <div class="form-group position-relative ">
+                                                            <div class="form-group position-relative w-100">
                                                                 <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
                                                                     rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
                                                                 <button type="button"
                                                                     class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                    style="bottom: 8px ; right: 20px;"
+                                                                    style="bottom: 5px;right: 0px;"
                                                                     v-on:click="createContent()">Gửi</button>
                                                             </div>
                                                         </form>
@@ -189,8 +189,8 @@
                                                                         </p>
                                                                     </div>
                                                                     <div class="icon-reaction pb-2">
-                                                                        <button v-on:click="Like(k)"
-                                                                            :id="'likeBtn-' + k">
+                                                                        <button v-on:click="Like(k)" :id="'likeBtn-' + k"
+                                                                            style="border: none; background: none; padding: 0;">
                                                                             <i class="fa-regular fa-heart me-2"></i>
                                                                         </button>
                                                                         <span :id="'likeCount-' + k">0</span>
@@ -235,13 +235,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-12 col-12 mt-4">
+                        <div class="col-lg-3 col-md-12 col-12">
                             <div class="card border-0 rounded-1 mb-4">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Tìm kiếm</h6>
                                 </div>
                                 <div class="card-body py-2">
-                                    <form action="{{ route('search') }}" method="get" class="d-none d-md-block ">
+                                    <form action="{{ route('search') }}" method="get" class=" d-none d-md-block ">
                                         <div class="d-flex shadow-sm rounded-pill py-1 my-1 overflow-hidden bg-white">
                                             <input type="text" name="keyword"
                                                 class="form-control border-0 py-2 ps-3 pe-0"
@@ -249,6 +249,7 @@
                                                 value="{{ request('keyword') ?: old('keyword') }}"
                                                 style="box-shadow: none;">
                                             <input type="hidden" name="type" value="post">
+
                                             <button type="submit" class="btn px-4 border-0">
                                                 <i class="fas fa-search fz-18 text-muted"></i>
                                             </button>
@@ -258,21 +259,20 @@
                             </div>
                             <div class="card border-0 rounded-1 shadow-sm mb-4">
                                 <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Danh mục</h6>
+                                    <h6 class="card-title fw-18 fw-500">Bài viết</h6>
                                 </div>
                                 <div class="card-body p-1">
                                     <div class="categoryP-item mb-3 overflow-y-auto">
                                         <ul class="list-group list-group-flush">
                                             @if (!is_null($postCatalogues) && !empty($postCatalogues))
-                                                @foreach ($postCatalogues as $catalogueP)
+                                                @foreach ($postCatalogues as $categoryP)
                                                     <li class="list-group-item item-category">
-                                                        <a href="{{ route('post.category', ['id' => $catalogueP->id]) }}"
+                                                        <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
                                                             class="text-decoration-none d-flex align-items-center">
-                                                            <img src="{{ $catalogueP->image }}"
-                                                                alt="{{ $catalogueP->name }}" width="50"
-                                                                height="50"
+                                                            <img src="{{ $categoryP->image }}"
+                                                                alt="{{ $categoryP->name }}" width="50" height="50"
                                                                 class="me-3 object-fit-contain bg-light rounded-3 ">
-                                                            <span class="text-muted fw-500">{{ $catalogueP->name }}</span>
+                                                            <span class="text-muted fw-500">{{ $categoryP->name }}</span>
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -281,79 +281,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card border-0 rounded-1 shadow-sm mb-4 {{ (count($postSimilar) == 0) ? 'd-none' : '' }}">
                                 <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Sản phẩm</h6>
-                                </div>
-                                <div class="card-body p-1">
-                                    <div class="categoryP-item mb-3 overflow-y-auto">
-                                        <ul class="list-group list-group-flush">
-                                            @if (!is_null($productCategories) && !empty($productCategories))
-                                                @foreach ($productCategories as $cataloguePro)
-                                                    <li class="list-group-item item-category">
-                                                        <a href="{{ route('product.category', ['id' => $cataloguePro->id]) }}"
-                                                            class="text-decoration-none d-flex align-items-center">
-                                                            <img src="{{ $cataloguePro->image }}"
-                                                                alt="{{ $cataloguePro->name }}" width="50"
-                                                                height="50"
-                                                                class="me-3 object-fit-contain bg-light rounded-3 ">
-                                                            <span
-                                                                class="text-muted fw-500">{{ $cataloguePro->name }}</span>
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            @endif
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- <div class="card border-0 rounded-1 shadow-sm mb-4">
-                                <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Khuyến mãi</h6>
+                                    <h6 class="card-title fw-18 fw-500">Bài viết tương tự</h6>
                                 </div>
                                 <div class="card-body p-1">
                                     <div class="event-item mb-3">
-                                        <ul class="ps-0 mb-0">
-                                            <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                                <div class="image-event-item position-relative">
-                                                    <img src="/libaries/images/banner_aside.jpg" alt=""
-                                                        width="100%" class="img-fuild  me-2">
-                                                    <i
-                                                        class="fa-solid fa-delete-left delete-banner-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card border-0 rounded-1 shadow-sm mb-4">
-                                <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Quảng cáo</h6>
-                                </div>
-                                <div class="card-body p-1">
-                                    <div class="ads-item mb-3">
-                                        <ul class="ps-0 mb-0">
-                                            <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                                <div class=" position-relative">
-                                                    <img src="/libaries/images/banner_aside.jpg" alt=""
-                                                        width="100%" class="img-fuild  me-2 image-ads-item">
-                                                    <i
-                                                        class="fa-solid fa-delete-left delete-ads-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            @if ($postSimilar != null && count($postSimilar) > 0)
-                                <div class="card border-0 rounded-1 shadow-sm mb-4">
-                                    <div class="card-header">
-                                        <h6 class="card-title fw-18 fw-500">Bài viết tương tự</h6>
-                                    </div>
-                                    <div class="card-body p-1">
-                                        <div class="event-item mb-3">
-                                            <ul class="ps-0 mb-0" class="overflow-y-hidden">
+                                        <ul class="ps-0 mb-0" class="overflow-y-hidden">
+                                            @if ($postSimilar != null)
                                                 @foreach ($postSimilar as $key => $valSimilar)
                                                     <li class="list-unstyled ">
                                                         <a href="{{ route('post.detail', ['slug' => $valSimilar->slug]) }}"
@@ -372,56 +307,50 @@
                                                         </a>
                                                     </li>
                                                 @endforeach
-                                            </ul>
-                                        </div>
+                                            @endif
+                                        </ul>
                                     </div>
                                 </div>
-                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </article>
     </section>
-    <div class='modal fade' id='updatePosts' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+
+    <div class='modal fade' id='updatePosts' tabindex='-1' aria-labelledby='cập-nhật-bài-đăng' aria-hidden='true'>
         <div class='modal-dialog modal-lg'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h1 class='modal-title fs-5' id='exampleModalLabel'>
-                        Update a Post
-                    </h1>
-                    <button type='button' class='btn-close content' data-bs-dismiss='modal'
-                        aria-label='Close'></button>
+                    <h1 class='modal-title fs-5' id='cập-nhật-bài-đăng'>Cập nhật bình luận</h1>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Đóng'></button>
                 </div>
-                <div class="container">
-                    <label for="content">Content:</label>
-                    <textarea v-model="update.content" id="content" name="content" rows="4" required></textarea>
-
-
+                <div class="container my-4">
+                    <label for="nội-dung" class="form-label">Nội dung:</label>
+                    <textarea v-model="update.content" id="nội-dung" name="nội-dung" rows="4" required class="form-control"></textarea>
                 </div>
                 <div class='modal-footer'>
-                    <button type="button" class="btn-content" data-bs-dismiss='modal' v-on:click="updateContent">Xác
-                        Nhận</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss='modal'
+                        v-on:click="updateContent">Xác nhận</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class='modal fade' id='delPosts' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+
+    <div class='modal fade' id='delPosts' tabindex='-1' aria-labelledby='xóa-bài-đăng' aria-hidden='true'>
         <div class='modal-dialog'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h1 class='modal-title fs-5' id='exampleModalLabel'>
-                        Delete a Post
-                    </h1>
-                    <button type='button' class='btn-close content' data-bs-dismiss='modal'
-                        aria-label='Close'></button>
+                    <h1 class='modal-title fs-5' id='xóa-bài-đăng'>Xóa bài đăng</h1>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Đóng'></button>
                 </div>
-                <div class="container">
-                    Bạn có chắc chăn muốn xóa ? Việc này không thể hoàn tác được.
+                <div class="container my-4">
+                    Bạn có chắc chắn muốn xóa? Việc này không thể hoàn tác.
                 </div>
                 <div class='modal-footer'>
-                    <button type="button" class="btn-content" data-bs-dismiss='modal' v-on:click="deleteContent">Xác
-                        Nhận Xóa</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss='modal' v-on:click="deleteContent">Xác
+                        nhận xóa</button>
                 </div>
             </div>
         </div>
@@ -433,11 +362,6 @@
                 <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
             </div>
         </a>
-        <!-- <div class=" live-chat ms-lg-16">
-                                                            <a href="zalo">
-                                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                            </a>
-                                                        </div> -->
     </div>
 @endsection
 @section('js')
@@ -462,7 +386,6 @@
                         .then((res) => {
                             this.list = res.data.data;
                             this.comment = res.data.comment_count;
-                            // console.log(this.comment);
                         });
                 },
                 createContent() {
@@ -531,9 +454,11 @@
                     if (this.likes[k] === 1) {
                         heartIcon.classList.remove('fa-regular');
                         heartIcon.classList.add('fa-solid');
+                        heartIcon.style.color = 'red';
                     } else {
                         heartIcon.classList.remove('fa-solid');
                         heartIcon.classList.add('fa-regular');
+                        heartIcon.style.color = 'black';
                     }
                 },
 
