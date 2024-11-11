@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
@@ -300,6 +301,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
         Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
+    });
+
+    //Banner 
+    Route::group(['prefix' => 'banner'], function () {
+        Route::get('index', [BannerController::class, 'index'])->name('banner.index');
+        Route::get('create', [BannerController::class, 'create'])->name('banner.create');
+        Route::post('store', [BannerController::class, 'store'])->name('banner.store');
+        Route::get('update/{id}', [BannerController::class, 'update'])->name('banner.update');
+        Route::post('edit/{id}', [BannerController::class, 'edit'])->name('banner.edit');
+        Route::get('delete/{id}', [BannerController::class, 'delete'])->where(['id' => '[0-9]+'])->name('banner.delete');
+        Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('banner.destroy');
+        Route::get('permission', [BannerController::class, 'permission'])->name('banner.permission');
+        Route::post('updatePermission', [BannerController::class, 'updatePermission'])->name('banner.updatePermission');
     });
 });
 

@@ -9,9 +9,11 @@ use App\Services\BrandService;
 use App\Http\Controllers\Controller;
 use App\Repositories\ShopRepository;
 use App\Repositories\BrandRepository;
+use App\Repositories\BannerRepository;
 use App\Repositories\AttributeRepository;
 use App\Repositories\PostCatalogueRepository;
 use App\Repositories\ProductCatalogueRepository;
+
 
 class ShopController extends Controller
 {
@@ -19,6 +21,7 @@ class ShopController extends Controller
     protected $brandService;
     protected $shopRepository;
     protected $brandRepository;
+    protected $bannerRepository;
     protected $attributeRepository;
     protected $postCatalogueRepository;
     protected $productCatalogueRepository;
@@ -28,19 +31,22 @@ class ShopController extends Controller
         BrandService $brandService,
         ShopRepository $shopRepository,
         BrandRepository $brandRepository,
+        BannerRepository $bannerRepository,
         AttributeRepository $attributeRepository,
         PostCatalogueRepository $postCatalogueRepository,
         ProductCatalogueRepository $productCatalogueRepository,
-        ) {
-            $this->shopService = $shopService;
-            $this->brandService = $brandService;
-            $this->shopRepository = $shopRepository;
-            $this->brandRepository = $brandRepository;
-            $this->attributeRepository = $attributeRepository;
-            $this->postCatalogueRepository = $postCatalogueRepository;
-            $this->productCatalogueRepository = $productCatalogueRepository;
+    ) {
+        $this->shopService = $shopService;
+        $this->brandService = $brandService;
+        $this->shopRepository = $shopRepository;
+        $this->brandRepository = $brandRepository;
+        $this->bannerRepository = $bannerRepository;
+        $this->attributeRepository = $attributeRepository;
+        $this->postCatalogueRepository = $postCatalogueRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
     }
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $productCatalogues = $this->productCatalogueRepository->allWhere([
             ['publish', 1]
         ]);
@@ -48,10 +54,14 @@ class ShopController extends Controller
             ['publish', 1]
         ]);
         $productShopNews = $this->shopService->productShopNews();
-        $productShopPriceMins = $this->shopService->productShopPriceMins(); 
+        $productShopPriceMins = $this->shopService->productShopPriceMins();
         // -- // lọc 
         $brandFilters = $this->brandRepository->allWhere([
             ['publish', 1]
+        ]);
+        $banner = $this->bannerRepository->allWhere([
+            ['publish', 1],
+            ['location', 2]
         ]);
         $attributeColors = $this->attributeRepository->allWhere([
             ['publish', 1],
@@ -73,6 +83,7 @@ class ShopController extends Controller
 
         return view('fontend.product.shop', compact(
             'brands',
+            'banner',
             'brandFilters',
             'productShops',
             'postCategories',
@@ -83,7 +94,7 @@ class ShopController extends Controller
             'productShopPriceMins',
         ));
     }
-    public function productIncategory($id = 0,Request $request)
+    public function productIncategory($id = 0, Request $request)
     {
         $category = $this->productCatalogueRepository->findById($id, ['childrenReference']);
         $productCatalogues = $this->productCatalogueRepository->allWhere([
@@ -136,7 +147,8 @@ class ShopController extends Controller
             'productShopPriceMins',
         ));
     }
-    public function productInBrand($id = 0, Request $request){
+    public function productInBrand($id = 0, Request $request)
+    {
         $brand = $this->brandRepository->findById($id, []);
         $brandAll = $this->brandRepository->allWhere([
             ['publish', 1],
@@ -182,5 +194,4 @@ class ShopController extends Controller
             'productShopPriceMins',
         ));
     }
-    
 }
