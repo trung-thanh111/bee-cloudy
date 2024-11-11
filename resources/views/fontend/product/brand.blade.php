@@ -366,7 +366,7 @@
                                                 </div>
                                                 <div class="card-body p-2">
                                                     <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                        <a href="#"
+                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
@@ -516,7 +516,7 @@
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $productNew->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
@@ -644,7 +644,7 @@
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $productPriceMin->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $productPriceMin->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
