@@ -1053,7 +1053,7 @@ Trang Chủ
             <div class="form-title">
                 <template v-for="(v,k) in list">
                     <a :href="`/post/detail/${v.slug}`">
-                        <span style="font-size: 22px;font-weight: 700;">Journal</span>
+                        <span style="font-size: 22px;font-weight: 700;">TIN TỨC HOT</span>
                         <div class="card_news">
                             <img class="img_news" v-bind:src="v.image" alt="">
                             <div class="text-news">
@@ -1071,7 +1071,7 @@ Trang Chủ
                 </template>
             </div>
             <div class="form-group">
-                <span style="font-size: 16px;font-weight: 700;float:right ;"> go to journal ____</span>
+                <span style="font-size: 16px;font-weight: 700;float:right ;">Xem tất cả</span>
                 <div class="cart_all">
                     <template v-for="(v,k) in list_chil">
                         <div class="cart_one">

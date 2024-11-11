@@ -33,6 +33,93 @@ class ContentController extends Controller
             'data'    => $data,
         ]);
     }
+    public function likedata()
+    {
+        $contentLikes = Content::join('users', 'users.id', '=', 'contents.user_id')
+            ->select('users.name as ten_kh', 'contents.*')
+            ->orderByDESC('contents.like_count')
+            ->get();
+
+        return response()->json([
+            'like_count' => $contentLikes,
+        ]);
+    }
+
+    public function like(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Vui lòng đăng nhập trước khi sử dụng chức năng.',
+                'redirect' => route('auth.login'),
+            ], 401);
+        }
+
+        try {
+            $user = Auth::user();
+            $content = Content::where('id', $request->id)->first();
+
+            if ($content) {
+                $sessionKey = 'content_like_' . $content->id;
+                $isLiked = session()->has($sessionKey);
+
+                if ($isLiked) {
+                    $content->like_count -= 1;
+                    session()->forget($sessionKey);
+                } else {
+                    $content->like_count += 1;
+                    session()->put($sessionKey, true);
+                }
+                $content->save();
+
+                return response()->json([
+                    'status' => true,
+                    'like_count' => $content->like_count
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Bài viết không tồn tại.',
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Có lỗi xảy ra khi thực hiện chức năng like.',
+            ], 500);
+        }
+    }
+
+
+    public function checkIfRated(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Vui lòng đăng nhập trước khi sử dụng chức năng.',
+                'redirect' => route('auth.login'),
+            ], 401);
+        }
+
+        $content = Content::where('id', $request->id)->first();
+
+        if ($content) {
+            $sessionKey = 'content_like_' . $content->id;
+            $isLiked = session()->has($sessionKey);
+
+            return response()->json([
+                'status' => true,
+                'liked' => $isLiked,
+                'like_count' => $content->like_count
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Bài viết không tồn tại.',
+            ]);
+        }
+    }
+
     public function updateadmin(Request $request)
     {
 
@@ -184,5 +271,11 @@ class ContentController extends Controller
                 'message' => 'Có lỗi xảy ra khi chỉnh sửa bình luận này.',
             ], 500);
         }
+    }
+
+    public function loadCommentsPage()
+    {
+        $comments = Comment::paginate(10);  // Phân trang 10 bình luận mỗi trang
+        return response()->json($comments); // Trả về bình luận dưới dạng JSON
     }
 }
