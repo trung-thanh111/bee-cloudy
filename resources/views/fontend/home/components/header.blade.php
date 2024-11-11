@@ -228,14 +228,16 @@
                                     khác <i class="fas fa-minus fz-12 fw-bold"></i></a>
                                 <ul class="ul-menu-header p-0 dropdown-content">
                                     <li class="li-menu-header">
-                                        <a href="#" class="text-decoration-none fz-16 text-color">Sản phẩm</a>
+                                        <a href="{{ route('home.about_us') }}" class="text-decoration-none fz-16 text-color">Giới thiệu</a>
                                     </li>
                                     <li class="li-menu-header">
-                                        <a href="#" class="text-decoration-none fz-16 text-color">Thương
-                                            hiệu</a>
+                                        <a href="{{ route('home.faq') }}" class="text-decoration-none fz-16 text-color">Câu hỏi thường gặp</a>
                                     </li>
                                     <li class="li-menu-header">
-                                        <a href="#" class="text-decoration-none fz-16 text-color">Danh mục</a>
+                                        <a href="{{ route('home.terms_and_conditions') }}" class="text-decoration-none fz-16 text-color">Điều khoản</a>
+                                    </li>
+                                    <li class="li-menu-header">
+                                        <a href="{{ route('home.return_and_warranty_policy') }}" class="text-decoration-none fz-16 text-color">Chính sách</a>
                                     </li>
                                 </ul>
                             </li>

@@ -1643,3 +1643,20 @@ footer {
     border-radius: 50%;
     margin-right: 12px;
 }
+/* home  */
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.transition-all {
+    transition: all 0.3s ease;
+}
