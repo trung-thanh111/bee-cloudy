@@ -63,17 +63,12 @@
                                         Áp dụng cụ thể
                                     </h5>
                                 </div>
-                                 <div class="mb-3">
-                                    <label class="form-label">Áp dụng cho:<span
-                                            class="text-danger fz-18">*</span></label>
-                                    <select id="apply-for" name="apply_for" class="form-select setUpSelect2" required>
-                                        <option value="all" {{ old('apply_for') == 'all' ? 'selected' : '' }}>Áp dụng
-                                            cho tất cả sản phẩm</option>
-                                        <option value="specific_products"
-                                            {{ old('apply_for') == 'specific_products' ? 'selected' : '' }}>Áp dụng cho
-                                            sản phẩm cụ thể</option>
-                                        <option value="freeship" {{ old('apply_for') == 'freeship' ? 'selected' : '' }}>
-                                            Miễn phí vận chuyển</option>
+                                <div class="mb-3">
+                                    <label class="form-label">Áp dụng cho:<span class="text-danger fz-18">*</span></label>
+                                    <select id="apply-for" name="apply_for" class="form-select" required>
+                                        <option value="all" {{ old('apply_for') == 'all' ? 'selected' : '' }}>Áp dụng cho tất cả sản phẩm</option>
+                                        <option value="specific_products" {{ old('apply_for') == 'specific_products' ? 'selected' : '' }}>Áp dụng cho sản phẩm cụ thể</option>
+                                        <option value="freeship" {{ old('apply_for') == 'freeship' ? 'selected' : '' }}>Miễn phí vận chuyển</option>
                                     </select>
                                     @if ($errors->has('apply_for'))
                                         <span class="text-danger">{{ $errors->first('apply_for') }}</span>
@@ -210,77 +205,7 @@
                     </div>
                 </div>
             </form>
-            {{-- <div class="card shadow-sm mb-4">
-                <div class="card-body">
-                    <h5 class="card-title text-primary mb-4">Xem trước Khuyến Mãi</h5>
-                    <div id="promotion-preview">
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Tên Khuyến Mãi:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-name" class="text-muted"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Ngày bắt đầu:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-start-date" class="text-muted"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Ngày kết thúc:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-end-date" class="text-muted"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Áp dụng cho:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-apply-for" class="text-muted"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Số tiền chiết khấu:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-discount" class="text-muted"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Số tiền tối thiểu:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-minimum-amount" class="text-muted"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Giới hạn sử dụng:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-usage-limit" class="text-muted"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <p><strong>Trạng thái:</strong></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p id="preview-status" class="text-muted"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+           
         </div>
     </div>
 </div>
@@ -310,31 +235,6 @@
         toggleFields();
         applyForField.addEventListener('change', toggleFields);
 
-        // Cập nhật xem trước
-        function updatePreview() {
-            document.getElementById('preview-name').textContent = document.querySelector('input[name="name"]')
-                .value;
-            document.getElementById('preview-start-date').textContent = document.querySelector(
-                'input[name="start_date"]').value;
-            document.getElementById('preview-end-date').textContent = document.querySelector(
-                'input[name="end_date"]').value;
-            document.getElementById('preview-apply-for').textContent = document.querySelector(
-                'select[name="apply_for"]').value;
-            document.getElementById('preview-discount').textContent = document.querySelector(
-                'input[name="discount"]').value;
-            document.getElementById('preview-minimum-amount').textContent = document.querySelector(
-                'input[name="minimum_amount"]').value;
-            document.getElementById('preview-usage-limit').textContent = document.querySelector(
-                'input[name="usage_limit"]').value;
-            document.getElementById('preview-status').textContent = document.querySelector(
-                'select[name="status"]').value;
-        }
-
-        // Cập nhật xem trước khi load trang và khi có thay đổi
-        updatePreview();
-        document.querySelectorAll('input, select').forEach(element => {
-            element.addEventListener('change', updatePreview);
-            element.addEventListener('input', updatePreview);
-        });
+        
     });
 </script>

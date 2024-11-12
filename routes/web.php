@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Fontend\FPromotionController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
@@ -128,6 +129,9 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'account'], function () {
         Route::get('info', [FontendUserController::class, 'info'])->name('account.info');
         Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
+        Route::get('view_promotion', [FPromotionController::class, 'view_promotion'])->name('account.promotions');
+        Route::get('/view_promotion/{id}', [FPromotionController::class, 'show'])->name('account.promotion.show');
+
         Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
     });
     Route::group(['prefix' => 'cart'], function () {
@@ -135,11 +139,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/apply-discount', [AjaxCartController::class, 'applyPromotion'])->name('cart.applyDiscount');
         Route::post('/remove-voucher/{voucherId}', [AjaxCartController::class, 'removeVoucher'])->name('cart.removeVoucher');
     });
-});
 //promotion
 Route::middleware(['auth'])->group(function () {
-    Route::get('/promotion', [PromotionController::class, 'showAllPromotions'])->name('promotion.index');
-    Route::post('/promotion/receive/{promotion}', [PromotionController::class, 'receivePromotion'])->name('promotion.receive');
+    Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
+    Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
 });
 // order 
 Route::middleware(['auth'])->group(function () {
@@ -263,16 +266,18 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
     //promotion_dashboar
-    Route::group(['prefix' => 'promotion'], function () {
+    
+    Route::group(['prefix' => 'dashboard/promotion'], function () {
         Route::get('index', [PromotionController::class, 'index'])->name('promotions.index');
         Route::get('create', [PromotionController::class, 'create'])->name('promotions.create');
         Route::get('edit/{id}', [PromotionController::class, 'edit'])->where(['id' => '[0-9]+'])->name('promotions.edit');
-        Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotions.update');
+        Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotion.update');
         Route::get('show/{id}', [PromotionController::class, 'show'])->where(['id' => '[0-9]+'])->name('promotions.show'); // sửa lại thành detail
         Route::post('store', [PromotionController::class, 'store'])->name('promotions.store');
-        Route::get('confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
+        Route::get('confirm-delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
         Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
         Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
+        Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');
 
     });
 
@@ -321,6 +326,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('updatePermission', [BannerController::class, 'updatePermission'])->name('banner.updatePermission');
     });
 });
+});
+
 
 // AUTH
 
