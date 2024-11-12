@@ -411,6 +411,24 @@ class ProductService implements ProductServiceInterface
 
         return $products;
     }
+    public function productNews(){
+        $condition = [
+            'where' => [
+                ['publish', '=',  1],
+            ]
+        ];
+        $relation = ['productVariant', 'productVariant.attributes'];
+        $perPage = 8;
+        $products = $this->productRepository->pagination(
+            $this->paginateSelect(),
+            $condition,
+            $relation,
+            ['sold_count', 'DESC'],
+            $perPage,
+        );
+
+        return $products;
+    }
 
     private function payload()
     {
