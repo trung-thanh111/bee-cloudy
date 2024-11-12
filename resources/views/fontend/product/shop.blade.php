@@ -467,8 +467,58 @@
                     </div>
                 </div>
                 <div class="banner-shop my-3">
-                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-event.avif" alt=""
-                        width="100%" height="" class="img-fluid rounded-2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                        <div class="carousel-inner">
+                            @if ($bannerShop)
+                                @foreach ($bannerShop as $key => $valBannerHead)
+                                    @php
+                                        $image = json_decode($valBannerHead->album);
+                                        $totalImages = count($image);
+                                    @endphp
+                                    @if ($totalImages > 0)
+                                        @foreach ($image as $index => $valImgHead)
+                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
+                                                <img src="{{ $valImgHead }}"
+                                                    class="d-block w-100 object-fit-cover transition-opacity duration-500 ease-in-out"
+                                                    alt="Slide Image {{ $index + 1 }}" height="635" loading="lazy">
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="carousel-indicators">
+                            @if ($bannerShop)
+                                @foreach ($bannerShop as $valBannerHead)
+                                    @php
+                                        $image = json_decode($valBannerHead->album);
+                                    @endphp
+                                    @if (count($image) > 0)
+                                        @foreach ($image as $index => $valImgHead)
+                                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"
+                                                aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                                                aria-label="Slide {{ $index + 1 }}"
+                                                style="width: 12px; height: 12px; border-radius: 50%; margin: 0 6px;">
+                                            </button>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+        
+                        <!-- Navigation Buttons -->
+                        <button class="carousel-control-prev opacity-75 hover:opacity-100 transition-opacity duration-300"
+                            type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next opacity-75 hover:opacity-100 transition-opacity duration-300"
+                            type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="product-shop-new mt-4 mb-3 text-muted">
                     <div class="title-product mb-4 col-3">

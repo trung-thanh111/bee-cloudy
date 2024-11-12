@@ -429,6 +429,21 @@ class ProductService implements ProductServiceInterface
 
         return $products;
     }
+    public function productSales(){
+        $products = $this->productRepository->getLimitOrder(
+            ['productVariant', 'productVariant.attributes'],
+            [
+                ['publish', '=',  1],
+                ['del', '>',  0],
+            ],
+            [
+                ['del', 'desc']
+            ],
+            8
+        );
+
+        return $products;
+    }
 
     private function payload()
     {
