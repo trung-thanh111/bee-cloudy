@@ -15,19 +15,16 @@
         .button-confirm {
             background-color: #28a745;
         }
-        /* .button-cancel {
-            background-color: #dc3545;
-        } */
          
-         p{
+        p {
             font-size: 18px;
-         }
+        }
     </style>
 </head>
 <body>
     <h2>Xác nhận đăng ký</h2>
-    <p>Xin chào <strong>{{ $pendingUser->name }},</strong></p>
-    <p >Vui lòng nhấn vào nút dưới đây để xác nhận đăng ký tài khoản bên <strong>BeeCloud</strong> của bạn:</p>
+    <p>Xin chào <strong>{{ $user->name }},</strong></p>
+    <p>Vui lòng nhấn vào nút dưới đây để xác nhận đăng ký tài khoản bên <strong>BeeCloud</strong> của bạn:</p>
 
     <a href="{{ route('confirm.registration', ['token' => $token]) }}" class="button button-confirm">Xác Nhận</a>
     <p>Nếu bạn không đăng ký, hãy bỏ qua email này.</p>
