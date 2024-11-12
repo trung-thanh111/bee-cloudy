@@ -110,11 +110,8 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-});
 //promotion
 Route::middleware(['auth'])->group(function () {
-    Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
-    Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
     Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
     Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
 });
@@ -252,7 +249,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
         Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
         Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');
-        Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');
 
     });
 
@@ -288,6 +284,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
     });
 });
+});
+
 
 // AUTH
 
