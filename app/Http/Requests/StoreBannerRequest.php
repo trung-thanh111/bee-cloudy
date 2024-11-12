@@ -23,7 +23,7 @@ class StoreBannerRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'album' => 'required',
+            // 'album' => 'required',
             'location' => 'required',
             'date_start' => 'date',
             'date_end' => 'date|after:date_start',
@@ -34,7 +34,7 @@ class StoreBannerRequest extends FormRequest
     {
         return [
             'name.required' => 'Bạn chưa nhập tiêu đề banner.',
-            'album.required' => 'Bạn chưa chọn ảnh banner.',
+            // 'album.required' => 'Bạn chưa chọn ảnh banner.',
             'location.required' => 'Bạn chưa chọn vị trí ảnh banner.',
             'date_start.date' => 'Ngày bắt đầu không hợp lệ.',
             'date_end.date' => 'Ngày kết thúc không hợp lệ.',
