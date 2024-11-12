@@ -37,15 +37,36 @@ class PromotionController extends Controller
     }
 
     public function store(Request $request)
-    {
-        try {
-            $promotion = $this->promotionService->createPromotion($request->all());
-            return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được tạo thành công!');
-        } catch (Exception $e) {
-            Log::error('Promotion creation failed: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Xảy ra lỗi khi tạo khuyến mãi.');
-        }
+{
+    try {
+        // Xác thực dữ liệu, bao gồm URL ảnh
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'required|string', 
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'description' => 'required|string|max:255',
+            'discount' => 'required_unless:apply_for,freeship|numeric|min:0',
+            'minimum_amount' => 'nullable|numeric|min:0',
+            'usage_limit' => 'nullable|integer|min:1',
+            'apply_for' => 'required|in:specific_products,freeship,all',
+            'status' => 'required|in:active,inactive',
+            'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
+        ]);
+        // dd($request->input('image')); 
+
+
+        // Gọi PromotionService để tạo khuyến mãi
+        $promotion = $this->promotionService->createPromotion($validatedData);
+
+        return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được tạo thành công!');
+    } catch (\Exception $e) {
+        Log::error('Promotion creation failed: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Xảy ra lỗi khi tạo khuyến mãi: ' . $e->getMessage());
     }
+    
+}
+
 
     public function edit($id)
     {
