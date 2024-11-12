@@ -139,8 +139,7 @@
                                                                     <div
                                                                         class="hstack gap-2 d-flex justify-content-start align-items-center">
                                                                         <div class="pt-2 d-inline-block">
-                                                                            <h6 class="fz-18 mb-0">@{{ v.name }}
-                                                                            </h6>
+                                                                            <h6 class="fz-18 mb-0">@{{ name }}</h6>
                                                                         </div>
                                                                         <div class="dropdown ms-auto ">
                                                                             <a class=" dropdown-toggle" href="#"
@@ -188,12 +187,17 @@
                                                                             @{{ v.content }}
                                                                         </p>
                                                                     </div>
-                                                                    <div class="icon-reaction pb-2">
-                                                                        <button v-on:click="Like(k)" :id="'likeBtn-' + k"
-                                                                            style="border: none; background: none; padding: 0;">
-                                                                            <i class="fa-regular fa-heart me-2"></i>
-                                                                        </button>
-                                                                        <span :id="'likeCount-' + k">0</span>
+                                                                    <div id="app">
+                                                                        <div class="icon-reaction pb-2"
+                                                                            v-for="(v, index) in list" :key="v.id">
+    
+                                                                            <button class="like-button" v-on:click="Like(v)"
+                                                                                style="border: none; background: none; padding: 0;">
+                                                                                <i class="fa-regular fa-heart me-2"></i>
+                                                                            </button>
+    
+                                                                            <span>@{{ v.like_count }}</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -203,7 +207,7 @@
                                                 <!-- item review  -->
 
                                                 <!-- phân trang bình luận  -->
-                                                <div class="d-flex justify-content-center align-items-center mt-3">
+                                                {{-- <div class="d-flex justify-content-center align-items-center mt-3">
                                                     <nav aria-label="Page navigation example">
                                                         <ul class="pagination pagination-sm">
                                                             <li class="page-item">
@@ -228,7 +232,7 @@
                                                             </li>
                                                         </ul>
                                                     </nav>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -374,17 +378,27 @@
                 update: {},
                 del: {},
                 comment: 0,
-                likes: []
+                likes: [],
+                likeCount: [],
+                check: 0,
+                isLiked: false,
+                name: 'Client'
             },
             created() {
                 this.loadContent();
+                this.LoadLike();
+                this.Chekc();
             },
             methods: {
                 loadContent() {
                     axios
                         .get('/view-content-data')
                         .then((res) => {
-                            this.list = res.data.data;
+                            this.list = res.data.data;  
+                            console.log(this.list);       
+                            this.list.forEach(item => {
+                                this.name = item.name;
+                            });                                               
                             this.comment = res.data.comment_count;
                         });
                 },
@@ -441,25 +455,45 @@
                         });
                 },
 
-                Like(k) {
-                    if (this.likes[k] === 0) {
-                        this.likes[k] = 1;
-                    } else {
-                        this.likes[k] = 0;
-                    }
-                    let likeCountElement = document.getElementById('likeCount-' + k);
-                    likeCountElement.textContent = this.likes[k];
+                LoadLike() {
+                    const url = new URL(window.location.href);
+                    const pathname = url.pathname;
+                    const slug = pathname.split('/').filter(Boolean).pop();
+                    axios
+                        .get('/content/like-data')
+                        .then((res) => {
+                            this.list = res.data.like_count;
+                        })
+                        .catch((res) => {})
+                },
 
-                    let heartIcon = document.getElementById('likeBtn-' + k).querySelector('i');
-                    if (this.likes[k] === 1) {
-                        heartIcon.classList.remove('fa-regular');
-                        heartIcon.classList.add('fa-solid');
-                        heartIcon.style.color = 'red';
-                    } else {
-                        heartIcon.classList.remove('fa-solid');
-                        heartIcon.classList.add('fa-regular');
-                        heartIcon.style.color = 'black';
-                    }
+                Chekc() {
+                    const url = new URL(window.location.href);
+                    const pathname = url.pathname;
+                    const slug = pathname.split('/').filter(Boolean).pop();
+                    axios
+                        .get('/content/check')
+                        .then((res) => {
+                            this.check = res.data.check;
+                        })
+                        .catch((res) => {
+                            $.each(res.response.data.errors, function(k, v) {});
+                        })
+                },
+                Like(v) {
+                    axios
+                        .post('/content/like', v)
+                        .then((res) => {
+                            if (res.data.status) {
+                                this.LoadLike();
+                                this.likeCount = res.data.like_count;
+                                toaster.success(res.data.message);
+                            }
+
+                        })
+                        .catch((res) => {
+                            // $.each(res.response.data.errors, function(k, v) {});
+                        });
                 },
 
                 toggleMenu(k) {

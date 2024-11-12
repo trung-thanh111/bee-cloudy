@@ -910,35 +910,40 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <div class="FULL_news">
-            <div class="all_contents">
-                <div class="form-title">
-                    <template v-for="(v,k) in list">
-                        <a :href="`/post/detail/${v.slug}`">
-                            <span style="font-size: 22px;font-weight: 700;">Journal</span>
-                            <div class="card_news">
-                                <img class="img_news" v-bind:src="v.image" alt="">
-                                <div class="text-news">
-                                    <div class="first">
-                                        <a style="color: #fff; font-size: 24px;font-weight: 600;flex-wrap: wrap;text-decoration: none;"
-                                            href="">@{{ v.name }}</a>
-                                    </div>
-                                    <div class="end">
-                                        <a style="color: #fff;  font-size: 13px; text-decoration: none;"
-                                            href="">@{{ v.cre }}</a>
-                                    </div>
+        </div>
+    </section>
+    <div class="FULL_news">
+        <div class="all_contents">
+            <div class="form-title">
+                <template v-for="(v,k) in list">
+                    <a :href="`/post/detail/${v.slug}`">
+                        <span style="font-size: 22px;font-weight: 700;">TIN TỨC HOT</span>
+                        <div class="card_news">
+                            <img class="img_news" v-bind:src="v.image" alt="">
+                            <div class="text-news">
+                                <div class="first">
+                                    <a style="color: #fff; font-size: 24px;font-weight: 600;flex-wrap: wrap;text-decoration: none;"
+                                        href="">@{{ v.name }}</a>
+                                </div>
+                                <div class="end">
+                                    <a style="color: #fff;  font-size: 13px; text-decoration: none;"
+                                        href="">@{{ v.cre }}</a>
                                 </div>
                             </div>
-                        </a>
-                    </template>
-                </div>
-                <div class="form-group">
-                    <span style="font-size: 16px;font-weight: 700;float:right ;"> go to journal ____</span>
-                    <div class="cart_all">
-                        <template v-for="(v,k) in list_chil">
-                            <div class="cart_one">
-                                <a :href="`/post/detail/${v.slug}`">
+                        </div>
+                    </a>
+                </template>
+            </div>
+            <div class="form-group">
+                <span style="font-size: 16px;font-weight: 700;float:right ;">Xem tất cả</span>
+                <div class="cart_all">
+                    <template v-for="(v,k) in list_chil">
+                        <div class="cart_one">
+                            <a :href="`/post/detail/${v.slug}`">
+                                <div>
+                                    <img class="card_img_one" v-bind:src="v.image" alt="">
+                                </div>
+                                <div class="form-end">
                                     <div>
                                         <img class="card_img_one" v-bind:src="v.image" alt="">
                                     </div>
