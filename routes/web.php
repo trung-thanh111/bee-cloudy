@@ -141,193 +141,192 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/apply-discount', [AjaxCartController::class, 'applyPromotion'])->name('cart.applyDiscount');
         Route::post('/remove-voucher/{voucherId}', [AjaxCartController::class, 'removeVoucher'])->name('cart.removeVoucher');
     });
-//promotion
-Route::middleware(['auth'])->group(function () {
-    Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
-    Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
-});
-// order 
-Route::middleware(['auth'])->group(function () {
+    //promotion
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
+        Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
+    });
+    // order 
+    Route::middleware(['auth'])->group(function () {
 
-    // ORDER 
+        // ORDER 
+        Route::group(['prefix' => 'order'], function () {
+            Route::get('checkout', [FontendOrderController::class, 'checkout'])->name('order.checkout');
+            Route::post('store', [FontendOrderController::class, 'store'])->name('store.order');
+            Route::get('success', [FontendOrderController::class, 'success'])->name('order.success');
+            Route::get('failed', [FontendOrderController::class, 'failed'])->name('order.failed');
+        });
+        // WISHLIST
+        Route::group(['prefix' => 'wishlist'], function () {
+            Route::get('index', [AjaxWishlistController::class, 'index'])->name('wishlist.index');
+        });
+    });
     Route::group(['prefix' => 'order'], function () {
         Route::get('checkout', [FontendOrderController::class, 'checkout'])->name('order.checkout');
         Route::post('store', [FontendOrderController::class, 'store'])->name('store.order');
         Route::get('success', [FontendOrderController::class, 'success'])->name('order.success');
         Route::get('failed', [FontendOrderController::class, 'failed'])->name('order.failed');
     });
-    // WISHLIST
-    Route::group(['prefix' => 'wishlist'], function () {
-        Route::get('index', [AjaxWishlistController::class, 'index'])->name('wishlist.index');
-    });
-});
-Route::group(['prefix' => 'order'], function () {
-    Route::get('checkout', [FontendOrderController::class, 'checkout'])->name('order.checkout');
-    Route::post('store', [FontendOrderController::class, 'store'])->name('store.order');
-    Route::get('success', [FontendOrderController::class, 'success'])->name('order.success');
-    Route::get('failed', [FontendOrderController::class, 'failed'])->name('order.failed');
-});
 
-// POST
-Route::group(['prefix' => 'post'], function () {
-    Route::get('page', [FontendPostController::class, 'index'])->name('post.page');
-    Route::get('category/{id}', [FontendPostController::class, 'postInCategory'])->where(['id' => '[0-9]+'])->name('post.category');
-    Route::get('detail/{slug}', [FontendPostController::class, 'detail'])->name('post.detail');
-});
-
-//BACKEND
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
-    // usercatalogue
-    Route::group(['prefix' => 'user/catalogue'], function () {
-        Route::get('index', [UserCatalogueController::class, 'index'])->name('user.catalogue.index');
-        Route::get('create', [UserCatalogueController::class, 'create'])->name('user.catalogue.create');
-        Route::post('store', [UserCatalogueController::class, 'store'])->name('user.catalogue.store');
-        Route::get('update/{slug}', [UserCatalogueController::class, 'update'])->name('user.catalogue.update');
-        Route::post('edit/{slug}', [UserCatalogueController::class, 'edit'])->name('user.catalogue.edit');
-        Route::get('delete/{id}', [UserCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.catalogue.delete');
-        Route::delete('destroy/{id}', [UserCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.catalogue.destroy');
-        Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
-        Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission');
-    });
-
-    // users 
-    Route::group(['prefix' => 'user/'], function () {
-        Route::get('index', [UserController::class, 'index'])->name('user.index');
-        Route::get('create', [UserController::class, 'create'])->name('user.create');
-        Route::post('store', [UserController::class, 'store'])->name('user.store');
-        Route::get('update/{id}', [UserController::class, 'update'])->where(['id' => '[0-9]+'])->name('user.update');
-        Route::post('edit/{id}', [UserController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.edit');
-        Route::get('delete/{id}', [UserController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.delete');
-        Route::delete('destroy/{id}', [UserController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy');
-        Route::get('permission', [UserController::class, 'permission'])->name('user.permission');
-        Route::post('updatePermission', [UserController::class, 'updatePermission'])->name('user.updatePermission');
-    });
-
-    // attribute catalogue
-    Route::group(['prefix' => 'attribute/catalogue'], function () {
-        Route::get('index', [AttributeCatalogueController::class, 'index'])->name('attribute.catalogue.index');
-        Route::get('create', [AttributeCatalogueController::class, 'create'])->name('attribute.catalogue.create');
-        Route::post('store', [AttributeCatalogueController::class, 'store'])->name('attribute.catalogue.store');
-        Route::get('update/{slug}', [AttributeCatalogueController::class, 'update'])->name('attribute.catalogue.update');
-        Route::post('edit/{slug}', [AttributeCatalogueController::class, 'edit'])->name('attribute.catalogue.edit');
-        Route::get('delete/{id}', [AttributeCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('attribute.catalogue.delete');
-        Route::delete('destroy/{id}', [AttributeCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('attribute.catalogue.destroy');
-        Route::delete('bulk-delete', [AttributeCatalogueController::class, 'destroyMultiple'])->name('attribute.catalogue.bulkdelete');
-    });
-
-    // attribute
-    Route::group(['prefix' => 'attribute'], function () {
-        Route::get('index', [AttributeController::class, 'index'])->name('attribute.index');
-        Route::get('create', [AttributeController::class, 'create'])->name('attribute.create');
-        Route::post('store', [AttributeController::class, 'store'])->name('attribute.store');
-        Route::get('update/{slug}', [AttributeController::class, 'update'])->name('attribute.update');
-        Route::post('edit/{slug}', [AttributeController::class, 'edit'])->name('attribute.edit');
-        Route::get('delete/{id}', [AttributeController::class, 'delete'])->where(['id' => '[0-9]+'])->name('attribute.delete');
-        Route::delete('destroy/{id}', [AttributeController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('attribute.destroy');
-        Route::delete('bulk-delete', [AttributeController::class, 'destroyMultiple'])->name('attribute.bulkdelete');
-    });
-
-    // product catalogue
-    Route::group(['prefix' => 'product/catalogue'], function () {
-        Route::get('index', [ProductCatalogueController::class, 'index'])->name('product.catalogue.index');
-        Route::get('create', [ProductCatalogueController::class, 'create'])->name('product.catalogue.create');
-        Route::post('store', [ProductCatalogueController::class, 'store'])->name('product.catalogue.store');
-        Route::get('update/{slug}', [ProductCatalogueController::class, 'update'])->name('product.catalogue.update');
-        Route::post('edit/{slug}', [ProductCatalogueController::class, 'edit'])->name('product.catalogue.edit');
-        Route::get('delete/{id}', [ProductCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.catalogue.delete');
-        Route::delete('destroy/{id}', [ProductCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.catalogue.destroy');
-        Route::delete('bulk-delete', [ProductCatalogueController::class, 'destroyMultiple'])->name('product.catalogue.bulkdelete');
-    });
-
-    //brand
-    Route::group(['prefix' => 'brand'], function () {
-        Route::get('index', [BrandController::class, 'index'])->name('brand.index');
-        Route::get('create', [BrandController::class, 'create'])->name('brand.create');
-        Route::post('store', [BrandController::class, 'store'])->name('brand.store');
-        Route::get('update/{slug}', [BrandController::class, 'update'])->name('brand.update');
-        Route::post('edit/{slug}', [BrandController::class, 'edit'])->name('brand.edit');
-        Route::get('delete/{id}', [BrandController::class, 'delete'])->where(['id' => '[0-9]+'])->name('brand.delete');
-        Route::delete('destroy/{id}', [BrandController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('brand.destroy');
-        Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
-    });
-
-
-
-    //product
-    Route::group(['prefix' => 'product'], function () {
-        Route::get('index', [ProductController::class, 'index'])->name('product.index');
-        Route::get('create', [ProductController::class, 'create'])->name('product.create');
-        Route::post('store', [ProductController::class, 'store'])->name('product.store');
-        Route::get('update/{slug}', [ProductController::class, 'update'])->name('product.update');
-        Route::post('edit/{slug}', [ProductController::class, 'edit'])->name('product.edit');
-        Route::get('delete/{id}', [ProductController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.delete');
-        Route::delete('destroy/{id}', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.destroy');
-        Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
-    });
-    //promotion_dashboar
-    
-    Route::group(['prefix' => 'dashboard/promotion'], function () {
-        Route::get('index', [PromotionController::class, 'index'])->name('promotions.index');
-        Route::get('create', [PromotionController::class, 'create'])->name('promotions.create');
-        Route::get('edit/{id}', [PromotionController::class, 'edit'])->where(['id' => '[0-9]+'])->name('promotions.edit');
-        Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotion.update');
-        Route::get('show/{id}', [PromotionController::class, 'show'])->where(['id' => '[0-9]+'])->name('promotions.show'); // sửa lại thành detail
-        Route::post('store', [PromotionController::class, 'store'])->name('promotions.store');
-        Route::get('confirm-delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
-        Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
-        Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
-        Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');
-
-    });
-
-
-    //post catalogues
-    Route::group(['prefix' => 'post/catalogue'], function () {
-        Route::get('index', [PostCatalogueController::class, 'index'])->name('post.catalogue.index');
-        Route::get('create', [PostCatalogueController::class, 'create'])->name('post.catalogue.create');
-        Route::post('store', [PostCatalogueController::class, 'store'])->name('post.catalogue.store');
-        Route::get('update/{slug}', [PostCatalogueController::class, 'update'])->name('post.catalogue.update');
-        Route::post('edit/{slug}', [PostCatalogueController::class, 'edit'])->name('post.catalogue.edit');
-        Route::get('delete/{id}', [PostCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.catalogue.delete');
-        Route::delete('destroy/{id}', [PostCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.catalogue.destroy');
-        Route::delete('bulk-delete', [PostCatalogueController::class, 'destroyMultiple'])->name('post.catalogue.bulkdelete');
-    });
-
-    //posts
+    // POST
     Route::group(['prefix' => 'post'], function () {
-        Route::get('index', [PostController::class, 'index'])->name('post.index');
-        Route::get('create', [PostController::class, 'create'])->name('post.create');
-        Route::post('store', [PostController::class, 'store'])->name('post.store');
-        Route::get('update/{slug}', [PostController::class, 'update'])->name('post.update');
-        Route::post('edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
-        Route::get('delete/{id}', [PostController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.delete');
-        Route::delete('destroy/{id}', [PostController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.destroy');
-        Route::delete('bulk-delete', [PostController::class, 'destroyMultiple'])->name('post.bulkdelete');
+        Route::get('page', [FontendPostController::class, 'index'])->name('post.page');
+        Route::get('category/{id}', [FontendPostController::class, 'postInCategory'])->where(['id' => '[0-9]+'])->name('post.category');
+        Route::get('detail/{slug}', [FontendPostController::class, 'detail'])->name('post.detail');
     });
 
+    //BACKEND
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    // order //
-    Route::group(['prefix' => 'order'], function () {
-        Route::get('index', [OrderController::class, 'index'])->name('order.index');
-        Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
-    });
+        // usercatalogue
+        Route::group(['prefix' => 'user/catalogue'], function () {
+            Route::get('index', [UserCatalogueController::class, 'index'])->name('user.catalogue.index');
+            Route::get('create', [UserCatalogueController::class, 'create'])->name('user.catalogue.create');
+            Route::post('store', [UserCatalogueController::class, 'store'])->name('user.catalogue.store');
+            Route::get('update/{slug}', [UserCatalogueController::class, 'update'])->name('user.catalogue.update');
+            Route::post('edit/{slug}', [UserCatalogueController::class, 'edit'])->name('user.catalogue.edit');
+            Route::get('delete/{id}', [UserCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.catalogue.delete');
+            Route::delete('destroy/{id}', [UserCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.catalogue.destroy');
+            Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
+            Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission');
+        });
 
-    //Banner 
-    Route::group(['prefix' => 'banner'], function () {
-        Route::get('index', [BannerController::class, 'index'])->name('banner.index');
-        Route::get('create', [BannerController::class, 'create'])->name('banner.create');
-        Route::post('store', [BannerController::class, 'store'])->name('banner.store');
-        Route::get('update/{id}', [BannerController::class, 'update'])->name('banner.update');
-        Route::post('edit/{id}', [BannerController::class, 'edit'])->name('banner.edit');
-        Route::get('delete/{id}', [BannerController::class, 'delete'])->where(['id' => '[0-9]+'])->name('banner.delete');
-        Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('banner.destroy');
-        Route::get('permission', [BannerController::class, 'permission'])->name('banner.permission');
-        Route::post('updatePermission', [BannerController::class, 'updatePermission'])->name('banner.updatePermission');
+        // users 
+        Route::group(['prefix' => 'user/'], function () {
+            Route::get('index', [UserController::class, 'index'])->name('user.index');
+            Route::get('create', [UserController::class, 'create'])->name('user.create');
+            Route::post('store', [UserController::class, 'store'])->name('user.store');
+            Route::get('update/{id}', [UserController::class, 'update'])->where(['id' => '[0-9]+'])->name('user.update');
+            Route::post('edit/{id}', [UserController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.edit');
+            Route::get('delete/{id}', [UserController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.delete');
+            Route::delete('destroy/{id}', [UserController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy');
+            Route::get('permission', [UserController::class, 'permission'])->name('user.permission');
+            Route::post('updatePermission', [UserController::class, 'updatePermission'])->name('user.updatePermission');
+        });
+
+        // attribute catalogue
+        Route::group(['prefix' => 'attribute/catalogue'], function () {
+            Route::get('index', [AttributeCatalogueController::class, 'index'])->name('attribute.catalogue.index');
+            Route::get('create', [AttributeCatalogueController::class, 'create'])->name('attribute.catalogue.create');
+            Route::post('store', [AttributeCatalogueController::class, 'store'])->name('attribute.catalogue.store');
+            Route::get('update/{slug}', [AttributeCatalogueController::class, 'update'])->name('attribute.catalogue.update');
+            Route::post('edit/{slug}', [AttributeCatalogueController::class, 'edit'])->name('attribute.catalogue.edit');
+            Route::get('delete/{id}', [AttributeCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('attribute.catalogue.delete');
+            Route::delete('destroy/{id}', [AttributeCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('attribute.catalogue.destroy');
+            Route::delete('bulk-delete', [AttributeCatalogueController::class, 'destroyMultiple'])->name('attribute.catalogue.bulkdelete');
+        });
+
+        // attribute
+        Route::group(['prefix' => 'attribute'], function () {
+            Route::get('index', [AttributeController::class, 'index'])->name('attribute.index');
+            Route::get('create', [AttributeController::class, 'create'])->name('attribute.create');
+            Route::post('store', [AttributeController::class, 'store'])->name('attribute.store');
+            Route::get('update/{slug}', [AttributeController::class, 'update'])->name('attribute.update');
+            Route::post('edit/{slug}', [AttributeController::class, 'edit'])->name('attribute.edit');
+            Route::get('delete/{id}', [AttributeController::class, 'delete'])->where(['id' => '[0-9]+'])->name('attribute.delete');
+            Route::delete('destroy/{id}', [AttributeController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('attribute.destroy');
+            Route::delete('bulk-delete', [AttributeController::class, 'destroyMultiple'])->name('attribute.bulkdelete');
+        });
+
+        // product catalogue
+        Route::group(['prefix' => 'product/catalogue'], function () {
+            Route::get('index', [ProductCatalogueController::class, 'index'])->name('product.catalogue.index');
+            Route::get('create', [ProductCatalogueController::class, 'create'])->name('product.catalogue.create');
+            Route::post('store', [ProductCatalogueController::class, 'store'])->name('product.catalogue.store');
+            Route::get('update/{slug}', [ProductCatalogueController::class, 'update'])->name('product.catalogue.update');
+            Route::post('edit/{slug}', [ProductCatalogueController::class, 'edit'])->name('product.catalogue.edit');
+            Route::get('delete/{id}', [ProductCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.catalogue.delete');
+            Route::delete('destroy/{id}', [ProductCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.catalogue.destroy');
+            Route::delete('bulk-delete', [ProductCatalogueController::class, 'destroyMultiple'])->name('product.catalogue.bulkdelete');
+        });
+
+        //brand
+        Route::group(['prefix' => 'brand'], function () {
+            Route::get('index', [BrandController::class, 'index'])->name('brand.index');
+            Route::get('create', [BrandController::class, 'create'])->name('brand.create');
+            Route::post('store', [BrandController::class, 'store'])->name('brand.store');
+            Route::get('update/{slug}', [BrandController::class, 'update'])->name('brand.update');
+            Route::post('edit/{slug}', [BrandController::class, 'edit'])->name('brand.edit');
+            Route::get('delete/{id}', [BrandController::class, 'delete'])->where(['id' => '[0-9]+'])->name('brand.delete');
+            Route::delete('destroy/{id}', [BrandController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('brand.destroy');
+            Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
+        });
+
+
+
+        //product
+        Route::group(['prefix' => 'product'], function () {
+            Route::get('index', [ProductController::class, 'index'])->name('product.index');
+            Route::get('create', [ProductController::class, 'create'])->name('product.create');
+            Route::post('store', [ProductController::class, 'store'])->name('product.store');
+            Route::get('update/{slug}', [ProductController::class, 'update'])->name('product.update');
+            Route::post('edit/{slug}', [ProductController::class, 'edit'])->name('product.edit');
+            Route::get('delete/{id}', [ProductController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.delete');
+            Route::delete('destroy/{id}', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.destroy');
+            Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
+        });
+        //promotion_dashboar
+
+        Route::group(['prefix' => 'dashboard/promotion'], function () {
+            Route::get('index', [PromotionController::class, 'index'])->name('promotions.index');
+            Route::get('create', [PromotionController::class, 'create'])->name('promotions.create');
+            Route::get('edit/{id}', [PromotionController::class, 'edit'])->where(['id' => '[0-9]+'])->name('promotions.edit');
+            Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotion.update');
+            Route::get('show/{id}', [PromotionController::class, 'show'])->where(['id' => '[0-9]+'])->name('promotions.show'); // sửa lại thành detail
+            Route::post('store', [PromotionController::class, 'store'])->name('promotions.store');
+            Route::get('confirm-delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
+            Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
+            Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
+            Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');
+        });
+
+
+        //post catalogues
+        Route::group(['prefix' => 'post/catalogue'], function () {
+            Route::get('index', [PostCatalogueController::class, 'index'])->name('post.catalogue.index');
+            Route::get('create', [PostCatalogueController::class, 'create'])->name('post.catalogue.create');
+            Route::post('store', [PostCatalogueController::class, 'store'])->name('post.catalogue.store');
+            Route::get('update/{slug}', [PostCatalogueController::class, 'update'])->name('post.catalogue.update');
+            Route::post('edit/{slug}', [PostCatalogueController::class, 'edit'])->name('post.catalogue.edit');
+            Route::get('delete/{id}', [PostCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.catalogue.delete');
+            Route::delete('destroy/{id}', [PostCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.catalogue.destroy');
+            Route::delete('bulk-delete', [PostCatalogueController::class, 'destroyMultiple'])->name('post.catalogue.bulkdelete');
+        });
+
+        //posts
+        Route::group(['prefix' => 'post'], function () {
+            Route::get('index', [PostController::class, 'index'])->name('post.index');
+            Route::get('create', [PostController::class, 'create'])->name('post.create');
+            Route::post('store', [PostController::class, 'store'])->name('post.store');
+            Route::get('update/{slug}', [PostController::class, 'update'])->name('post.update');
+            Route::post('edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
+            Route::get('delete/{id}', [PostController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.delete');
+            Route::delete('destroy/{id}', [PostController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.destroy');
+            Route::delete('bulk-delete', [PostController::class, 'destroyMultiple'])->name('post.bulkdelete');
+        });
+
+
+        // order //
+        Route::group(['prefix' => 'order'], function () {
+            Route::get('index', [OrderController::class, 'index'])->name('order.index');
+            Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
+        });
+
+        //Banner 
+        Route::group(['prefix' => 'banner'], function () {
+            Route::get('index', [BannerController::class, 'index'])->name('banner.index');
+            Route::get('create', [BannerController::class, 'create'])->name('banner.create');
+            Route::post('store', [BannerController::class, 'store'])->name('banner.store');
+            Route::get('update/{id}', [BannerController::class, 'update'])->name('banner.update');
+            Route::post('edit/{id}', [BannerController::class, 'edit'])->name('banner.edit');
+            Route::get('delete/{id}', [BannerController::class, 'delete'])->where(['id' => '[0-9]+'])->name('banner.delete');
+            Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('banner.destroy');
+            Route::get('permission', [BannerController::class, 'permission'])->name('banner.permission');
+            Route::post('updatePermission', [BannerController::class, 'updatePermission'])->name('banner.updatePermission');
+        });
     });
-});
 });
 
 
@@ -340,12 +339,12 @@ Route::post('register-store', [RegisterController::class, 'register'])->name('st
 Route::get('/confirm-registration/{token}', [RegisterController::class, 'confirmRegistration'])->name('confirm.registration');
 
 
-Route::get('/password/reset', [ForgotPasswordController::class, 'emailForm'])->name('password.request');
+Route::get('/password/confirm_email', [ForgotPasswordController::class, 'emailForm'])->name('password.confirm_email');
 Route::post('/password/email', [ForgotPasswordController::class, 'sendEmail'])->name('password.email');
 Route::get('/password/verify-otp', [ForgotPasswordController::class, 'otpForm'])->name('password.otp');
 Route::post('/password/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('password.otp.submit');
 Route::get('/password/resend-otp', [ForgotPasswordController::class, 'resendOtp'])->name('password.otp.resend');
-Route::get('/password/reset/{email}', [ForgotPasswordController::class, 'resetForm'])->name('password.reset');
+Route::get('/password/reset', [ForgotPasswordController::class, 'resetForm'])->name('password.reset');
 Route::post('/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
