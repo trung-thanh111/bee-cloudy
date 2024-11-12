@@ -59,10 +59,6 @@ class ShopController extends Controller
         $brandFilters = $this->brandRepository->allWhere([
             ['publish', 1]
         ]);
-        $banner = $this->bannerRepository->allWhere([
-            ['publish', 1],
-            ['location', 2]
-        ]);
         $attributeColors = $this->attributeRepository->allWhere([
             ['publish', 1],
             ['attribute_catalogue_id', 1]
@@ -80,10 +76,14 @@ class ShopController extends Controller
         } else {
             $productShops = $this->shopService->paginate($request);
         }
+        $bannerShop = $this->bannerRepository->allWhere([
+            ['publish', 1],
+            ['location', 2]
+        ]);
 
         return view('fontend.product.shop', compact(
             'brands',
-            'banner',
+            'bannerShop',
             'brandFilters',
             'productShops',
             'postCategories',
@@ -134,9 +134,14 @@ class ShopController extends Controller
                 ->where('publish', 1)
                 ->paginate(9);
         }
+        $bannerShop = $this->bannerRepository->allWhere([
+            ['publish', 1],
+            ['location', 2]
+        ]);
         return view('fontend.product.category', compact(
             'category',
             'brandAll',
+            'bannerShop',
             'brandFilters',
             'postCategories',
             'attributeSizes',
