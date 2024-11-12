@@ -23,20 +23,10 @@ class User extends Authenticatable
     
 
     protected $fillable = [
-        'id',
         'name',
-        'image',
-        'phone',
-        'description',
-        'birthday',
-        'province_id',
-        'district_id',
-        'ward_id',
-        'address',
         'email',
         'password',
         'google_id',
-        'created_at',
     ];
 
     /**
@@ -73,7 +63,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
-
+    public function wishLists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'user_id', 'id');
+    }
     public function userVouchers()
     {
         return $this->hasMany(UserVoucher::class);

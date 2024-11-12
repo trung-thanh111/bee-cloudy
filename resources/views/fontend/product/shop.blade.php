@@ -62,10 +62,13 @@
                 <div class="row mb-3 flex-wrap bg-white text-muted mx-0">
                     <div class="col-lg-3 col-md-3 col-12 shadow-sm p-2 h-100">
                         <div class="filter-product-item">
-                            <h6 class="text-uppercase fz-16 p-2">
-                                Lọc sản phẩm
-                            </h6>
-                            <form action="#" method="#">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-uppercase fz-16 p-2">
+                                    Lọc sản phẩm
+                                </h6>
+                                <a href="{{ route('shop.index') }}" class="fz-14 text-danger">Bỏ lọc</a>
+                            </div>
+                            <form>
                                 <div class="accordion text-muted mb-1 rounded-2" id="default-accordion-example">
                                     <div class="accordion-item material-shadow border-0">
                                         <button class="accordion-button px-2 py-2 fz-14 fw-500 " id="headingOne"
@@ -77,21 +80,25 @@
                                             aria-labelledby="headingOne" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0 overflow-y-auto filter-brand">
                                                 <ul class="ps-0">
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
+                                                    <li class="list-unstyled mb-3 me-5 choose-size-item form-check">
                                                         <input type="radio" name="brand" value="" checked
-                                                            class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Không lọc</a>
+                                                            class="form-check-input submitFilter me-2 fz-16"
+                                                            id="no-filter-brand">
+                                                        <label class="form-check-label label-filter-shop text-muted fz-14"
+                                                            for="no-filter-brand">Không lọc</label>
                                                         </input>
                                                     </li>
                                                     @if (count($brandFilters) > 0 && !empty($brandFilters))
                                                         @foreach ($brandFilters as $KeyBrandF => $valBrandF)
-                                                            <li class="list-unstyled mb-3">
+                                                            <li class="list-unstyled mb-3 form-check">
                                                                 <input type="radio" name="brand"
+                                                                    id="brand_filter{{ $KeyBrandF }}"
                                                                     value="{{ $valBrandF->slug }}"
                                                                     {{ request('brand') == $valBrandF->slug ? 'checked' : '' }}
-                                                                    class="form-check-input me-2 mt-1 fz-16">
-                                                                <a href="#"
-                                                                    class=" text-muted fz-14 mt-1">{{ $valBrandF->name }}</a>
+                                                                    class="form-check-input submitFilter me-2 fz-16">
+                                                                <label
+                                                                    class="form-check-label label-filter-shop text-muted fz-14"
+                                                                    for="brand_filter{{ $KeyBrandF }}">{{ $valBrandF->name }}</label>
                                                             </li>
                                                         @endforeach
                                                     @endif
@@ -112,21 +119,25 @@
                                             aria-labelledby="headingTwo" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0 overflow-y-auto filter-category">
                                                 <ul class="ps-0">
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
+                                                    <li class="list-unstyled mb-3 me-5 choose-size-item form-check">
                                                         <input type="radio" name="category" value="" checked
-                                                            class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Không lọc</a>
+                                                            class="form-check-input submitFilter me-2 fz-16"
+                                                            id="no-filter-category">
+                                                        <label class="form-check-label label-filter-shop text-muted fz-14"
+                                                            for="no-filter-category">Không lọc</label>
                                                         </input>
                                                     </li>
                                                     @if (count($productCatalogues) > 0 && !empty($productCatalogues))
                                                         @foreach ($productCatalogues as $KeyCatalogueF => $valCatalogueF)
-                                                            <li class="list-unstyled mb-3">
+                                                            <li class="list-unstyled mb-3 form-check">
                                                                 <input type="radio" name="category"
+                                                                    id="category_filter{{ $KeyCatalogueF }}"
                                                                     value="{{ $valCatalogueF->slug }}"
                                                                     {{ request('category') == $valCatalogueF->slug ? 'checked' : '' }}
-                                                                    class="form-check-input me-2 mt-1 fz-16">
-                                                                <a href="#"
-                                                                    class=" text-muted fz-14 mt-1">{{ $valCatalogueF->name }}</a>
+                                                                    class="form-check-input submitFilter me-2 fz-16">
+                                                                <label
+                                                                    class="form-check-label label-filter-shop text-muted fz-14"
+                                                                    for="category_filter{{ $KeyCatalogueF }}">{{ $valCatalogueF->name }}</label>
                                                             </li>
                                                         @endforeach
                                                     @endif
@@ -145,23 +156,26 @@
                                         <div id="collapseThree" class="accordion-collapse collapse show"
                                             aria-labelledby="headingThree" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0">
-                                                <ul class="ps-0 d-flex flex-wrap choose-size">
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
+                                                <ul class="ps-0 d-flex flex-wrap choose-size gap-3">
+                                                    <li class="list-unstyled mb-3 me-3 choose-size-item form-check">
                                                         <input type="radio" name="size" value="" checked
-                                                            class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Không lọc</a>
+                                                            class="form-check-input submitFilter me-2 fz-16">
+                                                        <label
+                                                            class="form-check-label label-filter-shop text-muted fz-14">Không
+                                                            lọc</label>
                                                         </input>
                                                     </li>
                                                     @if (count($attributeSizes) > 0 && !empty($attributeSizes))
                                                         @foreach ($attributeSizes as $KeySizeF => $valSizeF)
-                                                            <li class="list-unstyled mb-3 me-5 choose-size-item">
+                                                            <li class="list-unstyled mb-3 me-3 form-check">
                                                                 <input type="radio" name="size"
-                                                                    value="{{ $valSizeF->slug }}"
-                                                                    class="form-check-input me-2 mt-1 fz-16"
-                                                                    {{ request('size') == $valSizeF->slug ? 'checked' : '' }}>
-                                                                <a href="#"
-                                                                    class="text-uppercase text-muted fz-14 mt-1">{{ $valSizeF->name }}</a>
-                                                                </input>
+                                                                    id="size_filter{{ $KeySizeF }}"
+                                                                    value="{{ $valSizeF->id }}"
+                                                                    {{ request('size') == $valSizeF->id ? 'checked' : '' }}
+                                                                    class="form-check-input submitFilter me-2 fz-16">
+                                                                <label
+                                                                    class="form-check-label label-filter-shop text-muted fz-14"
+                                                                    for="size_filter{{ $KeySizeF }}">{{ $valSizeF->name }}</label>
                                                             </li>
                                                         @endforeach
                                                     @endif
@@ -182,22 +196,22 @@
                                             <div class="accordion-body fz-14 pb-0">
                                                 <ul class="ps-0 ">
                                                     <li
-                                                        class="list-unstyled d-flex justify-content-between flex-wrap grid gap-2">
+                                                        class="list-unstyled submitFilter d-flex justify-content-between flex-wrap grid mb-2">
                                                         <div
                                                             class="img-choose-color {{ request('color') == '' ? 'active' : '' }} ">
                                                             <label class="color-selector">
                                                                 <img src="/libaries/upload/images/img-notfound.png"
                                                                     alt="" width="30" height="30"
-                                                                    data-color="" class="rounded-circle mb-md-1">
+                                                                    data-color="" class="rounded-circle ">
                                                             </label>
                                                         </div>
                                                     </li>
                                                     <li
-                                                        class="list-unstyled d-flex justify-content-between flex-wrap grid gap-2">
+                                                        class="list-unstyled submitFilter d-flex justify-content-between flex-wrap grid gap-2">
                                                         @if (count($attributeColors) > 0 && !empty($attributeColors))
                                                             @foreach ($attributeColors as $KeyColorF => $valColorF)
-                                                                <div class="img-choose-color {{ request('color') == $valColorF->slug ? 'active' : '' }}"
-                                                                    data-color="{{ $valColorF->slug }}">
+                                                                <div class="img-choose-color  {{ request('color') == $valColorF->id ? 'active' : '' }}"
+                                                                    data-color="{{ $valColorF->id }}">
                                                                     <label class="color-selector">
                                                                         <img src="{{ $valColorF->image ?? '/libaries/upload/images/img-notfound.png' }}"
                                                                             alt="" width="30" height="30"
@@ -209,7 +223,7 @@
                                                         @endif
                                                     </li>
                                                     <input type="hidden" name="color" class="colorFilter"
-                                                        value="">
+                                                        value="{{ request('color') }}">
                                                 </ul>
                                             </div>
                                         </div>
@@ -227,43 +241,43 @@
                                             aria-labelledby="headingFive" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0">
                                                 <ul class="ps-0 d-flex flex-wrap gap-2 box-price-filter">
-                                                    <li class="list-unstyled">
+                                                    <li class="list-unstyled submitFilter">
                                                         <label
                                                             class="box-item-choose-money fz-14 p-2 {{ request('price') == '' ? 'active' : '' }}">Không
                                                             lọc</label>
                                                     </li>
-                                                    <li class="list-unstyled">
+                                                    <li class="list-unstyled submitFilter">
                                                         <label
                                                             class="box-item-choose-money fz-14 p-2 {{ request('price') == '0-200000' ? 'active' : '' }} "
                                                             data-price="0-200000">Dưới 200.000</label>
                                                     </li>
-                                                    <li class="list-unstyled">
+                                                    <li class="list-unstyled submitFilter">
                                                         <label
                                                             class="box-item-choose-money fz-14 p-2 {{ request('price') == '200000-400000' ? 'active' : '' }} "
                                                             data-price="200000-400000">200 - 400.000</label>
                                                     </li>
-                                                    <li class="list-unstyled">
+                                                    <li class="list-unstyled submitFilter">
                                                         <label
                                                             class="box-item-choose-money fz-14 p-2 {{ request('price') == '400000-800000' ? 'active' : '' }} "
                                                             data-price="400000-800000">400 - 800.000</label>
                                                     </li>
-                                                    <li class="list-unstyled">
+                                                    <li class="list-unstyled submitFilter">
                                                         <label
                                                             class="box-item-choose-money fz-14 p-2 {{ request('price') == '800000-1200000' ? 'active' : '' }} "
                                                             data-price="800000-1200000">800 - 1.200K</label>
                                                     </li>
-                                                    <li class="list-unstyled">
+                                                    <li class="list-unstyled submitFilter">
                                                         <label
                                                             class="box-item-choose-money fz-14 p-2 {{ request('price') == '1200000-' ? 'active' : '' }} "
                                                             data-price="1200000-">Trên 1.200K</label>
                                                     </li>
                                                 </ul>
-                                                <input type="hidden" name="price" class="priceFilter" value="">
+                                                <input type="hidden" name="price" class="priceFilter"
+                                                    value="{{ request('price') }}">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit">lọc</button>
                             </form>
                         </div>
                     </div>
@@ -353,42 +367,46 @@
                                                     </div>
                                                 </div>
                                                 <div class="image-main-product position-relative">
-                                                    <img src="{{ $product->image }}" alt="product image" width="100%"
-                                                        height="250" class="img-fluid object-fit-cover rounded-top-2"
-                                                        style="height: 300px">
-                                                    <div
-                                                        class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                                        <div class="hstack gap-3">
-                                                            <div class="p-2 overflow-x-hidden">
-                                                                <span
-                                                                    class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                                    {{ $product->productCatalogues[0]->name }}
-                                                                </span>
-                                                            </div>
-                                                            <div class="p-2 ms-auto">
-                                                                <div class="product-image-color">
-                                                                    @foreach ($product->productVariant as $variant)
-                                                                        @foreach ($variant->attributes as $attribute)
-                                                                            @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
-                                                                                <img src="{{ $attribute->image }}"
-                                                                                    alt="{{ $attribute->name }}"
-                                                                                    width="14" height="14"
-                                                                                    class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
-                                                                                @php
-                                                                                    // Đánh dấu màu này đã được hiển thị
-                                                                                    $shownColors[] = $attribute->name;
-                                                                                @endphp
-                                                                            @endif
+                                                    <a href="{{ route('product.detail', ['slug' => $product->slug]) }}">
+                                                        <img src="{{ $product->image }}" alt="product image"
+                                                            width="100%" height="250"
+                                                            class="img-fluid object-fit-cover rounded-top-2"
+                                                            style="height: 300px">
+                                                        <div
+                                                            class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                            <div class="hstack gap-3">
+                                                                <div class="p-2 overflow-x-hidden">
+                                                                    <span
+                                                                        class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                        {{ $product->productCatalogues[0]->name }}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="p-2 ms-auto">
+                                                                    <div class="product-image-color">
+                                                                        @foreach ($product->productVariant as $variant)
+                                                                            @foreach ($variant->attributes as $attribute)
+                                                                                @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                                    <img src="{{ $attribute->image }}"
+                                                                                        alt="{{ $attribute->name }}"
+                                                                                        width="14" height="14"
+                                                                                        class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                                    @php
+                                                                                        // Đánh dấu màu này đã được hiển thị
+                                                                                        $shownColors[] =
+                                                                                            $attribute->name;
+                                                                                    @endphp
+                                                                                @endif
+                                                                            @endforeach
                                                                         @endforeach
-                                                                    @endforeach
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                                 <div class="card-body p-2">
                                                     <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                        <a href="#"
+                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
@@ -402,12 +420,13 @@
                                                         </span>
                                                     </div>
                                                     <div class="box-action">
-                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}"
-                                                            class="action-cart-item-buy">
-                                                            <span>Xem chi tiết</span>
+                                                        <a href="{{ route('cart.index') }}"
+                                                            class="action-cart-item-buy addToCart buyNow"
+                                                            data-id="{{ $product->id }}">
+                                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                            <span>Mua ngay</span>
                                                         </a>
-                                                        <a href="" role="button"
-                                                            class="action-cart-item-add addToCart"
+                                                        <a href="" class="action-cart-item-add addToCart"
                                                             data-id="{{ $product->id }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
@@ -424,6 +443,19 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                @else
+                                    <div class="order-null p-3">
+                                        <div class="img-null text-center">
+                                            <img src="/libaries/upload/images/order-null.png" alt=""
+                                                class="" width="300" height="200">
+                                        </div>
+                                        <div class="flex flex-col text-center align-items-center">
+                                            <h5 class="mb-2 fw-semibold">không có sản phẩm phù hợp với yêu cầu!
+                                            </h5>
+                                            <a href="{{ route('shop.index') }}"
+                                                class="btn btn-info text-white rounded-pill mt-3 pz-3">Quay lại</a>
+                                        </div>
+                                    </div>
                                 @endif
 
                             </div>
@@ -435,15 +467,72 @@
                     </div>
                 </div>
                 <div class="banner-shop my-3">
-                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-event.avif" alt=""
-                        width="100%" height="" class="img-fluid rounded-2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                        <div class="carousel-inner">
+                            @if ($bannerShop)
+                                @foreach ($bannerShop as $key => $valBannerHead)
+                                    @php
+                                        $image = json_decode($valBannerHead->album);
+                                        $totalImages = count($image);
+                                    @endphp
+                                    @if ($totalImages > 0)
+                                        @foreach ($image as $index => $valImgHead)
+                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
+                                                <img src="{{ $valImgHead }}"
+                                                    class="d-block w-100 object-fit-cover transition-opacity duration-500 ease-in-out"
+                                                    alt="Slide Image {{ $index + 1 }}" height="635" loading="lazy">
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="carousel-indicators">
+                            @if ($bannerShop)
+                                @foreach ($bannerShop as $valBannerHead)
+                                    @php
+                                        $image = json_decode($valBannerHead->album);
+                                    @endphp
+                                    @if (count($image) > 0)
+                                        @foreach ($image as $index => $valImgHead)
+                                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"
+                                                aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                                                aria-label="Slide {{ $index + 1 }}"
+                                                style="width: 12px; height: 12px; border-radius: 50%; margin: 0 6px;">
+                                            </button>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+        
+                        <!-- Navigation Buttons -->
+                        <button class="carousel-control-prev opacity-75 hover:opacity-100 transition-opacity duration-300"
+                            type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next opacity-75 hover:opacity-100 transition-opacity duration-300"
+                            type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="product-shop-new mt-4 mb-3 text-muted">
-                    <div class="title-product mb-4">
-                        <h4 class="fs-4 fw-500 mb-3 text-uppercase">
-                            hàng mới
-                            <hr class=" border-4 border-info mb-2" style="width: 100px;">
-                        </h4>
+                    <div class="title-product mb-4 col-3">
+                        <div class="price-banner">
+                            <div
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-fire text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    Sản phẩm mới
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="row flex-wrap">
                         @if (count($productShopNews) != 0 && !empty($productShopNews))
@@ -482,41 +571,43 @@
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
-                                            <img src="{{ $productNew->image }}" alt="product image" width="100%"
-                                                height="250" class="img-fluid object-fit-cover rounded-top-2"
-                                                style="height: 300px">
-                                            <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                                <div class="hstack gap-3">
-                                                    <div class="p-2 overflow-x-hidden">
-                                                        <span
-                                                            class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            {{ $productNew->productCatalogues[0]->name }}
-                                                        </span>
-                                                    </div>
-                                                    <div class="p-2 ms-auto">
-                                                        <div class="product-image-color">
-                                                            @foreach ($productNew->productVariant as $variant)
-                                                                @foreach ($variant->attributes as $attribute)
-                                                                    @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
-                                                                        <img src="{{ $attribute->image }}"
-                                                                            alt="{{ $attribute->name }}" width="14"
-                                                                            height="14"
-                                                                            class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
-                                                                        @php
-                                                                            // Đánh dấu màu này đã được hiển thị
-                                                                            $shownColors[] = $attribute->name;
-                                                                        @endphp
-                                                                    @endif
+                                            <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}">
+                                                <img src="{{ $productNew->image }}" alt="product image" width="100%"
+                                                    height="250" class="img-fluid object-fit-cover rounded-top-2"
+                                                    style="height: 300px">
+                                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                    <div class="hstack gap-3">
+                                                        <div class="p-2 overflow-x-hidden">
+                                                            <span
+                                                                class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                {{ $productNew->productCatalogues[0]->name }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="p-2 ms-auto">
+                                                            <div class="product-image-color">
+                                                                @foreach ($productNew->productVariant as $variant)
+                                                                    @foreach ($variant->attributes as $attribute)
+                                                                        @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                            <img src="{{ $attribute->image }}"
+                                                                                alt="{{ $attribute->name }}"
+                                                                                width="14" height="14"
+                                                                                class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                            @php
+                                                                                // Đánh dấu màu này đã được hiển thị
+                                                                                $shownColors[] = $attribute->name;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
                                                                 @endforeach
-                                                            @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $productNew->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
@@ -529,9 +620,11 @@
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}"
-                                                    class="action-cart-item-buy">
-                                                    <span>Xem chi tiết</span>
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $productNew->id }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productNew->id }}">
@@ -553,11 +646,18 @@
                     </div>
                 </div>
                 <div class="product-shop-hot my-3 text-muted">
-                    <div class="title-product mb-4">
-                        <h4 class="fs-4 fw-500 mb-3 text-uppercase">
-                            Giá tốt
-                            <hr class=" border-4 border-info mb-2" style="width: 90px;">
-                        </h4>
+                    <div class="title-product mb-4 col-2">
+                        <div class="price-banner">
+                            <div
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-tags text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    Giá tốt
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="row flex-wrap">
                         @if (count($productShopPriceMins) != 0 && !empty($productShopPriceMins))
@@ -588,7 +688,8 @@
                                                     data-bs-toggle="tooltip"
                                                     data-bs-title="{{ in_array($productPriceMin->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
                                                     data-id="{{ $productPriceMin->id }}">
-                                                    <i class="fa-{{ in_array($productPriceMin->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+                                                    <i
+                                                        class="fa-{{ in_array($productPriceMin->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
                                                     <span class="product_id_wishlist d-none">
                                                         {{ $productPriceMin->id }}
                                                     </span>
@@ -596,41 +697,44 @@
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
-                                            <img src="{{ $productPriceMin->image }}" alt="product image" width="100%"
-                                                height="250" class="img-fluid object-fit-cover rounded-top-2"
-                                                style="height: 300px">
-                                            <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                                <div class="hstack gap-3">
-                                                    <div class="p-2 overflow-x-hidden">
-                                                        <span
-                                                            class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            {{ $productPriceMin->productCatalogues[0]->name }}
-                                                        </span>
-                                                    </div>
-                                                    <div class="p-2 ms-auto">
-                                                        <div class="product-image-color">
-                                                            @foreach ($productPriceMin->productVariant as $variant)
-                                                                @foreach ($variant->attributes as $attribute)
-                                                                    @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
-                                                                        <img src="{{ $attribute->image }}"
-                                                                            alt="{{ $attribute->name }}" width="14"
-                                                                            height="14"
-                                                                            class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
-                                                                        @php
-                                                                            // Đánh dấu màu này đã được hiển thị
-                                                                            $shownColors[] = $attribute->name;
-                                                                        @endphp
-                                                                    @endif
+                                            <a href="{{ route('product.detail', ['slug' => $productPriceMin->slug]) }}">
+                                                <img src="{{ $productPriceMin->image }}" alt="product image"
+                                                    width="100%" height="250"
+                                                    class="img-fluid object-fit-cover rounded-top-2"
+                                                    style="height: 300px">
+                                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                    <div class="hstack gap-3">
+                                                        <div class="p-2 overflow-x-hidden">
+                                                            <span
+                                                                class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                {{ $productPriceMin->productCatalogues[0]->name }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="p-2 ms-auto">
+                                                            <div class="product-image-color">
+                                                                @foreach ($productPriceMin->productVariant as $variant)
+                                                                    @foreach ($variant->attributes as $attribute)
+                                                                        @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                            <img src="{{ $attribute->image }}"
+                                                                                alt="{{ $attribute->name }}"
+                                                                                width="14" height="14"
+                                                                                class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                            @php
+                                                                                // Đánh dấu màu này đã được hiển thị
+                                                                                $shownColors[] = $attribute->name;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
                                                                 @endforeach
-                                                            @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $productPriceMin->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $productPriceMin->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
@@ -643,9 +747,11 @@
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $productPriceMin->slug]) }}"
-                                                    class="action-cart-item-buy">
-                                                    <span>Xem chi tiết</span>
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $productPriceMin->id }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productPriceMin->id }}">
@@ -878,8 +984,8 @@
                                                 <li class="list-group-item item-category">
                                                     <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
-                                                        <img src="{{ $categoryP->image }}" alt="{{ $categoryP->name }}"
-                                                            width="50" height="50"
+                                                        <img src="{{ $categoryP->image }}"
+                                                            alt="{{ $categoryP->name }}" width="50" height="50"
                                                             class="me-3 object-fit-contain bg-light rounded-3 ">
                                                         <span class="text-muted fw-500">{{ $categoryP->name }}</span>
                                                     </a>
@@ -945,10 +1051,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                <a href="zalo">
-                                                                                                                    <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                                                </a>
-                                                                                                            </div> -->
+                                                                                                                                <a href="zalo">
+                                                                                                                                    <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                                                                </a>
+                                                                                                                            </div> -->
 
         </div>
     </section>

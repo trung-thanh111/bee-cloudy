@@ -77,6 +77,7 @@ class OrderController extends FontendController
                     return redirect()->away($response['url']);
                 }
                 $this->orderService->updateQuantitySoldProduct($order);
+                $this->cartService->clear($request);
                 flash()->success('Đặt hàng thành công');
                 return redirect()->route('order.success');
             }
@@ -85,6 +86,8 @@ class OrderController extends FontendController
         } else {
             $this->orderService->updateQuantitySoldProduct($order);
             $this->orderService->sendMail($order);
+            // xóa cart sao khi thanh toán hành tất 
+            $this->cartService->clear($request);
             //update số lượng và đã bán
             flash()->success('Đặt hàng thành công');
             return redirect()->route('order.success');

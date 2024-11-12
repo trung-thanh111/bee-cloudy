@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Fontend;
 use Exception;
 use App\Classes\Momo;
 use Illuminate\Http\Request;
+use App\Services\CartService;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\OrderRepository;
@@ -14,15 +15,19 @@ class MomoController extends FontendController
 {
 
     protected $momo;
+    protected $cartService;
     protected $orderService;
     protected $orderRepository;
 
+
     public function __construct(
         Momo $momo,
+        CartService $cartService,
         OrderService $orderService,
         OrderRepository $orderRepository,
     ) {
         $this->momo = $momo;
+        $this->cartService = $cartService;
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
     }
@@ -72,11 +77,14 @@ class MomoController extends FontendController
             // TẠM THỜI 
             if ($resultCode == '0') { // Thanh toán thành công
                 $payload = [
-                    'payment' => 'paid',
-                    'status' => 'confirmed'
+                    'payment' =>'paid',
+                    'status' => 'confirmed',
+                    'paid_at' => now()->format('Y-m-d H:i:s'),
                 ];
                 $this->orderService->updateStatusPayment($payload, $order);
+                $this->orderService->updatePaidAt($order->id, $payload);
                 $this->orderService->sendMail($order);
+                $this->cartService->clear($request);
                 flash()->success('Giao dịch thành công.');
                 return view('fontend.order.success', compact('order'));
             } else { // Thanh toán thất bại
@@ -91,7 +99,7 @@ class MomoController extends FontendController
 
         }
     }
-    public function momoIpn()
+    public function momoIpn(Request $request)
     {
         http_response_code(200); 
         if (!empty($_POST)) {
@@ -133,11 +141,14 @@ class MomoController extends FontendController
                 if ($m2signature == $partnerSignature) {
                     if ($resultCode == '0') { // Thanh toán thành công
                         $payload = [
-                            'payment' => 'paid',
-                            'status' => 'confirmed'
+                            'payment' =>'paid',
+                            'status' => 'confirmed',
+                            'paid_at' => now(),
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
+                        $this->orderService->updatePaidAt($order->id, $payload['paid_at']);
                         $this->orderService->sendMail($order);
+                        $this->cartService->clear($request);
                         flash()->success('Giao dịch thành công.');
                         return view('fontend.order.success', compact('order'));
                     } else { // Thanh toán thất bại
@@ -146,10 +157,11 @@ class MomoController extends FontendController
                             'status' => 'pending' // Hoặc trạng thái khác
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
+                        $this->cartService->clear($request);
                         flash()->error('Giao dịch thất bại!.');
                         return view('fontend.order.failed', compact('order'));
                     }
-                } else {
+                } else { 
                     flash()->warning('Giao dịch này có thể bị hack, vui lòng kiểm tra chữ ký của bạn và chữ ký đã trả lại.');
                 }
             } catch (Exception $e) {

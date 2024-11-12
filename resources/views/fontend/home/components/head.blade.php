@@ -3,6 +3,18 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@yield('page_title')</title>
+<!-- Thẻ meta Open Graph -->
+@if(isset($product))
+    <meta property="og:title" content="{{$product ? $product->name : 'Tên sản phẩm mặc định'}}" />
+    <meta property="og:info" content="{{$product ? $product->info : 'Mô tả mặc định'}}" />
+    <meta property="og:image" content="{{$product ? asset($product->image) : asset('default-image.jpg')}}" />
+    <meta property="og:url" content="{{url()->current()}}" />
+    <meta property="og:type" content="product" />
+    <meta property="og:price:amount" content="{{$product->del != 0 ? $product->del : $product->price}}" />
+    <meta property="og:price:currency" content="VND" />
+    <meta property="og:site_name" content="BeeCloudy" />
+@endif
+
 <!-- css  -->
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/custom_reponsive.css">
@@ -36,5 +48,7 @@
     integrity="sha512-iytOXrJii6S43MWPla8yHP4Jt1CTor4HyilK2OOpKthWYBMZdce/L4izaniMAzZD7JVJrNr9tWc9w/spDJJ8Yw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+<script>
+    var BASE_URL = '{{ config('app.url') }}'
+</script>
 @vite(['resources/css/app.css'])

@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Fontend\FPromotionController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
@@ -39,9 +40,28 @@ Route::get('/producreview', [ProductReviewController::class, 'index']);
 Route::get('/information', [ProductReviewController::class, 'view_order']);
 Route::get('/producreview-data/{slug}', [ProductReviewController::class, 'data']);
 Route::post('/producreview/create/{slug}', [ProductReviewController::class, 'create']);
+Route::post('/producreview/like', [ProductReviewController::class, 'like']);
+Route::get('/producreview/like-data/{slug}', [ProductReviewController::class, 'likedata']);
+Route::get('/product/check/{slug}', [ProductReviewController::class, 'checkIfRated']);
 Route::post('/producreview-delete', [ProductReviewController::class, 'delete']);
 Route::post('/producreview-update', [ProductReviewController::class, 'update']);
 
+//view đánh giá admin
+Route::get('/admin/producreview-view', [ProductReviewController::class, 'view'])->name('productreview');
+Route::get('/admin/producreview-data', [ProductReviewController::class, 'getdata']);
+Route::post('/producreview-update-admin', [ProductReviewController::class, 'updateadmin']);
+Route::post('/producreview-delete-admin', [ProductReviewController::class, 'deleteadmin']);
+// view post data
+Route::get('/post-home/data', [PostController::class, 'datahome']);
+Route::get('/post-home/data-2', [PostController::class, 'dataPOST']);
+
+
+
+//view comment bài viết admin
+Route::get('/admin/comment-view', [ContentController::class, 'view'])->name('comment');
+Route::get('/admin/comment-data', [ContentController::class, 'getdata']);
+Route::post('/comment-update-admin', [ContentController::class, 'updateadmin']);
+Route::post('/comment-delete-admin', [ContentController::class, 'deleteadmin']);
 
 // BÌNH LUẬN BÀI VIẾT
 Route::get('/view-content', [ContentController::class, 'view_content']);
@@ -49,8 +69,11 @@ Route::get('/view-content-data', [ContentController::class, 'data']);
 Route::post('/view-content-create', [ContentController::class, 'create']);
 Route::post('/view-content-delete', [ContentController::class, 'delete']);
 Route::post('/view-content-update', [ContentController::class, 'update']);
+Route::post('/content/like', [ContentController::class, 'like']);
+Route::get('/content/like-data', [ContentController::class, 'likedata']);
+Route::get('/content/check', [ContentController::class, 'checkIfRated']);
 
-
+Route::get('/comments', [ContentController::class, 'loadCommentsPage']);
 
 // AJAX
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
@@ -69,6 +92,7 @@ Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])-
 // ORDER UPDATE AJAX
 Route::post('/ajax/order/editNote', [AjaxOrderController::class, 'edit'])->name('ajax.order.edit');
 Route::post('/ajax/order/updateStatus', [AjaxOrderController::class, 'updateStatus'])->name('ajax.order.updateStatus');
+Route::post('/ajax/order/updatePaidAt', [AjaxOrderController::class, 'updatePaidAt'])->name('ajax.order.updatePaidAt');
 
 //SEARCH SUGGESTION AJAX
 Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');
@@ -92,6 +116,13 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
 Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
 
+//Page FONTEND
+Route::get('faq', [HomeController::class, 'faq'])->name('home.faq');
+Route::get('contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('terms_and_conditions', [HomeController::class, 'terms_and_conditions'])->name('home.terms_and_conditions');
+Route::get('return_and_warranty_policy', [HomeController::class, 'return_and_warranty_policy'])->name('home.return_and_warranty_policy');
+Route::get('about_us', [HomeController::class, 'about_us'])->name('home.about_us');
+Route::get('security_center', [HomeController::class, 'security_center'])->name('home.security_center');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -107,9 +138,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
         Route::post('/apply-discount', [AjaxCartController::class, 'applyPromotion'])->name('cart.applyDiscount');
         Route::post('/remove-voucher/{voucherId}', [AjaxCartController::class, 'removeVoucher'])->name('cart.removeVoucher');
-
     });
-
 //promotion
 Route::middleware(['auth'])->group(function () {
     Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
@@ -223,7 +252,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
     });
 
-    
+
 
     //product
     Route::group(['prefix' => 'product'], function () {
@@ -237,8 +266,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
     //promotion_dashboar
+    
     Route::group(['prefix' => 'dashboard/promotion'], function () {
-
         Route::get('index', [PromotionController::class, 'index'])->name('promotions.index');
         Route::get('create', [PromotionController::class, 'create'])->name('promotions.create');
         Route::get('edit/{id}', [PromotionController::class, 'edit'])->where(['id' => '[0-9]+'])->name('promotions.edit');
@@ -282,6 +311,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
         Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
+    });
+
+    //Banner 
+    Route::group(['prefix' => 'banner'], function () {
+        Route::get('index', [BannerController::class, 'index'])->name('banner.index');
+        Route::get('create', [BannerController::class, 'create'])->name('banner.create');
+        Route::post('store', [BannerController::class, 'store'])->name('banner.store');
+        Route::get('update/{id}', [BannerController::class, 'update'])->name('banner.update');
+        Route::post('edit/{id}', [BannerController::class, 'edit'])->name('banner.edit');
+        Route::get('delete/{id}', [BannerController::class, 'delete'])->where(['id' => '[0-9]+'])->name('banner.delete');
+        Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('banner.destroy');
+        Route::get('permission', [BannerController::class, 'permission'])->name('banner.permission');
+        Route::post('updatePermission', [BannerController::class, 'updatePermission'])->name('banner.updatePermission');
     });
 });
 });

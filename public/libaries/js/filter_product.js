@@ -20,8 +20,36 @@
         });
     };
 
+    FS.autoSubmitFilter = () => {
+        $(document).on('click', '.submitFilter .img-choose-color', function() {
+            const colorValue = $(this).data('color') || '';
+            $('.colorFilter').val(colorValue);
+            
+            setTimeout(() => {
+                $(this).closest('form').submit();
+            }, 2000);
+        });
+    
+        $(document).on('click', '.submitFilter .box-item-choose-money', function() {
+            const priceValue = $(this).data('price') || '';
+            $('.priceFilter').val(priceValue);
+            
+            setTimeout(() => {
+                $(this).closest('form').submit();
+            }, 2000);
+        });
+    
+        // Vẫn giữ lại xử lý cho radio buttons (size) nếu có
+        $('.submitFilter').on('change', function() {
+            setTimeout(() => {
+                $(this).closest('form').submit();
+            }, 2000);
+        });
+    }
+
     $(document).ready(function () {
         FS.valPriceFilter();
         FS.valColorFilter();
+        FS.autoSubmitFilter();
     });
 })(jQuery);
