@@ -8,29 +8,31 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\PendingUser;
+use App\Models\User;
 
 class ConfirmEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user;
+
     /**
      * Create a new message instance.
      */
-    public $pendingUser;
-    public function __construct(PendingUser $pendingUser)
+    public function __construct(User $user)
     {
-        $this->pendingUser = $pendingUser;
+        $this->user = $user;
     }
 
     public function build()
     {
-        return $this->view('auth.mail')
+        return $this->view('auth.mail.mail')
             ->with([
-                'token' => $this->pendingUser->token,
-                'email' => $this->pendingUser->email,
+                'token' => $this->user->email_verification_token,
+                'user' => $this->user,
             ]);
     }
+
     /**
      * Get the message envelope.
      */
@@ -40,16 +42,6 @@ class ConfirmEmail extends Mailable
             subject: 'Xác thực Email',
         );
     }
-
-    /**
-     * Get the message content definition.
-     */
-    // public function content(): Content
-    // {
-    //     return new Content(
-    //         view: 'view.name',
-    //     );
-    // }
 
     /**
      * Get the attachments for the message.
