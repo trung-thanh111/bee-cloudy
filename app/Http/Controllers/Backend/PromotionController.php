@@ -36,6 +36,7 @@ class PromotionController extends Controller
         ]);
     }
 
+
     public function store(Request $request)
 {
     try {
@@ -51,7 +52,7 @@ class PromotionController extends Controller
             'usage_limit' => 'nullable|integer|min:1',
             'apply_for' => 'required|in:specific_products,freeship,all',
             'status' => 'required|in:active,inactive',
-            'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
+            'product_id' => 'nullable|exists:products,id|required_if:apply_for,specific_products',
         ]);
         // dd($request->input('image')); 
 
@@ -127,26 +128,26 @@ class PromotionController extends Controller
         ]);
     }
 
-    public function showAllPromotions()
-    {
-        $promotions = $this->promotionService->getAllPromotionsWithDates();
-        return view('fontend.promotion.index', compact('promotions'));
-    }
+    // public function showAllPromotions()
+    // {
+    //     $promotions = $this->promotionService->getAllPromotionsWithDates();
+    //     return view('fontend.promotion.index', compact('promotions'));
+    // }
 
-    public function receivePromotion($id)
-    {
-        try {
-            $message = $this->promotionService->receivePromotion($id);
-            return redirect()->back()->with($message['type'], $message['text']);
-        } catch (Exception $e) {
-            Log::error('Receive promotion error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
-        }
-    }
+    // public function receivePromotion($id)
+    // {
+    //     try {
+    //         $message = $this->promotionService->receivePromotion($id);
+    //         return redirect()->back()->with($message['type'], $message['text']);
+    //     } catch (Exception $e) {
+    //         Log::error('Receive promotion error: ' . $e->getMessage());
+    //         return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
+    //     }
+    // }
 
-    public function myPromotions()
-    {
-        $promotions = $this->promotionService->getUserPromotions();
-        return view('fontend.promotion.my_vouchers', compact('promotions'));
-    }
+    // public function myPromotions()
+    // {
+    //     $promotions = $this->promotionService->getUserPromotions();
+    //     return view('fontend.promotion.my_vouchers', compact('promotions'));
+    // }
 }

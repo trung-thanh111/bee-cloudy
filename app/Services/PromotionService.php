@@ -52,7 +52,7 @@ class PromotionService
         'usage_limit' => 'nullable|integer|min:1',
         'apply_for' => 'required|in:specific_products,freeship,all',
         'status' => 'required|in:active,inactive',
-        'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
+        'product_id' => 'nullable|exists:products,id|required_if:apply_for,specific_products',
     ]);
 
     if ($validator->fails()) {
@@ -107,7 +107,7 @@ class PromotionService
             'usage_limit' => 'nullable|integer|min:0',
             'apply_for' => 'required|in:specific_products,freeship,all',
             'status' => 'required|in:active,inactive',
-            'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
+            'product_id' => 'nullable|required_if:apply_for,specific_products|exists:products,id|not_in:null',
 
         ]);
 
