@@ -19,7 +19,8 @@
                 <div class="whistlist">
                     <div class="title-product mb-4 col-3">
                         <div class="price-banner">
-                            <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                            <div
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
                                 <div class="price-icon">
                                     <i class="fa-solid fa-fire text-white"></i>
                                 </div>
@@ -41,10 +42,10 @@
                             <div class="content-product-cate row flex-wrap">
                                 @if ($wishlists->isNotEmpty())
                                     @foreach ($wishlists as $key => $wishlist)
+
                                         @php
                                             $product = $wishlist->products;
                                             $productVariant = $wishlist->productVariants;
-                                            // dd($wishlist[2]);
                                         @endphp
 
                                         @if ($product != null || $productVariant != null)
@@ -89,6 +90,8 @@
                                                     </div>
 
                                                     <div class="image-main-product position-relative">
+                                                        <a
+                                                            href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}">
                                                         <img src="{{ $item->image ?? explode(',', $item->album)[0] }}"
                                                             alt="product image" width="100%" height="250"
                                                             class="img-fluid object-fit-cover rounded-top-2"
@@ -138,11 +141,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        </a>
                                                     </div>
                                                     <div class="card-body p-2">
                                                         <h6 class="fw-medium overflow-hidden mb-0" style="height: 39px">
-                                                            <a href="#"
+                                                            <a href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}"
                                                                 class="text-break w-100 text-muted">{{ $item->name }}</a>
+                                                                <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">
+                                                                    {{ $productVariant ? $productVariant->id : '' }}
+                                                                </h4>
                                                         </h6>
                                                         <div class="d-flex justify-content-start mb-2 ">
                                                             <span
@@ -155,17 +162,39 @@
                                                                 </span>
                                                             @endif
                                                         </div>
+                                                        @if($product)
                                                         <div class="box-action">
-                                                            <a href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}"
-                                                                class="action-cart-item-buy">
-                                                                <span>Xem chi tiết</span>
+                                                            <a href="{{ route('cart.index') }}"
+                                                                class="action-cart-item-buy addToCart buyNow"
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
+                                                                <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                                <span>Mua ngay</span>
                                                             </a>
                                                             <a href="" class="action-cart-item-add addToCart"
-                                                                data-id="{{ $item->id }}">
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
                                                                 <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                                 <span>thêm giỏ hàng</span>
                                                             </a>
                                                         </div>
+                                                        @else
+                                                        <div class="box-action">
+                                                            <a href=""
+                                                                class="action-cart-item-buy toggleWishlist"
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
+                                                                <i class="fa-solid fa-heart-crack fz-18 me-2"></i>
+                                                                <span>Bỏ yêu thích</span>
+                                                                <span
+                                                                    class="product_id_wishlist d-none">{{ $item->id }}</span>
+                                                                <span
+                                                                    class="product_variant_id_wishlist d-none">{{ $productVariant ? $productVariant->id : '' }}</span>
+                                                            </a>
+                                                            <a href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}" class="action-cart-item-add addToCart"
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
+                                                                <i class="fa-solid fa-eye fz-18 me-2"></i>
+                                                                <span>Xem chi tiết</span>
+                                                            </a>
+                                                        </div>
+                                                        @endif
                                                         <div class="head-card d-flex p-1">
                                                             <span class="fz-14 ">Mã sản phẩm</span>
                                                             <span
@@ -177,19 +206,19 @@
                                         @endif
                                     @endforeach
                                 @else
-                                <div class="order-null p-3">
-                                    <div class="img-null text-center">
-                                        <img src="/libaries/upload/images/order-null.png" alt=""
-                                            class="" width="300" height="200">
+                                    <div class="order-null p-3">
+                                        <div class="img-null text-center">
+                                            <img src="/libaries/upload/images/order-null.png" alt="" class=""
+                                                width="300" height="200">
+                                        </div>
+                                        <div class="flex flex-col text-center align-items-center">
+                                            <h5 class="mb-2 fw-semibold">Bạn chưa có yêu thích nào!
+                                            </h5>
+                                            <p>Hãy khác phá để có những sản phẩm ưng ý với bạn!</p>
+                                            <a href="{{ route('shop.index') }}"
+                                                class="btn btn-info text-white rounded-pill mt-3 pz-3">Khám phá ngay</a>
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col text-center align-items-center">
-                                        <h5 class="mb-2 fw-semibold">Bạn chưa có yêu thích nào!
-                                        </h5>
-                                        <p>Hãy khác phá để có những sản phẩm ưng ý với bạn!</p>
-                                        <a href="{{ route('shop.index') }}"
-                                            class="btn btn-info text-white rounded-pill mt-3 pz-3">Khám phá ngay</a>
-                                    </div>
-                                </div>
                                 @endif
                             </div>
                         </div>
@@ -209,9 +238,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                                <a href="zalo">
-                                                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                </a>
-                                                                            </div> -->
+                                                                                    <a href="zalo">
+                                                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                    </a>
+                                                                                </div> -->
     </div>
 @endsection

@@ -52,10 +52,15 @@ class ProductReviewController extends Controller
                 ->get();
 
             $commentCount = ProductReview::where('slug_products', $slug)->count();
+            $totalStars = ProductReview::where('slug_products', $slug)->sum('publish');
+            $averageStars = $commentCount > 0 ? ceil($totalStars / $commentCount) : 0;
+
             if ($data) {
                 return response()->json([
                     'data' => $data,
                     'comment_count' => $commentCount,
+                    'total_stars' => $totalStars,
+                    'average_stars' => $averageStars,
                 ]);
             }
         }
@@ -73,9 +78,6 @@ class ProductReviewController extends Controller
             'like_count' => $product,
         ]);
     }
-
-
-
 
     public function like(Request $request)
     {
@@ -200,13 +202,6 @@ class ProductReviewController extends Controller
                 ]);
             }
 
-
-
-
-            // return response()->json([
-            //     'status'    => true,
-            //     'message'   => 'Đã thêm đánh giá mới.',
-            // ]);
         } catch (\Exception $e) {
             return response()->json([
                 'code' => false,
@@ -227,14 +222,14 @@ class ProductReviewController extends Controller
         }
         try {
             $data = ProductReview::where('id', $request->id)->first();
-            if ($data) {
+            if ($data) { 
                 $data->publish = $request->publish;
                 $data->content = $request->input('content');
                 $data->edit_count += 1;
                 $data->save();
                 return response()->json([
                     'status'    => true,
-                    'message'   => 'Đã chỉnh sửa bài đánh giá .',
+                    'message'   => 'Đã chỉnh sửa bài đánh giá .',  
                 ]);
             }
         } catch (\Exception $e) {

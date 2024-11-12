@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\WishlistServiceInterface' => 'App\Services\WishlistService',
         'App\Services\Interfaces\OrderServiceInterface' => 'App\Services\OrderService',
         'App\Services\Interfaces\UserCatalogueServiceInterface' => 'App\Services\UserCatalogueService',
+        'App\Services\Interfaces\BannerServiceInterface' => 'App\Services\BannerService',
     ];
 
     public function register(): void
@@ -91,18 +92,18 @@ class AppServiceProvider extends ServiceProvider
             // -- // 
             $postCatalogueHeaders = $postCatalogueRepository->allWhere([['publish', '=', 1]]);
             // -- //
-        
+
             $wishlists = $wishlistRepository->allWhere([
                 ['user_id', '=', Auth::id()],
                 ['deleted_at', '=', null]
             ]);
-    
+
             $wishlist = [
                 'product_ids' => $wishlists->pluck('product_id')->toArray(),
                 'variant_ids' => $wishlists->pluck('product_variant_id')->toArray()
             ];
             $productInWishlist = array_merge($wishlist['product_ids'], $wishlist['variant_ids']);
-            
+
 
             $view->with([
                 'productInCart' => $productInCart,

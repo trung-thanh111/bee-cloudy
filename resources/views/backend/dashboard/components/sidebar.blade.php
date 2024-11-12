@@ -1,6 +1,6 @@
 <div class="app-menu navbar-menu bg-main-aside ">
     <div class="navbar-brand-box">
-        <a href="#" class="logo logo-dark">
+        <a href="{{ route('dashboard.index') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="/libaries/upload/images/logo/bee-cloudy-logo.png" alt="" width="180px" height="auto">
             </span>
@@ -20,12 +20,12 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span class="text-light">Thống kê</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{ route('dashboard.index') }}">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
                 <li class="menu-title"><i class="ri-more-fill"></i> <span class="text-light">Quản lý</span></li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPages">
@@ -47,12 +47,12 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#sidebarProduct" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProduct" > Sản phẩm
+                                    role="button" aria-controls="sidebarProduct"> Sản phẩm
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarProduct">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{ route('product.index') }}" class="nav-link" >
+                                            <a href="{{ route('product.index') }}" class="nav-link">
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
@@ -71,15 +71,15 @@
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarOrders">
                         <ul class="nav nav-sm flex-column">
-                            
+
                             <li class="nav-item">
                                 <a href="#sidebarorder" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarorder" > Quản lý
+                                    role="button" aria-controls="sidebarorder"> Quản lý
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarorder">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{ route('order.index') }}" class="nav-link" >
+                                            <a href="{{ route('order.index') }}" class="nav-link">
                                                 Danh sách</a>
                                         </li>
                                     </ul>
@@ -88,6 +88,7 @@
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarMembers" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarMembers">
@@ -117,6 +118,30 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarBanner" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarBanner">
+                        <i class="fa-solid fa-image"></i> <span data-key="t-Banner">Banner</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarBanner">
+                        <ul class="nav nav-sm flex-column">
+
+                            <li class="nav-item">
+                                <a href="#sidebarbanner" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarbanner"> Quản lý
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarbanner">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('banner.index') }}" class="nav-link">
+                                                Danh sách</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPagesvoucher">
                         <i class="fa-solid fa-ticket"></i> <span data-key="t-pages">Voucher</span>
@@ -125,12 +150,12 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProfile" >Voucher
+                                    role="button" aria-controls="sidebarProfile">Voucher
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarProfile">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{ route('promotions.index') }}" class="nav-link" >
+                                            <a href="{{ route('promotions.index') }}" class="nav-link">
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
@@ -154,12 +179,12 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#sidebarPost" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarPost" > Bài viết
+                                    role="button" aria-controls="sidebarPost"> Bài viết
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarPost">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{ route('post.index') }}" class="nav-link" >
+                                            <a href="{{ route('post.index') }}" class="nav-link">
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
@@ -171,31 +196,8 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarLanding">
-                        <i class="ri-rocket-line"></i> 
-                        <span data-key="t-landing">Landing</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarLanding">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="landing.html" class="nav-link" data-key="t-one-page"> One Page </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="nft-landing.html" class="nav-link" data-key="t-nft-landing"> NFT
-                                    Landing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="job-landing.html" class="nav-link" data-key="t-job">Job</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
                 <li class="menu-title"><i class="ri-more-fill"></i> <span class="text-light">Cấu Hình</span>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarUI">

@@ -24,7 +24,7 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->with($relation)->get();
     }
-    
+
     public function allWhere(array $condition = [])
     {
         $query = $this->model;
@@ -124,15 +124,17 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     // xóa nhiều phtu
-    public function bulkDelete(array $arrayId = []){
+    public function bulkDelete(array $arrayId = [])
+    {
         // xóa theo các id có trong mảng arrayid 
         return $this->model->whereIn('id', $arrayId)->forceDelete();
     }
 
-    public function findByCondition($condition = [], $excludeId = null) {
+    public function findByCondition($condition = [], $excludeId = null)
+    {
         $query = $this->model;
-        foreach($condition as $key => $val) {
-            if(count($condition) == 3) {
+        foreach ($condition as $key => $val) {
+            if (count($condition) == 3) {
                 $query->where($val[0], $val[1], $val[2]);
             } else {
                 $query->where($val[0], '=', $val[1]);
@@ -144,13 +146,12 @@ class BaseRepository implements BaseRepositoryInterface
         }
         return $query->get();
     }
-    
+
 
     // hàm sử dụng để insert 1 lần nhiều bản ghi 
-    public function createBatch($payload = []){
+    public function createBatch($payload = [])
+    {
         // dùng insert để insert mảng nhiều bảng ghi 
         return $this->model->insert($payload);
     }
-
-    
 }

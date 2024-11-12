@@ -483,6 +483,7 @@
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
+                                            <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}">
                                             <img src="{{ $productNew->image }}" alt="product image" width="100%"
                                                 height="250" class="img-fluid object-fit-cover rounded-top-2"
                                                 style="height: 300px">
@@ -514,6 +515,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </a>
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 39px">
@@ -530,9 +532,11 @@
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}"
-                                                    class="action-cart-item-buy">
-                                                    <span>Xem chi tiết</span>
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $productNew->id }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productNew->id }}">

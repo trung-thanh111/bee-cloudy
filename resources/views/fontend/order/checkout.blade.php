@@ -257,7 +257,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12 col-sm-12">
+                                            {{-- <div class="col-lg-12 col-sm-12">
                                                 <div data-bs-toggle="collapse" data-bs-target="#paymentmethodCollapse"
                                                     aria-expanded="false" aria-controls="paymentmethodCollapse"
                                                     class="collapsed">
@@ -281,8 +281,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
-
+                                            </div> --}}
                                         </div>
                                         {{-- <div class="collapse" id="paymentmethodCollapse">
                                             <div class="card p-4 border shadow-none mb-0 mt-4">

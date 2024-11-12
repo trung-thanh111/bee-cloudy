@@ -326,6 +326,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="image-main-product position-relative">
+                                                    <a href="{{ route('product.detail', ['slug' => $product->slug]) }}">
                                                     <img src="{{ $product->image }}" alt="product image" width="100%"
                                                         height="250" class="img-fluid object-fit-cover rounded-top-2"
                                                         style="height: 300px">
@@ -358,10 +359,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    </a>
                                                 </div>
                                                 <div class="card-body p-2">
                                                     <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                        <a href="#"
+                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
@@ -375,9 +377,11 @@
                                                         </span>
                                                     </div>
                                                     <div class="box-action">
-                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}"
-                                                            class="action-cart-item-buy">
-                                                            <span>Xem chi tiết</span>
+                                                        <a href="{{ route('cart.index') }}"
+                                                            class="action-cart-item-buy addToCart buyNow"
+                                                            data-id="{{ $product->id }}">
+                                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                            <span>Mua ngay</span>
                                                         </a>
                                                         <a href="" class="action-cart-item-add addToCart"
                                                             data-id="{{ $product->id }}">
@@ -419,8 +423,58 @@
                     </div>
                 </div>
                 <div class="banner-shop my-3">
-                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-event.avif" alt=""
-                        width="100%" height="" class="img-fluid rounded-2">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                        <div class="carousel-inner">
+                            @if ($bannerShop)
+                                @foreach ($bannerShop as $key => $valBannerHead)
+                                    @php
+                                        $image = json_decode($valBannerHead->album);
+                                        $totalImages = count($image);
+                                    @endphp
+                                    @if ($totalImages > 0)
+                                        @foreach ($image as $index => $valImgHead)
+                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
+                                                <img src="{{ $valImgHead }}"
+                                                    class="d-block w-100 object-fit-cover transition-opacity duration-500 ease-in-out"
+                                                    alt="Slide Image {{ $index + 1 }}" height="635" loading="lazy">
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="carousel-indicators">
+                            @if ($bannerShop)
+                                @foreach ($bannerShop as $valBannerHead)
+                                    @php
+                                        $image = json_decode($valBannerHead->album);
+                                    @endphp
+                                    @if (count($image) > 0)
+                                        @foreach ($image as $index => $valImgHead)
+                                            <button type="button" data-bs-target="#carouselExampleIndicators"
+                                                data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"
+                                                aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                                                aria-label="Slide {{ $index + 1 }}"
+                                                style="width: 12px; height: 12px; border-radius: 50%; margin: 0 6px;">
+                                            </button>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+        
+                        <!-- Navigation Buttons -->
+                        <button class="carousel-control-prev opacity-75 hover:opacity-100 transition-opacity duration-300"
+                            type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next opacity-75 hover:opacity-100 transition-opacity duration-300"
+                            type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="product-shop-new mt-4 mb-3 text-muted">
                     <div class="title-product mb-4 col-3">
@@ -472,6 +526,7 @@
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
+                                            <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}">
                                             <img src="{{ $productNew->image }}" alt="product image" width="100%"
                                                 height="250" class="img-fluid object-fit-cover rounded-top-2"
                                                 style="height: 300px">
@@ -503,10 +558,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </a>
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $productNew->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
@@ -519,9 +575,11 @@
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $productNew->slug]) }}"
-                                                    class="action-cart-item-buy">
-                                                    <span>Xem chi tiết</span>
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $productNew->id }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productNew->id }}">
@@ -594,6 +652,7 @@
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
+                                            <a href="{{ route('product.detail', ['slug' => $productPriceMin->slug]) }}">
                                             <img src="{{ $productPriceMin->image }}" alt="product image" width="100%"
                                                 height="250" class="img-fluid object-fit-cover rounded-top-2"
                                                 style="height: 300px">
@@ -625,10 +684,11 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </a>
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $productPriceMin->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $productPriceMin->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
@@ -641,9 +701,11 @@
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $productPriceMin->slug]) }}"
-                                                    class="action-cart-item-buy">
-                                                    <span>Xem chi tiết</span>
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $productPriceMin->id }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productPriceMin->id }}">
@@ -825,7 +887,7 @@
                                         @if (!is_null($productCatalogues) && !empty($productCatalogues))
                                             @foreach ($productCatalogues as $cataloguePro)
                                                 <li class="list-group-item item-category">
-                                                    <a href="{{ route('post.category', ['id' => $cataloguePro->id]) }}"
+                                                    <a href="{{ route('product.category', ['id' => $cataloguePro->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $cataloguePro->image }}"
                                                             alt="{{ $cataloguePro->name }}" width="50"
