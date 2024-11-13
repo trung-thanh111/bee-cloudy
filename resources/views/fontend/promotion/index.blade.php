@@ -66,8 +66,7 @@
                                                                         disabled>Đã nhận</button>
                                                                 @else
                                                                     <button type="submit"
-                                                                        class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
-                                                                        dụng</button>
+                                                                        class="btn rounded-2 btn-info fz-12 fw-medium text-white">Nhận</button>
                                                                 @endif
                                                             </form>
                                                         </div>

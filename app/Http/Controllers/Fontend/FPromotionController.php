@@ -31,19 +31,20 @@ class FPromotionController extends Controller
     }
 
     public function receivePromotion(Promotion $promotion, Request $request)
-    {
-        try {
-            $message = $this->promotionService->receivePromotion($promotion);
-            if ($message === 'Voucher nhận thành công') {
-                return redirect()->back()->with('success', $message);
-            } else {
-                return redirect()->back()->with('error', $message);
-            }
-        } catch (Exception $e) {
-            Log::error('Receive promotion error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
+{
+    try {
+        $result = $this->promotionService->receivePromotion($promotion);
+
+        if ($result['type'] === 'success') {
+            return redirect()->back()->with('success', $result['text']);
+        } else {
+            return redirect()->back()->with('error', $result['text']);
         }
+    } catch (Exception $e) {
+        return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
     }
+}
+
 
     
     public function myPromotions()
