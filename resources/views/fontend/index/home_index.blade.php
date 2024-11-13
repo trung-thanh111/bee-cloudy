@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="" id="app">
-        <div class="container-fluid p-0 bg-white">
+        <div class="container-fluid p-0 bg-white z-1">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                 <div class="carousel-inner">
                     @if ($bannerHome1)
