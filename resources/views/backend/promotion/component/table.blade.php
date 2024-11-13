@@ -8,11 +8,11 @@
                     </div>
                 </th>
                 <th>Mã </th>
-                <th>Tên Voucher</th>
+                <th>Voucher</th>
                 <th>Áp dụng</th>
-                <th class="text-end">chiết khấu</th>
                 <th class="text-end">Số lượng</th>
-                <th class="text-end">Số tiền tối thiểu</th>
+                <th class="text-end">Tối thiểu</th>
+                <th class="text-end">Chiết khấu</th>
                 <th>Trạng thái</th>
                 <th class="sort text-end">Thao tác</th>
             </tr>
@@ -34,11 +34,14 @@
                         <input type="checkbox" class="select-item" value="{{ $item->id }}">
                     </td>
                     <td class="fw-bold text-primary">{{ $item->code }}</td>
-                    <td class="fw-medium text-truncate" style="max-width: 520px">{{ $item->name }}</td>
+                    <td class="fw-medium text-truncate" style="max-width: 520px">
+                        <img src="{{ $item->image != null ?  $item->image : '/libaries/upload/images/img-notfound.png' }}" alt="" class="object-fit-cover me-2 rounded-2" width="80" height="60" >
+                        {{ $item->name }}
+                    </td>
                     <td>{{ $apply }}</td>
-                    <td class="text-end">{{ number_format($item->discount, '0', ',', '.') }} đ</td>
                     <td class="text-end">{{ $item->usage_limit }}</td>
-                    <td class="text-end">{{ number_format($item->minimum_amount, '0', ',', '.') }} đ</td>
+                    <td class="text-end">{{ number_format($item->minimum_amount, '0', ',', '.') }}đ</td>
+                    <td class="text-end fw-bold">{{ number_format($item->discount, '0', ',', '.') }}đ</td>
                     <td class="status text-center">
                         {!! $item->status == 'active'
                             ? '<span class="badge bg-success-subtle text-success text-uppercase p-2">Hoạt động</span>'
@@ -72,4 +75,8 @@
             @endforeach
         </tbody>
     </table>
+</div>
+{{-- pagination  --}}
+<div class="container-fluid">
+    {{ $promotions->onEachSide(3)->links('pagination::bootstrap-5') }}
 </div>

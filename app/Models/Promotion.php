@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\QueryScopes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Promotion extends Model
 {
+    use QueryScopes;
     // Khai báo bảng tương ứng với model
     protected $table = 'promotions';
 

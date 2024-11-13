@@ -37,25 +37,30 @@
 </div>
 <form action="{{ route('promotions.index') }}" method="GET">
     <div class="row g-4 mb-3 fz-12 text-muted">
+        @php
+            $perpage = request('perpage') ?: old('perpage');
+        @endphp
         <div class="col-sm">
             <div class="d-flex justify-content-sm-end">
                 <div class="search-box ms-2">
-                    <div class="input-group mb-3">
-                        <button type="submit" class="ri-search-line search-icon btn btn-primary text-light z-3" id="button-addon1"></button>
-                        <input type="text" name="keyword" value="{{ request('keyword') }}"
-                            class="form-control search z-1 ps-5 text-muted" placeholder="Tìm kiếm id, tên, slug, v.v.." aria-describedby="button-addon1">
-                    </div>
+                    <form>
+                        <div class="input-group mb-3">
+                            <button type="submit" class="ri-search-line search-icon btn btn-primary text-light z-3" id="button-addon1"></button>
+                            <input type="text" name="keyword" value="{{ request('keyword') ?: old('keyword') }}"
+                                class="form-control search z-1 ps-5 text-muted" placeholder="Tìm kiếm mã voucher, tên voucher, v.v.." aria-describedby="button-addon1">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
         <div class="col-sm-auto">
             <div class="d-flex">
                 <div class="record ms-2">
-                    <select name="perpage" class="form-control setUpSelect2" style="width: 280px">
-                        <option value="10" {{ request('perpage') == 10 ? 'selected' : '' }}>10</option>
-                        <option value="20" {{ request('perpage') == 20 ? 'selected' : '' }}>20</option>
-                        <option value="50" {{ request('perpage') == 50 ? 'selected' : '' }}>50</option>
-                        <option value="100" {{ request('perpage') == 100 ? 'selected' : '' }}>100</option>
+                    <select name="perpage" id="" class="form-control setUpSelect2" style="width: 280px">
+                        @for ($i = 10; $i <= 150; $i += 10)
+                            <option {{ $perpage == $i ? 'selected' : '' }} value="{{ $i }}">
+                                {{ $i }} bản ghi</option>
+                        @endfor
                     </select>
                 </div>
             </div>
@@ -63,10 +68,12 @@
         <div class="col-sm-auto">
             <div class="d-flex">
                 <div class="fillter-publish ms-2">
-                    <select name="publish" id="publish" class="form-control text-muted" style="width: 180px">
+                    <select name="active" id="publish" class="form-control text-muted" style="width: 180px">
                         <option value="">[Tất cả trạng thái]</option>
-                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Hiển thị</option>
-                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Ẩn</option>
+                        <option value="1" {{ old('active', request('active')) == '1' ? 'selected' : '' }}>
+                            Hiển thị</option>
+                        <option value="0" {{ old('active', request('active')) == '0' ? 'selected' : '' }}>Ẩn
+                        </option>
                     </select>
                 </div>
             </div>
