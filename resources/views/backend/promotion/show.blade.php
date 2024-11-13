@@ -75,7 +75,7 @@
                             </tr>
                             <tr>
                                 <th>Hướng dẫn sử dụng</th>
-                                <td></td>
+                                <td>{{ $promotion->description }}</td>
                             </tr>
                             
                         </table>
@@ -92,7 +92,7 @@
                         @else
                             <ul>
                                 @foreach($promotion->products as $product)
-                                    <li>{{ $product->name }} - Giá: {{ $product->price }} VNĐ</li>
+                                    <li>{{ $product->name }} - Giá: {{ number_format($product->price, '0', ',', '.') }}đ</li>
                                 @endforeach
                             </ul>
                         @endif

@@ -620,21 +620,24 @@
                                 <h6 class="card-title fw-18 fw-500">Voucher</h6>
                             </div>
                             <div class="card-body py-2">
-                                <div class="voucher-item mb-3">
+                                @if($promotions)
+                                @foreach($promotions as $promotion)
+                                @php
+                                @endphp
+                                <div class="voucher-item brand-item mb-3 overflow-y-auto">
                                     <ul class="ps-0 mb-0">
-                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-2">
+                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-2 ">
                                             <div class="image-voucher-item ">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/voucher1.avif"
-                                                    alt="" width="80" class="img-fuild  me-2">
+                                                <img src="{{ $promotion->image != null ? $promotion->image : '/libaries/templates/bee-cloudy-user/libaries/images/voucher1.avif' }}"
+                                                    alt="" width="80" height="100%" class="img-fuild object-fit-contain  me-2">
                                             </div>
-                                            <div class="title-date-voucher">
+                                            <div class="title-date-voucher w-100">
                                                 <div class="col">
-                                                    <h6 class="fz-16 pb-2">Giảm 50% cho đơn hàng đầu tiên của tài khoản
-                                                        đăng ký </h6>
+                                                    <h6 class="fz-16 pb-2">{{ $promotion->name }}</h6>
                                                 </div>
-                                                <div class="col d-flex justify-content-between align-items-center">
-                                                    <p class="fz-12">Hạn sử dụng: <strong>3 ngày</strong></p>
-                                                    <a href="#" class="">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="fz-12">Sử dụng đến: <strong>{{ date('d-m-Y', strtotime($promotion->end_date)) }}</strong></span>
+                                                    <a href="#" class="text-end">
                                                         <button
                                                             class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
                                                             dụng</button>
@@ -644,54 +647,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="voucher-item mb-3">
-                                    <ul class="ps-0 mb-0">
-                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-2">
-                                            <div class="image-voucher-item me-2">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/voucher1.avif"
-                                                    alt="" width="80" class="img-fuild  me-2">
-                                            </div>
-                                            <div class="title-date-voucher">
-                                                <div class="col">
-                                                    <h6 class="fz-16 pb-2">Giảm 50% cho đơn hàng đầu tiên của tài khoản
-                                                        đăng ký </h6>
-                                                </div>
-                                                <div class="col d-flex justify-content-between align-items-center">
-                                                    <p class="fz-12">Hạn sử dụng: <strong>3 ngày</strong></p>
-                                                    <a href="#" class="">
-                                                        <button
-                                                            class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
-                                                            dụng</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="voucher-item mb-3">
-                                    <ul class="ps-0 mb-0">
-                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-2">
-                                            <div class="image-voucher-item me-2">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/voucher1.avif"
-                                                    alt="" width="80" class="img-fuild  me-2">
-                                            </div>
-                                            <div class="title-date-voucher">
-                                                <div class="col">
-                                                    <h6 class="fz-16 pb-2">Giảm 50% cho đơn hàng đầu tiên của tài khoản
-                                                        đăng ký </h6>
-                                                </div>
-                                                <div class="col d-flex justify-content-between align-items-center">
-                                                    <p class="fz-12">Hạn sử dụng: <strong>3 ngày</strong></p>
-                                                    <a href="#" class="">
-                                                        <button
-                                                            class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
-                                                            dụng</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="card border-0 rounded-1 shadow-sm mb-4">

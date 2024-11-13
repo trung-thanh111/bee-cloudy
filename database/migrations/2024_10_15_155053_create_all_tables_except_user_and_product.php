@@ -13,6 +13,7 @@ class CreateAllTablesExceptUserAndProduct extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->unique();  
+            $table->string('image')->nullable();  
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->decimal('discount', 10, 2);
@@ -31,7 +32,7 @@ class CreateAllTablesExceptUserAndProduct extends Migration
         Schema::create('promotion_product_variants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('promotion_id');
-            $table->decimal('discount', 5, 2)->nullable();
+            $table->decimal('discount', 10, 2)->nullable();
             $table->unsignedBigInteger('product_id');
             $table->timestamps();
 

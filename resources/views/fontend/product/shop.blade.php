@@ -31,7 +31,7 @@
                                 <ul class="splide__list">
                                     @if ($productCatalogues)
                                         @foreach ($productCatalogues as $keyPCate => $valPCate)
-                                            <li class="splide__slide w-100" data-aos="fade-left" data-aos-duration="1000">
+                                            <li class="splide__slide" data-aos="fade-left" data-aos-duration="1000">
                                                 <a href="{{ route('product.category', ['id' => $valPCate->id]) }}">
                                                     <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
                                                         <img src="{{ $valPCate->image }}" alt="product image" width="100%"

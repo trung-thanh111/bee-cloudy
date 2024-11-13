@@ -78,7 +78,7 @@
                                 <div class="">
                                     <div id="specific-products-section" class="mb-3" style="display: none;">
                                         <label class="form-label">Chọn sản phẩm áp dụng:</label>
-                                        <select id="product-dropdown" class="form-select" name="product_id">
+                                        <select id="product-dropdown" class="form-select setUpSelect2" name="product_id">
                                             <option value="">-- Chọn sản phẩm --</option>
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">{{ $product->name }}</option>

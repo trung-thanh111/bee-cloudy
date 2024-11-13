@@ -150,7 +150,7 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProfile">Voucher
+                                    role="button" aria-controls="sidebarProfile">Quản lý
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarProfile">
                                     <ul class="nav nav-sm flex-column">

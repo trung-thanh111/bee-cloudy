@@ -180,7 +180,7 @@
                                     <div class="text-center">
                                         <div class="position-relative d-inline-block">
                                             <span class="image-target">
-                                                <img src="{{ $promotion->image ? asset($promotion->image) : '/libaries/upload/images/img-notfound.png' }}" alt=""
+                                                <img src="{{ $promotion->image ? $promotion->image : '/libaries/upload/images/img-notfound.png' }}" alt=""
                                                     class="render-image object-fit-contain rounded-1 mb-2 position-relative"
                                                     width="96" height="96">
                                             </span>
