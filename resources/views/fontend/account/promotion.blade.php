@@ -191,12 +191,12 @@ Thông tin cá nhân
                                         <div class="voucher-item mb-3 p-3 border rounded shadow-sm">
                                             <div class="row">
                                                 <div class="col-md-9">
-                                                <img src="{{  $userVoucher->promotion->image != null ?   $userVoucher->promotion->image : '/libaries/upload/images/img-notfound.png' }}" alt=""
+                                                <img src="{{  $userVoucher->promotion->image }}" alt=""
                                                 width="100%" height="" class="img-fluid rounded me-2">
                                                     <h5 class="fz-16 fw-bold text-primary mb-2">
                                                         {{ $userVoucher->promotion->name }}</h5>
                                                     <p class="fz-14 mb-1">Mã: <strong
-                                                            class="text-danger">{{ $userVoucher->code }}</strong></p>
+                                                            class="text-danger">{{ $userVoucher->promotion->code }}</strong></p>
                                                     <p class="fz-14 mb-1">Giảm giá: <span
                                                             class="fw-bold">{{ $userVoucher->promotion->discount }}</span>
                                                     </p>
@@ -209,10 +209,10 @@ Thông tin cá nhân
                                                 </div>
                                                 <div class="col-md-3 text-end">
                                                     <span
-                                                        class="badge {{ $userVoucher->is_used ? 'bg-secondary' : 'bg-success' }} p-2 mb-2 d-block">
-                                                        {{ $userVoucher->is_used ? 'Đã sử dụng' : 'Chưa sử dụng' }}
+                                                        class="badge {{ $userVoucher->promotion->is_used ? 'bg-secondary' : 'bg-success' }} p-2 mb-2 d-block">
+                                                        {{ $userVoucher->promotion->is_used ? 'Đã sử dụng' : 'Chưa sử dụng' }}
                                                     </span>
-                                                    <a href="{{ route('account.promotion.show', $userVoucher->id) }}"
+                                                    <a href="{{ route('account.promotion.show', $userVoucher->promotion->id) }}"
                                                         class="btn btn-outline-primary btn-sm w-100">Xem Chi Tiết</a>
 
                                                 </div>
@@ -220,13 +220,13 @@ Thông tin cá nhân
                                         </div>
 
                                         <!-- Modal for voucher details -->
-                                        <div class="modal fade" id="voucherModal{{ $userVoucher->id }}" tabindex="-1"
-                                            aria-labelledby="voucherModalLabel{{ $userVoucher->id }}" aria-hidden="true">
+                                        <div class="modal fade" id="voucherModal{{ $userVoucher->promotion->id }}" tabindex="-1"
+                                            aria-labelledby="voucherModalLabel{{ $userVoucher->promotion->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title"
-                                                            id="voucherModalLabel{{ $userVoucher->id }}">Chi tiết Voucher
+                                                            id="voucherModalLabel{{ $userVoucher->promotion->id }}">Chi tiết Voucher
                                                         </h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
@@ -235,7 +235,7 @@ Thông tin cá nhân
                                                         <h5 class="fz-16 fw-bold text-primary mb-3">
                                                             {{ $userVoucher->promotion->name }}</h5>
                                                         <p class="fz-14 mb-2">Mã: <strong
-                                                                class="text-danger">{{ $userVoucher->code }}</strong></p>
+                                                                class="text-danger">{{ $userVoucher->promotion->code }}</strong></p>
                                                         <p class="fz-14 mb-2">Giảm giá: <span
                                                                 class="fw-bold">{{ $userVoucher->promotion->discount }}</span>
                                                         </p>
@@ -247,8 +247,8 @@ Thông tin cá nhân
                                                         </p>
                                                         <p class="fz-14 mb-2">Trạng thái:
                                                             <span
-                                                                class="badge {{ $userVoucher->is_used ? 'bg-secondary' : 'bg-success' }}">
-                                                                {{ $userVoucher->is_used ? 'Đã sử dụng' : 'Chưa sử dụng' }}
+                                                                class="badge {{ $userVoucher->promotion->is_used ? 'bg-secondary' : 'bg-success' }}">
+                                                                {{ $userVoucher->promotion->is_used ? 'Đã sử dụng' : 'Chưa sử dụng' }}
                                                             </span>
                                                         </p>
                                                         <p class="fz-14 mb-0">Điều kiện áp dụng:
@@ -270,6 +270,7 @@ Thông tin cá nhân
                                     @endforelse
                                     <div class="d-flex justify-content-center mt-4">
                                         {{ $userVouchers->links('pagination::bootstrap-4') }}
+
                                     </div>
                                 </div>
                             </div>

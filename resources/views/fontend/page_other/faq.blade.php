@@ -3,7 +3,7 @@
 Câu hỏi thường gặp
 @endsection
 @section('content')
-<section>
+<section >
     <div class="container contact p-0">
         <!-- breadcrumb  -->
         <nav class="pt-3 pb-3" aria-label="breadcrumb">
@@ -14,7 +14,7 @@ Câu hỏi thường gặp
             </ol>
         </nav>
         <!-- end breadcrumb  -->
-        <div class="card">
+        <div class="card" data-aos="zoom-in">
             <div class="card-body m-2">
                 <h2 class="pb-4 text-center underline-text">Các Câu Hỏi Thường Gặp</h2>
 
