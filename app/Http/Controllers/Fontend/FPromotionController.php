@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\UserVoucher;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class FPromotionController extends Controller
 {
@@ -40,7 +42,6 @@ class FPromotionController extends Controller
                 return redirect()->back()->with('error', $message);
             }
         } catch (Exception $e) {
-            Log::error('Receive promotion error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
         }
     }
@@ -56,13 +57,14 @@ class FPromotionController extends Controller
     public function view_promotion(Request $request)
     { {
         $userVouchers = UserVoucher::with('promotion')
-        ->where('user_id', auth()->id())
-        ->paginate(4);
+        ->where('user_id', Auth::id())
+        ->paginate(8);
+        // dd($userVouchers);
         foreach ($userVouchers as $voucher) {
-            if ($voucher->promotion->start_date) {
+            if ($voucher->promotion) {
                 $voucher->promotion->start_date = Carbon::parse($voucher->promotion->start_date);
             }
-            if ($voucher->promotion->end_date) {
+            if ($voucher->promotion) {
                 $voucher->promotion->end_date = Carbon::parse($voucher->promotion->end_date);
             }
         }
