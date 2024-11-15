@@ -528,33 +528,28 @@
                                                                             <i
                                                                                 class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
                                                                         </a>
-                                                                        <ul
-                                                                            class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                            <template v-if="v.edit_count == 0">
-                                                                                <li class="p-1"
-                                                                                    v-on:click="edit = Object.assign({},v)"
-                                                                                    data-bs-toggle='modal'
-                                                                                    data-bs-target='#edit'>
-                                                                                    <a href="#"
-                                                                                        class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                        <i
-                                                                                            class="fa-solid fa-circle-info me-2"></i>Chỉnh
-                                                                                        sửa
-                                                                                    </a>
-                                                                                </li>
+                                                                        <ul class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
+                                                                            <template v-if="v.user_id === {{ Auth::id() }}">
+                                                                                <template v-if="v.edit_count === 0">
+                                                                                    <li class="p-1" 
+                                                                                        v-on:click="v.is_liked === 1 ? edit = Object.assign({}, v) : null" 
+                                                                                        data-bs-toggle="modal" 
+                                                                                        data-bs-target="#edit">
+                                                                                        <a href="#" class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                            <i class="fa-solid fa-circle-info me-2"></i>Chỉnh sửa
+                                                                                        </a>
+                                                                                    </li>
+                                                                                </template>
+                                                                                <template v-else>
+                                                                                    <li class="p-1">
+                                                                                        <span class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                            <i class="fa-solid fa-circle-info me-2"></i>Đã chỉnh sửa
+                                                                                        </span>
+                                                                                    </li>
+                                                                                </template>
                                                                             </template>
-                                                                            <template v-if="v.edit_count ==1">
-                                                                                <li class="p-1">
-                                                                                    <a
-                                                                                        class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                        <i
-                                                                                            class="fa-solid fa-circle-info me-2"></i>Đã
-                                                                                        chỉnh sửa
-                                                                                    </a>
-                                                                                </li>
-                                                                            </template>
-                                                                        </ul>
-                                                                    </div>
+                                                                        </ul>                                                                                                                                               
+                                                                     </div>
                                                                 </div>
                                                                 <div class="review-time">
                                                                     <span class="fz-12">@{{ formatDate(v.created_at) }}</span>
@@ -564,15 +559,12 @@
                                                                         @{{ v.content }}
                                                                     </p>
                                                                 </div>
-                                                                <div id="app">
-                                                                    <div class="icon-reaction pb-2"
-                                                                        v-for="(v, index) in list" :key="v.id">
-
-                                                                        <button class="like-button" v-on:click="Like(v)"
+                                                                <div>
+                                                                    <div class="icon-reaction pb-2">
+                                                                            <button class="like-button" v-on:click="Like(v)"
                                                                             style="border: none; background: none; padding: 0;">
                                                                             <i class="fa-regular fa-heart me-2"></i>
                                                                         </button>
-
                                                                         <span>@{{ v.like_count }}</span>
                                                                     </div>
                                                                 </div>
@@ -582,7 +574,6 @@
                                                 </div>
                                             </template>
                                             <!-- item review  -->
-
                                             <!-- phân trang bình luận  -->
                                             {{-- <div class="d-flex justify-content-center align-items-center mt-3">
                                                 <nav aria-label="Page navigation example">
@@ -885,9 +876,10 @@
                 comment: 0,
                 total_stars: 0,
                 avg_stars: 0,
-                likeCount: [],
+                likeCount: 0,
+                
                 check: 0,
-                isLiked: false
+               isLiked: false,
             },
             created() {
                 this.LoadBinhLuan();
@@ -895,6 +887,7 @@
                 this.Chekc();
             },
             methods: {
+                
                 toggleLike() {
                     this.isLiked = !this.isLiked;
 
@@ -912,7 +905,6 @@
                             this.avg_stars = res.data.average_stars;
                         });
                 },
-
                 LoadLike() {
                     const url = new URL(window.location.href);
                     const pathname = url.pathname;
@@ -921,10 +913,10 @@
                         .get('/producreview/like-data/' + slug)
                         .then((res) => {
                             this.list = res.data.like_count;
+                            // this.like_count = res.data.like_count;
                         })
                         .catch((res) => {})
                 },
-
                 Chekc() {
                     const url = new URL(window.location.href);
                     const pathname = url.pathname;
@@ -940,14 +932,13 @@
                 },
                 Like(v) {
                     axios
-                        .post('/producreview/like', v)
+                        .post('/producreview/like',v)
                         .then((res) => {
                             if (res.data.status) {
                                 this.LoadLike();
                                 this.likeCount = res.data.like_count;
                                 toaster.success(res.data.message);
                             }
-
                         })
                         .catch((res) => {
                             // $.each(res.response.data.errors, function(k, v) {});

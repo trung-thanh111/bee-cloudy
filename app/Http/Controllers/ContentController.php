@@ -37,7 +37,7 @@ class ContentController extends Controller
     {
         $contentLikes = Content::join('users', 'users.id', '=', 'contents.user_id')
             ->select('users.name as ten_kh', 'contents.*')
-            ->orderByDESC('contents.like_count')
+            // ->orderByDESC('contents.like_count')
             ->get();
 
         return response()->json([

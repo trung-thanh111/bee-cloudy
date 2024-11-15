@@ -139,8 +139,8 @@
                                                                     <div
                                                                         class="hstack gap-2 d-flex justify-content-start align-items-center">
                                                                         <div class="pt-2 d-inline-block">
-                                                                            <h6 class="fz-18 mb-0">@{{ name }}</h6>
-                                                                        </div>
+                                                                            <h6 class="fz-18 mb-0">@{{ v.name }}</h6>
+                                                                        </div>                                                                        
                                                                         <div class="dropdown ms-auto ">
                                                                             <a class=" dropdown-toggle" href="#"
                                                                                 role="button" data-bs-toggle="dropdown"
@@ -148,35 +148,34 @@
                                                                                 <i
                                                                                     class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
                                                                             </a>
-                                                                            <ul
-                                                                                class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                                <li class="p-1 li-menu-header"
-                                                                                    data-bs-toggle='modal'
-                                                                                    data-bs-target='#delPosts'
-                                                                                    v-on:click="del = Object.assign({},v)">
-                                                                                    <a href="#"
-                                                                                        class="text-decoration-none text-danger fz-14 ps-1">
-                                                                                        <i
-                                                                                            class="fa-solid fa-trash me-2"></i>Xóa
-                                                                                    </a>
-                                                                                </li>
-                                                                                <template v-if="v.edit_count == 0">
-                                                                                    <li class="p-1 li-menu-header"
-                                                                                        data-bs-toggle='modal'
-                                                                                        data-bs-target='#updatePosts'
-                                                                                        v-on:click="update = Object.assign({},v)">
-                                                                                        <a href="#"
-                                                                                            class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                            <i
-                                                                                                class="fa-solid fa-circle-info me-2"></i>Chỉnh
-                                                                                            sửa
+                                                                            <ul class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
+                                                                                <template v-if="v.user_id === {{ Auth::id() }}">
+                                                                                    <li class="p-1 li-menu-header" 
+                                                                                        data-bs-toggle="modal" 
+                                                                                        data-bs-target="#delPosts" 
+                                                                                        v-on:click="del = Object.assign({}, v)">
+                                                                                        <a href="#" class="text-decoration-none text-danger fz-14 ps-1">
+                                                                                            <i class="fa-solid fa-trash me-2"></i>Xóa
                                                                                         </a>
                                                                                     </li>
+                                                                            
+                                                                                    <template v-if="v.edit_count === 0">
+                                                                                        <li class="p-1 li-menu-header" 
+                                                                                            data-bs-toggle="modal" 
+                                                                                            data-bs-target="#updatePosts" 
+                                                                                            v-on:click="update = Object.assign({}, v)">
+                                                                                            <a href="#" class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                                <i class="fa-solid fa-circle-info me-2"></i>Chỉnh sửa
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </template>
+                                                                            
+                                                                                    <!-- Trường hợp edit_count là 1 (có thể thêm nội dung khác nếu cần) -->
+                                                                                    <template v-if="v.edit_count === 1">
+                                                                                        <!-- Nội dung cho trường hợp bình luận đã được chỉnh sửa, nếu cần -->
+                                                                                    </template>
                                                                                 </template>
-                                                                                <template v-if="v.edit_count == 1">
-
-                                                                                </template>
-                                                                            </ul>
+                                                                            </ul>                                                                            
                                                                         </div>
                                                                     </div>
                                                                     <div class="review-time">
@@ -187,10 +186,8 @@
                                                                             @{{ v.content }}
                                                                         </p>
                                                                     </div>
-                                                                    <div id="app">
-                                                                        <div class="icon-reaction pb-2"
-                                                                            v-for="(v, index) in list" :key="v.id">
-    
+                                                                    <div>
+                                                                        <div class="icon-reaction pb-2">
                                                                             <button class="like-button" v-on:click="Like(v)"
                                                                                 style="border: none; background: none; padding: 0;">
                                                                                 <i class="fa-regular fa-heart me-2"></i>
@@ -382,7 +379,7 @@
                 likeCount: [],
                 check: 0,
                 isLiked: false,
-                name: 'Client'
+                names: []
             },
             created() {
                 this.loadContent();
@@ -395,10 +392,12 @@
                         .get('/view-content-data')
                         .then((res) => {
                             this.list = res.data.data;  
-                            console.log(this.list);       
-                            this.list.forEach(item => {
-                                this.name = item.name;
-                            });                                               
+                            console.log(this.list);    
+                            // this.names = [];
+                            // this.list.forEach(item => {
+                            //     this.names.push(item.name);
+                            // });       
+                            // console.log(this.names);            
                             this.comment = res.data.comment_count;
                         });
                 },
