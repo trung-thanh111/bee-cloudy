@@ -51,7 +51,7 @@ class OrderController extends FontendController
             if ($updated) {
                 return response()->json([
                     'code' => 10,
-                    'redirect' => 'back',
+                    // 'redirect' => 'back',
                 ]);
             } else {
                 return response()->json([
@@ -68,8 +68,10 @@ class OrderController extends FontendController
     public function updatePaidAt(Request $request)
     {
         try {
+            $paymentStatus = $request->input('payment');
             $payload = [
                 'paid_at' => now()->format('Y-m-d H:i:s'), 
+                'payment' => $paymentStatus
             ];
             $orderId = $request->input('id');
             $updated = $this->orderService->updatePaidAt($orderId, $payload);

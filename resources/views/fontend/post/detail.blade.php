@@ -93,7 +93,7 @@
                                                                     height="60">
                                                                 <p class="text-center mt-2">
                                                                     <span
-                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ (Auth::check()) ? Auth::user()->name : 'Không xác định' }}</span>
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::check() ? Auth::user()->name : 'Không xác định' }}</span>
                                                                 </p>
                                                             </span>
                                                         </button>
@@ -139,8 +139,9 @@
                                                                     <div
                                                                         class="hstack gap-2 d-flex justify-content-start align-items-center">
                                                                         <div class="pt-2 d-inline-block">
-                                                                            <h6 class="fz-18 mb-0">@{{ v.name }}</h6>
-                                                                        </div>                                                                        
+                                                                            <h6 class="fz-18 mb-0">@{{ v.name }}
+                                                                            </h6>
+                                                                        </div>
                                                                         <div class="dropdown ms-auto ">
                                                                             <a class=" dropdown-toggle" href="#"
                                                                                 role="button" data-bs-toggle="dropdown"
@@ -148,34 +149,41 @@
                                                                                 <i
                                                                                     class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
                                                                             </a>
-                                                                            <ul class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                                <template v-if="v.user_id === {{ Auth::id() }}">
-                                                                                    <li class="p-1 li-menu-header" 
-                                                                                        data-bs-toggle="modal" 
-                                                                                        data-bs-target="#delPosts" 
+                                                                            <ul
+                                                                                class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
+                                                                                <template
+                                                                                    v-if="v.user_id === {{ Auth::id() }}">
+                                                                                    <li class="p-1 li-menu-header"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#delPosts"
                                                                                         v-on:click="del = Object.assign({}, v)">
-                                                                                        <a href="#" class="text-decoration-none text-danger fz-14 ps-1">
-                                                                                            <i class="fa-solid fa-trash me-2"></i>Xóa
+                                                                                        <a href="#"
+                                                                                            class="text-decoration-none text-danger fz-14 ps-1">
+                                                                                            <i
+                                                                                                class="fa-solid fa-trash me-2"></i>Xóa
                                                                                         </a>
                                                                                     </li>
-                                                                            
+
                                                                                     <template v-if="v.edit_count === 0">
-                                                                                        <li class="p-1 li-menu-header" 
-                                                                                            data-bs-toggle="modal" 
-                                                                                            data-bs-target="#updatePosts" 
+                                                                                        <li class="p-1 li-menu-header"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#updatePosts"
                                                                                             v-on:click="update = Object.assign({}, v)">
-                                                                                            <a href="#" class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                                <i class="fa-solid fa-circle-info me-2"></i>Chỉnh sửa
+                                                                                            <a href="#"
+                                                                                                class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                                <i
+                                                                                                    class="fa-solid fa-circle-info me-2"></i>Chỉnh
+                                                                                                sửa
                                                                                             </a>
                                                                                         </li>
                                                                                     </template>
-                                                                            
+
                                                                                     <!-- Trường hợp edit_count là 1 (có thể thêm nội dung khác nếu cần) -->
                                                                                     <template v-if="v.edit_count === 1">
                                                                                         <!-- Nội dung cho trường hợp bình luận đã được chỉnh sửa, nếu cần -->
                                                                                     </template>
                                                                                 </template>
-                                                                            </ul>                                                                            
+                                                                            </ul>
                                                                         </div>
                                                                     </div>
                                                                     <div class="review-time">
@@ -188,11 +196,12 @@
                                                                     </div>
                                                                     <div>
                                                                         <div class="icon-reaction pb-2">
-                                                                            <button class="like-button" v-on:click="Like(v)"
+                                                                            <button class="like-button"
+                                                                                v-on:click="Like(v)"
                                                                                 style="border: none; background: none; padding: 0;">
                                                                                 <i class="fa-regular fa-heart me-2"></i>
                                                                             </button>
-    
+
                                                                             <span>@{{ v.like_count }}</span>
                                                                         </div>
                                                                     </div>
@@ -271,7 +280,8 @@
                                                         <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
                                                             class="text-decoration-none d-flex align-items-center">
                                                             <img src="{{ $categoryP->image }}"
-                                                                alt="{{ $categoryP->name }}" width="50" height="50"
+                                                                alt="{{ $categoryP->name }}" width="50"
+                                                                height="50"
                                                                 class="me-3 object-fit-contain bg-light rounded-3 ">
                                                             <span class="text-muted fw-500">{{ $categoryP->name }}</span>
                                                         </a>
@@ -282,7 +292,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card border-0 rounded-1 shadow-sm mb-4 {{ (count($postSimilar) == 0) ? 'd-none' : '' }}">
+                            <div
+                                class="card border-0 rounded-1 shadow-sm mb-4 {{ count($postSimilar) == 0 ? 'd-none' : '' }}">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Bài viết tương tự</h6>
                                 </div>
@@ -391,13 +402,7 @@
                     axios
                         .get('/view-content-data')
                         .then((res) => {
-                            this.list = res.data.data;  
-                            console.log(this.list);    
-                            // this.names = [];
-                            // this.list.forEach(item => {
-                            //     this.names.push(item.name);
-                            // });       
-                            // console.log(this.names);            
+                            this.list = res.data.data;            
                             this.comment = res.data.comment_count;
                         });
                 },
@@ -405,12 +410,12 @@
                     axios
                         .post('/view-content-create', this.create)
                         .then((res) => {
-                            if (res.data.status) {
-                                alert(res.data.message);
+                            if (res.data.code == 10) {
+                                flasher.success(res.data.message);
                                 this.create = {};
                                 this.loadContent();
                             } else {
-                                // toaster.error(res.data.message);
+                                flasher.error(res.data.message);
                             }
                         })
                         .catch((res) => {
@@ -423,11 +428,12 @@
                     axios
                         .post('/view-content-update', this.update)
                         .then((res) => {
-                            if (res.data.status) {
-                                alert(res.data.message);
+                            if (res.data.code == 10) {
+
+                                flasher.success(res.data.message);
                                 this.loadContent();
                             } else {
-                                // toaster.error(res.data.message);
+                                flasher.error(res.data.message);
                             }
                         })
                         .catch((res) => {
@@ -440,11 +446,13 @@
                     axios
                         .post('/view-content-delete', this.del)
                         .then((res) => {
-                            if (res.data.status) {
-                                alert(res.data.message);
+                            console.log(res);
+                            
+                            if (res.data.code == 10) {
+                                flasher.success(res.data.message);
                                 this.loadContent();
                             } else {
-                                // toaster.error(res.data.message);
+                                flasher.error(res.data.message);
                             }
                         })
                         .catch((res) => {
@@ -476,14 +484,14 @@
                             this.check = res.data.check;
                         })
                         .catch((res) => {
-                            $.each(res.response.data.errors, function(k, v) {});
+                            // $.each(res.response.data.errors, function(k, v) {});
                         })
                 },
                 Like(v) {
                     axios
                         .post('/content/like', v)
                         .then((res) => {
-                            if (res.data.status) {
+                            if (res.data.code == 10) {
                                 this.LoadLike();
                                 this.likeCount = res.data.like_count;
                                 toaster.success(res.data.message);

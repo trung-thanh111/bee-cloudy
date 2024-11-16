@@ -90,11 +90,13 @@ class VnpayController extends FontendController
             } else {
                 $payload = [
                     'payment' => 'failed',
-                    'status' => 'pending'
+                    'status' => 'pending',
+                    'paid_at' => now()->format('Y-m-d H:i:s'),
                 ];
                 flash()->error('Giao dịch không thành công.');
             }
             $this->orderService->updateStatusPayment($payload, $order);
+            $this->orderService->updatePaidAt($order->id, $payload);
             $this->orderService->sendMail($order);
         } else {
             flash()->error('Chữ ký không hợp lệ.');
@@ -184,7 +186,8 @@ class VnpayController extends FontendController
                             if ($inputData['vnp_ResponseCode'] == '00' || $inputData['vnp_TransactionStatus'] == '00') {
                                 $payload = [
                                     'payment' => 'paid',
-                                    'status' => 'confirmed'
+                                    'status' => 'confirmed',
+                                    'paid_at' => now()->format('Y-m-d H:i:s'),
                                 ];
                             } else {
                                 $payload = [
@@ -194,6 +197,7 @@ class VnpayController extends FontendController
                             }
                             //cập nhật lại trạng thái đơn đơn hàng và trang thái payment
                             $this->orderService->updateStatusPayment($payload, $order);
+                            $this->orderService->updatePaidAt($order->id, $payload);
                             $this->orderService->sendMail($order);
 
                             // bên dưới trả lại kq cho vn pay

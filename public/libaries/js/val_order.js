@@ -103,6 +103,7 @@
             let _this = $(this);
             let orderId = parseInt($(".orderId").val());
             let newDate = new Date().toISOString(); // lấy thời gian hiện tại 
+            let payment = _this.attr('data-payment');
             let paidAt = new Date(newDate).toLocaleString("en-CA", {
                 year: "numeric",
                 month: "2-digit",
@@ -114,17 +115,18 @@
             }).replace(",", ""); // dịnh dạng lại cho gióng csdl
             
             if(orderUpdatePaiAt.paid_at == null){
-                FS.updateOrderPaidAtAjax(orderId, paidAt)
+                FS.updateOrderPaidAtAjax(orderId, paidAt, payment)
             }
         });
     };
-    FS.updateOrderPaidAtAjax = (orderId, paidAt) => {
+    FS.updateOrderPaidAtAjax = (orderId, paidAt, payment) => {
         $.ajax({
             url: "/ajax/order/updatePaidAt",
             type: "POST",
             data: {
                 id: orderId,
                 paid_at: paidAt,
+                payment: payment,
                 _token: _token,
             },
             dataType: "json",
