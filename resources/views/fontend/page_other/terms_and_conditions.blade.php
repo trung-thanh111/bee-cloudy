@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <section>
-    <div class="container contact p-0">
+    <div class="container contact p-0" >
         <!-- breadcrumb  -->
         <nav class="pt-3 pb-3" aria-label="breadcrumb">
             <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
@@ -14,7 +14,7 @@
             </ol>
         </nav>
         <!-- end breadcrumb  -->
-        <div class="card">
+        <div class="card" data-aos="zoom-in">
             <div class="card-body m-2">
                 <h2 class="pb-4 text-center underline-text">Điều Khoản Và Điều Kiện</h2>
                 <br>

@@ -47,31 +47,14 @@ class FPromotionController extends Controller
         }
     }
 
-
-
-    public function myPromotions()
-    {
-        $userId = Auth::id();
-
-        $promotions = $this->promotionService->getUserPromotions($userId);
-        return view('fontend.promotion.my_vouchers', compact('promotions'));
-    }
     public function view_promotion(Request $request)
-    { {
-            $userVouchers = UserVoucher::with('promotion')
-                ->where('user_id', Auth::id())
-                ->paginate(8);
-            // dd($userVouchers);
-            foreach ($userVouchers as $voucher) {
-                if ($voucher->promotion) {
-                    $voucher->promotion->start_date = Carbon::parse($voucher->promotion->start_date);
-                }
-                if ($voucher->promotion) {
-                    $voucher->promotion->end_date = Carbon::parse($voucher->promotion->end_date);
-                }
-            }
-            return view('fontend.account.promotion', compact('userVouchers'));
-        }
+    {
+        $userVouchers = UserVoucher::with('promotion')
+        ->where('user_id', Auth::id())
+        ->whereHas('promotion')
+        ->paginate(4);
+        
+            return view('fontend.account.promotion',compact('userVouchers'));
     }
     public function show($id)
     {
