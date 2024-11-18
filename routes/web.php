@@ -34,6 +34,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\Fontend\MomoController;
 use App\Http\Controllers\Fontend\VnpayController;
+use App\Http\Controllers\FontendController;
 use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Route;
 
@@ -88,6 +89,21 @@ Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])-
 Route::delete('/ajax/cart/destroyCart', [AjaxCartController::class, 'destroyCart'])->name('ajax.cart.destroyCart');
 Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])->name('ajax.cart.clearCart');
 
+// PROFILE USER
+
+
+Route::get('/profile', [FontendUserController::class, 'profile'])->name('profile.user');
+
+Route::get('/profile/change-pass', [FontendUserController::class, 'changeViewProfile'])->name('profile.change-view');
+
+Route::post('/profile/change-pass', [FontendUserController::class, 'changeSubmitProfile'])->name('profile.change-submit');
+
+Route::get('/confirm-password-change/{token}', [FontendUserController::class, 'confirmPasswordChange'])->name('confirm.password.change');
+
+
+Route::get('/profile/edit', [FontendUserController::class, 'editProfile'])->name('profile.edit');
+Route::post('/profile/edit', [FontendUserController::class, 'updateProfile'])->name('profile.update');
+
 // WISHLIST AJAX
 Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])->name('ajax.wishlist.toggle');
 
@@ -121,6 +137,7 @@ Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
 //Page FONTEND
 Route::get('faq', [HomeController::class, 'faq'])->name('home.faq');
 Route::get('contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::post('contact', [HomeController::class, 'contactSubmit'])->name('home-contact-form');
 Route::get('terms_and_conditions', [HomeController::class, 'terms_and_conditions'])->name('home.terms_and_conditions');
 Route::get('return_and_warranty_policy', [HomeController::class, 'return_and_warranty_policy'])->name('home.return_and_warranty_policy');
 Route::get('about_us', [HomeController::class, 'about_us'])->name('home.about_us');
@@ -348,8 +365,13 @@ Route::get('/password/reset', [ForgotPasswordController::class, 'resetForm'])->n
 Route::post('/password/reset', [ForgotPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
+
+Route::get('auth/facebook', [LoginController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('auth/facebook/callback', [LoginController::class, 'handleFacebookCallback'])->name('auth.facebook.callback');
 
 
 //Page 404

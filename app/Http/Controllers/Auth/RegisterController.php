@@ -59,47 +59,4 @@ class RegisterController extends Controller
 
         return redirect()->route('home.index')->with('status', 'Xác nhận thành công! Bạn đã được đăng nhập.');
     }
-
-
-    // public function register(RegisterRequest $request)
-    // {
-
-    //     $existingPendingUser = PendingUser::where('email', $request->email)->first();
-
-    //     if ($existingPendingUser) {
-    //         $existingPendingUser->delete();
-    //     }
-
-    //     $token = Str::random(60);
-
-    //     $pendingUser = PendingUser::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //         'token' => $token,
-    //     ]);
-
-    //     Mail::to($pendingUser->email)->send(new ConfirmEmail($pendingUser));
-
-    //     return redirect()->route('auth.login')->with('status', 'Vui lòng kiểm tra email để xác nhận đăng ký.');
-    // }
-
-
-
-    // public function confirmRegistration($token)
-    // {
-    //     $pendingUser = PendingUser::where('token', $token)->firstOrFail();
-
-    //     $user = User::create([
-    //         'name' => $pendingUser->name,
-    //         'email' => $pendingUser->email,
-    //         'password' => $pendingUser->password,
-    //     ]);
-
-    //     $pendingUser->delete();
-
-    //     Auth::login($user);
-
-    //     return redirect()->route('home.index')->with('status', 'Xác nhận thành công! Bạn đã được đăng nhập.');
-    // }
 }

@@ -32,7 +32,7 @@ class ForgotPasswordController extends Controller
 
             Mail::to($user->email)->send(new OtpMail($otp));
 
-            flash()->success('Email đã được gửi về gmail'); // ở đây mới có error ssuccess war đủ loại
+            flash()->success('OTP đã được gửi về gmail'); // ở đây mới có error ssuccess war đủ loại
             return redirect()->route('password.otp');
         }
         flash()->error('Email của bạn chưa đăng ký');
