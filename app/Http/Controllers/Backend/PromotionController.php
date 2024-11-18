@@ -19,10 +19,10 @@ class PromotionController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['keyword', 'publish', 'perpage']);
-        $promotions = $this->promotionService->getFilteredPromotions($filters);
+        $promotions = $this->promotionService->paginate($request);
+        // dd($promotions);
         return view('backend.dashboard.layout', [
-            'template' => 'backend.promotion.catalogue.index',
+            'template' => 'backend.promotion.index',
             'promotions' => $promotions
         ]);
     }
@@ -31,7 +31,7 @@ class PromotionController extends Controller
     {
         $products = $this->promotionService->getAllProducts();
         return view('backend.dashboard.layout', [
-            'template' => 'backend.promotion.catalogue.create',
+            'template' => 'backend.promotion.create',
             'products' => $products
         ]);
     }
@@ -43,27 +43,35 @@ class PromotionController extends Controller
         // Xác thực dữ liệu, bao gồm URL ảnh
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|string', 
+            'image' => 'required',
+            'description' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'description' => 'required|string|max:255',
-            'discount' => 'required_unless:apply_for,freeship|numeric|min:0',
+            'discount' => 'required|nullable|numeric|min:0',
             'minimum_amount' => 'nullable|numeric|min:0',
-            'usage_limit' => 'nullable|integer|min:1',
+            'usage_limit' => 'required|integer|min:1',
             'apply_for' => 'required|in:specific_products,freeship,all',
             'status' => 'required|in:active,inactive',
             'product_id' => 'nullable|exists:products,id|required_if:apply_for,specific_products',
         ]);
-        // dd($request->input('image')); 
-
 
         // Gọi PromotionService để tạo khuyến mãi
         $promotion = $this->promotionService->createPromotion($validatedData);
-
+        // $errors = ['name' => 'Đây là lỗi thử nghiệm.'];
         return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được tạo thành công!');
     } catch (\Exception $e) {
-        Log::error('Promotion creation failed: ' . $e->getMessage());
-        return redirect()->back()->with('error', 'Xảy ra lỗi khi tạo khuyến mãi: ' . $e->getMessage());
+        $errors = [
+            'name' => 'Bạn chưa nhập tên giảm giá',
+            'image' => 'Bạn chưa chọn ảnh cho giảm giá',
+            'start_date' => 'Bạn chưa chọn ngày bắt đầu',
+            'discount' => 'Bạn chưa nhập giá trị giảm ',
+            'end_date' => 'Bạn chưa chọn ngày kết thúc',
+            'usage_limit' => 'Bạn chưa nhập số lượng giảm giá',
+            'apply_for' => 'Bạn chưa chọn áp dụng',
+            'product_id' => 'Bạn chưa chọn sản phẩm',
+        ];
+        
+        return redirect()->back()->withErrors($errors)->with('error', 'Xảy ra lỗi khi tạo khuyến mãi: ');
     }
     
 }
@@ -76,7 +84,7 @@ class PromotionController extends Controller
             $products = $this->promotionService->getAllProducts();
 
             return view('backend.dashboard.layout', [
-                'template' => 'backend.promotion.catalogue.edit',
+                'template' => 'backend.promotion.edit',
                 'promotion' => $promotion,
                 'products' => $products
             ]);
@@ -88,6 +96,7 @@ class PromotionController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $this->promotionService->updatePromotion($id, $request->all());
         return redirect()->route('promotions.index')->with('success', 'Cập nhật khuyến mãi thành công!');
     }
@@ -99,7 +108,6 @@ class PromotionController extends Controller
             $this->promotionService->deletePromotion($id);
             return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được xóa thành công.');
         } catch (Exception $e) {
-            Log::error('Delete promotion error: ' . $e->getMessage());
             return redirect()->route('promotions.index')->with('error', 'Xảy ra lỗi khi xóa khuyến mãi.');
         }
     }
@@ -123,7 +131,7 @@ class PromotionController extends Controller
     {
         $promotion = $this->promotionService->getPromotionWithProducts($id);
         return view('backend.dashboard.layout', [
-            'template' => 'backend.promotion.catalogue.show',
+            'template' => 'backend.promotion.show',
             'promotion' => $promotion,
         ]);
     }
