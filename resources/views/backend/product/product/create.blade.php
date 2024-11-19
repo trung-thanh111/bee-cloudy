@@ -199,17 +199,6 @@
                                         value="{{ old('del') }}" min="0">
                                     <span class="text-warning fz-12 mt-1">Có thể bỏ trống nếu không giảm giá!</span>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Tồn kho</label>
-                                    <input type="text" name="instock" class="form-control"
-                                        value="{{ old('instock') }}" min="0">
-                                    @if ($errors->has('price'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
-                                    @else
-                                        <span class="text-warning fz-12 mt-1">Đây là số lượng sản phẩm không có phiên
-                                            bản!</span>
-                                    @endif
-                                </div>
                             </div>
                         </div>
                         <div class="card">

@@ -86,6 +86,10 @@ Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVaria
 // CART AJAX
 Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->name('ajax.cart.addToCart');
 Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])->name('ajax.cart.updateCart');
+Route::get('/ajax/cart/LoadOrderByCartId', [AjaxCartController::class, 'LoadOrderByCartId'])->name('ajax.cart.LoadOrderByCartId');
+Route::post('/ajax/cart/sessionOrderByCartId', [AjaxCartController::class, 'sessionOrderByCartId'])->name('ajax.cart.sessionOrderByCartId');
+Route::get('/ajax/cart/getOrderByCartId', [AjaxCartController::class, 'getOrderByCartId'])->name('ajax.cart.getOrderByCartId');
+Route::post('/ajax/cart/clearSessionId', [AjaxCartController::class, 'clearSessionId'])->name('ajax.cart. ');
 Route::delete('/ajax/cart/destroyCart', [AjaxCartController::class, 'destroyCart'])->name('ajax.cart.destroyCart');
 Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])->name('ajax.cart.clearCart');
 
@@ -160,7 +164,7 @@ Route::middleware(['auth'])->group(function () {
     });
     //promotion
     Route::middleware(['auth'])->group(function () {
-        Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
+        Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.home_index');
         Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
     });
     // order 

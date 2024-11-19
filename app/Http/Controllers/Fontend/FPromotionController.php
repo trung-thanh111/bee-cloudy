@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Fontend;
 
 use Exception;
@@ -32,40 +33,35 @@ class FPromotionController extends Controller
     }
 
     public function receivePromotion(Promotion $promotion, Request $request)
-{
-    try {
-        $result = $this->promotionService->receivePromotion($promotion);
-
-        if ($result['type'] === 'success') {
-            return redirect()->back()->with('success', $result['text']);
-        } else {
-            return redirect()->back()->with('error', $result['text']);
+    {
+        try {
+            $message = $this->promotionService->receivePromotion($promotion);
+            if ($message === 'Voucher nhận thành công') {
+                return redirect()->back()->with('success', $message);
+            } else {
+                return redirect()->back()->with('error', $message);
+            }
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
         }
-    } catch (Exception $e) {
-        return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
     }
-}
 
-
-    
     public function view_promotion(Request $request)
-    { {
+    {
         $userVouchers = UserVoucher::with('promotion')
         ->where('user_id', Auth::id())
         ->whereHas('promotion')
         ->paginate(4);
         
             return view('fontend.account.promotion',compact('userVouchers'));
-        }
     }
     public function show($id)
-{
-    // Fetch the UserVoucher along with its related promotion
-    $userVoucher = UserVoucher::with('promotion')
-                    ->where('id', $id)
-                    ->firstOrFail();
+    {
+        // Fetch the UserVoucher along with its related promotion
+        $userVoucher = UserVoucher::with('promotion')
+            ->where('id', $id)
+            ->firstOrFail();
 
-    return view('fontend.account.promotion-detail', compact('userVoucher'));
-}
-
+        return view('fontend.account.promotion-detail', compact('userVoucher'));
+    }
 }

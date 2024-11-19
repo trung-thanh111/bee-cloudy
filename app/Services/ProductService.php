@@ -458,7 +458,6 @@ class ProductService implements ProductServiceInterface
             'is_hot',
             'price',
             'del',
-            'instock',
             'sku',
             'attributeCatalogue', // json
             'attribute', // json
@@ -482,7 +481,6 @@ class ProductService implements ProductServiceInterface
             'is_hot',
             'price',
             'del',
-            'instock',
             'sold_count',
             'sku',
             'attributeCatalogue', // json

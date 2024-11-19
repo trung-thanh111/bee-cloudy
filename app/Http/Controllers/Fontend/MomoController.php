@@ -84,7 +84,7 @@ class MomoController extends FontendController
                 $this->orderService->updateStatusPayment($payload, $order);
                 $this->orderService->updatePaidAt($order->id, $payload);
                 $this->orderService->sendMail($order);
-                $this->cartService->clear($request);
+                $this->cartService->destroyCartItem($request);
                 flash()->success('Giao dịch thành công.');
                 return view('fontend.order.success', compact('order'));
             } else { // Thanh toán thất bại
@@ -143,12 +143,12 @@ class MomoController extends FontendController
                         $payload = [
                             'payment' =>'paid',
                             'status' => 'confirmed',
-                            'paid_at' => now(),
+                            'paid_at' => now()->format('Y-m-d H:i:s'),
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
-                        $this->orderService->updatePaidAt($order->id, $payload['paid_at']);
+                        $this->orderService->updatePaidAt($order->id, $payload);
                         $this->orderService->sendMail($order);
-                        $this->cartService->clear($request);
+                        $this->cartService->destroyCartItem($request);
                         flash()->success('Giao dịch thành công.');
                         return view('fontend.order.success', compact('order'));
                     } else { // Thanh toán thất bại
@@ -157,7 +157,7 @@ class MomoController extends FontendController
                             'status' => 'pending' // Hoặc trạng thái khác
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
-                        $this->cartService->clear($request);
+                        $this->cartService->destroyCartItem($request);
                         flash()->error('Giao dịch thất bại!.');
                         return view('fontend.order.failed', compact('order'));
                     }

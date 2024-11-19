@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Ajax;
 
 use App\Models\Cart;
@@ -36,7 +35,6 @@ class CartController extends FontendController
             session()->put('total_discount', 0);
             session()->forget('shipping_fee');
         }
-
         $carts = $this->cartService->all();
         $userPromotion = Promotion::first();
         $attributesByCartItem = $this->cartService->findAttributesByCode();
@@ -72,10 +70,12 @@ class CartController extends FontendController
         }
         try {
             $carts = $this->cartService->create($request);
+            $cart = $this->cartService->all();
             return response()->json([
                 'code' => 10,
                 'message' => 'Sản phẩm đã được thêm vào giỏ hàng.',
                 'carts' => $carts,
+                'cartItem' => $cart->cartItems,
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -156,7 +156,7 @@ class CartController extends FontendController
                 return response()->json([
                     'code' => 10,
                     'message' => 'Giỏ hàng đã được xóa',
-                    'redirect' => route('cart.index')
+                    'redirect' => 'back'
                 ]);
             } else {
                 return response()->json([
@@ -171,8 +171,69 @@ class CartController extends FontendController
             ]);
         }
     }
+    public function LoadOrderByCartId(Request $request)
+    {
+        if (!Auth::check()) {
+            flash()->error('Bạn cần đăng nhập để sử dụng chức năng.');
+            return redirect()->route('auth.login');
+        }
 
-
+        try {
+            $order = $this->cartService->getOrderByCartId($request);
+            $attributesByCartItem = $this->cartService->findAttributesByCode();
+            if ($order) {
+                $html = view('fontend.cart.partial.order_cart', [
+                    'order' => $order,
+                    'attributesByCartItem' => $attributesByCartItem,
+                ])->render(); // gửi qua ajax render ra blade k reload  
+                return response()->json([
+                    'code' => 10,
+                    'order' => $order,
+                    'html' => $html,
+                ]);
+            } else {
+                return response()->json([
+                    'code' => 11,
+                    'message' => 'Có lỗi xảy ra!'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Có lỗi xảy ra!'
+            ]);
+        }
+    }
+    public function sessionOrderByCartId(Request $request)
+    {
+        $arrayIdChecked = $request->input('array_id', []);
+        if (!is_array($arrayIdChecked)) {
+            $arrayIdChecked = array_filter([$arrayIdChecked]); //xóa value rống
+        }
+        // luu lại sesion id
+        session(['array_id' => $arrayIdChecked]);
+        return response()->json([
+            'code' => 10,
+            'data' => $arrayIdChecked
+        ]);
+    }
+    
+    public function getOrderByCartId(Request $request)
+    {
+        $arrayId = session('array_id', []);
+        return response()->json([
+            'code' => 10,
+            'array_id' => $arrayId,
+        ]);
+    }
+    public function clearSessionId(Request $request)
+    {
+        $arrayId = session()->forget('array_id');
+        return response()->json([
+            'code' => 10,
+            'array_id' => $arrayId,
+        ]);
+    }
 
 
 
@@ -209,7 +270,7 @@ class CartController extends FontendController
         $cartTotal = $cart->cartItems->sum(function ($item) {
             return $item->price * $item->quantity;
         });
-        
+
         if ($cartTotal < $userPromotion->minimum_amount) {
             flash()->error('Tổng đơn hàng không đủ để áp dụng mã khuyến mãi này.');
             return redirect()->back();
@@ -304,12 +365,6 @@ class CartController extends FontendController
             session()->put('promotions', array_values($promotions));
 
             $cart = Cart::where('user_id', Auth::id())->first();
-            // foreach ($cart->cartItems as $item) {
-            //     if (isset($item->original_price)) {
-            //         $item->price = $item->original_price;
-            //         $item->save();
-            //     }
-            // }
 
             $totalDiscount = 0;
             $shippingFee = 25000; // Đặt lại phí vận chuyển mặc định

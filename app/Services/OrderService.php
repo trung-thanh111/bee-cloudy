@@ -115,32 +115,37 @@ class OrderService implements OrderServiceInterface
         return $payload;
     }
 
-    private function createOrderitems($request, $order)
+    private function createOrderItems($request, $order)
     {
         $cart = json_decode($order['cart'], true);
+        $arrayIdCartChecked = session('array_id', []);
 
-        $orderItem = [];
+        $orderItems = [];
 
         if (isset($cart['cart_items']) && is_array($cart['cart_items'])) {
             foreach ($cart['cart_items'] as $item) {
-                $productName = isset($item['products']['name'])
-                    ? $item['products']['name']
-                    : ($item['product_variants']['name'] ?? 'Sản phẩm hiện đang phát hành');
+                // kiểm tra có trong sssion 
+                if (in_array($item['id'], $arrayIdCartChecked)) {
+                    $productName = isset($item['products']['name'])
+                        ? $item['products']['name']
+                        : ($item['product_variants']['name'] ?? 'Sản phẩm hiện đang phát hành');
 
-                $orderItem[] = [
-                    'order_id'           => $order->id,
-                    'product_id'         => $item['product_id'] ?? null,
-                    'product_variant_id' => $item['product_variant_id'] ?? null,
-                    'product_name'       => $productName,
-                    'final_quantity'     => $item['quantity'] ?? 1,
-                    'final_price'        => $item['price'] ?? 0,
-                ];
+                    $orderItems[] = [
+                        'order_id'           => $order->id,
+                        'product_id'         => $item['product_id'] ?? null,
+                        'product_variant_id' => $item['product_variant_id'] ?? null,
+                        'product_name'       => $productName,
+                        'final_quantity'     => $item['quantity'] ?? 1,
+                        'final_price'        => $item['price'] ?? 0,
+                    ];
+                }
             }
         }
 
-
-        // insert vào bảng order-item thông qua mối quan hệ với createMany()
-        $order->orderItems()->createMany($orderItem);
+        
+        if (!empty($orderItems)) {
+            $order->orderItems()->createMany($orderItems);
+        }
     }
 
     public function update($request)
@@ -221,7 +226,8 @@ class OrderService implements OrderServiceInterface
     }
 
     // DASHBOARD
-    public function totalMoneyOrder() {
+    public function totalMoneyOrder()
+    {
         $totalOrder = $this->orderRepository->allWhere([
             [DB::raw('YEAR(created_at)'), '=', Carbon::now()->year],
             ['payment', 'paid'],
@@ -229,14 +235,15 @@ class OrderService implements OrderServiceInterface
             ['paid_at', '!=', null],
         ]);
         $totalMoney = 0;
-        if(count($totalOrder) > 0){
-            foreach($totalOrder as $val){
+        if (count($totalOrder) > 0) {
+            foreach ($totalOrder as $val) {
                 $totalMoney += (float) $val->total_amount;
             }
         }
         return $totalMoney;
     }
-    public function countTotalOrder(){
+    public function countTotalOrder()
+    {
         $count = $this->orderRepository->allWhere([
             [DB::raw('YEAR(created_at)'), '=', Carbon::now()->year],
             ['payment', 'paid'],
@@ -245,7 +252,8 @@ class OrderService implements OrderServiceInterface
         ])->count();
         return $count;
     }
-    public function countTotalOrderMonth(){
+    public function countTotalOrderMonth()
+    {
         $count = $this->orderRepository->allWhere([
             [DB::raw('MONTH(created_at)'), '=', Carbon::now()->month],
             ['payment', 'paid'],
@@ -255,43 +263,45 @@ class OrderService implements OrderServiceInterface
         return $count;
     }
 
-    public function countOrderFul12Month(){
+    public function countOrderFul12Month()
+    {
         $orders = DB::table('orders')
-        ->select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
-        ->where('payment', 'paid')
-        ->where('status', 'completed')
-        ->where('paid_at', '!=', null)
-        ->whereYear('created_at', Carbon::now()->year)
-        ->groupBy(DB::raw('MONTH(created_at)'))
-        ->pluck('count', 'month');
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as count'))
+            ->where('payment', 'paid')
+            ->where('status', 'completed')
+            ->where('paid_at', '!=', null)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('count', 'month');
         $monthValCounts = array_fill(1, 12, 0); // đủ 12 cho dù có tháng = 0
 
         foreach ($orders as $month => $count) {
             $monthValCounts[$month] = $count;
         }
-    
+
         return $monthValCounts;
-        
     }
-    public function countMoneyFul12Month(){
+    public function countMoneyFul12Month()
+    {
         $orders = DB::table('orders')
-        ->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(total_amount) as total_value'))
-        ->where('payment', 'paid')
-        ->where('status', 'completed')
-        ->where('paid_at', '!=', null)
-        ->whereYear('created_at', Carbon::now()->year)
-        ->groupBy(DB::raw('MONTH(created_at)'))
-        ->pluck('total_value', 'month');
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(total_amount) as total_value'))
+            ->where('payment', 'paid')
+            ->where('status', 'completed')
+            ->where('paid_at', '!=', null)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('total_value', 'month');
         $monthValCounts = array_fill(1, 12, 0); // đủ 12 cho dù có tháng = 0
 
         foreach ($orders as $month => $total) {
             $monthValCounts[$month] = $total;
         }
-    
+
         return $monthValCounts;
     }
 
-    public function orderRecent(){
+    public function orderRecent()
+    {
         $condition = [
             'where' => [
                 ['status', '!=', 'pending'],
