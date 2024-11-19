@@ -219,7 +219,8 @@
                             </li>
 
                             <li class="menu-li-item px-2 py-3">
-                                <a href="{{ route('home.contact') }}" class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
+                                <a href="{{ route('home.contact') }}"
+                                    class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
                                     hệ</a>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">
@@ -228,7 +229,8 @@
                                     khác <i class="fas fa-minus fz-12 fw-bold"></i></a>
                                 <ul class="ul-menu-header p-0 dropdown-content">
                                     <li class="li-menu-header">
-                                        <a href="{{ route('home.about_us') }}" class="text-decoration-none fz-16 text-color">Giới thiệu</a>
+                                        <a href="{{ route('home.about_us') }}"
+                                            class="text-decoration-none fz-16 text-color">Giới thiệu</a>
                                     </li>
                                     <li class="li-menu-header">
                                         <a href="{{ route('promotion.home_index') }}" class="text-decoration-none fz-16 text-color">Khuyến mãi</a>
@@ -237,10 +239,12 @@
                                         <a href="{{ route('home.faq') }}" class="text-decoration-none fz-16 text-color">Câu hỏi thường gặp</a>
                                     </li>
                                     <li class="li-menu-header">
-                                        <a href="{{ route('home.terms_and_conditions') }}" class="text-decoration-none fz-16 text-color">Điều khoản</a>
+                                        <a href="{{ route('home.terms_and_conditions') }}"
+                                            class="text-decoration-none fz-16 text-color">Điều khoản</a>
                                     </li>
                                     <li class="li-menu-header">
-                                        <a href="{{ route('home.return_and_warranty_policy') }}" class="text-decoration-none fz-16 text-color">Chính sách</a>
+                                        <a href="{{ route('home.return_and_warranty_policy') }}"
+                                            class="text-decoration-none fz-16 text-color">Chính sách</a>
                                     </li>
                                 </ul>
                             </li>
@@ -276,7 +280,7 @@
                                     data-bs-toggle="dropdown">
                                     <span class="d-flex align-items-center">
                                         <img class="rounded-circle header-profile-user"
-                                            src="{{ $user->image ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
+                                            src="{{ $user->image ? Storage::url($user->image) : asset('storage/default/avatar-default.jpg') }}"
                                             alt="Avatar User" class="rounded-circle object-fit-cover" width="40"
                                             height="40">
                                     </span>
@@ -291,7 +295,8 @@
                                         </li>
                                         <li class="li-menu-header p-2">
                                             <a href="{{ route('account.info') }}"
-                                                class="text-decoration-none fz-13 text-muted" style="padding-left:2px ">
+                                                class="text-decoration-none fz-13 text-muted"
+                                                style="padding-left:2px ">
                                                 <i class="fa-solid fa-user p-0 me-2"></i>Thông tin cá nhân
                                             </a>
                                         </li>
@@ -330,7 +335,7 @@
                                                 xuất
                                             </a>
                                         </li>
-                                    
+
                                     </ul>
                                 </div>
                             @else

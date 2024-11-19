@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use App\Traits\QueryScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,25 +10,28 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, QueryScopes;
+    use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Các thuộc tính có thể điền hàng loạt.
      *
      * @var array<int, string>
      */
-
-
     protected $fillable = [
         'name',
         'email',
         'password',
+        'birthday',
+        'phone',
+        'description',
+        'image',
         'google_id',
+        'facebook_id',
         'email_verification_token',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Các thuộc tính bị ẩn khi hiển thị.
      *
      * @var array<int, string>
      */
@@ -41,34 +41,35 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Các thuộc tính cần được ép kiểu.
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
-    //khai bao quan he vs bang user_catalogues (N)
-    public function userCatalogues(): BelongsTo
+    // Quan hệ với bảng user_catalogues
+    public function userCatalogue(): BelongsTo
     {
         return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id');
     }
 
-    // Khai báo quan hệ hasMany với bảng carts
+    // Quan hệ hasMany với bảng carts
     public function carts(): HasMany
     {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
+
+    // Quan hệ hasMany với bảng wishlists
     public function wishLists(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'user_id', 'id');
     }
-    public function userVouchers()
+
+    // Quan hệ hasMany với bảng user_vouchers
+    public function userVouchers(): HasMany
     {
         return $this->hasMany(UserVoucher::class);
     }
