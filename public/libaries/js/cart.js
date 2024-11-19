@@ -6,29 +6,41 @@
 
     FS.addToCart = () => {
         $(document).on("click", ".addToCart", function (e) {
-
-            if (!$(this).hasClass("buyNow")) {
-                e.preventDefault();
-            }
-
+            e.preventDefault();
             let _this = $(this);
             let product_id = _this.attr("data-id");
-            let product_variant_id = $(".product-variant-id").html() ?? null;
+            let product_variant_id =
+                $(".product-variant-id").html() ??
+                _this.attr("data-product-variant-id");
             let price =
                 $(".product-variant-price").attr("data-price") ||
-                $(".product-variant-price").text().replace(/[^\d]/g, "");
+                _this.attr("data-product-variant-price");
             let quantity = $('input[name="quantity"]').val() ?? 1;
             if (typeof quantity == "undefined") {
                 let quantity = 1;
             }
 
             let attribute_id = [];
-            $(".attribute-value .choose-attribute").each(function (e) {
-                let _this = $(this);
-                if (_this.hasClass("active")) {
-                    attribute_id.push(_this.attr("data-attributeId"));
+            if ($(".attribute-value .choose-attribute").length > 0) {
+                $(".attribute-value .choose-attribute").each(function (e) {
+                    let _this = $(this);
+                    if (_this.hasClass("active")) {
+                        attribute_id.push(_this.attr("data-attributeId"));
+                    }
+                });
+            } else {
+                let attributeDefault = _this.attr("data-attributeId");
+                if (attributeDefault) {
+                    let attributes = attributeDefault.split(",");
+                    let attributeIdArrayDF = attributes.map((item) =>
+                        item.replace(/"/g, "")
+                    );
+
+                    attributeIdArrayDF.forEach((attr) =>
+                        attribute_id.push(attr.trim())
+                    );
                 }
-            });
+            }
 
             let options = {
                 product_id: product_id,
@@ -38,29 +50,97 @@
                 attribute_id: attribute_id,
                 _token: _token,
             };
-            $.ajax({
-                url: "/ajax/cart/addToCart",
-                type: "POST",
-                data: options,
-                dataType: "json",
+            if ($(this).hasClass("buyNow")) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/ajax/cart/addToCart",
+                    type: "POST",
+                    data: options,
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code === 10) {
+                            let cartItems = res.cartItem;
+                            if (cartItems && cartItems.length > 0) {
+                                // lấy id vừa được chọn
+                                let maxId = Math.max(
+                                    ...cartItems.map((item) => item.id)
+                                );
+                                $.ajax({
+                                    url: "/ajax/cart/clearSessionId", // xóa session
+                                    type: "POST",
+                                    data: {
+                                        _token: _token,
+                                    },
+                                    success: function (res) {
+                                        if (res.code === 10) {
+                                            $.ajax({
+                                                url: "/ajax/cart/sessionOrderByCartId",
+                                                type: "POST",
+                                                data: {
+                                                    array_id: maxId,
+                                                    _token: _token,
+                                                },
+                                                success: function (res) {
+                                                    if (res.code === 10) {
+                                                        window.location.href =
+                                                            "/cart/index";
+                                                    }
+                                                },
+                                                error: function (
+                                                    xhr,
+                                                    status,
+                                                    error
+                                                ) {
+                                                    console.error(
+                                                        "lỗi:",
+                                                        xhr.responseText
+                                                    );
+                                                },
+                                            });
+                                        } else {
+                                            flasher.error(res.message);
+                                        }
+                                    },
+                                    error: function () {
+                                        flasher.error(
+                                            "Không thể làm mới session giỏ hàng."
+                                        );
+                                    },
+                                });
+                            }
+                        } else {
+                            flasher.error(res.message);
+                        }
+                    },
+                    error: function () {
+                        flasher.error("Có lỗi xảy ra khi thêm sản phẩm.");
+                    },
+                });
+            } else {
+                $.ajax({
+                    url: "/ajax/cart/addToCart",
+                    type: "POST",
+                    data: options,
+                    dataType: "json",
 
-                success: function (res) {
-                    if (res.code == 10) {
-                        flasher.success(res.message);
-                    }
-                },
-                error: function (xhr) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (xhr.status == 401) {
-                        flasher.error(response.message);
-                        setTimeout(function () {
-                            window.location.href = response.redirect;
-                        }, 2000);
-                    } else {
-                        flasher.error(response.message);
-                    }
-                },
-            });
+                    success: function (res) {
+                        if (res.code == 10) {
+                            flasher.success(res.message);
+                        }
+                    },
+                    error: function (xhr) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (xhr.status == 401) {
+                            flasher.error(response.message);
+                            setTimeout(function () {
+                                window.location.href = response.redirect;
+                            }, 2000);
+                        } else {
+                            flasher.error(response.message);
+                        }
+                    },
+                });
+            }
         });
     };
 
@@ -98,7 +178,7 @@
                 },
                 success: function (response) {
                     if (response.code == 10) {
-                        flasher.success(response.message);
+                        // flasher.success(response.message);
                     }
                 },
 
@@ -128,7 +208,7 @@
                                     alt="" class="img-fluid object-fit-cover " width="200">
                                 <div class="mt-1 text-white">
                                     <h6 class=" text-muted text-uppercase mb-2">Bạn chưa có sản phẩm nào!</h6>
-                                    <a href="${'http://127.0.0.1:8000/shop'}" class="btn btn-success"><i
+                                    <a href="${"http://127.0.0.1:8000/shop"}" class="btn btn-success"><i
                                             class="mdi mdi-home me-1"></i>Xem sản phẩm</a>
                                 </div>
                             </a>
@@ -138,8 +218,6 @@
                 type: "DELETE",
                 data: datas,
                 success: function (res) {
-                    console.log(res, product_variant_id, product_id);
-                    
                     if (res.code == 10) {
                         // xóa sản phẩm ở phía giao diện cart và order
                         $(
@@ -148,7 +226,6 @@
                         // cập nhật giá
                         FS.updateTotalPrice();
                         if ($(".cart-item").length === 0) {
-
                             $(".bg-cart").hide();
                             $(".main-cart").html(htmlCartNull);
                         }
@@ -163,25 +240,154 @@
             });
         });
     };
+    // remake cart order
+    FS.loadOrderByCartIdChecked = () => {
+        const loadOrdersByIds = (ids) => {
+            let orderNullHtml = `
+                <tr>
+                    <td colspan="3" class="text-center p-3">
+                        <div class="img-null text-center">
+                            <img src="/libaries/upload/images/order-null.png" alt="" class="" width="200" height="100">
+                        </div>
+                        <div class="mt-1">
+                            <span class="fz-16 text-muted text-uppercase mb-2">Vui lòng chọn sản phẩm từ giỏ hàng</span>
+                        </div>
+                    </td>
+                </tr>`;
+            if (ids.length === 0) {
+                $("#order_cart").html(orderNullHtml);
+                return;
+            }
+            $.ajax({
+                url: "/ajax/cart/LoadOrderByCartId",
+                type: "GET",
+                data: {
+                    array_id: ids,
+                    _token: _token,
+                },
+                success: function (res) {
+                    if (res.code === 10) {
+                        $("#order_cart").empty();
+                        $("#order_cart").html(res.html);
+                    }
+                },
+                error: function () {
+                    flasher.error("Có lỗi xảy ra khi tải đơn hàng hàng.");
+                },
+            });
+        };
+
+        const getCheckedIds = () => {
+            let arrayIdChecked = [];
+            $(".checkbox-item:checked").each(function () {
+                arrayIdChecked.push($(this).val());
+            });
+            return arrayIdChecked;
+        };
+
+        const saveCheckedIdsToSession = (ids) => {
+            $.ajax({
+                url: "/ajax/cart/sessionOrderByCartId",
+                type: "POST",
+                data: {
+                    array_id: ids,
+                    _token: _token,
+                },
+                success: function (res) {
+                    if (res.code === 10) {
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("lỗi:", xhr.responseText);
+                },
+            });
+        };
+
+        const loadCheckedIdsFromSession = () => {
+            let orderNullHtml = `
+                <tr>
+                    <td colspan="3" class="text-center p-3">
+                        <div class="img-null text-center">
+                            <img src="/libaries/upload/images/order-null.png" alt="" class="" width="200" height="100">
+                        </div>
+                        <div class="mt-1">
+                            <span class="fz-16 text-muted text-uppercase mb-2">Vui lòng chọn sản phẩm từ giỏ hàng</span>
+                        </div>
+                    </td>
+                </tr>`;
+            $.ajax({
+                url: "/ajax/cart/getOrderByCartId",
+                type: "GET",
+                success: function (res) {
+                    if (res.code === 10) {
+                        const ids = (res.array_id || []).map(String); // chuyển thành chuỗi để ss
+                        if (ids.length === 0) {
+                            $("#order_cart").html(orderNullHtml);
+                            return;
+                        }
+                        $(".checkbox-item").each(function () {
+                            const checkboxValue = String($(this).val()); // chuyển thành chuỗi để so sánh
+                            if (ids.includes(checkboxValue)) {
+                                $(this).prop("checked", true).trigger("change"); // dánh dấu checkbox và trigger dduu liệu
+                            } else {
+                                $(this).prop("checked", false);
+                            }
+                        });
+                        const allChecked =
+                            $(".checkbox-item:checked").length ===
+                            $(".checkbox-item").length;
+                        $("#check-all").prop("checked", allChecked); // checked checkbox all
+                    }
+                },
+                error: function () {
+                    flasher.error("Có lỗi khi lấy dữ liệu từ session.");
+                },
+            });
+        };
+
+        loadCheckedIdsFromSession();
+
+        if ($("#check-all, .checkbox-item").length > 0) {
+            $("#check-all, .checkbox-item").on("change", function () {
+                const checkedIds = getCheckedIds();
+                saveCheckedIdsToSession(checkedIds);
+                loadOrdersByIds(checkedIds);
+            });
+        }
+    };
 
     FS.updateQuantityOrder = () => {
         $("input[name=quantity-input]").each(function () {
             let quantity = $(this).val();
-            let destroyId = $(this).closest(".cart-item").attr("data-destroy-id");
-            $('.order .cart-item[data-destroy-id="' + destroyId + '"] .orderQuantity').text('x' + quantity);
+            let destroyId = $(this)
+                .closest(".cart-item")
+                .attr("data-destroy-id");
+            $(
+                '.order .cart-item[data-destroy-id="' +
+                    destroyId +
+                    '"] .orderQuantity'
+            ).text("x" + quantity);
         });
     };
-    
+
     FS.updateTotalPriceOrder = () => {
         $(".cart-item").each(function () {
-            let price = $(this).find(".orderPrice").text().replace(/[^0-9]/g, ''); // Loại bỏ ký tự không phải số
-            let quantity = $(this).find(".orderQuantity").text().replace('x', ''); // Loại bỏ ký tự 'x' và chuyển về số
+            let price = $(this)
+                .find(".orderPrice")
+                .text()
+                .replace(/[^0-9]/g, ""); // Loại bỏ ký tự không phải số
+            let quantity = $(this)
+                .find(".orderQuantity")
+                .text()
+                .replace("x", ""); // Loại bỏ ký tự 'x' và chuyển về số
             let totalPrice = price * quantity;
-            
-            $(this).find(".totalPriceOrder").text(new Intl.NumberFormat('vi-VN').format(totalPrice) + 'đ');
+
+            $(this)
+                .find(".totalPriceOrder")
+                .text(new Intl.NumberFormat("vi-VN").format(totalPrice) + "đ");
         });
     };
-    
+
     FS.updateTotalPrice = () => {
         let total = 0;
         $(".orderPrice").each(function () {
@@ -229,7 +435,7 @@
                     if (res.code == 10) {
                         $(".cart-item").empty();
                         setTimeout(function () {
-                            window.location.href = res.redirect;
+                            window.location.reload();
                         }, 1);
                         flasher.success(res.message);
                     }
@@ -243,23 +449,53 @@
 
     FS.updateCartTotal = () => {
         let total = 0;
-        $(".product-total-price").each(function () {
-            let price = parseFloat($(this).text().replace(/[^\d]/g, ""));
+
+        // lấy sản phẩm đc checked
+        $(".cart-item").each(function () {
+            const isChecked = $(this).find(".checkbox-item").is(":checked");
+            if (!isChecked) return;
+
+            // Lấy giá trị của sản phẩm
+            let price = parseFloat(
+                $(this)
+                    .find(".product-total-price")
+                    .text()
+                    .replace(/[^\d]/g, "")
+            );
+            console.log(price);
+
             if (!isNaN(price)) {
-                total += price;
+                total += price; // tính total
             }
         });
-
-        $("#cart-total-price").text(total.toLocaleString("vi-VN") + "đ");
+        // thành tiền
         $('tr:contains("Thành tiền:") td:last').text(
             total.toLocaleString("vi-VN") + "đ"
         );
+        // .. giảm giá
+        let discount = 0;
+        const discountText = $("#discount-amount").text().trim();
+        if (discountText !== "0đ") {
+            discount = parseFloat(discountText.replace(/[^\d]/g, ""));
+        }
+
+        //vận chuyển
+        let shippingFee = 0;
+        const shippingText = $("#shopping_fee").text().trim();
+        if (shippingText !== "Miễn phí") {
+            shippingFee = 25000; 
+        }
+
+        const finalTotal = total - discount + shippingFee;
+        $("#cart-total-price").text(finalTotal.toLocaleString("vi-VN") + "đ");
     };
+
     // gọi hàm
     $(document).ready(function () {
         FS.addToCart();
         FS.updateCart();
         FS.destroyCart();
         FS.clearCart();
+        FS.loadOrderByCartIdChecked();
     });
 })(jQuery);

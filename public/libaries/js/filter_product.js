@@ -27,7 +27,7 @@
             
             setTimeout(() => {
                 $(this).closest('form').submit();
-            }, 2000);
+            }, 800);
         });
     
         $(document).on('click', '.submitFilter .box-item-choose-money', function() {

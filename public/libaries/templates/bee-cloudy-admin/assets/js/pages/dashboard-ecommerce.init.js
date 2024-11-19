@@ -33,7 +33,6 @@ var worldemapmarkers = "",
 function loadCharts() {
     var e,
         t = getChartColorsArray("sales-by-locations");
-        console.log(moneyGraph, orderGraph);
         
     (t = getChartColorsArray("customer_impression_charts")) &&
         ((e = {
