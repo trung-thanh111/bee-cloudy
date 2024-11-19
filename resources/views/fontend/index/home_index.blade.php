@@ -815,13 +815,16 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                                                                                                                                                                                                                    <a href="zalo">
-                                                                                                                                                                                                                                                                                                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                                                                                                                                                                                                    </a>
-                                                                                                                                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                                                                                                                            <a href="zalo">
+                                                                                                                                                                                                                                                                                                                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                                                                                                        </div> -->
     </div>
 @endsection
 @section('js')
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger intent="WELCOME" chat-title="BeeCloud_ChatBot" agent-id="26f51831-93bb-4eae-bccc-27b7f6d33532"
+        language-code="vi"></df-messenger>
     <script>
         new Vue({
             el: '#app',

@@ -41,6 +41,12 @@ return [
         'redirect' => env('GOOGLE_REDIRECT'),
     ],
 
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT_URI'),
+    ],
+
     // 'paypal' => [
     //     'sandbox' => [
     //         'client_id'         => env('PAYPAL_CLIENT_ID', ''),
