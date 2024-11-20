@@ -3,7 +3,7 @@
     Danh mục bài viết
 @endsection
 @section('content')
-    <section data-aos="fade-up">
+    <section>
         <article>
             <div class="container p-0">
                 <!-- breadcrumb  -->
@@ -72,7 +72,7 @@
                             </h5>
                         </div>
                         <div class="row bg-white py-3 rounded-2" >
-                            <div class="col-lg-9 col-md-9 col-12 " data-aos="fade-up">
+                            <div class="col-lg-9 col-md-9 col-12 ">
                                 @if ($postInCatagories != null)
                                     @foreach ($postInCatagories as $key => $valPnew)
                                         @php
@@ -225,17 +225,4 @@
             </div>
         </article>
     </section>
-    <div class="">
-        <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
-            style="bottom: 60px; right: 30px;">
-            <div class=" border-2 rounded-circle">
-                <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
-            </div>
-        </a>
-        <!-- <div class=" live-chat ms-lg-16">
-                                                <a href="zalo">
-                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                </a>
-                                            </div> -->
-    </div>
 @endsection

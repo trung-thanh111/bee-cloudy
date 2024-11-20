@@ -931,22 +931,4 @@
             </div>
         </article>
     </section>
-    <!-- back to top  -->
-    <!-- footer  -->
-    <section>
-        <div class="">
-            <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
-                style="bottom: 60px; right: 30px;">
-                <div class=" border-2 rounded-circle">
-                    <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
-                </div>
-            </a>
-            <!-- <div class=" live-chat ms-lg-16">
-                                                                                        <a href="zalo">
-                                                                                            <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                        </a>
-                                                                                    </div> -->
-        </div>
-    </section>
-    <!-- end footer  -->
 @endsection

@@ -119,18 +119,18 @@
                 @if (Auth::check())
                 @php
                     $user = Auth::user();
-                @endphp
+                    @endphp
                 <div class="dropdown ms-sm-3 header-item">
                     <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
                             <img class="rounded-circle header-profile-user"
-                            src="{{ $user->image ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
+                            src="{{ $user->image != null ? '/userfiles/image/user/'.$user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                             alt="Avatar User" class="rounded-circle object-fit-cover" width="40"
                             height="40">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{$user->name }}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{$user->userCatalogues->name }}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 text-danger user-name-sub-text">{{ $user->userCatalogue->name }}</span>
                             </span>
                         </span>
                     </button>

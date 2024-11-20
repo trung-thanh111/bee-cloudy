@@ -135,7 +135,6 @@
                                             <input type="hidden" name="district_name" id="district_name"
                                                 value="">
                                             <input type="hidden" name="ward_name" id="ward_name" value="">
-
                                         </div>
                                     </div>
                                 </div>
@@ -236,7 +235,7 @@
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input " class="form-label">Trạng thái</label>
                                     <select class="form-select select2" name="publish">
-                                        <option value="1" {{ ($user->publish >= 1) ? 'selected' : '' }}>Hiển thị</option>
+                                        <option value="1" {{ ($user->publish == 1) ? 'selected' : '' }}>Hiển thị</option>
                                         <option value="0" {{ ($user->publish == 0) ? 'selected' : '' }}>Ẩn</option>
                                     </select>
                                 </div>
@@ -253,13 +252,13 @@
                                         <div class="position-relative d-inline-block">
                                             {{-- image-target dùng dể choose image hthi cho ngxem  --}}
                                             <span class="image-target">
-                                                <img src="{{ old('image', $user->image ?? '') ? '' . old('image', $user->image ?? '') : '/libaries/upload/images/img-notfound.png' }}"
+                                                <img src="{{ old('image', 'userfiles/image/user/'.$user->image ?? '') ? '' . old('image', 'userfiles/image/user/'.$user->image ?? '') : '/libaries/upload/images/img-notfound.png' }}"
                                                     alt=""
                                                     class="render-image object-fit-contain rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}
-                                            <input type="hidden" name="image" value="{{ old('image', $user->image) }}">
+                                            <input type="hidden" name="image" value="{{ old('image', 'userfiles/image/user/'.$user->image) }}">
                                         </div>
                                     </div>
                                 </div>

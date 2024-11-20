@@ -1,36 +1,25 @@
 <section>
-    <div class="">
-        <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
-            style="bottom: 60px; right: 30px;">
-            <div class=" border-2 rounded-circle">
-                <i
-                    class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
-            </div>
-        </a>
-        <!-- <div class=" live-chat ms-lg-16">
-            <a href="zalo">
-                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-            </a>
-        </div> -->
-    </div>
-    <footer>
-        <div class="container-fuild z-0">
+        <div class="container-fuild z-0 mt-5">
             <div class="container">
                 <div class="row flex-grow">
                     <div class="col-lg-3 col-md-8 col-sm-6">
                         <h6 class="text-uppercase fw-bold fz-16">Cửa hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('home.about_us') }}" class="text-decoration-none text-dark fz-15 fw-normal">Về chúng tôi</a>
+                                <a href="{{ route('home.about_us') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Về chúng tôi</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('shop.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
+                                <a href="{{ route('shop.index') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('cart.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
+                                <a href="{{ route('cart.index') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('wishlist.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
+                                <a href="{{ route('wishlist.index') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
                             </li>
                         </ul>
                     </div>
@@ -38,10 +27,13 @@
                         <h6 class="text-uppercase fw-bold fz-16">Chính sách cửa hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('home.return_and_warranty_policy') }}" class="text-decoration-none text-dark fz-15 fw-normal">Chính sách đổi trả, bảo hành</a>
+                                <a href="{{ route('home.return_and_warranty_policy') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Chính sách đổi trả, bảo
+                                    hành</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('home.terms_and_conditions') }}" class="text-decoration-none text-dark fz-15 fw-normal">Điều khoản &
+                                <a href="{{ route('home.terms_and_conditions') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Điều khoản &
                                     Điều kiện</a>
                             </li>
                         </ul>
@@ -50,13 +42,15 @@
                         <h6 class="text-uppercase fw-bold fz-16">Chăm sóc khách hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('home.contact') }}" class="text-decoration-none text-dark fz-15 fw-normal">Liên hệ</a>
+                                <a href="{{ route('home.contact') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Liên hệ</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
                                 <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Chat</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('home.faq') }}" class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
+                                <a href="{{ route('home.faq') }}"
+                                    class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
                                     gặp</a>
                             </li>
                         </ul>
@@ -106,7 +100,8 @@
                             diện</span>
                         <ul class="d-flex justify-content-start  align-items-center p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2 me-2">
-                                <a href="{{ route('home.security_center') }}" class="text-decoration-underline text-dark fz-15 fw-medium ">Trung tâm
+                                <a href="{{ route('home.security_center') }}"
+                                    class="text-decoration-underline text-dark fz-15 fw-medium ">Trung tâm
                                     bảo
                                     mật</a>
                             </li>
@@ -117,8 +112,9 @@
                         <ul class="p-0 d-flex justify-content-sm-around align-items-center w-75">
                             <li class="list-unstyled menu-footer-item pt-2 ps-0 pb-2">
                                 <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
-                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/pay.svg" alt="" class="w-100"
-                                        data-bs-toggle="tooltip" data-bs-title="Các phuong thức thanh toán">
+                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/pay.svg"
+                                        alt="" class="w-100" data-bs-toggle="tooltip"
+                                        data-bs-title="Các phuong thức thanh toán">
                                 </a>
                             </li>
                         </ul>
