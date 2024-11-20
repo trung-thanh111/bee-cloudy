@@ -280,7 +280,7 @@
                                     data-bs-toggle="dropdown">
                                     <span class="d-flex align-items-center">
                                         <img class="rounded-circle header-profile-user"
-                                            src="{{ $user->image != null  ? $user->image : '/libaries/upload/images/user-default.avif' }}"
+                                            src="{{ $user->image != null  ? '/userfiles/image/user/'.$user->image : '/libaries/upload/images/user-default.avif' }}"
                                             alt="Avatar User" class="rounded-circle object-fit-cover" width="40"
                                             height="40">
                                     </span>
@@ -294,7 +294,7 @@
                                             </span>
                                         </li>
                                         <li class="li-menu-header p-2">
-                                            <a href="{{ route('account.info') }}"
+                                            <a href="{{ route('profile.user') }}"
                                                 class="text-decoration-none fz-13 text-muted"
                                                 style="padding-left:2px ">
                                                 <i class="fa-solid fa-user p-0 me-2"></i>Thông tin cá nhân

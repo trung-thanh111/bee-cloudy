@@ -34,7 +34,7 @@
                                 <ul class="splide__list">
                                     @if ($productCatalogues)
                                         @foreach ($productCatalogues as $keyPCate => $valPCate)
-                                            <li class="splide__slide" data-aos="fade-left" data-aos-duration="1000">
+                                            <li class="splide__slide">
                                                 <a href="{{ route('product.category', ['id' => $valPCate->id]) }}">
                                                     <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
                                                         <img src="{{ $valPCate->image }}" alt="product image" width="100%"
@@ -304,8 +304,7 @@
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
                                         @endphp
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4" data-aos="fade-down"
-                                        data-aos-duration="800">
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
@@ -505,7 +504,7 @@
                                             ? number_format($productNew->del, '0', ',', '.')
                                             : number_format($productNew->price, '0', ',', '.');
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3" data-aos="fade-up" data-aos-duration="800">
+                                <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -631,7 +630,7 @@
                                             ? number_format($productPriceMin->del, '0', ',', '.')
                                             : number_format($productPriceMin->price, '0', ',', '.');
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3" data-aos="flip-up" data-aos-duration="800">
+                                <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -729,7 +728,7 @@
                     </div>
                 </div>
                 <hr class="pb-3 pt-3 " class="border-3">
-                <div class="row flex-wrap" data-aos="fade-up">
+                <div class="row flex-wrap">
                     <div class="col-lg-9 col-md-12 col-12">
                         <!-- Base Example -->
                         <div class="accordion shadow-sm text-muted mb-3 rounded-2 border-0">
@@ -975,23 +974,5 @@
             </div>
             </div>
         </article>
-    </section>
-    <!-- back to top  -->
-    <!-- footer  -->
-    <section>
-        <div class="">
-            <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
-                style="bottom: 60px; right: 30px;">
-                <div class=" border-2 rounded-circle">
-                    <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
-                </div>
-            </a>
-            <!-- <div class=" live-chat ms-lg-16">
-                                                                                    <a href="zalo">
-                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                    </a>
-                                                                                </div> -->
-        </div>
-    </section>
-    <!-- end footer  -->
+    </section> 
 @endsection

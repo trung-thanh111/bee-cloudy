@@ -357,6 +357,11 @@
                                                                     $valPSaler->del != 0
                                                                         ? $valPSaler->del
                                                                         : $valPSaler->price;
+                                                                //--// lấy số lượng sản phẩm tất cả phiên bản
+                                                                $totalQuantity = 0;
+                                                                foreach($valPSaler->productVariant as $variantQ){
+                                                                    $totalQuantity += (int)$variantQ->quantity;
+                                                                }
                                                             @endphp
                                                             <tr>
                                                                 <td>
@@ -391,7 +396,8 @@
                                                                 </td>
                                                                 <td>
                                                                     <h5 class="fs-14 my-1 fw-normal">
-                                                                        {{ $valPSaler->instock !== 0 ? $valPSaler->instock : '<span class="badge bg-danger-subtle text-danger">cháy hàng</span>' }}
+
+                                                                        {{ $valPSaler->productVariant ? $totalQuantity : '<span class="badge bg-danger-subtle text-danger">cháy hàng</span>' }}
                                                                     </h5>
                                                                     <span class="text-muted">Kho hàng</span>
                                                                 </td>

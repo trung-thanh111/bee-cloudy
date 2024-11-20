@@ -36,7 +36,7 @@ class UserService implements UserServiceInterface
                 ['user_catalogue_id', '=',  $request->integer('user_catalogue_id')]
             ]
         ];
-        $relation = ['userCatalogues'];
+        $relation = ['userCatalogue'];
         $perPage = $request->integer('perpage') ?: 10;
         $users = $this->userRepository->pagination(
             $this->paginateSelect(),

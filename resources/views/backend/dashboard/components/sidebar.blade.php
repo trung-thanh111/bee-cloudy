@@ -149,10 +149,10 @@
                     <div class="collapse menu-dropdown" id="sidebarPagesvoucher">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-controls="sidebarProfile">Quản lý
+                                <a href="#sidebarvoucher" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarvoucher">Quản lý
                                 </a>
-                                <div class="collapse menu-dropdown" id="sidebarProfile">
+                                <div class="collapse menu-dropdown" id="sidebarvoucher">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a href="{{ route('promotions.index') }}" class="nav-link">
@@ -160,6 +160,33 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('promotions.create') }}" class="nav-link">Thêm mới </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarPagescomment" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarPagescomment">
+                        <i class="fa-solid fa-comments"></i> <span data-key="t-pages">Đánh giá</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarPagescomment">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#sidebarcomment" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarcomment">Quản lý
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarcomment">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('comment') }}" class="nav-link">
+                                                Bài viết</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('productreview') }}" class="nav-link">
+                                                Sản phẩm</a>
                                         </li>
                                     </ul>
                                 </div>
