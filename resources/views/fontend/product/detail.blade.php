@@ -151,17 +151,17 @@
                                     <div class="py-2">Đánh giá (<strong>@{{ comment }}</strong>)</div>
                                     <div class="py-2" v-if="avg_stars > 0">
                                         <span class="product-variant-rate">
-                                            <i v-for="index in 5" :key="index" 
-                                               :class="[
-                                                   'fas',
-                                                   {
-                                                       'fa-star': index <= Math.floor(avg_stars),
-                                                       'fa-star-half-alt': index === Math.ceil(avg_stars) && avg_stars % 1 !== 0,
-                                                       'far fa-star': index > Math.ceil(avg_stars)
-                                                   }
-                                               ]"
-                                               style="color: #FFD700;"
-                                            ></i>
+                                            <i v-for="index in 5" :key="index"
+                                                :class="[
+                                                    'fas',
+                                                    {
+                                                        'fa-star': index <= Math.floor(avg_stars),
+                                                        'fa-star-half-alt': index === Math.ceil(avg_stars) &&
+                                                            avg_stars % 1 !== 0,
+                                                        'far fa-star': index > Math.ceil(avg_stars)
+                                                    }
+                                                ]"
+                                                style="color: #FFD700;"></i>
                                         </span>
                                     </div>
                                     <div class="vr" style="width: 1px !important;"></div>
@@ -234,12 +234,6 @@
                             @endif
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <input type="hidden" class="attributeCatalogue" value="{{ json_encode($attrCatalogues) }}">
-                            {{-- <form action="{{ route('cart.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="quantity" value="">
-                                <input type="hidden" name="price" value="">
-                            </form> --}}
                             <div class="box-choose-size">
                                 <div class="title-choose-size mb-2">
                                     <div class="row d-flex justify-content-between align-items-center  flex-wrap">
@@ -255,10 +249,17 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <span class="fz-14 text-warning mx-2">Đây chỉ là bảng
+                                                                <span class="fz-14 text-warning text-center mx-2">Đây chỉ là bảng
                                                                     size
                                                                     mô phỏng, độ chính xác tương đối.</span>
-                                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-ao.jpg"
+                                                                    <p class="text-start">Size áo</p>
+                                                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-ao.jpg"
+                                                                    alt="" class="img-fluid object-fit-cover">
+                                                                    <p class="text-start">Size quần</p>
+                                                                    <img src="/libaries/upload/images/size-quan.png"
+                                                                    alt="" class="img-fluid object-fit-cover">
+                                                                    <p class="text-start">Size Giày</p>
+                                                                    <img src="/libaries/upload/images/bang-size-giay.webp"
                                                                     alt="" class="img-fluid object-fit-cover">
                                                             </div>
                                                         </div>
@@ -280,8 +281,7 @@
                                             </button>
                                             <input type="text" name="quantity-product-variant w-sm-25 "
                                                 class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
-                                                value="1" min="1"
-                                                max="">
+                                                value="1" min="1" max="">
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -328,7 +328,7 @@
                                                 <i class="fa-solid fa-medal fs-3 text-secondary"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-muted">Sản phẩm độc quyền</h5>
+                                                <h5 class="card-title mb-1 text-info">Sản phẩm độc quyền</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
                                             </div>
                                         </div>
@@ -343,7 +343,7 @@
                                                 <i class="fa-solid fa-box fs-3 text-secondary"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-muted">Đóng gói chất lượng</h5>
+                                                <h5 class="card-title mb-1 text-info">Đóng gói chất lượng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
                                             </div>
                                         </div>
@@ -358,7 +358,7 @@
                                                 <i class="fa-solid fa-money-bill fs-3 text-secondary"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-muted">Thanh toán dễ dàng</h5>
+                                                <h5 class="card-title mb-1 text-info">Thanh toán dễ dàng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
                                             </div>
                                         </div>
@@ -373,7 +373,7 @@
                                                 <i class="fa-solid fa-truck-fast fs-3 text-secondary"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-muted">Miễn phí vận chuyển</h5>
+                                                <h5 class="card-title mb-1 text-info">Miễn phí vận chuyển</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
                                             </div>
                                         </div>
@@ -411,181 +411,201 @@
 
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                                    data-bs-parent="#default-accordion-example">
+                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingOne" data-bs-parent="#default-accordion-example">
                                     <div class="accordion-body bg-light fz-14">
                                         {!! $product->description !!}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @if(Auth::check())
-                        <hr style="padding: 2px ;" class="text-muted fw-bolder">
-                        <div class="accordion shadow-sm text-muted mb-5 rounded-2 border-0">
-                            <div class="accordion-item material-shadow ">
-                                <h2 class="accordion-header border-0" id="headingTow">
-                                    <button class="accordion-button fz-16 fw-500 text-dark" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseTow" aria-expanded="true"
-                                        aria-controls="collapseTow">
-                                        <span class="">Đánh giá sản phẩm</span>
+                        @if (Auth::check())
+                            <hr style="padding: 2px ;" class="text-muted fw-bolder">
+                            <div class="accordion shadow-sm text-muted mb-5 rounded-2 border-0">
+                                <div class="accordion-item material-shadow ">
+                                    <h2 class="accordion-header border-0" id="headingTow">
+                                        <button class="accordion-button fz-16 fw-500 text-dark" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseTow" aria-expanded="true"
+                                            aria-controls="collapseTow">
+                                            <span class="">Đánh giá sản phẩm</span>
 
-                                    </button>
-                                </h2>
-                                <div id="collapseTow" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingTow" data-bs-parent="#default-accordion-example">
-                                    <div class="accordion-body bg-white fz-14">
-                                        <div class="product-rating mb-3">
-                                            <div class="hstack gap-2">
-                                                <div class="item-two">
-                                                    <div class="rating">
-                                                        <label style="margin-right: 5px" for="rating-select">Chất lượng
-                                                            sản phẩm: </label>
-                                                        <select id="rating-select" v-model="create.publish">
-                                                            <option style="color: gold; font-size: 20px;" value="1">
-                                                                &#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="2">
-                                                                &#9733;&#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="3">
-                                                                &#9733;&#9733;&#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="4">
-                                                                &#9733;&#9733;&#9733;&#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="5">
-                                                                &#9733;&#9733;&#9733;&#9733;&#9733;</option>
-                                                        </select>
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTow" class="accordion-collapse collapse show"
+                                        aria-labelledby="headingTow" data-bs-parent="#default-accordion-example">
+                                        <div class="accordion-body bg-white fz-14">
+                                            <div class="product-rating mb-3">
+                                                <div class="hstack gap-2">
+                                                    <div class="item-two">
+                                                        <div class="rating">
+                                                            <label style="margin-right: 5px" for="rating-select">Chất
+                                                                lượng
+                                                                sản phẩm: </label>
+                                                            <select id="rating-select" v-model="create.publish">
+                                                                <option style="color: gold; font-size: 20px;"
+                                                                    value="1">
+                                                                    &#9733;</option>
+                                                                <option style="color: gold; font-size: 20px;"
+                                                                    value="2">
+                                                                    &#9733;&#9733;</option>
+                                                                <option style="color: gold; font-size: 20px;"
+                                                                    value="3">
+                                                                    &#9733;&#9733;&#9733;</option>
+                                                                <option style="color: gold; font-size: 20px;"
+                                                                    value="4">
+                                                                    &#9733;&#9733;&#9733;&#9733;</option>
+                                                                <option style="color: gold; font-size: 20px;"
+                                                                    value="5">
+                                                                    &#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        @php 
-                                            $user = Auth::user();
-                                        @endphp
-                                        <div class="product-comment ">
-                                            <div class="row">
-                                                <div class="col-lg-2 col-md-2 col-12 d-block justify-content-center">
-                                                    <button type="button" class="btn border-0 px-0">
-                                                        <span class="d-block align-items-center">
-                                                            <img class="rounded-circle header-profile-user"
-                                                                src="{{ ($user->image) ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
-                                                                alt="Avatar User" class="rounded-circle object-fit-cover"
-                                                                width="60" height="60">
-                                                            <p class="text-center mt-2">
-                                                                <span
-                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ $user->name }}</span>
-                                                            </p>
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                                <div
-                                                    class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
-                                                    <template v-if="!check ">
-                                                        <form>
-                                                            <div class="form-group position-relative ">
-                                                                <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
-                                                                    rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
-                                                                <button type="button"
-                                                                    class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                    style="bottom: 70px ; right: 20px;"
-                                                                    v-on:click="DanhGiaSP()">Gửi</button>
-                                                            </div>
-                                                        </form>
-                                                    </template>
-                                                    <template v-else>
-                                                        Bạn đã đánh giá sản phẩm .
-                                                    </template>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-coment mt-3 mb-2">
-                                            <div v-if="avg_stars > 0" class="py-2 me-3 mb-3">
-                                                <span class="fw-500 fz-16 ">Xem đánh giá (@{{ comment }})</span>
-                                            </div>
-                                            <template v-for="(v,k) in list">
-                                                <div class="row mx-2">
-                                                    <div
-                                                        class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
-                                                        <button type="button" class="btn  border-0 px-0">
-                                                            <span class="d-block justify-content-end align-items-center">
+                                            @php
+                                                $user = Auth::user();
+                                            @endphp
+                                            <div class="product-comment ">
+                                                <div class="row">
+                                                    <div class="col-lg-2 col-md-2 col-12 d-block justify-content-center">
+                                                        <button type="button" class="btn border-0 px-0">
+                                                            <span class="d-block align-items-center">
                                                                 <img class="rounded-circle header-profile-user"
-                                                                    src="{{ ($user->image) ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
+                                                                    src="{{ $user->image ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                                                                     alt="Avatar User"
-                                                                    class="rounded-circle object-fit-cover" width="50"
-                                                                    height="50">
+                                                                    class="rounded-circle object-fit-cover" width="60"
+                                                                    height="60">
+                                                                <p class="text-center mt-2">
+                                                                    <span
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ $user->name }}</span>
+                                                                </p>
                                                             </span>
                                                         </button>
                                                     </div>
                                                     <div
                                                         class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
-                                                        <div class="box-review">
-                                                            <div class="review-item rounded-2 my-2">
-                                                                <div
-                                                                    class="hstack gap-2 d-flex justify-content-start align-items-center">
-                                                                    <div class="pt-2 d-inline-block">
-                                                                        <h6 class="fz-18 mb-0">@{{ v.name }}</h6>
-                                                                    </div>
-                                                                    <div class="pt-2 d-inline-block">
-                                                                        <div :data-value="v.publish">
-                                                                            <span v-for="i in v.publish"
-                                                                                :key="i" class="star-icon"
-                                                                                style="color: gold;">
-                                                                                <i class="fa-solid fa-star"></i>
-                                                                            </span>
+                                                        <template v-if="!check ">
+                                                            <form>
+                                                                <div class="form-group position-relative ">
+                                                                    <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
+                                                                        rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
+                                                                    <button type="button"
+                                                                        class="btn btn-success position-absolute z-3  py-1 px-4"
+                                                                        style="bottom: 70px ; right: 20px;"
+                                                                        v-on:click="DanhGiaSP()">Gửi</button>
+                                                                </div>
+                                                            </form>
+                                                        </template>
+                                                        <template v-else>
+                                                            Bạn đã đánh giá sản phẩm .
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="review-coment mt-3 mb-2">
+                                                <div v-if="avg_stars > 0" class="py-2 me-3 mb-3">
+                                                    <span class="fw-500 fz-16 ">Xem đánh giá
+                                                        (@{{ comment }})</span>
+                                                </div>
+                                                <template v-for="(v,k) in list">
+                                                    <div class="row mx-2">
+                                                        <div
+                                                            class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
+                                                            <button type="button" class="btn  border-0 px-0">
+                                                                <span
+                                                                    class="d-block justify-content-end align-items-center">
+                                                                    <img class="rounded-circle header-profile-user"
+                                                                        src="{{ $user->image ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
+                                                                        alt="Avatar User"
+                                                                        class="rounded-circle object-fit-cover"
+                                                                        width="50" height="50">
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                        <div
+                                                            class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
+                                                            <div class="box-review">
+                                                                <div class="review-item rounded-2 my-2">
+                                                                    <div
+                                                                        class="hstack gap-2 d-flex justify-content-start align-items-center">
+                                                                        <div class="pt-2 d-inline-block">
+                                                                            <h6 class="fz-18 mb-0">@{{ v.name }}
+                                                                            </h6>
+                                                                        </div>
+                                                                        <div class="pt-2 d-inline-block">
+                                                                            <div :data-value="v.publish">
+                                                                                <span v-for="i in v.publish"
+                                                                                    :key="i"
+                                                                                    class="star-icon"
+                                                                                    style="color: gold;">
+                                                                                    <i class="fa-solid fa-star"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="dropdown ms-auto ">
+                                                                            <a class=" dropdown-toggle" href="#"
+                                                                                role="button" data-bs-toggle="dropdown"
+                                                                                aria-expanded="false">
+                                                                                <i
+                                                                                    class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
+                                                                            </a>
+                                                                            <ul
+                                                                                class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
+                                                                                <template
+                                                                                    v-if="v.user_id === {{ Auth::id() }}">
+                                                                                    <template v-if="v.edit_count === 0">
+                                                                                        <li class="p-1"
+                                                                                            v-on:click="v.is_liked === 1 ? edit = Object.assign({}, v) : null"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#edit">
+                                                                                            <a href="#"
+                                                                                                class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                                <i
+                                                                                                    class="fa-solid fa-circle-info me-2"></i>Chỉnh
+                                                                                                sửa
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </template>
+                                                                                    <template v-else>
+                                                                                        <li class="p-1">
+                                                                                            <span
+                                                                                                class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                                <i
+                                                                                                    class="fa-solid fa-circle-info me-2"></i>Đã
+                                                                                                chỉnh sửa
+                                                                                            </span>
+                                                                                        </li>
+                                                                                    </template>
+                                                                                </template>
+                                                                            </ul>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="dropdown ms-auto ">
-                                                                        <a class=" dropdown-toggle" href="#"
-                                                                            role="button" data-bs-toggle="dropdown"
-                                                                            aria-expanded="false">
-                                                                            <i
-                                                                                class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
-                                                                        </a>
-                                                                        <ul class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                            <template v-if="v.user_id === {{ Auth::id() }}">
-                                                                                <template v-if="v.edit_count === 0">
-                                                                                    <li class="p-1" 
-                                                                                        v-on:click="v.is_liked === 1 ? edit = Object.assign({}, v) : null" 
-                                                                                        data-bs-toggle="modal" 
-                                                                                        data-bs-target="#edit">
-                                                                                        <a href="#" class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                            <i class="fa-solid fa-circle-info me-2"></i>Chỉnh sửa
-                                                                                        </a>
-                                                                                    </li>
-                                                                                </template>
-                                                                                <template v-else>
-                                                                                    <li class="p-1">
-                                                                                        <span class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                            <i class="fa-solid fa-circle-info me-2"></i>Đã chỉnh sửa
-                                                                                        </span>
-                                                                                    </li>
-                                                                                </template>
-                                                                            </template>
-                                                                        </ul>                                                                                                                                               
-                                                                     </div>
-                                                                </div>
-                                                                <div class="review-time">
-                                                                    <span class="fz-12">@{{ formatDate(v.created_at) }}</span>
-                                                                </div>
-                                                                <div class="content-review mt-2">
-                                                                    <p class="fz-14 fst-italic fw-500">
-                                                                        @{{ v.content }}
-                                                                    </p>
-                                                                </div>
-                                                                <div>
-                                                                    <div class="icon-reaction pb-2">
-                                                                            <button class="like-button" v-on:click="Like(v)"
-                                                                            style="border: none; background: none; padding: 0;">
-                                                                            <i class="fa-regular fa-heart me-2"></i>
-                                                                        </button>
-                                                                        <span>@{{ v.like_count }}</span>
+                                                                    <div class="review-time">
+                                                                        <span class="fz-12">@{{ formatDate(v.created_at) }}</span>
+                                                                    </div>
+                                                                    <div class="content-review mt-2">
+                                                                        <p class="fz-14 fst-italic fw-500">
+                                                                            @{{ v.content }}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div class="icon-reaction pb-2">
+                                                                            <button class="like-button"
+                                                                                v-on:click="Like(v)"
+                                                                                style="border: none; background: none; padding: 0;">
+                                                                                <i class="fa-regular fa-heart me-2"></i>
+                                                                            </button>
+                                                                            <span>@{{ v.like_count }}</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </template>
-                                            <!-- item review  -->
-                                            <!-- phân trang bình luận  -->
-                                            {{-- <div class="d-flex justify-content-center align-items-center mt-3">
+                                                </template>
+                                                <!-- item review  -->
+                                                <!-- phân trang bình luận  -->
+                                                {{-- <div class="d-flex justify-content-center align-items-center mt-3">
                                                 <nav aria-label="Page navigation example">
                                                     <ul class="pagination pagination-sm">
                                                         <li class="page-item">
@@ -608,11 +628,11 @@
                                                     </ul>
                                                 </nav>
                                             </div> --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                     <div class="aside-product-detail col-lg-4 col-md-12 col-12">
@@ -621,34 +641,36 @@
                                 <h6 class="card-title fw-18 fw-500">Voucher</h6>
                             </div>
                             <div class="card-body py-2">
-                                @if($promotions)
-                                @foreach($promotions as $promotion)
-                                @php
-                                @endphp
-                                <div class="voucher-item brand-item mb-3 overflow-y-auto">
-                                    <ul class="ps-0 mb-0">
-                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-2 ">
-                                            <div class="image-voucher-item ">
-                                                <img src="{{ $promotion->image != null ? $promotion->image : '/libaries/templates/bee-cloudy-user/libaries/images/voucher1.avif' }}"
-                                                    alt="" width="80" height="100%" class="img-fuild object-fit-contain  me-2">
-                                            </div>
-                                            <div class="title-date-voucher w-100">
-                                                <div class="col">
-                                                    <h6 class="fz-16 pb-2">{{ $promotion->name }}</h6>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="fz-12">Sử dụng đến: <strong>{{ date('d-m-Y', strtotime($promotion->end_date)) }}</strong></span>
-                                                    <a href="#" class="text-end">
-                                                        <button
-                                                            class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
-                                                            dụng</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                @endforeach
+                                @if ($promotions)
+                                    @foreach ($promotions as $promotion)
+                                        @php
+                                        @endphp
+                                        <div class="voucher-item brand-item mb-3 overflow-y-auto">
+                                            <ul class="ps-0 mb-0">
+                                                <li class="list-unstyled d-flex justify-content-start text-muted mb-2 ">
+                                                    <div class="image-voucher-item ">
+                                                        <img src="{{ $promotion->image != null ? $promotion->image : '/libaries/templates/bee-cloudy-user/libaries/images/voucher1.avif' }}"
+                                                            alt="" width="80" height="100%"
+                                                            class="img-fuild object-fit-contain  me-2">
+                                                    </div>
+                                                    <div class="title-date-voucher w-100">
+                                                        <div class="col">
+                                                            <h6 class="fz-16 pb-2">{{ $promotion->name }}</h6>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <span class="fz-12">Sử dụng đến:
+                                                                <strong>{{ date('d-m-Y', strtotime($promotion->end_date)) }}</strong></span>
+                                                            <a href="#" class="text-end">
+                                                                <button
+                                                                    class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
+                                                                    dụng</button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
@@ -703,9 +725,19 @@
                     </div>
                 </div>
                 <!-- product similar  -->
-                <div class="product-similar mb-3 text-muted {{ (count($productSimilars) > 0 ? '' : 'd-none') }}">
-                    <div class="title-product-similar mb-4">
-                        <h6 class="fs-3 fw-bold text-muted">Sản phẩm tương tự</h6>
+                <div class="product-similar mb-3 text-muted {{ count($productSimilars) > 0 ? '' : 'd-none' }}">
+                    <div class="title-product mb-4 col-3">
+                        <div class="price-banner">
+                            <div
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-tags text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    sản phẩm tương tự
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="row flex-wrap">
                         @if (count($productSimilars) != 0 && !empty($productSimilars))
@@ -718,6 +750,8 @@
                                                     $valProductSimilar->price) *
                                                 100
                                             : '0';
+                                    //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                    $variantFirst = $valProductSimilar->productVariant->first();
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 pt-0">
@@ -795,12 +829,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $valProductSimilar->id }}">
+                                                    data-id="{{ $valProductSimilar->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $valProductSimilar->id }}">
+                                                    data-id="{{ $valProductSimilar->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -843,7 +883,8 @@
                                         <option style="color: gold;" value="2">&#9733;&#9733;</option>
                                         <option style="color: gold;" value="3">&#9733;&#9733;&#9733;</option>
                                         <option style="color: gold;" value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -886,9 +927,9 @@
                 total_stars: 0,
                 avg_stars: 0,
                 likeCount: 0,
-                
+
                 check: 0,
-               isLiked: false,
+                isLiked: false,
             },
             created() {
                 this.LoadBinhLuan();
@@ -896,7 +937,7 @@
                 this.Chekc();
             },
             methods: {
-                
+
                 toggleLike() {
                     this.isLiked = !this.isLiked;
 
@@ -941,7 +982,7 @@
                 },
                 Like(v) {
                     axios
-                        .post('/producreview/like',v)
+                        .post('/producreview/like', v)
                         .then((res) => {
                             if (res.data.status) {
                                 this.LoadLike();

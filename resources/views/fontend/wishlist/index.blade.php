@@ -65,6 +65,8 @@
                                                     $price = number_format($item->price, '0', ',', '.');
                                                     $promotion = '0';
                                                 }
+                                                //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                            $variantFirst = $product->productVariant->first();
                                             @endphp
 
                                             <div class="col-lg-3 col-md-6 col-12 mb-4">
@@ -162,39 +164,19 @@
                                                                 </span>
                                                             @endif
                                                         </div>
-                                                        @if($product)
                                                         <div class="box-action">
                                                             <a href="{{ route('cart.index') }}"
                                                                 class="action-cart-item-buy addToCart buyNow"
-                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
+                                                                data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                                 <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                                 <span>Mua ngay</span>
                                                             </a>
                                                             <a href="" class="action-cart-item-add addToCart"
-                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
+                                                                data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                                 <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                                 <span>thêm giỏ hàng</span>
                                                             </a>
                                                         </div>
-                                                        @else
-                                                        <div class="box-action">
-                                                            <a href=""
-                                                                class="action-cart-item-buy toggleWishlist"
-                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
-                                                                <i class="fa-solid fa-heart-crack fz-18 me-2"></i>
-                                                                <span>Bỏ yêu thích</span>
-                                                                <span
-                                                                    class="product_id_wishlist d-none">{{ $item->id }}</span>
-                                                                <span
-                                                                    class="product_variant_id_wishlist d-none">{{ $productVariant ? $productVariant->id : '' }}</span>
-                                                            </a>
-                                                            <a href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}" class="action-cart-item-add addToCart"
-                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
-                                                                <i class="fa-solid fa-eye fz-18 me-2"></i>
-                                                                <span>Xem chi tiết</span>
-                                                            </a>
-                                                        </div>
-                                                        @endif
                                                         <div class="head-card d-flex p-1">
                                                             <span class="fz-14 ">Mã sản phẩm</span>
                                                             <span

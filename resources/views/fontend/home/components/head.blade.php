@@ -53,4 +53,4 @@
 <script>
     var BASE_URL = '{{ config('app.url') }}'
 </script>
-@vite(['resources/css/app.css'])
+{{-- @vite(['resources/css/app.css']) --}}

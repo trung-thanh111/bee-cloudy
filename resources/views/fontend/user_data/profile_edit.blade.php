@@ -159,7 +159,7 @@
                                                         <div class="col-lg-3 col-md-3 col-sm-6">
                                                             <div class="mb-3">
                                                                 <div class="text-center">
-                                                                    <img src="{{ $user->image != null ? '/userfiles/image/user/'.$user->image : '/libaries/upload/images/img-notfound.png' }}"
+                                                                    <img src="{{ $user->image != null ? $user->image : '/libaries/upload/images/img-notfound.png' }}"
                                                                         alt="Avatar" alt="User Image"
                                                                         class="rounded-circle object-fit-contain mb-3"
                                                                         width="100" height="100">

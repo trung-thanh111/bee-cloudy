@@ -304,6 +304,8 @@
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
+                                            //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                            $variantFirst = $product->productVariant->first();
                                         @endphp
                                         <div class="col-lg-4 col-md-6 col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
@@ -382,12 +384,18 @@
                                                     <div class="box-action">
                                                         <a href="{{ route('cart.index') }}"
                                                             class="action-cart-item-buy addToCart buyNow"
-                                                            data-id="{{ $product->id }}">
+                                                            data-id="{{ $product->id }}"
+                                                            data-product-variant-id="{{ $variantFirst->id }}"
+                                                            data-product-variant-price="{{ $variantFirst->price }}"
+                                                            data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                             <span>Mua ngay</span>
                                                         </a>
                                                         <a href="" class="action-cart-item-add addToCart"
-                                                            data-id="{{ $product->id }}">
+                                                            data-id="{{ $product->id }}"
+                                                            data-product-variant-id="{{ $variantFirst->id }}"
+                                                            data-product-variant-price="{{ $variantFirst->price }}"
+                                                            data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
                                                         </a>
@@ -457,6 +465,8 @@
                                         $productNew->del != 0 && $productNew->del != null
                                             ? number_format($productNew->del, '0', ',', '.')
                                             : number_format($productNew->price, '0', ',', '.');
+                                    //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                    $variantFirst = $productNew->productVariant->first();
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
@@ -531,12 +541,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $productNew->id }}">
+                                                    data-id="{{ $productNew->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $productNew->id }}">
+                                                    data-id="{{ $productNew->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -584,6 +600,8 @@
                                         $productPriceMin->del != 0 && $productPriceMin->del != null
                                             ? number_format($productPriceMin->del, '0', ',', '.')
                                             : number_format($productPriceMin->price, '0', ',', '.');
+                                    //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                    $variantFirst = $productPriceMin->productVariant->first();
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
@@ -659,12 +677,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $productPriceMin->id }}">
+                                                    data-id="{{ $productPriceMin->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $productPriceMin->id }}">
+                                                    data-id="{{ $productPriceMin->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>

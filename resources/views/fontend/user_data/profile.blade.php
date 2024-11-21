@@ -51,7 +51,7 @@
                                                         <tr class="">
                                                             <td>Hình ảnh</td>
                                                             <th>
-                                                                <img src="{{ $user->image !== null ? 'userfiles/image/user/'.$user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif'}}"
+                                                                <img src="{{ $user->image !== null ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif'}}"
                                                                     alt=""
                                                                     class="user-account object-fit-cover rounded-circle"
                                                                     width="60" height="60">

@@ -9,22 +9,25 @@ use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
 use App\Models\PromotionProductVariant;
 use App\Http\Controllers\FontendController;
-
+use App\Repositories\WishlistRepository;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends FontendController
 {
     protected $cartService;
+    protected $wishlistRepository;
     protected $cartRepository;
     protected $productRepository;
 
     public function __construct(
         CartService $cartService,
         CartRepository $cartRepository,
+        WishlistRepository $wishlistRepository,
         ProductRepository $productRepository,
     ) {
         $this->cartService = $cartService;
         $this->cartRepository = $cartRepository;
+        $this->wishlistRepository = $wishlistRepository;
         $this->productRepository = $productRepository;
     }
 
