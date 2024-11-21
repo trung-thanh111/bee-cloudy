@@ -16,7 +16,7 @@
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->
-                <div class="">
+                <div class="">   1
                     <h4 class=" mt-4 mb-5 w-100">
                         Kết quả tìm kiếm của bạn về " <span
                             class=" fs-4 fw-bold mb-3 text-uppercase text-truncate">{{ $keyword }} </span>"
@@ -45,6 +45,8 @@
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
+                                            //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                            $variantFirst = $product->productVariant->first();
                                         @endphp
                                         <div class="col-lg-3 col-md-6  col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
@@ -121,12 +123,18 @@
                                                     <div class="box-action">
                                                         <a href="{{ route('cart.index') }}"
                                                             class="action-cart-item-buy addToCart buyNow"
-                                                            data-id="{{ $product->id }}">
+                                                            data-id="{{ $product->id }}"
+                                                            data-product-variant-id="{{ $variantFirst->id }}"
+                                                            data-product-variant-price="{{ $variantFirst->price }}"
+                                                            data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                             <span>Mua ngay</span>
                                                         </a>
                                                         <a href="" class="action-cart-item-add addToCart"
-                                                            data-id="{{ $product->id }}">
+                                                            data-id="{{ $product->id }}"
+                                                            data-product-variant-id="{{ $variantFirst->id }}"
+                                                            data-product-variant-price="{{ $variantFirst->price }}"
+                                                            data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
                                                         </a>
@@ -201,8 +209,8 @@
                 @if ($results->isEmpty())
                     <div class="order-null p-3">
                         <div class="img-null text-center">
-                            <img src="/libaries/upload/images/order-null.png" alt="" class="" width="300"
-                                height="200">
+                            <img src="/libaries/upload/images/order-null.png" alt="" class=""
+                                width="300" height="200">
                         </div>
                         <div class="flex flex-col text-center align-items-center">
                             <h5 class="mb-2  fw-semibold">Tạm thời không có bản ghi phù hợp!

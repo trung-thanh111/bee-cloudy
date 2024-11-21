@@ -3,11 +3,11 @@
         $user = Auth::user();
     @endphp
 @endif
-<div class="header-profile mb-3">
+<div class="header-profile mb-3 rounded-2">
     <div class="text-muted d-flex justify-content-between align-items ">
         <div class="row ps-lg-3 pe-lg-3 p-lg-5 p-md-5 p-sm-4 p-xs-3">
             <div class="col-lg-4 col-md-4">
-                <img src="{{ $user->image != null ? '/userfiles/image/user/' . $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
+                <img src="{{ $user->image != null ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                     alt="image user acount" class="rounded-circle " width="90px" height="90px">
             </div>
             <div class="col-lg-8 col-md-8 align-items-center">

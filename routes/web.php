@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //FONTEND 
+Route::get('/', [HomeController::class, 'index'])->name('home_index.index');
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/category/{id}', [ShopController::class, 'productIncategory'])->where(['id' => '[0-9]+'])->name('product.category');
@@ -161,7 +162,6 @@ Route::middleware(['auth'])->group(function () {
 
 //BACKEND
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // usercatalogue

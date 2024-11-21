@@ -252,13 +252,13 @@
                                         <div class="position-relative d-inline-block">
                                             {{-- image-target dùng dể choose image hthi cho ngxem  --}}
                                             <span class="image-target">
-                                                <img src="{{ old('image', 'userfiles/image/user/'.$user->image ?? '') ? '' . old('image', 'userfiles/image/user/'.$user->image ?? '') : '/libaries/upload/images/img-notfound.png' }}"
+                                                <img src="{{ old('image', $user->image ?? '') ? '' . old('image', $user->image ?? '') : '/libaries/upload/images/img-notfound.png' }}"
                                                     alt=""
                                                     class="render-image object-fit-contain rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}
-                                            <input type="hidden" name="image" value="{{ old('image', 'userfiles/image/user/'.$user->image) }}">
+                                            <input type="hidden" name="image" value="{{ old('image', $user->image) }}">
                                         </div>
                                     </div>
                                 </div>

@@ -46,9 +46,6 @@
                                     class="text-decoration-none text-dark fz-15 fw-normal">Liên hệ</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Chat</a>
-                            </li>
-                            <li class="list-unstyled menu-footer-item pt-2 pb-2">
                                 <a href="{{ route('home.faq') }}"
                                     class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
                                     gặp</a>
