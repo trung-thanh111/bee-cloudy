@@ -16,7 +16,7 @@
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->
-                <div class="">   1
+                <div class="">
                     <h4 class=" mt-4 mb-5 w-100">
                         Kết quả tìm kiếm của bạn về " <span
                             class=" fs-4 fw-bold mb-3 text-uppercase text-truncate">{{ $keyword }} </span>"
