@@ -325,7 +325,7 @@
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center">
                                             <div class="feature-icon bg-light rounded-circle p-3 me-3">
-                                                <i class="fa-solid fa-medal fs-3 text-secondary"></i>
+                                                <i class="fa-solid fa-medal fs-3 text-info"></i>
                                             </div>
                                             <div>
                                                 <h5 class="card-title mb-1 text-info">Sản phẩm độc quyền</h5>
@@ -340,7 +340,7 @@
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center">
                                             <div class="feature-icon bg-light rounded-circle p-3 me-3">
-                                                <i class="fa-solid fa-box fs-3 text-secondary"></i>
+                                                <i class="fa-solid fa-box fs-3 text-info"></i>
                                             </div>
                                             <div>
                                                 <h5 class="card-title mb-1 text-info">Đóng gói chất lượng</h5>
@@ -355,7 +355,7 @@
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center">
                                             <div class="feature-icon bg-light rounded-circle p-3 me-3">
-                                                <i class="fa-solid fa-money-bill fs-3 text-secondary"></i>
+                                                <i class="fa-solid fa-money-bill fs-3 text-info"></i>
                                             </div>
                                             <div>
                                                 <h5 class="card-title mb-1 text-info">Thanh toán dễ dàng</h5>
@@ -370,7 +370,7 @@
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center">
                                             <div class="feature-icon bg-light rounded-circle p-3 me-3">
-                                                <i class="fa-solid fa-truck-fast fs-3 text-secondary"></i>
+                                                <i class="fa-solid fa-truck-fast fs-3 text-info"></i>
                                             </div>
                                             <div>
                                                 <h5 class="card-title mb-1 text-info">Miễn phí vận chuyển</h5>
@@ -660,10 +660,9 @@
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <span class="fz-12">Sử dụng đến:
                                                                 <strong>{{ date('d-m-Y', strtotime($promotion->end_date)) }}</strong></span>
-                                                            <a href="#" class="text-end">
+                                                            <a href="{{ route('promotion.home_index') }}" class="text-end">
                                                                 <button
-                                                                    class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
-                                                                    dụng</button>
+                                                                    class="btn rounded-2 btn-info fz-12 fw-medium text-white">Xem</button>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -684,7 +683,7 @@
                                         @if (!is_null($categories) && !empty($categories))
                                             @foreach ($categories as $category)
                                                 <li class="list-group-item">
-                                                    <a href="#"
+                                                    <a href="{{ route('product.category', ['id' => $category->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $category->image }}" alt="{{ $category->name }}"
                                                             width="50" height="50"
@@ -708,7 +707,7 @@
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)
                                                 <li class="list-group-item">
-                                                    <a href="#"
+                                                    <a href="{{ route('product.brand', ['id' => $brand->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $brand->image }}" alt="{{ $brand->name }}"
                                                             width="50" height="50"
