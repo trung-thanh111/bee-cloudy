@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WishList extends Model
+class Wishlist extends Model
 {
     use HasFactory, SoftDeletes, QueryScopes;
 

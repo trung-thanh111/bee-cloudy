@@ -68,6 +68,7 @@
                                     </span>
                                 </div>
                             </div>
+                            @if(Auth::check())
                             <div class="accordion shadow-sm text-muted mb-5 rounded-2 border-0 my-3">
                                 <div class="accordion-item material-shadow ">
                                     <h2 class="accordion-header border-0" id="headingTow">
@@ -244,6 +245,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         <div class="col-lg-3 col-md-12 col-12">
                             <div class="card border-0 rounded-1 my-4">
