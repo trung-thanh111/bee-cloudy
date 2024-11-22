@@ -92,36 +92,24 @@ class HomeController extends Controller
         return view('fontend.page_other.faq');
     }
 
-    public function contact()
+    public function showForm()
     {
         return view('fontend.page_other.contact');
     }
 
-    public function contactSubmit(Request $request)
+    public function send(Request $request)
     {
-        // Validate input
-        $request->validate([
-            'name' => 'required',
+        // Validate dữ liệu từ form
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
             'email' => 'required|email',
-            'message' => 'required',
+            'message' => 'required|string',
         ]);
 
-        // Truyền dữ liệu vào mail dưới dạng chuỗi
-        $contactData = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'message' => $request->message,
-        ];
+        // Gửi email với dữ liệu form
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactMail($validated));
 
-        // Chuyển đổi dữ liệu thành chuỗi (nếu cần)
-        $contactDataString = json_encode($contactData);  // Biến các mảng thành chuỗi JSON
-
-        // Gửi mail
-        Mail::to('beecloudy2024@gmail.com')->send(new ContactMail($contactDataString));
-
-        // Hiển thị thông báo và quay lại
-        flash()->success('Cảm ơn bạn đã liên hệ');
-        return redirect()->back();
+        return back()->with('success', 'Your message has been sent successfully!');
     }
 
     public function terms_and_conditions()
