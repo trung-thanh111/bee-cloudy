@@ -328,7 +328,7 @@
                                                 <i class="fa-solid fa-medal fs-3 text-info"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-info">Sản phẩm độc quyền</h5>
+                                                <h5 class="card-title mb-1 text-muted">Sản phẩm độc quyền</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
                                             </div>
                                         </div>
@@ -343,7 +343,7 @@
                                                 <i class="fa-solid fa-box fs-3 text-info"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-info">Đóng gói chất lượng</h5>
+                                                <h5 class="card-title mb-1 text-muted">Đóng gói chất lượng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
                                             </div>
                                         </div>
@@ -358,7 +358,7 @@
                                                 <i class="fa-solid fa-money-bill fs-3 text-info"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-info">Thanh toán dễ dàng</h5>
+                                                <h5 class="card-title mb-1 text-muted">Thanh toán dễ dàng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
                                             </div>
                                         </div>
@@ -373,7 +373,7 @@
                                                 <i class="fa-solid fa-truck-fast fs-3 text-info"></i>
                                             </div>
                                             <div>
-                                                <h5 class="card-title mb-1 text-info">Miễn phí vận chuyển</h5>
+                                                <h5 class="card-title mb-1 text-muted">Miễn phí vận chuyển</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
                                             </div>
                                         </div>

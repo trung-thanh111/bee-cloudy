@@ -1,6 +1,6 @@
 @extends('fontend.home.layout')
 @section('page_title')
-    Trang Chủ
+    Bee Cloud
 @endsection
 @section('content')
     <div class="" id="app">
