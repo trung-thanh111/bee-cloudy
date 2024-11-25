@@ -52,8 +52,10 @@ Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
 
 //Page orther
 Route::get('faq', [HomeController::class, 'faq'])->name('home.faq');
-Route::get('contact', [HomeController::class, 'contact'])->name('home.contact');
-Route::post('contact', [HomeController::class, 'contactSubmit'])->name('home-contact-form');
+
+Route::get('/contact', [HomeController::class, 'showForm'])->name('home.contact');
+Route::post('/contact/send', [HomeController::class, 'send'])->name('contact.send');
+
 Route::get('terms_and_conditions', [HomeController::class, 'terms_and_conditions'])->name('home.terms_and_conditions');
 Route::get('return_and_warranty_policy', [HomeController::class, 'return_and_warranty_policy'])->name('home.return_and_warranty_policy');
 Route::get('about_us', [HomeController::class, 'about_us'])->name('home.about_us');

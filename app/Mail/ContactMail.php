@@ -12,50 +12,18 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $contactData;
+    public $data;  // Lưu dữ liệu từ form
 
-    /**
-     * Tạo instance mới của email
-     *
-     * @param array $contactData
-     */
-    public function __construct($contactData)
+    public function __construct($data)
     {
-        $this->contactData = $contactData;
+        $this->data = $data;
     }
 
-    /**
-     * Xác định envelope của email
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    public function envelope()
+    public function build()
     {
-        return new Envelope(
-            subject: 'Liên hệ từ website'
-        );
-    }
-
-    /**
-     * Xác định nội dung email
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    public function content()
-    {
-        return new Content(
-            view: 'fontend.mail.contact',  // View cho email
-            with: [
-                'contactData' => $this->contactData
-            ]
-        );
-    }
-
-    /**
-     * Xác định các tệp đính kèm
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
+            ->subject('New Contact Form Submission')
+            ->view('fontend.mail.contact')
+            ->with('data', $this->data);
     }
 }
