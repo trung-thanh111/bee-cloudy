@@ -74,7 +74,7 @@
                         : "Thêm vào yêu thích"
                 }" >
                     <div class="position-relative">
-                        <a href="#" class="position-absolute start-50 translate-middle" style="top: 20px;">
+                        <a href="#" class="position-absolute start-50 translate-middle border-0 bg-white p-0" style="top: 20px;">
                             <i class="icon-favourite fa-${
                                 WishlistId.includes(res.productVariant.id)
                                     ? "solid"
