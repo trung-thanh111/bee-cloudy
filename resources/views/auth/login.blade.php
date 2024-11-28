@@ -6,7 +6,7 @@
     <section>
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-md-4 col-lg-4 col-xl-4">
+                <div class="col-xl-4 col-lg-6 col-md-8 col-12">
                     <div class="card border-0 shadow-sm mt-4 card-bg-fill">
                         <div class="card-body p-4">
                             <div class="text-center mt-2">

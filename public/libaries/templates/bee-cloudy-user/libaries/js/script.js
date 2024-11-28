@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
   new Splide("#promo-carousel", {
-    type: "loop", // Loại carousel (có thể sử dụng loop để liên tục cuộn)
-    perPage: 1, // Số lượng slide hiển thị trên mỗi lượt trượt
-    autoplay: true, // Tự động chuyển slide
+    type: "loop", 
+    perPage: 1, 
+    autoplay: true, 
     pauseOnHover: false,
-    direction: "ttb", // Chuyển đổi từ trên xuống (top to bottom)
+    direction: "ttb", 
     height: "20px",
-    width: "50%", // Chiều cao của carousel
-    arrows: false, // Ẩn nút điều hướng
-    pagination: false, // Ẩn các chấm chuyển trang
+    width: "50%", 
+    arrows: false,
+    pagination: false, 
   }).mount();
 });
 
@@ -20,12 +20,15 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 window.addEventListener("load", function () {
   const loader = document.getElementById('loader-overlay');
 
-  // Lắng nghe sự kiện "beforeunload" khi chuyển trang
   window.addEventListener('beforeunload', function () {
-      loader.style.display = 'flex'; // Hiển thị loader
+      loader.style.display = 'flex';
   });
 
-  // Ẩn loader sau khi trang được load
+  window.addEventListener('pageshow', function (e) {
+      if (e.persisted) {
+          loader.style.display = 'none';
+      }
+  });
   setTimeout(() => {
       loader.style.display = 'none';
   }, 500);
@@ -53,11 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
   var mainCarousel = document.querySelector("#main-carousel");
   if (mainCarousel) {
     mainCarousel = new Splide(mainCarousel, {
+      fixedHeight: 60,
       type: "fade",
       heightRatio: 1,
       pagination: false,
       arrows: false,
-      cover: false,
+      cover: true,
       // reponsive image main
       breakpoints: {
         1200: {
@@ -177,17 +181,17 @@ document.addEventListener("DOMContentLoaded", function () {
       isNavigation: false,
       breakpoints: {
         600: {
-          perPage: 3,
+          perPage: 2,
           gap: 5,
         },
         780: {
-          perPage: 4,
+          perPage: 3,
         },
         1024: {
-          perPage: 5,
+          perPage: 4,
         },
         1200: {
-          perPage: 6,
+          perPage: 5,
         },
       },
     }).mount();

@@ -2,11 +2,11 @@
     "use strict";
     var FS = {};
     FS.animateMenuLink = () => {
-        // Check if there's a stored active menu item
-        const activeMenuItem = localStorage.getItem("activeMenuItem");
-        if (activeMenuItem) {
-            $(`.menu-item-a[href="${activeMenuItem}"]`).addClass("active");
-        }
+        // // Check if there's a stored active menu item
+        // const activeMenuItem = localStorage.getItem("activeMenuItem");
+        // if (activeMenuItem) {
+        //     $(`.menu-item-a[href="${activeMenuItem}"]`).addClass("active");
+        // }
 
         $(document).on("click", ".menu-item-a", function (e) {
             // Không preventDefault() để cho phép chuyển trang

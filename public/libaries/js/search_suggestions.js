@@ -104,7 +104,7 @@
           //sử dụng this để lấy ra 1 phần tử đc click
           let keywordRecent = $.trim(_this.find(".keyword-recent").text());
           if($(".search-header").val() > 0){
-            $(".search-header").val() = " "
+            $(".search-header").val("")
           }else{
             $(".search-header").val(keywordRecent)
           }

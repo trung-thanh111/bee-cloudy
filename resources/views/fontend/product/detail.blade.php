@@ -273,7 +273,7 @@
                                     <div class="title-quantity mb-2">
                                         <span class="fw-medium fz-18">Số lượng</span>
                                     </div>
-                                    <div class="  hstack gap-3 ps-5 flex-sm-wrap flex-xs-wrap flex-md-wrap mb-3">
+                                    <div class=" hstack gap-3 ps-5 flex-sm-wrap flex-xs-wrap mb-3">
                                         <div class="input-group componant-quantity shadow-sm flex-grow mb-3 w-25">
                                             <button class="quantity-minus w-md-100 rounded-3 " type="button"
                                                 id="button-addon1">
@@ -323,12 +323,12 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <div class="d-flex align-items-center flex-xl-row flex-column">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-medal fs-3 text-info"></i>
                                             </div>
-                                            <div>
-                                                <h5 class="card-title mb-1 text-muted">Sản phẩm độc quyền</h5>
+                                            <div class="d-none d-xl-block">
+                                                <h5 class="card-title mb-1">Sản phẩm độc quyền</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
                                             </div>
                                         </div>
@@ -338,12 +338,12 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <div class="d-flex align-items-center flex-xl-row flex-column">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-box fs-3 text-info"></i>
                                             </div>
-                                            <div>
-                                                <h5 class="card-title mb-1 text-muted">Đóng gói chất lượng</h5>
+                                            <div class="d-none d-xl-block">
+                                                <h5 class="card-title mb-1">Đóng gói chất lượng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
                                             </div>
                                         </div>
@@ -353,12 +353,12 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <div class="d-flex align-items-center flex-xl-row flex-column">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-money-bill fs-3 text-info"></i>
                                             </div>
-                                            <div>
-                                                <h5 class="card-title mb-1 text-muted">Thanh toán dễ dàng</h5>
+                                            <div class="d-none d-xl-block">
+                                                <h5 class="card-title mb-1">Thanh toán dễ dàng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
                                             </div>
                                         </div>
@@ -368,12 +368,12 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <div class="d-flex align-items-center flex-xl-row flex-column">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-truck-fast fs-3 text-info"></i>
                                             </div>
-                                            <div>
-                                                <h5 class="card-title mb-1 text-muted">Miễn phí vận chuyển</h5>
+                                            <div class="d-none d-xl-block">
+                                                <h5 class="card-title mb-1">Miễn phí vận chuyển</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
                                             </div>
                                         </div>
@@ -486,7 +486,7 @@
                                                         class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
                                                         <template v-if="!check ">
                                                             <form>
-                                                                <div class="form-group position-relative ">
+                                                                <div class="form-group position-relative w-100">
                                                                     <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
                                                                         rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
                                                                     <button type="button"
@@ -725,7 +725,7 @@
                 </div>
                 <!-- product similar  -->
                 <div class="product-similar mb-3 text-muted {{ count($productSimilars) > 0 ? '' : 'd-none' }}">
-                    <div class="title-product mb-4 col-3">
+                    <div class="title-product mb-4 col-xl-3 col-lg-4 col-10">
                         <div class="price-banner">
                             <div
                                 class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -752,7 +752,7 @@
                                     //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                     $variantFirst = $valProductSimilar->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 pt-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">

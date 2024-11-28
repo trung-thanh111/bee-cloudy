@@ -17,7 +17,7 @@
                 </nav>
                 <!-- end breadcrumb  -->
                 <div class="whistlist">
-                    <div class="title-product mb-4 col-3">
+                    <div class="title-product mb-4 col-lg-3 col-6">
                         <div class="price-banner">
                             <div
                                 class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -25,7 +25,7 @@
                                     <i class="fa-solid fa-fire text-white"></i>
                                 </div>
                                 <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
-                                    Yêu thích của bạn
+                                    Yêu thích
                                 </h4>
                             </div>
                         </div>
@@ -42,7 +42,6 @@
                             <div class="content-product-cate row flex-wrap">
                                 @if ($wishlists->isNotEmpty())
                                     @foreach ($wishlists as $key => $wishlist)
-
                                         @php
                                             $product = $wishlist->products;
                                             $productVariant = $wishlist->productVariants;
@@ -66,10 +65,10 @@
                                                     $promotion = '0';
                                                 }
                                                 //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
-                                            $variantFirst = $product->productVariant->first();
+                                                $variantFirst = $product ? $product->productVariant->first() : null;
                                             @endphp
 
-                                            <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                            <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
                                                 <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                     <div class="position-absolute z-1 w-100">
                                                         <div class="head-card ps-0 d-flex justify-content-between">
@@ -94,64 +93,65 @@
                                                     <div class="image-main-product position-relative">
                                                         <a
                                                             href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}">
-                                                        <img src="{{ $item->image ?? explode(',', $item->album)[0] }}"
-                                                            alt="product image" width="100%" height="250"
-                                                            class="img-fluid object-fit-cover rounded-top-2"
-                                                            style="height: 300px">
-                                                        <div
-                                                            class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                                            <div class="hstack gap-3">
-                                                                <div class="p-2 overflow-x-hidden">
-                                                                    <span
-                                                                        class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                                        @if ($product && $product->productCatalogues->isNotEmpty())
-                                                                            {{ $product->productCatalogues->first()->name }}
-                                                                        @elseif ($productVariant && $productVariant->product->productCatalogues->isNotEmpty())
-                                                                            {{ $productVariant->product->productCatalogues->first()->name }}
-                                                                        @else
-                                                                            {{ 'Chưa xác định' }}
-                                                                        @endif
+                                                            <img src="{{ $item->image ?? explode(',', $item->album)[0] }}"
+                                                                alt="product image" width="100%" height="250"
+                                                                class="img-fluid object-fit-cover rounded-top-2"
+                                                                style="height: 300px">
+                                                            <div
+                                                                class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                                <div class="hstack gap-3">
+                                                                    <div class="p-2 overflow-x-hidden">
+                                                                        <span
+                                                                            class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                            @if ($product && $product->productCatalogues->isNotEmpty())
+                                                                                {{ $product->productCatalogues->first()->name }}
+                                                                            @elseif ($productVariant && $productVariant->product->productCatalogues->isNotEmpty())
+                                                                                {{ $productVariant->product->productCatalogues->first()->name }}
+                                                                            @else
+                                                                                {{ 'Chưa xác định' }}
+                                                                            @endif
 
-                                                                    </span>
-                                                                </div>
-                                                                <div class="p-2 ms-auto">
-                                                                    <div class="product-image-color">
-                                                                        @if ($product)
-                                                                            @php $shownColors = []; @endphp
-                                                                            @foreach ($product->productVariant as $variant)
-                                                                                @foreach ($variant->attributes as $attribute)
-                                                                                    @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="p-2 ms-auto">
+                                                                        <div class="product-image-color">
+                                                                            @if ($product)
+                                                                                @php $shownColors = []; @endphp
+                                                                                @foreach ($product->productVariant as $variant)
+                                                                                    @foreach ($variant->attributes as $attribute)
+                                                                                        @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                                            <img src="{{ $attribute->image }}"
+                                                                                                alt="{{ $attribute->name }}"
+                                                                                                width="14"
+                                                                                                height="14"
+                                                                                                class="rounded-circle border border-2 border-info object-fit-cover me-1">
+                                                                                            @php $shownColors[] = $attribute->name; @endphp
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                @endforeach
+                                                                            @else
+                                                                                @foreach ($productVariant->attributes as $attribute)
+                                                                                    @if ($attribute->attribute_catalogue_id == 1)
                                                                                         <img src="{{ $attribute->image }}"
                                                                                             alt="{{ $attribute->name }}"
                                                                                             width="14" height="14"
                                                                                             class="rounded-circle border border-2 border-info object-fit-cover me-1">
-                                                                                        @php $shownColors[] = $attribute->name; @endphp
                                                                                     @endif
                                                                                 @endforeach
-                                                                            @endforeach
-                                                                        @else
-                                                                            @foreach ($productVariant->attributes as $attribute)
-                                                                                @if ($attribute->attribute_catalogue_id == 1)
-                                                                                    <img src="{{ $attribute->image }}"
-                                                                                        alt="{{ $attribute->name }}"
-                                                                                        width="14" height="14"
-                                                                                        class="rounded-circle border border-2 border-info object-fit-cover me-1">
-                                                                                @endif
-                                                                            @endforeach
-                                                                        @endif
+                                                                            @endif
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
                                                         </a>
                                                     </div>
                                                     <div class="card-body p-2">
                                                         <h6 class="fw-medium overflow-hidden mb-0" style="height: 39px">
                                                             <a href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}"
                                                                 class="text-break w-100 text-muted">{{ $item->name }}</a>
-                                                                <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">
-                                                                    {{ $productVariant ? $productVariant->id : '' }}
-                                                                </h4>
+                                                            <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">
+                                                                {{ $productVariant ? $productVariant->id : '' }}
+                                                            </h4>
                                                         </h6>
                                                         <div class="d-flex justify-content-start mb-2 ">
                                                             <span
@@ -164,19 +164,27 @@
                                                                 </span>
                                                             @endif
                                                         </div>
-                                                        <div class="box-action">
-                                                            <a href="{{ route('cart.index') }}"
-                                                                class="action-cart-item-buy addToCart buyNow"
-                                                                data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
-                                                                <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
-                                                                <span>Mua ngay</span>
-                                                            </a>
-                                                            <a href="" class="action-cart-item-add addToCart"
-                                                                data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
-                                                                <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
-                                                                <span>thêm giỏ hàng</span>
-                                                            </a>
-                                                        </div>
+                                                        @if ($wishlist->products !== null)
+                                                            <div class="box-action">
+                                                                <a href="{{ route('cart.index') }}"
+                                                                    class="action-cart-item-buy addToCart buyNow"
+                                                                    data-id="{{ $product ? $product->id : 0 }}"
+                                                                    data-product-variant-id="{{ $variantFirst ? $variantFirst->id : '' }}"
+                                                                    data-product-variant-price="{{ $variantFirst ? $variantFirst->price : '' }}"
+                                                                    data-attributeId="{{ $variantFirst ? @json_encode($variantFirst->code) : '' }}">
+                                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                                    <span>Mua ngay</span>
+                                                                </a>
+                                                                <a href="" class="action-cart-item-add addToCart"
+                                                                    data-id="{{ $product ? $product->id : 0 }}"
+                                                                    data-product-variant-id="{{ $variantFirst ? $variantFirst->id : '' }}"
+                                                                    data-product-variant-price="{{ $variantFirst ? $variantFirst->price : '' }}"
+                                                                    data-attributeId="{{ $variantFirst ? @json_encode($variantFirst->code) : '' }}">
+                                                                    <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
+                                                                    <span>thêm giỏ hàng</span>
+                                                                </a>
+                                                            </div>
+                                                        @endif
                                                         <div class="head-card d-flex p-1">
                                                             <span class="fz-14 ">Mã sản phẩm</span>
                                                             <span
@@ -190,8 +198,8 @@
                                 @else
                                     <div class="order-null p-3">
                                         <div class="img-null text-center">
-                                            <img src="/libaries/upload/images/order-null.png" alt="" class=""
-                                                width="300" height="200">
+                                            <img src="/libaries/upload/images/order-null.png" alt=""
+                                                class="" width="300" height="200">
                                         </div>
                                         <div class="flex flex-col text-center align-items-center">
                                             <h5 class="mb-2 fw-semibold">Bạn chưa có yêu thích nào!

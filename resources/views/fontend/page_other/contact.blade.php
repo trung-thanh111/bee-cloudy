@@ -14,15 +14,6 @@
                     <li class="breadcrumb-item active" aria-current="page">Liên hệ</li>
                 </ol>
             </nav>
-            <!-- end breadcrumb  -->
-            <div class=" text-center text-muted shadow-sm ">
-                <div class=" z-1 text-center p-5 position-relative bg-white rounded-2">
-                    <div class="z-3 contact-item-content position-relative text-muted">
-                        <h2 class="text-uppercase fw-bold pd-4">liên hệ</h2>
-                        {{-- <p class="fz-16 ">Mọi thắc mắc hay gặp vấn đề hãy gửi tin nhắn cho chúng tôi!</p> --}}
-                    </div>
-                </div>
-            </div>
             <div class="">
                 <div class="card-body  m-2 text-muted">
                     <div class="row shadow-sm bg-white mt-4 mb-2 rounded-2 flex-wrap">
@@ -67,7 +58,7 @@
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="email" name="email">
                                 </div>
-                                <div class="form-group position-relative py-0">
+                                <div class="form-group position-relative py-0 w-100">
                                     <label for="content" class="form-label">Nội dung</label>
                                     <textarea class=" textarea-content form-control rounded-2  shadow-sm" id="content" rows="5"
                                         placeholder="Viết cho chúng tôi ngay!" name="message"></textarea>

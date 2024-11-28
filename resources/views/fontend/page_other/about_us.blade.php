@@ -15,13 +15,13 @@ Giới thiệu
         </nav>
         <!-- end breadcrumb  -->
 
-        <div class="container" >
-            <div class="card p-5">
-                <img class="img-about shadow col-10 mx-auto" src="/libaries/templates/bee-cloudy-user/libaries/images/pexels-brandandpalms-768975.jpg" alt="">
+        <div class="container">
+            <div class="card">
+                <img class="img-about shadow col-10 mx-auto mt-3" src="/libaries/templates/bee-cloudy-user/libaries/images/pexels-brandandpalms-768975.jpg" alt="">
                 <div class="card-content text-center">
-                    <h4 class="p-2 pt-4" >Giới Thiệu</h4>
+                    <h4 class="p-2 p-3">Giới Thiệu</h4>
 
-                    <p class="p-2 pb-5 px-5 w-75 text-center w-100"  style="text-align: center;">
+                    <p class="p-2 pb-5 px-5 w-75 text-center w-100" style="text-align: center;">
                         Chào mừng bạn đến với BeeCloudy, nơi thời trang không chỉ đơn
                         thuần là quần áo, mà còn là sự thể hiện bản thân và phong cách
                         sống. Tại BeeCloudy, chúng tôi tin rằng mỗi người đều có một câu
@@ -31,7 +31,7 @@ Giới thiệu
                         cảnh nào.
                     </p>
 
-                    <div class="row p-5" >
+                    <div class="row p-3">
                         <div class="col-12 col-lg-6 col-md-6 d-flex justify-content-center align-items-center ">
                             <p class="text-start ">
                                 <strong>Sứ mệnh của chúng tôi</strong> là mang đến cho bạn trải nghiệm mua sắm trực
@@ -49,7 +49,7 @@ Giới thiệu
                     </div>
 
 
-                    <div class="row p-5 " >
+                    <div class="row p-3 ">
                         <div class="col-12 col-lg-6 col-md-6 d-flex justify-content-center align-items-center ">
                             <img class="rounded-2" src="/libaries/templates/bee-cloudy-user/libaries/images/pexels-solliefoto-298863.jpg"
                                 style="max-width: 100%" alt="">
@@ -91,7 +91,7 @@ Giới thiệu
                         </div>
                     </div>
 
-                    <div class="row pt-5" >
+                    <div class="row p-3">
                         <div class="col-12">
                             <p class="text-start">
                                 <strong>BeeCloudy</strong> không chỉ là một cửa hàng trực tuyến, mà còn là một cộng đồng dành cho những
@@ -107,7 +107,7 @@ Giới thiệu
                         </div>
                     </div>
 
-                    <div class="row pt-3" >
+                    <div class="row p-3">
                         <div class="col-12 col-lg-8 col-md-8 mx-auto">
                             <img class="rounded-2" src="/libaries/templates/bee-cloudy-user/libaries/images/pexels-nietjuh-934070.jpg" alt="" style="max-width: 100%;">
                         </div>

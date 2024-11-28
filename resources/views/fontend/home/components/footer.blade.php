@@ -1,5 +1,5 @@
 <section>
-        <div class="container-fuild z-0 mt-5">
+        <div class="container-fuild z-0 pt-5" style="background-color: #c3c3c3">
             <div class="container">
                 <div class="row flex-grow">
                     <div class="col-lg-3 col-md-8 col-sm-6">

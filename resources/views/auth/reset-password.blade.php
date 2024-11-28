@@ -16,9 +16,6 @@
                 </nav>
                 <!-- end breadcrumb  -->
                 <div class="main-content-vertification justify-content-center row w-100 p-0 mt-3 rounded-2">
-
-
-
                     <div class="col-lg-5 col col-md-auto bg-white shadow-sm p-4 text-muted ">
                         <div class="title-vertify-mail text-center">
                             <h6 class="fz-18 text-uppercase">Quên mật khẩu</h6>

@@ -104,6 +104,7 @@ class ForgotPasswordController extends Controller
         $user = User::where('email', $email)->first();
         if ($user) {
             $user->password = Hash::make($request->password);
+
             $user->save();
 
             $request->session()->forget('email');

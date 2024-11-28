@@ -1,5 +1,7 @@
 @extends('fontend.home.layout')
-
+@section('page_title')
+    Mã OTP
+@endsection
 @section('content')
     <section>
         <article>
@@ -15,19 +17,7 @@
                 </nav>
                 <!-- end breadcrumb  -->
                 <div class="main-content-vertification justify-content-center row w-100 p-0 mt-3 rounded-2">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    @if (session('message'))
-                        <div class="alert alert-info">{{ session('message') }}</div>
-                    @endif
-                    <div class="col-lg-5 col col-md-auto bg-white shadow-sm p-4 text-muted ">
+                    <div class="col-xl-5 col-lg-6 col-md-8 col-12 bg-white shadow-sm p-4 text-muted ">
                         <div class="title-vertify-mail text-center">
                             <h6 class="fz-18 text-uppercase">Quên mật khẩu</h6>
                             <p class="fz-16 fw-600 text-info text-decoration-underline">Nhập mã OTP</p>
@@ -55,7 +45,6 @@
                             @csrf
                             @php
                                 $stringSessionEmail = implode(',', session('email'));
-                                // dd($stringSessionEmail);
                             @endphp
 
                             <input type="hidden" name="email" value="{{ $stringSessionEmail }}">
@@ -63,6 +52,9 @@
                                 <label class="form-label">OTP </label>
                                 <input type="text" class="form-control" name="otp"
                                     placeholder="Nhập mã OTP đã nhận được" value="">
+                                @if ($errors->has('otp'))
+                                    <span class="text-danger fz-12 mt-1">{{ $errors->first('otp') }}</span>
+                                @endif
                             </div>
                             <div class="text-end mb-3">
                                 <button type="submit" class="accept btn btn-success rounded-1 px-4">Xác nhận</button>
@@ -78,32 +70,4 @@
             </div>
         </article>
     </section>
-
-    {{-- <div class="container">
-    <h2>Nhập Mã OTP</h2>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    @if (session('message'))
-        <div class="alert alert-info">{{ session('message') }}</div>
-    @endif
-    <form action="{{ route('password.otp.submit') }}" method="POST">
-        @csrf
-        <input type="hidden" name="email" value="{{ session('email') }}">
-        <div class="form-group">
-            <label for="otp">Mã OTP:</label>
-            <input type="text" name="otp" id="otp" class="form-control" required placeholder="Nhập mã OTP bạn nhận được">
-        </div>
-        <button type="submit" class="btn btn-primary">Xác nhận</button>
-    </form>
-    <a href="{{ route('password.otp.resend') }}" class="btn btn-secondary" style="margin-top: 10px;">
-        Gửi lại OTP
-    </a>
-</div> --}}
 @endsection
