@@ -74,7 +74,7 @@
                                                         <div class="head-card ps-0 d-flex justify-content-between">
                                                             <span
                                                                 class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $promotion == '0' ? 'hidden-visibility' : '' }}">
-                                                                giảm {{ round($promotion, 1) . '%' }}
+                                                                -  {{ round($promotion, 0) . '%' }}
                                                             </span>
                                                             <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                                 data-bs-toggle="tooltip"
