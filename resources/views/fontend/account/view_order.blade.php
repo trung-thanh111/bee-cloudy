@@ -161,7 +161,7 @@
                                                                                     class="fa-solid fa-receipt fs-6 text-muted me-2"></i>
                                                                                 Mã đơn hàng: #{{ $valvOrder->code }}
                                                                                 <div
-                                                                                    class="ms-4 d-flex align-items-center">
+                                                                                    class="ms-4 me-2 d-flex align-items-center">
                                                                                     {!! $statusBadge !!}
                                                                                 </div>
                                                                             </h6>
@@ -206,7 +206,7 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3"
+                                                                                        <div class="flex-grow-1 px-3 name_vieworder"
                                                                                             style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
@@ -225,7 +225,6 @@
                                                                                         </div>
                                                                                         <div class="text-end">
                                                                                             @if ($orderItem->products)
-                                                                                                {{-- <span  class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</span> --}}
                                                                                                 <span class="text-secondary fz-14 text-danger">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
@@ -237,8 +236,8 @@
                                                                             @endif
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
-                                                                                class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-                                                                                <div class="d-flex">
+                                                                                class="bg-light d-flex flex-column flex-lg-row justify-content-between align-items-center px-3 py-2 ">
+                                                                                <div class="d-flex mb-sm-2">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
@@ -362,7 +361,7 @@
                                                                                     class="fa-solid fa-receipt fs-6 text-muted me-2"></i>
                                                                                 Mã đơn hàng: #{{ $valvOrderPend->code }}
                                                                                 <div
-                                                                                    class="ms-4 d-flex align-items-center">
+                                                                                    class="ms-4 me-2 d-flex align-items-center">
                                                                                     {!! $statusBadge !!}
                                                                                 </div>
                                                                             </h6>
@@ -407,7 +406,7 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3"
+                                                                                        <div class="flex-grow-1 px-3 name_vieworder"
                                                                                             style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
@@ -426,7 +425,6 @@
                                                                                         </div>
                                                                                         <div class="text-end">
                                                                                             @if ($orderItem->products)
-                                                                                                {{-- <span  class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</span> --}}
                                                                                                 <span class="text-secondary fz-14 text-danger">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
@@ -530,7 +528,7 @@
                                                                                     class="fa-solid fa-receipt fs-6 text-muted me-2"></i>
                                                                                 Mã đơn hàng: #{{ $valvOrderConF->code }}
                                                                                 <div
-                                                                                    class="ms-4 d-flex align-items-center">
+                                                                                    class="ms-4 me-2 d-flex align-items-center">
                                                                                     {!! $statusBadge !!}
                                                                                 </div>
                                                                             </h6>
@@ -575,7 +573,7 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3"
+                                                                                        <div class="flex-grow-1 px-3 name_vieworder"
                                                                                             style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
@@ -730,7 +728,7 @@
                                                                                     class="fa-solid fa-receipt fs-6 text-muted me-2"></i>
                                                                                 Mã đơn hàng: #{{ $valvOrderShip->code }}
                                                                                 <div
-                                                                                    class="ms-4 d-flex align-items-center">
+                                                                                    class="ms-4 me-2 d-flex align-items-center">
                                                                                     {!! $statusBadge !!}
                                                                                 </div>
                                                                             </h6>
@@ -775,7 +773,7 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3"
+                                                                                        <div class="flex-grow-1 px-3 name_vieworder"
                                                                                             style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
@@ -929,7 +927,7 @@
                                                                                     class="fa-solid fa-receipt fs-6 text-muted me-2"></i>
                                                                                 Mã đơn hàng: #{{ $valvOrderComp->code }}
                                                                                 <div
-                                                                                    class="ms-4 d-flex align-items-center">
+                                                                                    class="ms-4 me-2 d-flex align-items-center">
                                                                                     {!! $statusBadge !!}
                                                                                 </div>
                                                                             </h6>
@@ -974,7 +972,7 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3"
+                                                                                        <div class="flex-grow-1 px-3 name_vieworder"
                                                                                             style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
@@ -1131,7 +1129,7 @@
                                                                                     class="fa-solid fa-receipt fs-6 text-muted me-2"></i>
                                                                                 Mã đơn hàng: #{{ $valvOrderCancel->code }}
                                                                                 <div
-                                                                                    class="ms-4 d-flex align-items-center">
+                                                                                    class="ms-4 me-2 d-flex align-items-center">
                                                                                     {!! $statusBadge !!}
                                                                                 </div>
                                                                             </h6>
@@ -1176,7 +1174,7 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3"
+                                                                                        <div class="flex-grow-1 px-3 name_vieworder"
                                                                                             style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
@@ -1207,7 +1205,7 @@
                                                                             @endif
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
-                                                                                class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
+                                                                                class="bg-light d-flex justify-content-between align-items-center px-3 py- 2">
                                                                                 <div class="d-flex">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
@@ -1218,7 +1216,7 @@
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderCancel->status != 'completed' ? 'd-none' : '' }}">
-                                                                                    <a href="#"
+                                                                                    <a href=""
                                                                                         class="btn btn-outline-success btn-sm px-3"
                                                                                         style="min-width: 120px;">
                                                                                         <i

@@ -16,16 +16,6 @@
                 </nav>
                 <!-- end breadcrumb  -->
                 <div class="posts-main">
-                    <!-- <div class="header-post shadow-sm mb-3">
-                                                        <div class="row justify-content-center">
-                                                            <div class="col-md-auto">
-                                                                <div class="text-muted p-5 rounded-2">
-                                                                    <span class="fs-2 text-uppercase text-center fw-bold">Bài viết</span>
-                                                                </div>
-                                                            </div>
-                                                          </div>
-                                                    </div> -->
-
                     <div class="main-post-category row flex-wrap mx-0 bg-main-color shadow-sm rounded-1 mb-3 p-2">
                         <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 200px">
                             <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
@@ -64,7 +54,7 @@
                     </div>
                     <hr class="border-5 border-secondary rounded-pill my-4">
                     <div class="main-post">
-                        <div class="title-product mb-4 col-2">
+                        <div class="title-product mb-4 col-xl-2 col-lg-2 col-5">
                             <div class="price-banner">
                                 <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
                                     <div class="price-icon">
@@ -184,7 +174,7 @@
                                             $authorc3->image ??
                                             '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif';
                                     @endphp
-                                    <div class="col-lg-3 col-md-6 col-12">
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                                         <div class="post-item shadow-sm rounded-2 w-100 mb-4">
                                             <a href="{{ route('post.detail', ['slug' => $valPostStand3->slug]) }}">
                                                 <img src="{{ $valPostStand3->image }}" alt=""
@@ -212,7 +202,7 @@
                         </div>
                         <!-- bài viết nhiều like nhất sl6 -->
                         <div class="title-post-host mt-4" >
-                            <div class="title-product mb-4 col-2">
+                            <div class="title-product mb-4 col-xl-2 col-lg-3 col-6">
                                 <div class="price-banner">
                                     <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
                                         <div class="price-icon">
@@ -228,7 +218,7 @@
                         <div class="row mb-3 row-cols-3 bg-white shadow-sm rounded-2">
                             @if ($postLikes != null)
                                 @foreach ($postLikes as $key => $valPostLike)
-                                    <div class="col p-3">
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-12 p-3">
                                         <a href="{{ route('post.detail', ['slug' => $valPostLike->slug]) }}">
                                             <div
                                                 class="post-like d-flex justify-content-start align-items-center text-muted">
@@ -244,7 +234,7 @@
                         </div>
 
                         <div class="title-post-host mt-4" >
-                            <div class="title-product mb-4 col-2">
+                            <div class="title-product mb-4 col-xl-3 col-lg-3 col-7">
                                 <div class="price-banner">
                                     <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
                                         <div class="price-icon">
@@ -282,7 +272,7 @@
                                                 class="post-flex bg-light rounded-3 d-flex justify-content-start align-items-center border-0 mb-4" >
                                                 <div class="image-title-flex">
                                                     <img src="{{ $valPnew->image }}" alt="post image"
-                                                        style="min-width: 240px; max-height: 150px;"
+                                                        style="width: 240px; max-height: 150px;"
                                                         class="object-fit-cover rounded-start-3 me-3">
                                                 </div>
                                                 <div class="content-post">

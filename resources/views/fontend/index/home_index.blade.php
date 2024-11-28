@@ -62,11 +62,11 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="card border-0 shadow-sm hover-shadow transition-all">
                             <div class="card-body p-2">
-                                <div class="d-flex align-items-center">
-                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                <div class="d-flex align-items-center flex-xl-row flex-column">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                         <i class="fa-solid fa-medal fs-3 text-info"></i>
                                     </div>
-                                    <div>
+                                    <div class="d-none d-xl-block">
                                         <h5 class="card-title mb-1">Sản phẩm độc quyền</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
                                     </div>
@@ -77,11 +77,11 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="card border-0 shadow-sm hover-shadow transition-all">
                             <div class="card-body p-2">
-                                <div class="d-flex align-items-center">
-                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                <div class="d-flex align-items-center flex-xl-row flex-column">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                         <i class="fa-solid fa-box fs-3 text-info"></i>
                                     </div>
-                                    <div>
+                                    <div class="d-none d-xl-block">
                                         <h5 class="card-title mb-1">Đóng gói chất lượng</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
                                     </div>
@@ -92,11 +92,11 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="card border-0 shadow-sm hover-shadow transition-all">
                             <div class="card-body p-2">
-                                <div class="d-flex align-items-center">
-                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                <div class="d-flex align-items-center flex-xl-row flex-column">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                         <i class="fa-solid fa-money-bill fs-3 text-info"></i>
                                     </div>
-                                    <div>
+                                    <div class="d-none d-xl-block">
                                         <h5 class="card-title mb-1">Thanh toán dễ dàng</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
                                     </div>
@@ -107,11 +107,11 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="card border-0 shadow-sm hover-shadow transition-all">
                             <div class="card-body p-2">
-                                <div class="d-flex align-items-center">
-                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                <div class="d-flex align-items-center flex-xl-row flex-column">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                         <i class="fa-solid fa-truck-fast fs-3 text-info"></i>
                                     </div>
-                                    <div>
+                                    <div class="d-none d-xl-block">
                                         <h5 class="card-title mb-1">Miễn phí vận chuyển</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
                                     </div>
@@ -123,8 +123,8 @@
             </div>
         </div>
         <section>
-            <div class="container p-3 my-4 bg-white">
-                <div class="title-product mb-0 col-3 mb-4">
+            <div class="container p-3 my-4 bg-white px-3 pt-3 rounded-2">
+                <div class="title-product col-xl-3 col-lg-3 col-8 mb-3">
                     <div class="price-banner">
                         <div
                             class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -169,10 +169,10 @@
             </div>
         </section>
         <section>
-            <div class="container newArrive mt-3 bg-white">
+            <div class="container newArrive mt-3 bg-white px-3 pt-3 rounded-2 mb-4">
                 <div class="product-category p-2">
                     <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
-                        <div class="title-product mb-0 col-3">
+                        <div class="title-product col-xl-3 col-lg-3 col-8 mb-3">
                             <div class="price-banner">
                                 <div
                                     class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -204,7 +204,7 @@
                                     //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                     $variantFirst = $productN->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -322,10 +322,10 @@
             </div>
         </section>
         <section>
-            <div class="container plashSale mb-4 bg-white">
-                <div class="product-category p-2">
+            <div class="container plashSale mb-4 bg-white px-3 pt-3 rounded-2">
+                <div class="product-category">
                     <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
-                        <div class="title-product mb-0 col-3">
+                        <div class="title-product col-xl-3 col-lg-3 col-8 mb-3">
                             <div class="price-banner">
                                 <div
                                     class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -359,7 +359,7 @@
                                     //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                     $variantFirst = $productPriceMin->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -519,10 +519,10 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="container promotion bg-white mb-4">
-                <div class="product-category p-2">
+            <div class="container promotion bg-white px-3 pt-3 rounded-2 mb-4">
+                <div class="product-category">
                     <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
-                        <div class="title-product mb-0 col-3">
+                        <div class="title-product mb-0 col-xl-3 col-lg-3 col-8 mb-3">
                             <div class="price-banner">
                                 <div
                                     class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -554,7 +554,7 @@
                                     //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                     $variantFirst = $productSale->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-4">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -674,16 +674,16 @@
     </div>
     </section>
     <section>
-        <div class="container my-4 bg-white py-3">
+        <div class="container my-4 bg-white py-3 rounded-2">
             <!-- Section Header -->
-            <div class="title-product mb-0 col-3 mb-4">
+            <div class="title-product col-xl-3 col-lg-4 col-8 mb-4">
                 <div class="price-banner">
                     <div
                         class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
                         <div class="price-icon">
                             <i class="fa-solid fa-fire text-white"></i>
                         </div>
-                        <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                        <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info w-100">
                             Phong cách phối đồ
                         </h4>
                     </div>
@@ -752,7 +752,7 @@
                                 $authorc3->image ??
                                 '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif';
                         @endphp
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                             <a href="{{ route('post.detail', ['slug' => $valPostStand3->slug]) }}"
                                 class="text-decoration-none">
                                 <div class="card h-100 border-0 shadow-sm rounded-3">

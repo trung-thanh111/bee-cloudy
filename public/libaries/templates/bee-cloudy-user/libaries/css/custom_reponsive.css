@@ -17,4 +17,44 @@
         border: 0px solid #ffffff;
         padding: 5px 0px;
     }
+    .name_vieworder {
+        width: 50% !important;
+        max-width: 50% !important;
+    }
+    .btn-promotion{
+        margin-top: 0px !important;
+    } 
+    .componant-quantity{
+        max-width: 200px !important;
+    }
+}
+@media (max-width: 480px) {
+
+    .quantity-minus,
+    .quantity-plus {
+        width: 100%;
+        padding: 5px 0px;
+    }
+
+    .quantity-plus:hover {
+        background-color: #108c7b;
+        border: 0px solid #ffffff;
+        padding: 5px 0px;
+    }
+
+    .quantity-minus:hover {
+        background-color: #108c7b;
+        border: 0px solid #ffffff;
+        padding: 5px 0px;
+    }
+    .name_vieworder {
+        width: 50% !important;
+        max-width: 50% !important;
+    }
+    .btn-promotion{
+        margin-top: 0px !important;
+    } 
+    .componant-quantity{
+        max-width: 200px !important;
+    }
 }

@@ -53,7 +53,7 @@
                                                                                     <span class="text-muted fz-14">Mã
                                                                                         voucher:</span>
                                                                                     <span
-                                                                                        class="text-danger px-3 py-2 ms-2">{{ $userVoucher->code }}</span>
+                                                                                        class="text-danger px-2 fw-500 py-2 ms-2">{{ optional($userVoucher->promotion)->code ?? '' }}</span>
                                                                                 </div>
                                                                                 <div class="mb-1">
                                                                                     <span class="text-muted fz-14">Giá
@@ -66,7 +66,7 @@
                                                                                         <span class="text-muted fz-14">Hạn
                                                                                             sử dụng đến: </span>
                                                                                         <span
-                                                                                            class="fw-bold ms-2">{{ optional($userVoucher->promotion->end_date)->format('d-m-Y') ?? 'Không có' }}</span>
+                                                                                            class="fw-bold ms-2">{{ date('d-m-Y', strtotime(optional($userVoucher->promotion)->end_date)) ?? 'Chưa xác định' }}</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -75,18 +75,20 @@
                                                                         <div class="col-md-4 text-md-end mt-3 mt-md-0">
                                                                             <div class="d-flex justify-content-end gap-2">
                                                                                 <button
-                                                                                    class="btn btn-light btn-sm fw-medium text-info rounded-pill shadow-sm hover-lift me-3"
+                                                                                    class="btn-promotion btn btn-light btn-sm fw-medium text-info rounded-pill shadow-sm hover-lift me-3 d-flex align-items-center"
                                                                                     data-bs-toggle="modal"
                                                                                     data-bs-target="#voucherModal{{ $userVoucher->id }}"
                                                                                     style="margin-top: 90px">
                                                                                     <i class="fas fa-arrow-right me-1"></i>
-                                                                                    Chi tiết
+                                                                                    <span class="d-none d-xl-block ">Chi tiết</span>
                                                                                 </button>
                                                                                 <a href="{{ route('cart.index') }}"
-                                                                                    class="btn btn-danger btn-sm fw-medium text-white rounded-pill shadow-sm hover-lift me-2"
+                                                                                    class="btn-promotion btn btn-success btn-sm fw-medium text-white rounded-pill shadow-sm hover-lift me-2 d-flex align-items-center"
                                                                                     style="margin-top: 90px">
-                                                                                    <i class="fa-solid fa-check me-1"></i>Sử
-                                                                                    dụng
+                                                                                    <i class="fa-solid fa-check me-1"></i>
+                                                                                    <span class="d-none d-xl-block ">
+                                                                                        Sử dụng
+                                                                                    </span>
                                                                                 </a>
                                                                             </div>
                                                                         </div>
@@ -128,7 +130,7 @@
                                                                         <div class="col-4 text-muted">Mã voucher</div>
                                                                         <div class="col-8 text-end">
                                                                             <span
-                                                                                class="text-danger">{{ $userVoucher->code }}</span>
+                                                                                class="text-danger">{{ optional($userVoucher->promotion)->code ?? '' }}</span>
                                                                         </div>
                                                                     </div>
 
@@ -141,9 +143,9 @@
                                                                     <div class="row mb-3 py-2 border-bottom">
                                                                         <div class="col-4 text-muted">Thời gian</div>
                                                                         <div class="col-8 text-end">
-                                                                            {{ optional($userVoucher->promotion->start_date)->format('d-m-Y') ?? 'Không có' }}
+                                                                            {{ date('d-m-Y', strtotime(optional($userVoucher->promotion)->start_date)) ?? 'Chưa xác định' }}
                                                                             <i class="fas fa-arrow-right mx-2"></i>
-                                                                            {{ optional($userVoucher->promotion->end_date)->format('d-m-Y') ?? 'Không có' }}
+                                                                            {{ date('d-m-Y', strtotime(optional($userVoucher->promotion)->end_date)) ?? 'Chưa xác định' }}
                                                                         </div>
                                                                     </div>
                                                                     <div class="row mb-3 py-2 border-bottom">

@@ -22,7 +22,7 @@
                         Bạn có chắc muốn xóa những dữ liệu đang được chọn hay không?
                     </div>
                     <div class="modal-footer">
-                        <form id="bulk-delete-form" action="{{ route('attribute.catalogue.bulkdelete') }}"
+                        <form id="bulk-delete-form"
                             method="POST">
                             @csrf
                             @method('DELETE')
