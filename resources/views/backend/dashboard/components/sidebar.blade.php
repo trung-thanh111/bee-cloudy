@@ -1,4 +1,4 @@
-<div class="app-menu navbar-menu bg-main-aside ">
+<div class="app-menu navbar-menu bg-main-aside overflow-y-auto" style="max-height: 100%">
     <div class="navbar-brand-box">
         <a href="{{ route('dashboard.index') }}" class="logo logo-dark">
             <span class="logo-sm">
