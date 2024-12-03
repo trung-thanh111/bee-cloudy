@@ -69,6 +69,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 $query->where('quantity', '>', 0); 
             }, 
              'productVariant.attributes'])
+            ->with('brands')
             ->where('slug', $slug)
             ->first();
     }

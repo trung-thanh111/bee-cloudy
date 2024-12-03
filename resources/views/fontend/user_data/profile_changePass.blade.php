@@ -22,7 +22,7 @@
                         <div class="row">
                             @include('fontend.account.components.aside')
                             <div class="col-lg-9 col-md-8 flex-grow-1">
-                                <div class="article-profile">
+                                <div class="article-profile mb-5">
                                     <div class="card border-0 mb-3">
                                         <div class="card-header border-0">
                                             <h6 class="card-title mb-0 flex-grow-1 fz-18 pt-2 pb-2">Thay đổi mật khẩu

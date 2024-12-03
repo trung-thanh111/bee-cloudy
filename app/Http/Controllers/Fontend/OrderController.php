@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\OrderRepository;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Controllers\FontendController;
+use App\Repositories\ProductRepository;
 
 class OrderController extends FontendController
 {
@@ -21,6 +22,7 @@ class OrderController extends FontendController
     protected $cartService;
     protected $orderService;
     protected $orderRepository;
+    protected $productRepository;
 
     public function __construct(
         Momo $momo,
@@ -29,6 +31,7 @@ class OrderController extends FontendController
         CartService $cartService,
         OrderService $orderService,
         OrderRepository $orderRepository,
+        ProductRepository $productRepository,
     ) {
         $this->momo = $momo;
         $this->vnpay = $vnpay;
@@ -36,10 +39,12 @@ class OrderController extends FontendController
         $this->cartService = $cartService;
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
+        $this->productRepository = $productRepository;
     }
 
     public function view_order(Request $request)
     { {
+        $attributesByOderItem = $this->orderService->findAttributesByCode();
             $order_all = $this->orderService->paginateOrderFontend($request);
             $order_pending = $this->orderService->paginateOrderPending($request);
             $order_confirmed = $this->orderService->paginateOrderConfirmed($request);
@@ -53,6 +58,7 @@ class OrderController extends FontendController
                 'order_shipping',
                 'order_canceled',
                 'order_completed',
+                'attributesByOderItem',
             ));
         }
     }

@@ -62,11 +62,6 @@
                                         href="{{ route('user.update', ['id' => $item->id]) }}"> <i
                                             class="ri-edit-box-line"></i>
                                         Chỉnh sửa</a></li>
-
-                                <li><a class="dropdown-item text-danger"
-                                        href="{{ route('user.delete', ['id' => $item->id]) }}"><i
-                                            class="ri-delete-bin-line"></i>
-                                        Xóa</a></li>
                             </ul>
                         </div>
                     </td>

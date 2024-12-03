@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <section>
-        <div class="row justify-content-md-center m-5" data-aos="zoom-in">
+        <div class="row justify-content-md-center m-5">  
             <div class="col-md-6">
                 <div class="bg-white shadow-sm d-block justify-content-center">
                     <div class="text-center py-5">

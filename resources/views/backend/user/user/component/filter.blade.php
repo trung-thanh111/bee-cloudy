@@ -1,6 +1,6 @@
 <div class="col">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <button class="btn btn-soft-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button class="btn btn-soft-danger hidden-visibility" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="ri-delete-bin-2-line fz-14"></i>
         </button>
         <div class="col-sm-auto">
@@ -69,7 +69,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </form>
 

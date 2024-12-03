@@ -65,9 +65,8 @@
                                     data-status="shipping">Đang vận chuyển</button>
                             </li>
                             <li>
-                                <button type="submit" class="dropdown-item updateStatus btn btn-danger"
-                                    data-status="canceled">Hủy
-                                    đơn</button>
+                                <button class="dropdown-item updateStatus btn btn-danger updatePaidAt"
+                                data-status="canceled" data-payment="failed">Hủy đơn</button>
                             </li>
                         </ul>
                     </div>
@@ -88,7 +87,7 @@
                 </div>
             @elseif($order->status == 'shipping')
                 {{-- shipping  --}}
-                
+
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-truck-fast text-secondary  fs-2 me-3"></i>
@@ -104,12 +103,12 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button type="submit" class="dropdown-item updateStatus btn btn-info"
-                                    data-status="completed">Đã nhận và thanh toán</button>
+                                <button class="btn dropdown-item updateStatus btn btn-info updatePaidAt"
+                                    data-status="completed" data-payment="paid">Đã nhận và thanh toán</button>
                             </li>
                             <li>
-                                <button type="submit" class="dropdown-item updateStatus btn btn-danger"
-                                    data-status="canceled">Không nhận hàng</button>
+                                <button class="dropdown-item updateStatus btn btn-danger updatePaidAt"
+                                    data-status="canceled" data-payment="failed">Không nhận hàng</button>
                             </li>
                         </ul>
                     </div>
@@ -266,34 +265,36 @@
                                         @endphp
                                         <tr class="align-middle">
                                             <td scope="col" class="text-center">{{ $key + 1 }}</td>
-                                            <td style="max-width: 450px">
+                                            <td style="max-width: 450px" class="align-middle">
                                                 @if ($val->productVariants)
                                                     <img src="{{ explode(',', $val->productVariants->album)[0] }}"
-                                                        alt="Image" width="60" height="60"
+                                                        alt="Image" width="80" height="80"
                                                         class="rounded-2 me-2 bg-light p-2">
                                                 @elseif ($val->products)
                                                     <img src="{{ $val->products->image }}" alt="Product Image"
-                                                        width="60" height="50"
+                                                        width="80" height="70"
                                                         class="rounded-2 me-2 bg-light">
                                                 @else
                                                     <img src="{{ $BASE_URL }}/libaries/upload/libaries/images/img-notfound.png"
-                                                        alt="Product Image" width="60" height="50"
+                                                        alt="Product Image" width="80" height="70"
                                                         class="rounded-2 me-2 bg-light">
                                                 @endif
 
                                                 <span class="d-inline-block text-truncate fw-medium fz-14"
                                                     style="max-width: 560px;">
                                                     {{ $val->product_name }}
+                                                    <span>
+                                                        <ul class="list-inline text-muted fz-12 my-1">
+                                                            @if (isset($attributesByOderItem[$val->id]))
+                                                                @foreach ($attributesByOderItem[$val->id] as $attribute)
+                                                                    <li class="list-inline-item">
+                                                                        {{ $attribute->name }}
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
+                                                        </ul>
+                                                    </span>
                                                 </span>
-                                                <ul class="list-inline text-muted fz-12 my-1">
-                                                    @if (isset($attributesByCartItem[$val->id]))
-                                                        @foreach ($attributesByCartItem[$val->id] as $attribute)
-                                                            <li class="list-inline-item">
-                                                                {{ $attribute->name }}
-                                                            </li>
-                                                        @endforeach
-                                                    @endif
-                                                </ul>
                                             </td>
                                             <td class="text-center">{{ $val->final_quantity }}</td>
                                             <td class="text-end">
@@ -309,7 +310,7 @@
                             <tfoot>
                                 <tr class="text-end bg-light">
                                     <td colspan="4" class="text-start"><strong>Tổng tiền:</strong></td>
-                                    <td><strong>{{ number_format($total, '0', ',', '.') }}đ</strong></td>
+                                    <td><strong>{{ number_format($order->total_amount, '0', ',', '.') }}đ</strong></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -332,3 +333,6 @@
     </div>
 </div>
 <input type="hidden" name="order_id" class="orderId" value="{{ $order->id }}">
+<script>
+    let orderUpdatePaiAt = @json($order);
+</script>

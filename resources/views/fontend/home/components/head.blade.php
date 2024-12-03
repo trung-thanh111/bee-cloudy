@@ -17,6 +17,7 @@
 
 <!-- css  -->
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
+<link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/uiverse.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/custom_reponsive.css">
 <!-- icon  -->
 <!-- App favicon -->

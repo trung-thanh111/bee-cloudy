@@ -24,7 +24,9 @@ class DashboardController extends Controller
     }
     public function index () {
         $totalE = $this->orderService->totalMoneyOrder();
+        $totalEMonth = $this->orderService->totalMoneyOrderMonth();
         $countTotalOrder = $this->orderService->countTotalOrder();
+        $countTotalOrderMonth = $this->orderService->countTotalOrderMonth();
         // -- //
         $countUserNew = $this->userService->countUserNew();
         $countUserAll = $this->userService->countUserAll();
@@ -50,15 +52,18 @@ class DashboardController extends Controller
         return view('backend.dashboard.layout', compact(
             'template',
             'totalE',
-            'countTotalOrder',
-            'countUserNew',
-            'countUserAll',
-            'conversionRate',
-            'conversionRateYear',
             'orderGraph',
             'moneyGraph',
+            'totalEMonth',
             'orderRecents',
+            'countUserNew',
+            'countUserAll',
             'productSalers',
+            'conversionRate',
+            'countUserMonth',
+            'countTotalOrder',
+            'conversionRateYear',
+            'countTotalOrderMonth',
         ));
     }
 }
