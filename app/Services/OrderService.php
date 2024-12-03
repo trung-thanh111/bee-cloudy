@@ -242,6 +242,22 @@ class OrderService implements OrderServiceInterface
         }
         return $totalMoney;
     }
+    public function totalMoneyOrderMonth()
+    {
+        $totalOrder = $this->orderRepository->allWhere([
+            [DB::raw('MONTH(created_at)'), '=', Carbon::now()->month],
+            ['payment', 'paid'],
+            ['status', 'completed'],
+            ['paid_at', '!=', null],
+        ]);
+        $totalMoney = 0;
+        if (count($totalOrder) > 0) {
+            foreach ($totalOrder as $val) {
+                $totalMoney += (float) $val->total_amount;
+            }
+        }
+        return $totalMoney;
+    }
     public function countTotalOrder()
     {
         $count = $this->orderRepository->allWhere([
@@ -332,7 +348,7 @@ class OrderService implements OrderServiceInterface
         ];
         $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
-        $perPage = $request->integer('perpage') ?: 5;
+        $perPage = $request->integer('perpage') ?: 10;
         $orders = $this->orderRepository->pagination(
             $this->paginateSelect(),
             $condition,
@@ -355,7 +371,7 @@ class OrderService implements OrderServiceInterface
         ];
         $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
-        $perPage = $request->integer('perpage') ?: 5;
+        $perPage = $request->integer('perpage') ?: 10;
         $orders = $this->orderRepository->pagination(
             $this->paginateSelect(),
             $condition,
@@ -377,7 +393,7 @@ class OrderService implements OrderServiceInterface
         ];
         $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
-        $perPage = $request->integer('perpage') ?: 5;
+        $perPage = $request->integer('perpage') ?: 10;
         $orders = $this->orderRepository->pagination(
             $this->paginateSelect(),
             $condition,
@@ -399,7 +415,7 @@ class OrderService implements OrderServiceInterface
         ];
         $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
-        $perPage = $request->integer('perpage') ?: 5;
+        $perPage = $request->integer('perpage') ?: 10;
         $orders = $this->orderRepository->pagination(
             $this->paginateSelect(),
             $condition,
@@ -421,7 +437,7 @@ class OrderService implements OrderServiceInterface
         ];
         $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
-        $perPage = $request->integer('perpage') ?: 5;
+        $perPage = $request->integer('perpage') ?: 10;
         $orders = $this->orderRepository->pagination(
             $this->paginateSelect(),
             $condition,
@@ -443,7 +459,7 @@ class OrderService implements OrderServiceInterface
         ];
         $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
-        $perPage = $request->integer('perpage') ?: 5;
+        $perPage = $request->integer('perpage') ?: 10;
         $orders = $this->orderRepository->pagination(
             $this->paginateSelect(),
             $condition,

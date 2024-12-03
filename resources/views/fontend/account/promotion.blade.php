@@ -22,7 +22,7 @@
                             @include('fontend.account.components.aside')
                             @if ($userVouchers != null)
                                 <div class="col-lg-9 col-md-8 flex-grow-1">
-                                    <div class="article-profile">
+                                    <div class="article-profile mb-5">
                                         <div class="card border-0 bg-white">
                                             <div
                                                 class="card-header d-flex justify-content-between justify-items-center border-0">

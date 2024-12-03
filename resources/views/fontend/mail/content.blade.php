@@ -151,14 +151,10 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $total = 0;
-                @endphp
                 @if (!is_null($content['order']))
                     @foreach ($content['order']->orderItems as $key => $val)
                         @php
                             $moneyCheckout = $val->final_quantity * $val->final_price;
-                            $total += $moneyCheckout;
                             $BASE_URL = config('app.url');
                         @endphp
 
@@ -194,7 +190,7 @@
                 <p>{{ $content['order']->email }}</p>
                 <p>{{ $content['order']->phone }}</p>
                 <p class="text-truncate">{{ $content['order']->address }}</p>
-                <p><strong>{{ number_format($total, '0', ',', '.') }}đ</strong></p>
+                <p><strong>{{ number_format($content['order']->total_amount, '0', ',', '.') }}đ</strong></p>
                 <p>
                     @if ($content['order']->payment_method == 'cod')
                         Trả tiền khi nhận hàng

@@ -48,7 +48,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="card border-0">
+                                    <div class="card border-0 mb-5">
                                         <div class="card-body p-0">
                                             <div class="bg-white shadow-sm">
                                                 <div class="step-arrow-nav">
@@ -94,7 +94,7 @@
                                                     </ul>
                                                 </div>
                                                 <!-- end tab content -->
-                                                <div class="tab-content p-3">
+                                                <div class="tab-content p-3 overflow-y-auto" style="max-height: 1000px" >
                                                     {{-- tab all  --}}
                                                     <div class="tab-pane fade active show" id="all_order">
                                                         <div class="order">
@@ -218,6 +218,15 @@
                                                                                                     class="mb-1 fw-medium text-truncate">
                                                                                                     {{ $orderItem->productVariants->name }}
                                                                                                 </p>
+                                                                                                <ul class="list-inline text-muted fz-12 my-1">
+                                                                                                    @if (isset($attributesByOderItem[$orderItem->id]))
+                                                                                                        @foreach ($attributesByOderItem[$orderItem->id] as $attribute)
+                                                                                                            <li class="list-inline-item">
+                                                                                                                {{ $attribute->name }}
+                                                                                                            </li>
+                                                                                                        @endforeach
+                                                                                                    @endif
+                                                                                                </ul>
                                                                                             @endif
                                                                                             <p class="mb-0">
                                                                                                 x{{ $orderItem->final_quantity }}
@@ -245,22 +254,6 @@
                                                                                     <span
                                                                                         class="text-danger text-end fw-medium mb-0 me-4">{{ number_format($valvOrder->total_amount, '0', ',', '.') }}đ</span>
                                                                                     <span>{!! $statusPayment !!}</span>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="d-flex justify-content-end gap-2 {{ $valvOrder->status != 'completed' ? 'd-none' : '' }}">
-                                                                                    <a href="#"
-                                                                                        class="btn btn-outline-success btn-sm px-3"
-                                                                                        style="min-width: 120px;">
-                                                                                        <i
-                                                                                            class="bi bi-arrow-repeat me-1"></i>
-                                                                                        Mua lại
-                                                                                    </a>
-                                                                                    <a href="#"
-                                                                                        class="btn btn-success text-white btn-sm px-3"
-                                                                                        style="min-width: 120px;">
-                                                                                        <i class="bi bi-star me-1"></i>
-                                                                                        Đánh giá
-                                                                                    </a>
                                                                                 </div>
                                                                             </div>
                                                                         </a>
@@ -1205,7 +1198,7 @@
                                                                             @endif
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
-                                                                                class="bg-light d-flex justify-content-between align-items-center px-3 py- 2">
+                                                                                class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
                                                                                 <div class="d-flex">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>

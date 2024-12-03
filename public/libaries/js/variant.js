@@ -1,7 +1,7 @@
 (function ($) {
     "use strict";
     var FS = {}; // khai báo một obj rỗng
-    // hàm này để hiển thị các thuộc tính khi check vào input sản phẩm nhiều pban
+    // hiển thị popup cho thêm sản phẩm nhiều phiên bản
     FS.setUpProductVariant = () => {
         if ($(".turnOnVariant").length) {
             $(document).on("click", ".turnOnVariant", function () {
@@ -110,7 +110,7 @@
         $(".choose-attribute").find("option:selected").removeAttr("disabled");
     };
 
-    // hàm
+    // hàm kiểm tra nhóm thuộc tính
     FS.checkMaxAttributeGroup = (attributeCatalogue) => {
         let variantItem = $(".variant-item").length;
         if (variantItem >= attributeCatalogue.length) {

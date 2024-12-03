@@ -67,7 +67,7 @@
                                         <i class="fa-solid fa-medal fs-3 text-info"></i>
                                     </div>
                                     <div class="d-none d-xl-block">
-                                        <h5 class="card-title mb-1">Sản phẩm độc quyền</h5>
+                                        <h5 class="card-title mb-1 text-muted">Sản phẩm độc quyền</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                         <i class="fa-solid fa-box fs-3 text-info"></i>
                                     </div>
                                     <div class="d-none d-xl-block">
-                                        <h5 class="card-title mb-1">Đóng gói chất lượng</h5>
+                                        <h5 class="card-title mb-1 text-muted">Đóng gói chất lượng</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                                         <i class="fa-solid fa-money-bill fs-3 text-info"></i>
                                     </div>
                                     <div class="d-none d-xl-block">
-                                        <h5 class="card-title mb-1">Thanh toán dễ dàng</h5>
+                                        <h5 class="card-title mb-1 text-muted">Thanh toán dễ dàng</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                         <i class="fa-solid fa-truck-fast fs-3 text-info"></i>
                                     </div>
                                     <div class="d-none d-xl-block">
-                                        <h5 class="card-title mb-1">Miễn phí vận chuyển</h5>
+                                        <h5 class="card-title mb-1 text-muted">Miễn phí vận chuyển</h5>
                                         <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
                                     </div>
                                 </div>
@@ -124,10 +124,10 @@
         </div>
         <section>
             <div class="container p-3 my-4 bg-white px-3 pt-3 rounded-2">
-                <div class="title-product col-xl-3 col-lg-3 col-8 mb-3">
+                <div class="title-product col-xl-2 col-lg-2 col-8 mb-3">
                     <div class="price-banner">
                         <div
-                            class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                            class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                             <div class="price-icon">
                                 <i class="fa-solid fa-fire text-white"></i>
                             </div>
@@ -169,13 +169,211 @@
             </div>
         </section>
         <section>
+            <div class="container newArrive mt-3 px-3 pt-3 rounded-2 mb-4 flash-sale">
+                <div class="product-category p-2 ">
+                    <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
+                        <div class="title-product col-xl-3 col-lg-3 col-8 mb-3">
+                            <div class="price-banner">
+                                <div
+                                    class="price-content border-start border-white rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
+                                    <div class="price-icon bg-white">
+                                        <i class="fa-solid fa-bolt text-info"></i>
+                                    </div>
+                                    <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-white">
+                                        Siêu Sale 
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-product-cate row flex-wrap">
+                        @if (count($productSupperSales) != 0 && !empty($productSupperSales))
+                            @foreach ($productSupperSales as $key => $productSupperSale)
+                                @php
+                                    $shownColors = []; // Mảng để theo dõi các màu đã được hiển thị
+
+                                    $promotion =
+                                        $productSupperSale->del != 0 && $productSupperSale->del != null
+                                            ? (($productSupperSale->price - $productSupperSale->del) / $productSupperSale->price) * 100
+                                            : '0';
+                                    $price =
+                                        $productSupperSale->del != 0 && $productSupperSale->del != null
+                                            ? number_format($productSupperSale->del, '0', ',', '.')
+                                            : number_format($productSupperSale->price, '0', ',', '.');
+                                    //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                    $variantFirst = $productSupperSale->productVariant->first();
+                                @endphp
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
+                                        <div class="position-absolute z-1 w-100">
+                                            <div class="head-card ps-0 d-flex justify-content-between">
+                                                <span
+                                                    class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $productSupperSale->del == 0 || $productSupperSale->del == null ? 'hidden-visibility' : '' }}">
+                                                    -  {{ round($promotion, 0) . '%' }}
+                                                </span>
+                                                <span class="text-end mt-2 me-2 text-muted toggleWishlist"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-title="{{ in_array($productSupperSale->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
+                                                    data-id="{{ $productSupperSale->id }}">
+                                                    <i
+                                                        class="fa-{{ in_array($productSupperSale->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
+                                                    <span class="product_id_wishlist d-none">
+                                                        {{ $productSupperSale->id }}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="image-main-product position-relative">
+                                            <a href="{{ route('product.detail', ['slug' => $productSupperSale->slug]) }}">
+                                                <img src="{{ $productSupperSale->image }}" alt="product image" width="100%"
+                                                    height="250" class="img-fluid object-fit-cover rounded-top-2"
+                                                    style="height: 300px">
+                                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                    <div class="hstack gap-3">
+                                                        <div class="p-2 overflow-x-hidden">
+                                                            <span
+                                                                class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                {{ $productSupperSale->productCatalogues[0]->name }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="p-2 ms-auto">
+                                                            <div class="product-image-color">
+                                                                @foreach ($productSupperSale->productVariant as $variant)
+                                                                    @foreach ($variant->attributes as $attribute)
+                                                                        @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                            <img src="{{ $attribute->image }}"
+                                                                                alt="{{ $attribute->name }}"
+                                                                                width="14" height="14"
+                                                                                class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                            @php
+                                                                                // Đánh dấu màu này đã được hiển thị
+                                                                                $shownColors[] = $attribute->name;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
+                                                <a href="{{ route('product.detail', ['slug' => $productSupperSale->slug]) }}"
+                                                    class="text-break w-100 text-muted">{{ $productSupperSale->name }}</a>
+                                            </h6>
+                                            <div class="d-flex justify-content-start mb-2 ">
+                                                <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                    data-price="{{ $price }}">{{ $price }}đ
+                                                </span>
+                                                <span class="mt-1 ">
+                                                    <del
+                                                        class="text-secondary fz-14 {{ $productSupperSale->del == 0 && $productSupperSale->del == null ? 'hidden-visibility' : '' }}">{{ number_format($productSupperSale->price, '0', ',', '.') }}đ</del>
+                                                </span>
+                                            </div>
+                                            <div class="box-action">
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $productSupperSale->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
+                                                </a>
+                                                <a href="" class="action-cart-item-add addToCart"
+                                                    data-id="{{ $productSupperSale->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                    <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
+                                                    <span>thêm giỏ hàng</span>
+                                                </a>
+                                            </div>
+                                            <div class="head-card d-flex p-1">
+                                                <span class="fz-14 ">
+                                                    Mã sản phẩm
+                                                </span>
+                                                <span class="ms-auto text-dark fw-500 fz-14">{{ $productSupperSale->sku }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="order-null p-3">
+                                <div class="img-null text-center">
+                                    <img src="/libaries/upload/images/order-null.png" alt="" class=""
+                                        width="300" height="200">
+                                </div>
+                                <div class="flex flex-col text-center align-items-center">
+                                    <h5 class="mb-2 fw-semibold">Hiện chưa có sản phẩm được sale!
+                                    </h5>
+                                    <a href="{{ route('shop.index') }}"
+                                        class="btn btn-info text-white rounded-pill mt-3 pz-3">Quay lại</a>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container p-3 my-4 bg-white px-3 pt-3 rounded-2">
+                <div class="title-product col-xl-2 col-lg-2 col-8 mb-3">
+                    <div class="price-banner">
+                        <div
+                            class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
+                            <div class="price-icon">
+                                <i class="fa-solid fa-fire text-white"></i>
+                            </div>
+                            <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                Thương hiệu
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div id="thumbnail-carouselbrand" class="splide category-slide">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            @if ($brands)
+                                @foreach ($brands as $keybBrand => $valbBrand)
+                                    <li class="splide__slide">
+                                        <a href="{{ route('product.brand', ['id' => $valbBrand->id]) }}">
+                                            <div class="card border-0 carh-height-100 mb-3">
+                                                <img src="{{ $valbBrand->image }}" alt="product image" width="160"
+                                                    height="160" class="object-fit-contain rounded-circle border-info border border-3">
+                                                <div class="card-body text-center p-2">
+                                                    <h5 class="fw-medium">
+                                                        <a href="{{ route('product.brand', ['id' => $valbBrand->id]) }}"
+                                                            class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">
+                                                            <span class="d-inline-block text-truncate"
+                                                                style="max-width: 145px;">
+                                                                {{ $valbBrand->name }}
+                                                            </span>
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
             <div class="container newArrive mt-3 bg-white px-3 pt-3 rounded-2 mb-4">
                 <div class="product-category p-2">
                     <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
                         <div class="title-product col-xl-3 col-lg-3 col-8 mb-3">
                             <div class="price-banner">
                                 <div
-                                    class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                    class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                     <div class="price-icon">
                                         <i class="fa-solid fa-fire text-white"></i>
                                     </div>
@@ -325,10 +523,10 @@
             <div class="container plashSale mb-4 bg-white px-3 pt-3 rounded-2">
                 <div class="product-category">
                     <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
-                        <div class="title-product col-xl-3 col-lg-3 col-8 mb-3">
+                        <div class="title-product col-xl-2 col-lg-2 col-8 mb-3">
                             <div class="price-banner">
                                 <div
-                                    class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                    class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                     <div class="price-icon">
                                         <i class="fa-solid fa-fire text-white"></i>
                                     </div>
@@ -525,7 +723,7 @@
                         <div class="title-product mb-0 col-xl-3 col-lg-3 col-8 mb-3">
                             <div class="price-banner">
                                 <div
-                                    class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                    class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                     <div class="price-icon">
                                         <i class="fa-solid fa-fire text-white"></i>
                                     </div>
@@ -679,7 +877,7 @@
             <div class="title-product col-xl-3 col-lg-4 col-8 mb-4">
                 <div class="price-banner">
                     <div
-                        class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                        class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                         <div class="price-icon">
                             <i class="fa-solid fa-fire text-white"></i>
                         </div>
