@@ -56,7 +56,7 @@
                     <div class="main-post">
                         <div class="title-product mb-4 col-xl-2 col-lg-2 col-5">
                             <div class="price-banner">
-                                <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                     <div class="price-icon">
                                         <i class="fa-solid fa-star text-white"></i>
                                     </div>
@@ -204,7 +204,7 @@
                         <div class="title-post-host mt-4" >
                             <div class="title-product mb-4 col-xl-2 col-lg-3 col-6">
                                 <div class="price-banner">
-                                    <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                    <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                         <div class="price-icon">
                                             <i class="fa-solid fa-heart text-white"></i>
                                         </div>
@@ -236,7 +236,7 @@
                         <div class="title-post-host mt-4" >
                             <div class="title-product mb-4 col-xl-3 col-lg-3 col-7">
                                 <div class="price-banner">
-                                    <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                    <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                         <div class="price-icon">
                                             <i class="fa-solid fa-newspaper text-white"></i>
                                         </div>

@@ -123,7 +123,7 @@
             </div>
         </div>
         <section>
-            <div class="container p-3 my-4 bg-white px-3 pt-3 rounded-2">
+            <div class="container p-3 pb-4 my-4 bg-white px-3 pt-3 rounded-2">
                 <div class="title-product col-xl-2 col-lg-2 col-8 mb-3">
                     <div class="price-banner">
                         <div

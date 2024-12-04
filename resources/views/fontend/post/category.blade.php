@@ -70,7 +70,7 @@
                         </div>
                         <div class="row bg-white py-3 rounded-2" >
                             <div class="col-lg-9 col-md-9 col-12 ">
-                                @if ($postInCatagories != null)
+                                @if ($postInCatagories != null && count($postInCatagories) > 0)
                                     @foreach ($postInCatagories as $key => $valPnew)
                                         @php
                                             $created_atPostnew = $valPnew->created_at;
