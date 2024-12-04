@@ -352,7 +352,7 @@
                                                     <div class="head-card ps-0 d-flex justify-content-between">
                                                         <span
                                                             class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
-                                                            -  {{ round($promotion, 0) . '%' }}
+                                                            - {{ round($promotion, 0) . '%' }}
                                                         </span>
                                                         <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                             data-bs-toggle="tooltip"
@@ -411,8 +411,7 @@
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
-                                                        <span
-                                                            class="text-danger fz-20 fw-medium me-3"
+                                                        <span class="text-danger fz-20 fw-medium me-3"
                                                             data-price="{{ $price }}">{{ $price }}đ
                                                         </span>
                                                         <span class="mt-1 ">
@@ -423,12 +422,18 @@
                                                     <div class="box-action">
                                                         <a href="{{ route('cart.index') }}"
                                                             class="action-cart-item-buy addToCart buyNow"
-                                                            data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                            data-id="{{ $product->id }}"
+                                                            data-product-variant-id="{{ $variantFirst->id }}"
+                                                            data-product-variant-price="{{ $variantFirst->price }}"
+                                                            data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                             <span>Mua ngay</span>
                                                         </a>
                                                         <a href="" class="action-cart-item-add addToCart"
-                                                            data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                            data-id="{{ $product->id }}"
+                                                            data-product-variant-id="{{ $variantFirst->id }}"
+                                                            data-product-variant-price="{{ $variantFirst->price }}"
+                                                            data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
                                                         </a>
@@ -528,7 +533,7 @@
                     <div class="title-product mb-4 col-xl-3 col-lg-3 col-8">
                         <div class="price-banner">
                             <div
-                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                 <div class="price-icon">
                                     <i class="fa-solid fa-fire text-white"></i>
                                 </div>
@@ -552,7 +557,7 @@
                                         $productNew->del != 0 && $productNew->del != null
                                             ? number_format($productNew->del, '0', ',', '.')
                                             : number_format($productNew->price, '0', ',', '.');
-                                    //-- // 
+                                    //-- //
                                     $variantFirst = $productNew->productVariant->first();
                                 @endphp
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
@@ -561,7 +566,7 @@
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
                                                     class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $productNew->del == 0 || $productNew->del == null ? 'hidden-visibility' : '' }}">
-                                                    -  {{ round($promotion, 0) . '%' }}
+                                                    - {{ round($promotion, 0) . '%' }}
                                                 </span>
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                     data-bs-toggle="tooltip"
@@ -628,12 +633,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $productNew->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                    data-id="{{ $productNew->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $productNew->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                    data-id="{{ $productNew->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -655,7 +666,7 @@
                     <div class="title-product mb-4 col-xl-2 col-lg-2 col-5">
                         <div class="price-banner">
                             <div
-                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                 <div class="price-icon">
                                     <i class="fa-solid fa-tags text-white"></i>
                                 </div>
@@ -681,7 +692,7 @@
                                         $productPriceMin->del != 0 && $productPriceMin->del != null
                                             ? number_format($productPriceMin->del, '0', ',', '.')
                                             : number_format($productPriceMin->price, '0', ',', '.');
-                                            //-- // 
+                                    //-- //
                                     $variantFirst = $productPriceMin->productVariant->first();
                                 @endphp
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
@@ -690,7 +701,7 @@
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
                                                     class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $productPriceMin->del == 0 || $productPriceMin->del == null ? 'hidden-visibility' : '' }}">
-                                                    -  {{ round($promotion, 0) . '%' }}
+                                                    - {{ round($promotion, 0) . '%' }}
                                                 </span>
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                     data-bs-toggle="tooltip"
@@ -757,12 +768,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $productPriceMin->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                    data-id="{{ $productPriceMin->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $productPriceMin->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
+                                                    data-id="{{ $productPriceMin->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -822,7 +839,7 @@
                                                 <li><strong>Chất liệu cao cấp</strong>: Để đảm bảo sự hài lòng tối đa, các
                                                     sản phẩm đều sử dụng các loại vải cao cấp như:
                                                     <ul>
-                                                        <li><strong>Vải cotton</strong> – tự nhiên và thoáng mát, giúp - 
+                                                        <li><strong>Vải cotton</strong> – tự nhiên và thoáng mát, giúp -
                                                             nhiệt độ cơ thể trong thời tiết nóng ẩm.</li>
                                                         <li><strong>Vải lụa</strong> – mang lại cảm giác mềm mại và sang
                                                             trọng, phù hợp cho những dịp đặc biệt.</li>
@@ -919,7 +936,7 @@
                                                 </li>
                                                 <li><strong>Quà tặng và voucher:</strong>
                                                     <ul>
-                                                        <li>-  giá 10% cho lần mua hàng đầu tiên.</li>
+                                                        <li>- giá 10% cho lần mua hàng đầu tiên.</li>
                                                         <li>Tặng quà khi đạt mức chi tiêu từ 1,000,000 VND trở lên.</li>
                                                     </ul>
                                                 </li>

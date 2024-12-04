@@ -303,10 +303,10 @@
                                         <div class="w-50">
                                             <a href="" class="addToCart" data-id="{{ $product->id }}">
                                                 <button
-                                                    class="animated-button fz-18 rounded-2 fw-medium shadow-sm w-100 d-none d-md-inline-block"
+                                                    class="animated-button fz-18 rounded-2 fw-medium shadow-sm w-100"
                                                     data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng"
                                                     data-id="{{ $product->id }}">
-                                                    <span> <i class="fa-solid fa-cart-plus fz-20 me-2"></i> Thêm vào giỏ
+                                                    <span> <i class="fa-solid fa-cart-plus fz-20 me-2"></i> <p class="d-none d-md-inline-block mb-0">Thêm vào </p> giỏ
                                                         hàng</span>
                                                     <span></span>
                                                 </button>
@@ -314,10 +314,10 @@
                                         </div>
                                         <div class="w-50 ms-auto">
                                             <a href="{{ route('cart.index') }}"
-                                                class="btn btn-success fw-medium fz-18 w-100 addToCart buyNow"
+                                                class="animated-button-success fw-medium fz-18 w-100 rounded-2 shadow-sm addToCart buyNow"
                                                 data-id="{{ $product->id }}">
                                                 <i class="fa-solid fa-cart-shopping me-2"></i>Mua Ngay
-                                                <p class="fz-14 fw-normal mb-0">Giao hàng tận nơi hoặc nhận tại cửa hàng
+                                                <p class="fz-14 fw-normal mb-0 d-none d-md-inline-block">Giao hàng tận nơi hoặc nhận tại cửa hàng
                                                 </p>
                                             </a>
                                         </div>
@@ -743,7 +743,7 @@
                     <div class="title-product mb-4 col-xl-3 col-lg-4 col-10">
                         <div class="price-banner">
                             <div
-                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                 <div class="price-icon">
                                     <i class="fa-solid fa-tags text-white"></i>
                                 </div>
