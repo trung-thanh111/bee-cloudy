@@ -126,10 +126,11 @@
                                                                 <span
                                                                     class="d-block justify-content-end align-items-center">
                                                                     <img class="rounded-circle header-profile-user"
-                                                                        src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                        :src="v.image || '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif'"
                                                                         alt="Avatar User"
                                                                         class="rounded-circle object-fit-cover"
-                                                                        width="50" height="50">
+                                                                        width="50" 
+                                                                        height="50">                                                   
                                                                 </span>
                                                             </button>
                                                         </div>
@@ -140,8 +141,8 @@
                                                                     <div
                                                                         class="hstack gap-2 d-flex justify-content-start align-items-center">
                                                                         <div class="pt-2 d-inline-block">
-                                                                            <h6 class="fz-18 mb-0">@{{ v.name }}
-                                                                            </h6>
+                                                                         <h6>@{{ v.name }}</h6>
+                                                                           
                                                                         </div>
                                                                         <div class="dropdown ms-auto ">
                                                                             <a class=" dropdown-toggle" href="#"
@@ -152,8 +153,7 @@
                                                                             </a>
                                                                             <ul
                                                                                 class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                                <template
-                                                                                    v-if="v.user_id === {{ Auth::id() }}">
+                                                                                <template v-if="v.user_id === {{ Auth::id() }}">
                                                                                     <li class="p-1 li-menu-header"
                                                                                         data-bs-toggle="modal"
                                                                                         data-bs-target="#delPosts"
@@ -384,7 +384,7 @@
                 likeCount: [],
                 check: 0,
                 isLiked: false,
-                names: []
+                // names: []
             },
             created() {
                 this.loadContent();
@@ -396,7 +396,8 @@
                     axios
                         .get('/view-content-data')
                         .then((res) => {
-                            this.list = res.data.data;            
+                            this.list = res.data.data;   
+                            console.log(this.list);         
                             this.comment = res.data.comment_count;
                         });
                 },
@@ -414,7 +415,7 @@
                         })
                         .catch((res) => {
                             $.each(res.response.data.errors, function(k, v) {
-                                toastr.error(v[0], 'Error');
+                                flasher.error(v[0], 'Error');
                             });
                         });
                 },
@@ -423,7 +424,6 @@
                         .post('/view-content-update', this.update)
                         .then((res) => {
                             if (res.data.code == 10) {
-
                                 flasher.success(res.data.message);
                                 this.loadContent();
                             } else {
