@@ -1725,4 +1725,7 @@ footer {
     background: linear-gradient(to left, #fcf0eb, #f43f5e);
   }
 
-  
+
+.keyword-recent{
+    cursor: pointer;
+}
