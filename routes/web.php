@@ -34,6 +34,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\Fontend\MomoController;
 use App\Http\Controllers\Fontend\VnpayController;
 use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\Backend\RevenueController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -291,6 +292,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('delete/{id}', [BannerController::class, 'delete'])->where(['id' => '[0-9]+'])->name('banner.delete');
         Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('banner.destroy');
     });
+
+    //Doanh thu
+    Route::get('/admin/revenue', [RevenueController::class, 'index'])->name('revenue.index');
+    Route::post('/admin/thong-ke-data', [RevenueController::class, 'Thongke']);
 
     // ORDER UPDATE AJAX
     Route::post('/ajax/order/editNote', [AjaxOrderController::class, 'edit'])->name('ajax.order.edit');

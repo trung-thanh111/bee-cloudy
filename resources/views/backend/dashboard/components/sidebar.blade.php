@@ -90,6 +90,22 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarRevenue" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarRevenue">
+                        <i class="fa-solid fa-dollar-sign"></i></i> <span data-key="t-Revenues">Doanh thu</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarRevenue">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <li class="nav-item">
+                                    <a href="{{ route('revenue.index') }}" class="nav-link" data-key="t-starter">Quản lý</a>
+                                </li>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarMembers" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarMembers">
                         <i class="ri-group-fill"></i> <span data-key="t-pages">Thành viên</span>
