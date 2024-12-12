@@ -222,6 +222,7 @@ class PromotionService
             'promotion_id' => $promotion->id,
             'code' => $promotion->code,
             'received_at' => now(),
+            'isUsed' => 1,
         ]);
     
         return ['type' => 'success', 'text' => 'Voucher nhận thành công'];
