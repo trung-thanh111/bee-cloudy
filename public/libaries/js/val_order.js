@@ -76,6 +76,7 @@
             }
         });
     };
+    
     FS.updateOrderStatusAjax = (orderId, status) => {
         $.ajax({
             url: "/ajax/order/updateStatus",
@@ -141,11 +142,38 @@
         });
     };
 
+    FS.clickToOpenBox = () => {
+        $('#lyDoHuy').on('change', function() {
+            let selectedValue = $(this).val();
+            let elementNote = $('#lydokhac'); 
+            let optionOther = $('.optionlydokhac'); 
+    
+            if (selectedValue === '') {
+                elementNote.removeClass('d-none'); 
+            } else {
+                elementNote.addClass('d-none');
+                optionOther.val(elementNote.val()); 
+            }
+            console.log(optionOther.val());
+            
+        });
+        // bắt sự kiện oniput or keyup
+        $('#lydokhac textarea').on('input', function () {
+            $('.optionlydokhac').val($(this).val());
+        });
+    };
+
+    FS.updateCanceled = () => {
+        $('')
+    }
+    
+
     // gọi hàm
     $(document).ready(function () {
         FS.clickToUpdateNoteOrders();
         FS.updateNote();
         FS.updateStatusOrder();
         FS.updatePaidAtOrder();
+        FS.clickToOpenBox();
     });
 })(jQuery);
