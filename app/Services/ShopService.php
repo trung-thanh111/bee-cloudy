@@ -115,7 +115,7 @@ class ShopService implements ShopServiceInterface
 
     public function productFilter($request)
     {
-        $payload = $request->only('brand', 'category', 'size', 'color', 'price');
+        $payload = $request->only('brand', 'category', 'size', 'color', 'price', 'sort');
         $query = Product::with('productVariant', 'productCatalogues', 'productVariant.attributes');
 
         if (isset($payload['brand']) && !empty($payload['brand'])) {
@@ -149,6 +149,30 @@ class ShopService implements ShopServiceInterface
                 });
             }
         });
+        if (!empty($payload['sort'])) {
+            switch ($payload['sort']) {
+                case 'price_high':
+                    $query->orderBy('price', 'DESC');
+                    break;
+                case 'price_low':
+                    $query->orderBy('price', 'ASC');
+                    break;
+                case 'newest':
+                    $query->orderBy('created_at', 'DESC');
+                    break;
+                case 'oldest':
+                    $query->orderBy('created_at', 'ASC');
+                    break;
+                case 'name_asc':
+                    $query->orderBy('name', 'ASC');
+                    break;
+                case 'name_desc':
+                    $query->orderBy('name', 'DESC');
+                    break;
+            }
+        } else {
+            $query->orderBy('id', 'DESC');
+        }
 
         $products = $query->paginate(9);
         return $products;
