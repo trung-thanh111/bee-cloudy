@@ -9,6 +9,7 @@ use Illuminate\Contracts\Routing\UrlRoutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\InteractsWithTime;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
@@ -453,7 +454,7 @@ class UrlGenerator implements UrlGeneratorContract
 
         $url = $absolute ? $request->url() : '/'.$request->path();
 
-        $queryString = collect(explode('&', (string) $request->server->get('QUERY_STRING')))
+        $queryString = (new Collection(explode('&', (string) $request->server->get('QUERY_STRING'))))
             ->reject(fn ($parameter) => in_array(Str::before($parameter, '='), $ignoreQuery))
             ->join('&');
 
@@ -528,7 +529,7 @@ class UrlGenerator implements UrlGeneratorContract
      */
     public function toRoute($route, $parameters, $absolute)
     {
-        $parameters = collect(Arr::wrap($parameters))->map(function ($value, $key) use ($route) {
+        $parameters = (new Collection(Arr::wrap($parameters)))->map(function ($value, $key) use ($route) {
             return $value instanceof UrlRoutable && $route->bindingFieldFor($key)
                     ? $value->{$route->bindingFieldFor($key)}
                     : $value;
@@ -726,6 +727,19 @@ class UrlGenerator implements UrlGeneratorContract
         $this->cachedScheme = null;
 
         $this->forceScheme = $scheme ? $scheme.'://' : null;
+    }
+
+    /**
+     * Force the use of the HTTPS scheme for all generated URLs.
+     *
+     * @param  bool  $force
+     * @return void
+     */
+    public function forceHttps($force = true)
+    {
+        if ($force) {
+            $this->forceScheme('https');
+        }
     }
 
     /**

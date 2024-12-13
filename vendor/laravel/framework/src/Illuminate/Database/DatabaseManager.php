@@ -69,7 +69,9 @@ class DatabaseManager implements ConnectionResolverInterface
         $this->factory = $factory;
 
         $this->reconnector = function ($connection) {
-            $this->reconnect($connection->getNameWithReadWriteType());
+            $connection->setPdo(
+                $this->reconnect($connection->getNameWithReadWriteType())->getRawPdo()
+            );
         };
     }
 
@@ -97,6 +99,21 @@ class DatabaseManager implements ConnectionResolverInterface
         }
 
         return $this->connections[$name];
+    }
+
+    /**
+     * Build a database connection instance from the given configuration.
+     *
+     * @param  array  $config
+     * @return \Illuminate\Database\ConnectionInterface
+     */
+    public function build(array $config)
+    {
+        return $this->connectUsing(
+            $config['name'] ?? 'ondemand',
+            $config,
+            true,
+        );
     }
 
     /**
