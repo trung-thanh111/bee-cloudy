@@ -62,8 +62,7 @@
                                                                                 </div>
                                                                                 <div class="d-flex flex-wrap gap-4">
                                                                                     <div class="mb-1">
-                                                                                        <span class="text-muted fz-14">Hạn
-                                                                                            sử dụng đến: </span>
+                                                                                        <span class="text-muted fz-14">Hạn sử dụng đến: </span>
                                                                                         <span
                                                                                             class="fw-bold ms-2">{{ date('d-m-Y', strtotime(optional($userVoucher->promotion)->end_date)) ?? 'Chưa xác định' }}</span>
                                                                                     </div>
