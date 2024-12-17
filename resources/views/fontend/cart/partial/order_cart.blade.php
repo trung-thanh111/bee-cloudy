@@ -56,7 +56,17 @@
         <hr>
     </td>
 </tr>
+@if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
 <tr>
     <td colspan="3">
         <div class="bg-light-subtle border-success-subtle p-0">

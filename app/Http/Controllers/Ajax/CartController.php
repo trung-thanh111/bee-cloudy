@@ -254,7 +254,7 @@ class CartController extends FontendController
 
         if (!$userPromotion) {
             flash()->error('Mã không tồn tại!');
-            return redirect()->back()->with('error', '');
+            return redirect()->back();
         }
     
         $userVoucher = UserVoucher::where('promotion_id', $userPromotion->id)
@@ -369,10 +369,9 @@ class CartController extends FontendController
             session()->put('promotions', $promotions);
             session()->put('total_discount', $totalDiscount);
 
-            flash()->success('Mã giảm giá đã được áp dụng thành công.');
+            session()->flash('success', 'Mã giảm giá đã được áp dụng thành công.');
             return redirect()->back();
         }
-
         flash()->error('Không thể áp dụng mã giảm giá.');
         return redirect()->back();
     }
