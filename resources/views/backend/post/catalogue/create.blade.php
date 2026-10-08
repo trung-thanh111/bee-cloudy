@@ -128,7 +128,7 @@
                                             <span class="image-target">
                                                 <img src="/libaries/upload/images/img-notfound.png"
                                                     alt=""
-                                                    class="render-image object-fit-contait rounded-1 mb-2 position-relative "
+                                                    class="render-image object-fit-contain rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}

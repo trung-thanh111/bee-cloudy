@@ -8,7 +8,7 @@ use App\Repositories\UserRepository;
 use App\Services\Interfaces\ProductCatalogueServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * interface  UserService
@@ -34,12 +34,12 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
             'keyword' => addslashes($request->input('keyword')),
             'publish' => $request->input('publish') !== null ? $request->integer('publish') : null,
         ];
-        $perPage = $request->integer('perpage') ?? 5;
+        $perPage = $request->integer('perpage') ?: 5;
         $productCatalogues = $this->productCatalogueRepository->pagination(
             $this->selectColumn(),
             $condition,
             ['parentReference'],
-            ['id', 'DESC'],
+            ['order', 'ASC'],
             $perPage,
         );
         return $productCatalogues;
@@ -53,6 +53,8 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
             $payload = $request->except(['_token', '_submit']);
             $payload['user_id'] = Auth::id();
             $payload['order'] = ProductCatalogue::max('order') + 1;
+            $payload['slug'] = Str::slug($payload['slug']);
+
             // thực hiện thêm mới -> gọi tới repository nhận vào một payload
             $this->productCatalogueRepository->create($payload);
             DB::commit(); // nếu k có lỗi -> commit lên đb
@@ -64,35 +66,36 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
         }
     }
     public function update($slug, $request)
-    {
-        DB::beginTransaction();
-        try {
-            // Tìm bản ghi hiện tại bằng slug
-            $productCatalogue = $this->productCatalogueRepository->findBySlug($slug);
-            if (!$productCatalogue) {
-                throw new \Exception("Không tìm thấy bản ghi!");
-            }            $orderSelected = $request->input('order');
-            $orderSameSelected = $this->productCatalogueRepository->findByCondition([
-                ['order', '=',  $orderSelected]
-            ]);
-            // Hoán đổi vị trí order
-            if ($orderSameSelected) {
-                $originalOrder = $productCatalogue->order;
-                $productCatalogue->order = $orderSelected;
-                $productCatalogue->save();
-            
-                $orderSameSelected->order = $originalOrder;
-                $orderSameSelected->save();
-            }
-            $payload = $request->except(['_token', 'submit']);
-            $this->productCatalogueRepository->update($slug, $payload);
-            DB::commit();
-            return true;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw new \Exception("Cập nhật thất bại: " . $e->getMessage());
+{
+    DB::beginTransaction();
+    try {
+        $payload = $request->except(['_token', 'submit']);            
+        $productCatalogue = $this->productCatalogueRepository->findBySlug($slug);
+        $orderSameSelected = $this->productCatalogueRepository->findByCondition([
+            ['order', $payload['order']]
+        ], $productCatalogue->id);
+    
+        if ($orderSameSelected) {
+            $originalOrder = $productCatalogue->order;
+        
+            $orderSameSelected->order = $originalOrder;
+            $orderSameSelected->save();
+        
+            $productCatalogue->order = (int)$payload['order'];
+            $productCatalogue->save();
+        } else {
+            $productCatalogue->order = (int)$payload['order'];
+            $productCatalogue->save();
         }
+    
+        $this->productCatalogueRepository->update($slug, $payload);
+        DB::commit();
+        return true;
+    } catch (\Exception $e) {
+        DB::rollBack();
+        throw new \Exception("Cập nhật thất bại: " . $e->getMessage());
     }
+}      
 
     public function destroy($id = 0)
     {

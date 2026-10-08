@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Repositories\Interfaces\CartRepositoryInterface;
-use App\Models\Order;
+use App\Models\Cart;
 
 /** class BaseRepository
  * @package App\Repositories
@@ -15,7 +15,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
 
     protected $model;
 
-    public function __construct(Order $model)
+    public function __construct(Cart $model)
     {
         $this->model = $model;
     }
