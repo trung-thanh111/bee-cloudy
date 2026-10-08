@@ -445,8 +445,10 @@
                                                                 alt="Avatar User" class="rounded-circle object-fit-cover"
                                                                 width="60" height="60">
                                                             <p class="text-center mt-2">
-                                                                <span
-                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                @if (Auth::check())
+                                                                    <span
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                @endif
                                                             </p>
                                                         </span>
                                                     </button>

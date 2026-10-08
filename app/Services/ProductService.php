@@ -327,6 +327,7 @@ class ProductService implements ProductServiceInterface
         $product->attributeCatalogue = $attributeCatalogues;
         return $product;
     }
+
     public function checkAttributeVariantQuantity(string $slug = '')
     {
         $productVariants = $this->productRepository->getVariantFindBySlug(
@@ -364,43 +365,7 @@ class ProductService implements ProductServiceInterface
                     list($colorId) = $codes;
 
                     $arrayColorId = $this->isColor();
-    public function checkAttributeVariantQuantity(string $slug = '')
-    {
-        $productVariants = $this->productRepository->getVariantFindBySlug(
-            [
-                'productCatalogues',
-                'productVariant' => function ($query) {
-                    $query->where('quantity', '>', 0);
-                },
-                'productVariant.attributes'
-            ],
-            [
-                ['slug', $slug],
-            ]
-        );
 
-        $result = [
-            'color' => [], // màu
-            'size' => [], // kích thước
-        ];
-        // dd($productVariants);
-        foreach ($productVariants->productVariant as $variant) {
-            // dd($variant->code);
-            if ($variant->code) {
-                $codes = explode(',', $variant->code);
-                if (count($codes) === 2) {
-                    list($colorId, $sizeId) = $codes;
-
-                    if (!in_array((int)$colorId, $result['color'])) {
-                        $result['color'][] = (int)$colorId;
-                    }
-                    if (!in_array((int)$sizeId, $result['size'])) {
-                        $result['size'][] = (int)$sizeId;
-                    }
-                } elseif (count($codes) === 1) {
-                    list($colorId) = $codes;
-
-                    $arrayColorId = $this->isColor();
                     if (in_array((int)$colorId, $arrayColorId)) {
                         if (!in_array((int)$colorId, $result['color'])) {
                             $result['color'][] = (int)$colorId;
@@ -427,6 +392,7 @@ class ProductService implements ProductServiceInterface
         }
         return $arrayColorId;
     }
+
     private function payload()
     {
         return [
