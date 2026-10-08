@@ -65,14 +65,38 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarOrders">
+                        <i class="fa-brands fa-shopify"></i> <span data-key="t-Orders">Đơn hàng</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarOrders">
+                        <ul class="nav nav-sm flex-column">
+                            
+                            <li class="nav-item">
+                                <a href="#sidebarorder" class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-controls="sidebarorder" > Quản lý
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarorder">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ route('order.index') }}" class="nav-link" >
+                                                Danh sách</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPagesvoucher">
-                        <i class="ri-pages-line"></i> <span data-key="t-pages">Voucher</span>
+                        <i class="fa-solid fa-ticket"></i> <span data-key="t-pages">Voucher</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarPagesvoucher">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="" class="nav-link">Nhóm thuộc tính</a>
+                                <a href="#" class="nav-link">Nhóm thuộc tính</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse"

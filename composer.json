@@ -15,7 +15,8 @@
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
-        "php-flasher/flasher-laravel": "^2.0"
+        "php-flasher/flasher-laravel": "^2.0",
+        "srmklive/paypal": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

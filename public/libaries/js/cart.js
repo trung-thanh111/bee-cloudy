@@ -152,9 +152,12 @@
         });
     };
     FS.clearCart = () => {
-        const modal = new bootstrap.Modal(
-            document.getElementById("clearCartModal")
-        );
+        let modal; 
+        const modelE = document.getElementById("clearCartModal");
+        if (modelE) {
+            modal = new bootstrap.Modal(modelE);
+        }
+        
 
         $(document).on("click", ".clearCart", function (e) {
             e.preventDefault();

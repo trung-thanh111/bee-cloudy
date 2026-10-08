@@ -29,7 +29,9 @@
                         success: function (res) {
                             var suggestionsList = $("#suggestions-list");
                             suggestionsList.empty();
-
+                            if(res.length == 0){
+                                $('.list-search').addClass('hidden-visibility');
+                            }
                             // Duyệt qua từng key của object
                             Object.values(res).forEach(function (item) {
 
@@ -53,7 +55,54 @@
             }, 300)
         );
     };
+
+    FS.searchKeyUpShowPaper = (res) => {
+        let isTyping = false;
+    
+        $(document).on("mouseenter", ".search-header, .wallpaper", function () {
+            // Kiểm tra xem input có giá trị hay không
+            const hasValue = $(".search-header").val().length > 0;
+            
+            if (!isTyping) {
+                $(".wallpaper").removeClass("d-none").css('top', hasValue ? '165px' : '100px');
+            }
+        });
+    
+        $(document).one("keyup", ".search-header", function () {
+            isTyping = true;
+            if ($(".search-header").val().length == 0) {
+                $(".wallpaper").addClass("d-none");
+            } else {
+                $(".wallpaper").removeClass("d-none").css('top', '165px');
+                $(".list-search").removeClass("d-none");
+            }
+            FS.searchKeyUpShowPaper();
+        });
+    
+        $(document).on("mouseleave", ".search-header, .wallpaper", function () {
+            isTyping = false;
+            setTimeout(function () {
+                if (!$(".search-header").is(":hover") && !$(".wallpaper").is(":hover")) {
+                    $(".wallpaper").addClass("d-none");
+                }
+            }, 500);
+        });
+    }
+      FS.getKeywordClickKeywordRecent = () => {
+        $(document).on("click", ".search-recent-item", function () {
+          let _this = $(this);
+          //sử dụng this để lấy ra 1 phần tử đc click
+          let keywordRecent = $.trim(_this.find(".keyword-recent").text());
+          if($(".search-header").val() > 0){
+            $(".search-header").val() = " "
+          }else{
+            $(".search-header").val(keywordRecent)
+          }
+        });
+      };
     $(document).ready(function () {
         FS.suggestion();
+        FS.searchKeyUpShowPaper();
+    FS.getKeywordClickKeywordRecent();
     });
 })(jQuery);
