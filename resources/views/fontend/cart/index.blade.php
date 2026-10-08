@@ -334,16 +334,17 @@ Giỏ hàng
                                                 <th colspan="2">Tổng tiền:</th>
                                                 <td class="text-end">
                                                     <span class="fw-semibold" id="cart-total-price">
-                                                        @php
-                                                            $totalPrice = $total;
-                                                            $shippingFee = session()->has('shipping_fee') ? session('shipping_fee') : 25000;
-                                                            $totalPriceWithShipping = $totalPrice + $shippingFee;
+                                                    @php
+                                                        $totalPrice = $total;
+                                                        $shippingFee = session()->has('shipping_fee') ? session('shipping_fee') : 25000;
+                                                        $totalPriceWithShipping = $totalPrice + $shippingFee;
 
-                                                            if (isset($userPromotion) && $userPromotion->apply_for === 'all' && session()->has('discount')) {
-                                                                $totalPriceWithShipping -= session('discount');
-                                                            }
-                                                        @endphp
-                                                        {{ number_format($totalPriceWithShipping, 0, ',', '.') . 'đ' }}
+                                                        // Áp dụng tổng số tiền giảm giá từ tất cả mã đã áp dụng
+                                                        $totalDiscount = session()->get('total_discount', 0);
+                                                        $totalPriceWithShipping -= $totalDiscount;
+                                                    @endphp
+                                                    {{ number_format($totalPriceWithShipping, 0, ',', '.') . 'đ' }}
+
                                                     </span>
                                                 </td>
                                             </tr>
