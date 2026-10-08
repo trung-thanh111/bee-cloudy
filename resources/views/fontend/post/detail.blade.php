@@ -93,7 +93,7 @@
                                                                     height="60">
                                                                 <p class="text-center mt-2">
                                                                     <span
-                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{Auth::user()->name}}</span>
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
                                                                 </p>
                                                             </span>
                                                         </button>
@@ -102,11 +102,12 @@
                                                         class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
                                                         <form>
                                                             <div class="form-group position-relative ">
-                                                                <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment" rows="4"
-                                                                    placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
+                                                                <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment"
+                                                                    rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
                                                                 <button type="button"
                                                                     class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                    style="bottom: 8px ; right: 20px;"   v-on:click="createContent()">Gửi</button>
+                                                                    style="bottom: 8px ; right: 20px;"
+                                                                    v-on:click="createContent()">Gửi</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -138,7 +139,8 @@
                                                                     <div
                                                                         class="hstack gap-2 d-flex justify-content-start align-items-center">
                                                                         <div class="pt-2 d-inline-block">
-                                                                            <h6 class="fz-18 mb-0">@{{v.name}}</h6>
+                                                                            <h6 class="fz-18 mb-0">@{{ v.name }}
+                                                                            </h6>
                                                                         </div>
                                                                         <div class="dropdown ms-auto ">
                                                                             <a class=" dropdown-toggle" href="#"
@@ -149,8 +151,10 @@
                                                                             </a>
                                                                             <ul
                                                                                 class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                                <li class="p-1 li-menu-header"  data-bs-toggle='modal' data-bs-target='#delPosts'
-                                                                                v-on:click="del = Object.assign({},v)">
+                                                                                <li class="p-1 li-menu-header"
+                                                                                    data-bs-toggle='modal'
+                                                                                    data-bs-target='#delPosts'
+                                                                                    v-on:click="del = Object.assign({},v)">
                                                                                     <a href="#"
                                                                                         class="text-decoration-none text-danger fz-14 ps-1">
                                                                                         <i
@@ -158,31 +162,35 @@
                                                                                     </a>
                                                                                 </li>
                                                                                 <template v-if="v.edit_count == 0">
-                                                                                    <li class="p-1 li-menu-header"  data-bs-toggle='modal' data-bs-target='#updatePosts'
-                                                                                    v-on:click="update = Object.assign({},v)">
-                                                                                    <a href="#"
-                                                                                        class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                        <i
-                                                                                            class="fa-solid fa-circle-info me-2"></i>Chỉnh sửa
-                                                                                    </a>
-                                                                                </li>
+                                                                                    <li class="p-1 li-menu-header"
+                                                                                        data-bs-toggle='modal'
+                                                                                        data-bs-target='#updatePosts'
+                                                                                        v-on:click="update = Object.assign({},v)">
+                                                                                        <a href="#"
+                                                                                            class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                            <i
+                                                                                                class="fa-solid fa-circle-info me-2"></i>Chỉnh
+                                                                                            sửa
+                                                                                        </a>
+                                                                                    </li>
                                                                                 </template>
-                                                                                <template  v-if="v.edit_count == 1">
-                                                                                   
+                                                                                <template v-if="v.edit_count == 1">
+
                                                                                 </template>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
                                                                     <div class="review-time">
-                                                                        <span class="fz-12">@{{v.date}}</span>
+                                                                        <span class="fz-12">@{{ v.date }}</span>
                                                                     </div>
                                                                     <div class="content-review mt-2">
                                                                         <p class="fz-14 fst-italic fw-500">
-                                                                           @{{v.content}}
+                                                                            @{{ v.content }}
                                                                         </p>
                                                                     </div>
                                                                     <div class="icon-reaction pb-2">
-                                                                        <button v-on:click="Like(k)" :id="'likeBtn-' + k">
+                                                                        <button v-on:click="Like(k)"
+                                                                            :id="'likeBtn-' + k">
                                                                             <i class="fa-regular fa-heart me-2"></i>
                                                                         </button>
                                                                         <span :id="'likeCount-' + k">0</span>
@@ -233,45 +241,70 @@
                                     <h6 class="card-title fw-18 fw-500">Tìm kiếm</h6>
                                 </div>
                                 <div class="card-body py-2">
-                                    <form action="#" method="get" class="d-none d-md-block ">
-                                        <div class="input-group input-group-sm w-100 position-relative ">
-                                            <input type="text" name="keyword-post"
-                                                class="form-control rounded-start-2" aria-label="Sizing example input"
-                                                aria-describedby="inputGroup-sizing-sm"
-                                                placeholder="tìm theo ID, tiêu đề v.v ..">
-                                            <button type="submit" class="input-group-text text-bg-success"
-                                                id="inputGroup-sizing-sm">
-                                                <i class='bx bx-search-alt-2'></i>
+                                    <form action="{{ route('search') }}" method="get" class="d-none d-md-block ">
+                                        <div class="d-flex shadow-sm rounded-pill py-1 my-1 overflow-hidden bg-white">
+                                            <input type="text" name="keyword"
+                                                class="form-control border-0 py-2 ps-3 pe-0"
+                                                placeholder="tìm theo ID, tiêu đề v.v.."
+                                                value="{{ request('keyword') ?: old('keyword') }}"
+                                                style="box-shadow: none;">
+                                            <input type="hidden" name="type" value="post">
+                                            <button type="submit" class="btn px-4 border-0">
+                                                <i class="fas fa-search fz-18 text-muted"></i>
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <div class="card border-0 rounded-1 mb-4">
+                            <div class="card border-0 rounded-1 shadow-sm mb-4">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                                 </div>
-                                <div class="card-body py-2">
-                                    <ul class="p-2 mb-0 list-inline">
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#banchay</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#sale</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#newarrival</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#fashion</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#trending</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#summer</a>
-                                        </li>
-                                    </ul>
+                                <div class="card-body p-1">
+                                    <div class="categoryP-item mb-3 overflow-y-scroll">
+                                        <ul class="list-group list-group-flush">
+                                            @if (!is_null($postCatalogues) && !empty($postCatalogues))
+                                                @foreach ($postCatalogues as $catalogueP)
+                                                    <li class="list-group-item item-category">
+                                                        <a href="{{ route('post.category', ['id' => $catalogueP->id]) }}"
+                                                            class="text-decoration-none d-flex align-items-center">
+                                                            <img src="{{ $catalogueP->image }}"
+                                                                alt="{{ $catalogueP->name }}" width="50"
+                                                                height="50"
+                                                                class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                            <span class="text-muted fw-500">{{ $catalogueP->name }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-0 rounded-1 shadow-sm mb-4">
+                                <div class="card-header">
+                                    <h6 class="card-title fw-18 fw-500">Sản phẩm</h6>
+                                </div>
+                                <div class="card-body p-1">
+                                    <div class="categoryP-item mb-3 overflow-y-scroll">
+                                        <ul class="list-group list-group-flush">
+                                            @if (!is_null($productCategories) && !empty($productCategories))
+                                                @foreach ($productCategories as $cataloguePro)
+                                                    <li class="list-group-item item-category">
+                                                        <a href="{{ route('product.category', ['id' => $cataloguePro->id]) }}"
+                                                            class="text-decoration-none d-flex align-items-center">
+                                                            <img src="{{ $cataloguePro->image }}"
+                                                                alt="{{ $cataloguePro->name }}" width="50"
+                                                                height="50"
+                                                                class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                            <span
+                                                                class="text-muted fw-500">{{ $cataloguePro->name }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                             {{-- <div class="card border-0 rounded-1 shadow-sm mb-4">
@@ -313,14 +346,14 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div class="card border-0 rounded-1 shadow-sm mb-4">
-                                <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Bài viết tương tự</h6>
-                                </div>
-                                <div class="card-body p-1">
-                                    <div class="event-item mb-3">
-                                        <ul class="ps-0 mb-0" class="overflow-y-hidden">
-                                            @if ($postSimilar != null)
+                            @if ($postSimilar != null && count($postSimilar) > 0)
+                                <div class="card border-0 rounded-1 shadow-sm mb-4">
+                                    <div class="card-header">
+                                        <h6 class="card-title fw-18 fw-500">Bài viết tương tự</h6>
+                                    </div>
+                                    <div class="card-body p-1">
+                                        <div class="event-item mb-3">
+                                            <ul class="ps-0 mb-0" class="overflow-y-hidden">
                                                 @foreach ($postSimilar as $key => $valSimilar)
                                                     <li class="list-unstyled ">
                                                         <a href="{{ route('post.detail', ['slug' => $valSimilar->slug]) }}"
@@ -339,11 +372,11 @@
                                                         </a>
                                                     </li>
                                                 @endforeach
-                                            @endif
-                                        </ul>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -357,13 +390,14 @@
                     <h1 class='modal-title fs-5' id='exampleModalLabel'>
                         Update a Post
                     </h1>
-                    <button type='button' class='btn-close content' data-bs-dismiss='modal' aria-label='Close'></button>
+                    <button type='button' class='btn-close content' data-bs-dismiss='modal'
+                        aria-label='Close'></button>
                 </div>
                 <div class="container">
                     <label for="content">Content:</label>
                     <textarea v-model="update.content" id="content" name="content" rows="4" required></textarea>
 
-                   
+
                 </div>
                 <div class='modal-footer'>
                     <button type="button" class="btn-content" data-bs-dismiss='modal' v-on:click="updateContent">Xác
@@ -400,114 +434,114 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                    <a href="zalo">
-                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                    </a>
-                                                </div> -->
+                                                            <a href="zalo">
+                                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                            </a>
+                                                        </div> -->
     </div>
 @endsection
 @section('js')
-<script>
-    new Vue({
-        el: '#app',
-        data: {
-            list: [],
-            create: {},
-            update: {},
-            del: {},
-            comment: 0,
-            likes: []
-        },
-        created() {
-            this.loadContent();
-        },
-        methods: {
-            loadContent() {
-                axios
-                    .get('/view-content-data')
-                    .then((res) => {
-                        this.list = res.data.data;
-                        this.comment = res.data.comment_count;
-                        // console.log(this.comment);
-                    });
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                list: [],
+                create: {},
+                update: {},
+                del: {},
+                comment: 0,
+                likes: []
             },
-            createContent() {
-                axios
-                    .post('/view-content-create', this.create)
-                    .then((res) => {
-                        if (res.data.status) {
-                            alert(res.data.message);
-                            this.create = {};
-                            this.loadContent();
-                        } else {
-                            // toaster.error(res.data.message);
-                        }
-                    })
-                    .catch((res) => {
-                        $.each(res.response.data.errors, function(k, v) {
-                            toastr.error(v[0], 'Error');
+            created() {
+                this.loadContent();
+            },
+            methods: {
+                loadContent() {
+                    axios
+                        .get('/view-content-data')
+                        .then((res) => {
+                            this.list = res.data.data;
+                            this.comment = res.data.comment_count;
+                            // console.log(this.comment);
                         });
-                    });
-            },
-            updateContent() {
-                axios
-                    .post('/view-content-update', this.update)
-                    .then((res) => {
-                        if (res.data.status) {
-                            alert(res.data.message);
-                            this.loadContent();
-                        } else {
-                            // toaster.error(res.data.message);
-                        }
-                    })
-                    .catch((res) => {
-                        $.each(res.response.data.errors, function(k, v) {
-                            toastr.error(v[0], 'Error');
+                },
+                createContent() {
+                    axios
+                        .post('/view-content-create', this.create)
+                        .then((res) => {
+                            if (res.data.status) {
+                                alert(res.data.message);
+                                this.create = {};
+                                this.loadContent();
+                            } else {
+                                // toaster.error(res.data.message);
+                            }
+                        })
+                        .catch((res) => {
+                            $.each(res.response.data.errors, function(k, v) {
+                                toastr.error(v[0], 'Error');
+                            });
                         });
-                    });
-            },
-            deleteContent() {
-                axios
-                    .post('/view-content-delete', this.del)
-                    .then((res) => {
-                        if (res.data.status) {
-                            alert(res.data.message);
-                            this.loadContent();
-                        } else {
-                            // toaster.error(res.data.message);
-                        }
-                    })
-                    .catch((res) => {
-                        $.each(res.response.data.errors, function(k, v) {
-                            toastr.error(v[0], 'Error');
+                },
+                updateContent() {
+                    axios
+                        .post('/view-content-update', this.update)
+                        .then((res) => {
+                            if (res.data.status) {
+                                alert(res.data.message);
+                                this.loadContent();
+                            } else {
+                                // toaster.error(res.data.message);
+                            }
+                        })
+                        .catch((res) => {
+                            $.each(res.response.data.errors, function(k, v) {
+                                toastr.error(v[0], 'Error');
+                            });
                         });
-                    });
-            },
+                },
+                deleteContent() {
+                    axios
+                        .post('/view-content-delete', this.del)
+                        .then((res) => {
+                            if (res.data.status) {
+                                alert(res.data.message);
+                                this.loadContent();
+                            } else {
+                                // toaster.error(res.data.message);
+                            }
+                        })
+                        .catch((res) => {
+                            $.each(res.response.data.errors, function(k, v) {
+                                toastr.error(v[0], 'Error');
+                            });
+                        });
+                },
 
-            Like(k) {
-                if (this.likes[k] === 0) {
-                    this.likes[k] = 1;
-                } else {
-                    this.likes[k] = 0;
+                Like(k) {
+                    if (this.likes[k] === 0) {
+                        this.likes[k] = 1;
+                    } else {
+                        this.likes[k] = 0;
+                    }
+                    let likeCountElement = document.getElementById('likeCount-' + k);
+                    likeCountElement.textContent = this.likes[k];
+
+                    let heartIcon = document.getElementById('likeBtn-' + k).querySelector('i');
+                    if (this.likes[k] === 1) {
+                        heartIcon.classList.remove('fa-regular');
+                        heartIcon.classList.add('fa-solid');
+                    } else {
+                        heartIcon.classList.remove('fa-solid');
+                        heartIcon.classList.add('fa-regular');
+                    }
+                },
+
+                toggleMenu(k) {
+                    let menu = document.getElementById('menu-' + k);
+                    menu.classList.toggle('show');
                 }
-                let likeCountElement = document.getElementById('likeCount-' + k);
-                likeCountElement.textContent = this.likes[k];
-
-                let heartIcon = document.getElementById('likeBtn-' + k).querySelector('i');
-                if (this.likes[k] === 1) {
-                    heartIcon.classList.remove('fa-regular');
-                    heartIcon.classList.add('fa-solid');
-                } else {
-                    heartIcon.classList.remove('fa-solid');
-                    heartIcon.classList.add('fa-regular');
-                }
             },
-
-            toggleMenu(k) {
-                let menu = document.getElementById('menu-' + k);
-                menu.classList.toggle('show');
-            }
-        },
-    });
-</script>
+        });
+    </script>
 @endsection

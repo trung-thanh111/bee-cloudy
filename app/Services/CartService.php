@@ -206,6 +206,24 @@ class CartService implements CartServiceInterface
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
+
+    public function findAttributesByCode()
+    {
+        $carts = $this->all();
+        $attributesByCartItem = [];
+        if (isset($carts->cartItems) && count($carts->cartItems) > 0) {
+            foreach ($carts->cartItems as $cartItem) {
+                if ($cartItem->productVariants) {
+                    $codeIds = explode(',', $cartItem->productVariants->code);
+                    $attributes = Attribute::whereIn('id', $codeIds)->get();
+                    //lấy dúng attribut của cartitem đó
+                    $attributesByCartItem[$cartItem->id] = $attributes;
+                }
+            }
+        }
+        return $attributesByCartItem;
+    }
+
     public function clearPromotionsSession()
 {
     try {

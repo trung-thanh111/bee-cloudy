@@ -816,58 +816,76 @@
                         </div>
                     </div>
                     <div class="aside-product col-lg-3 col-md-12 col-12">
-                        <div class="card border-0 rounded-1 mb-4">
+                        <div class="card border-0 rounded-1 shadow-sm mb-4">
                             <div class="card-header">
-                                <h6 class="card-title fw-18 fw-500">Sản phẩm</h6>
+                                <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                             </div>
-                            <div class="card-body py-2">
-                                <ul class="p-2 mb-0 list-inline">
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#banchay</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#sale</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#newarrival</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#fashion</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#trending</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#summer</a>
-                                    </li>
-                                </ul>
+                            <div class="card-body p-1">
+                                <div class="categoryP-item mb-3 overflow-y-scroll">
+                                    <ul class="list-group list-group-flush">
+                                        @if (!is_null($productCatalogues) && !empty($productCatalogues))
+                                            @foreach ($productCatalogues as $cataloguePro)
+                                                <li class="list-group-item item-category">
+                                                    <a href="{{ route('post.category', ['id' => $cataloguePro->id]) }}"
+                                                        class="text-decoration-none d-flex align-items-center">
+                                                        <img src="{{ $cataloguePro->image }}" alt="{{ $cataloguePro->name }}"
+                                                            width="50" height="50"
+                                                            class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                        <span class="text-muted fw-500">{{ $cataloguePro->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="card border-0 rounded-1 mb-4">
+                        <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card-header">
+                                <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
+                            </div>
+                            <div class="card-body p-1">
+                                <div class="brand-item mb-3 overflow-y-scroll">
+                                    <ul class="list-group list-group-flush">
+                                        @if (!is_null($brands) && !empty($brands))
+                                            @foreach ($brands as $brand)
+                                                <li class="list-group-item item-category">
+                                                    <a href="#"
+                                                        class="text-decoration-none d-flex align-items-center">
+                                                        <img src="{{ $brand->image }}" alt="{{ $brand->name }}"
+                                                            width="50" height="50"
+                                                            class="me-3 object-fit-contain bg-light rounded-3">
+                                                        <span class="text-muted fw-500">{{ $brand->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 rounded-1 shadow-sm mb-4">
                             <div class="card-header">
                                 <h6 class="card-title fw-18 fw-500">Bài viết</h6>
                             </div>
-                            <div class="card-body py-2">
-                                <ul class="p-2 mb-0 list-inline">
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#banchay</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#sale</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#newarrival</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#fashion</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#trending</a>
-                                    </li>
-                                    <li class="list-inline-item mb-2">
-                                        <a href="#" class="btn btn-secondary btn-sm">#summer</a>
-                                    </li>
-                                </ul>
+                            <div class="card-body p-1">
+                                <div class="categoryP-item mb-3 overflow-y-scroll">
+                                    <ul class="list-group list-group-flush">
+                                        @if (!is_null($postCategories) && !empty($postCategories))
+                                            @foreach ($postCategories as $categoryP)
+                                                <li class="list-group-item item-category">
+                                                    <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
+                                                        class="text-decoration-none d-flex align-items-center">
+                                                        <img src="{{ $categoryP->image }}" alt="{{ $categoryP->name }}"
+                                                            width="50" height="50"
+                                                            class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                        <span class="text-muted fw-500">{{ $categoryP->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="card border-0 rounded-1 shadow-sm mb-4">

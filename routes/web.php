@@ -136,6 +136,7 @@ Route::group(['prefix' => 'order'], function () {
 // POST
 Route::group(['prefix' => 'post'], function () {
     Route::get('page', [FontendPostController::class, 'index'])->name('post.page');
+    Route::get('category/{id}', [FontendPostController::class, 'postInCategory'])->where(['id' => '[0-9]+'])->name('post.category');
     Route::get('detail/{slug}', [FontendPostController::class, 'detail'])->name('post.detail');
 });
 

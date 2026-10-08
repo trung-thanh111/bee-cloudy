@@ -40,7 +40,7 @@
                                         @if ($postCategories != null)
                                             @foreach ($postCategories as $key => $valPostCategory)
                                                 <li class="splide__slide mx-2">
-                                                    <a href="#">
+                                                    <a href="{{ route('post.category', ['id' => $valPostCategory->id]) }}">
                                                         <img src="{{ $valPostCategory->image }}" alt="product post"
                                                             width="" height="100%"
                                                             class="img-fluid rounded-3 border-info border border-3"
@@ -48,7 +48,7 @@
                                                         <div
                                                             class="card-body title-cate-post w-100 p-1 mt-5 text-center position-absolute top-50 start-50 translate-middle">
                                                             <h5 class="fw-medium">
-                                                                <a href="#"
+                                                                <a href="{{ route('post.category', ['id' => $valPostCategory->id]) }}"
                                                                     class=" w-100 text-white text-uppercase fz-14 ">{{ $valPostCategory->name }}</a>
                                                             </h5>
                                                             <hr class="border-4 text-dark w-50 m-auto">
@@ -299,49 +299,68 @@
                                     <div class="card-body py-2">
                                         <form action="{{ route('search') }}" method="get"
                                             class=" d-none d-md-block ">
-                                            <div class="input-group input-group-sm w-100 position-relative ">
-                                                <input type="text" name="keyword" class="form-control rounded-start-2"
-                                                    aria-label="Sizing example input"
-                                                    aria-describedby="inputGroup-sizing-sm"
-                                                    placeholder="tìm theo ID, tiêu đề v.v ..">
+                                            <div class="d-flex shadow-sm rounded-pill py-1 my-1 overflow-hidden bg-white">
+                                                <input type="text" name="keyword"
+                                                    class="form-control border-0 py-2 ps-3 pe-0"
+                                                    placeholder="tìm theo ID, tiêu đề v.v.."
+                                                    value="{{ request('keyword') ?: old('keyword') }}"
+                                                    style="box-shadow: none;">
                                                 <input type="hidden" name="type" value="post">
-
-                                                <button type="submit" class="input-group-text"
-                                                    id="inputGroup-sizing-sm">
-                                                    <i class='bx bx-search-alt-2'></i>
+                                                <button type="submit" class="btn px-4 border-0">
+                                                    <i class="fas fa-search fz-18 text-muted"></i>
                                                 </button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="card border-0 rounded-1 mb-4 shadow-sm">
+                                <div class="card border-0 rounded-1 shadow-sm mb-4">
                                     <div class="card-header">
-                                        <h6 class="card-title fw-18 fw-500">Bài viết</h6>
+                                        <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                                     </div>
-                                    <div class="card-body py-2">
-                                        <ul class="p-2 mb-0 list-inline">
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#" class="btn btn-secondary btn-sm">#banchay</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#" class="btn btn-secondary btn-sm">#sale</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#" class="btn btn-secondary btn-sm">#newarrival</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#" class="btn btn-secondary btn-sm">#fashion</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#" class="btn btn-secondary btn-sm">#trending</a>
-                                            </li>
-                                            <li class="list-inline-item mb-2">
-                                                <a href="#" class="btn btn-secondary btn-sm">#summer</a>
-                                            </li>
-                                        </ul>
+                                    <div class="card-body p-1">
+                                        <div class="categoryP-item mb-3 overflow-y-scroll">
+                                            <ul class="list-group list-group-flush">
+                                                @if (!is_null($postCategories) && !empty($postCategories))
+                                                    @foreach ($postCategories as $categoryP)
+                                                        <li class="list-group-item item-category">
+                                                            <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
+                                                                class="text-decoration-none d-flex align-items-center">
+                                                                <img src="{{ $categoryP->image }}" alt="{{ $categoryP->name }}"
+                                                                    width="50" height="50"
+                                                                    class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                                <span class="text-muted fw-500">{{ $categoryP->name }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-
+                                <div class="card border-0 rounded-1 shadow-sm mb-4">
+                                    <div class="card-header">
+                                        <h6 class="card-title fw-18 fw-500">Sản phẩm</h6>
+                                    </div>
+                                    <div class="card-body p-1">
+                                        <div class="categoryP-item mb-3 overflow-y-scroll">
+                                            <ul class="list-group list-group-flush">
+                                                @if (!is_null($productCategories) && !empty($productCategories))
+                                                    @foreach ($productCategories as $categoryPro)
+                                                        <li class="list-group-item item-category">
+                                                            <a href="{{ route('post.category', ['id' => $categoryPro->id]) }}"
+                                                                class="text-decoration-none d-flex align-items-center">
+                                                                <img src="{{ $categoryPro->image }}" alt="{{ $categoryPro->name }}"
+                                                                    width="50" height="50"
+                                                                    class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                                <span class="text-muted fw-500">{{ $categoryPro->name }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

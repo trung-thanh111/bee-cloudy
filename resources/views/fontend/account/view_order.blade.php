@@ -197,18 +197,6 @@
                                         <div class="row justify-content-end">
                                             <div class="col-md-6">
                                                 <form action="{{ route('account.order') }}" method="GET">
-                                                    <div class="d-flex shadow-sm rounded-pill py-1 my-3 overflow-hidden bg-white">
-                                                        <input 
-                                                            type="text" 
-                                                            name="keyword"
-                                                            class="form-control border-0 py-2 ps-3 pe-0" 
-                                                            placeholder="Tìm theo tên đơn, mã đơn hoặc tên sản phẩm"
-                                                            value="{{ request('keyword') ?: old('keyword') }}"
-                                                            style="box-shadow: none;"
-                                                        >
-                                                        <button 
-                                                            type="submit" 
-                                                            class="btn px-4 border-0">
                                                     <div
                                                         class="d-flex shadow-sm rounded-pill py-1 my-3 overflow-hidden bg-white">
                                                         <input type="text" name="keyword"
@@ -402,11 +390,11 @@
                                                                                         </div>
                                                                                         <div class="text-end">
                                                                                             @if ($orderItem->products)
-                                                                                                <del
-                                                                                                    class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
+                                                                                                {{-- <span  class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</span> --}}
+                                                                                                <span class="text-secondary fz-14 text-danger">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
-                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->productVariants->price, '0', ',', '.') }}đ</span>
+                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @endif
                                                                                         </div>
                                                                                     </div>
@@ -603,11 +591,11 @@
                                                                                         </div>
                                                                                         <div class="text-end">
                                                                                             @if ($orderItem->products)
-                                                                                                <del
-                                                                                                    class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
+                                                                                                {{-- <span  class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</span> --}}
+                                                                                                <span class="text-secondary fz-14 text-danger">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
-                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->productVariants->price, '0', ',', '.') }}đ</span>
+                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @endif
                                                                                         </div>
                                                                                     </div>
@@ -771,11 +759,11 @@
                                                                                         </div>
                                                                                         <div class="text-end">
                                                                                             @if ($orderItem->products)
-                                                                                                <del
-                                                                                                    class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
+                                                                                                {{-- <span  class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</span> --}}
+                                                                                                <span class="text-secondary fz-14 text-danger">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
-                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->productVariants->price, '0', ',', '.') }}đ</span>
+                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @endif
                                                                                         </div>
                                                                                     </div>
@@ -971,11 +959,11 @@
                                                                                         </div>
                                                                                         <div class="text-end">
                                                                                             @if ($orderItem->products)
-                                                                                                <del
-                                                                                                    class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
+                                                                                                {{-- <span  class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</span> --}}
+                                                                                                <span class="text-secondary fz-14 text-danger">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
-                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->productVariants->price, '0', ',', '.') }}đ</span>
+                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @endif
                                                                                         </div>
                                                                                     </div>
@@ -1170,11 +1158,11 @@
                                                                                         </div>
                                                                                         <div class="text-end">
                                                                                             @if ($orderItem->products)
-                                                                                                <del
-                                                                                                    class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
+                                                                                                {{-- <span  class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</span> --}}
+                                                                                                <span class="text-secondary fz-14 text-danger">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
-                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->productVariants->price, '0', ',', '.') }}đ</span>
+                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->final_price, '0', ',', '.') }}đ</span>
                                                                                             @endif
                                                                                         </div>
                                                                                     </div>
@@ -1373,7 +1361,7 @@
                                                                                         <div class="text-end align-middle">
                                                                                             @if ($orderItem->products)
                                                                                                 <del
-                                                                                                    class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
+                                                                                                    class="text-secondary fz-14 text-danger">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
                                                                                             @elseif($orderItem->productVariants)
                                                                                                 <span
                                                                                                     class="text-danger fz-14">{{ number_format($orderItem->productVariants->price, '0', ',', '.') }}đ</span>
