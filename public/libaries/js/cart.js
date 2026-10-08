@@ -178,8 +178,9 @@
             new Intl.NumberFormat("vi-VN").format(total) + "đ"
         );
     };
+    
     FS.clearCart = () => {
-        let modal;
+        let modal; 
         const modelE = document.getElementById("clearCartModal");
         if (modelE) {
             modal = new bootstrap.Modal(modelE);

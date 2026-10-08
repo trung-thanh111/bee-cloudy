@@ -80,7 +80,6 @@
                                             <i
                                                 class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
                                         </a>
-
                                     </div>
                                     <span class="product_variant_id_wishlist d-none"></span>
                                     <span class="product_id_wishlist d-none">
@@ -956,7 +955,6 @@
                         day: '2-digit',
                         month: '2-digit',
                         year: 'numeric',
-                        p
                         hour: '2-digit',
                         minute: '2-digit',
                         second: '2-digit',

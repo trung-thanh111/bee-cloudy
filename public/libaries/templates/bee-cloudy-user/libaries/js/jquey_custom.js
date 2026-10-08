@@ -35,6 +35,34 @@
     // menu aside acount
     FS.showSubMenu = () => {
         $(".nav-item-main").click(function (e) {
+            $(document).on("click", ".menu-item-a", function (e) {
+                // Không preventDefault() để cho phép chuyển trang
+                let $this = $(this);
+                let href = $this.attr("href");
+
+                // Lưu href của menu item vừa click vào localStorage
+                localStorage.setItem("activeMenuItem", href);
+
+                // Xóa class active khỏi tất cả items
+                $(".menu-item-a").removeClass("active");
+
+                // Thêm active và animation cho item được click
+                $this.addClass("active").animate(
+                    {
+                        left: "60px",
+                    },
+                    300,
+                    function () {
+                        // Sau khi animation hoàn thành thì chuyển trang
+                        window.location.href = href;
+                    }
+                );
+            });
+        });
+    };
+    // menu aside acount
+    FS.showSubMenu = () => {
+        $(".nav-item-main").click(function (e) {
             let $submenu = $(this).next(".sub-menu-lv2");
             let $iconRight = $(this).find(".fa-chevron-right");
             let $iconDown = $(this).find(".fa-chevron-down");
@@ -127,34 +155,36 @@
         });
     };
     FS.boxQuantity = () => {
-        $(".quantity-minus, .quantity-plus").off("click").click(function () {
-            var $inputVisible = $(this).siblings("input.form-control");
-            var $inputHidden = $(this).siblings('input[name="quantity"]');
-            var $quantityCart = $(this).siblings(
-                'input[name="quantity-product-cart"]'
-            );
+        $(".quantity-minus, .quantity-plus")
+            .off("click")
+            .click(function () {
+                var $inputVisible = $(this).siblings("input.form-control");
+                var $inputHidden = $(this).siblings('input[name="quantity"]');
+                var $quantityCart = $(this).siblings(
+                    'input[name="quantity-product-cart"]'
+                );
 
-            // Lấy giá trị hiện tại và giới hạn min/max
-            var value = parseInt($inputVisible.val(), 10);
-            var max = parseInt($inputVisible.attr("max"), 10);
-            var min = parseInt($inputVisible.attr("min"), 10) || 1;
+                // Lấy giá trị hiện tại và giới hạn min/max
+                var value = parseInt($inputVisible.val(), 10);
+                var max = parseInt($inputVisible.attr("max"), 10);
+                var min = parseInt($inputVisible.attr("min"), 10) || 1;
 
-            // Giảm giá trị nếu nhấn nút "minus" và lớn hơn min
-            if ($(this).hasClass("quantity-minus") && value > min) {
-                value--;
-            }
-            // Tăng giá trị nếu nhấn nút "plus" và nhỏ hơn max
-            else if (
-                $(this).hasClass("quantity-plus") &&
-                (!max || value < max)
-            ) {
-                value++;
-            }
+                // Giảm giá trị nếu nhấn nút "minus" và lớn hơn min
+                if ($(this).hasClass("quantity-minus") && value > min) {
+                    value--;
+                }
+                // Tăng giá trị nếu nhấn nút "plus" và nhỏ hơn max
+                else if (
+                    $(this).hasClass("quantity-plus") &&
+                    (!max || value < max)
+                ) {
+                    value++;
+                }
 
-            $inputVisible.val(value);
-            $inputHidden.val(value);
-            $quantityCart.val(value);
-        });
+                $inputVisible.val(value);
+                $inputHidden.val(value);
+                $quantityCart.val(value);
+            });
     };
 
     // FS.boxQuantityCart = () => {
@@ -190,16 +220,6 @@
             });
         });
     };
-
-    // FS.chooseOneSize = () => {
-    //   $(document).on("click", ".choose-size-item input", function () {
-
-    //     if ($(this).is(":checked")) {
-    //       console.log("Selected size:", $(this).next('p').text());
-    //     }
-    //   });
-    // }
-
     FS.chooseColorActive = () => {
         $(document).on("click", ".img-choose-color", function () {
             // chỉ một phàn tuer cùng class đc click đc active
@@ -276,5 +296,5 @@
         FS.nextTab();
         FS.CheckBox();
         // FS.boxQuantityCart()
-    });
-})(jQuery);
+    })(jQuery);
+});

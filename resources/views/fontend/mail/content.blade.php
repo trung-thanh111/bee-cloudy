@@ -167,7 +167,6 @@
                                 <div class="product-info">
                                     <div class="product-details">
                                         <span class="product-name">{{ $val->product_name }}</span>
-
                                     </div>
                                 </div>
                             </td>

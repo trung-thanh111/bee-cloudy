@@ -406,7 +406,6 @@
                                                                             height="80"
                                                                             class="rounded-2 me-2 bg-light">
                                                                     @endif
-
                                                                     <div>
                                                                         <a href="#"
                                                                             class="text-break text-muted fw-medium">{{ $val->product_name }}</a>
@@ -425,7 +424,6 @@
                                                                 </div>
                                                                 <div class="col-2 text-end">
                                                                     {{ number_format($val->final_price, '0', ',', '.') }}đ
-                                                                    
                                                                 </div>
                                                                 <div class="col-2 text-end fw-bold">
                                                                     {{ number_format($moneyCheckout, '0', ',', '.') }}đ
@@ -460,7 +458,6 @@
                                                 Thanh toán
                                             </h6>
                                             <div class="bg-light p-3 rounded-3">
-
                                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                                     <div>
                                                         <span class="text-muted">Phương thức thanh toán</span>
@@ -518,9 +515,10 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                                                                                <a href="zalo">
-                                                                                                                                                                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                                                                </a>
-                                                                                                                                                                                            </div> -->
+                                                                                                                                                                                                    <a href="zalo">
+                                                                                                                                                                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                                                                                                                                    </a>
+                                                                                                                                                                                                </div> -->
+
     </div>
 @endsection

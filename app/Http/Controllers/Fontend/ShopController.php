@@ -33,9 +33,7 @@ class ShopController extends Controller
         $this->attributeRepository = $attributeRepository;
         $this->brandRepository = $brandRepository;
     }
-    public function index(Request $request)
-    {
-
+    public function index(Request $request){
         $productCatalogues = $this->productCatalogueRepository->allWhere([
             ['publish', 1]
         ]);

@@ -140,7 +140,6 @@ class OrderController extends FontendController
         $attributesByOderItem = $this->orderService->findAttributesByCode();
         return view('fontend.account.order_detail', compact(
             'order',
-            'attributesByOderItem',
-        ));
+            'attributesByOderItem',));
     }
 }

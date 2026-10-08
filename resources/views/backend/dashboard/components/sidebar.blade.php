@@ -117,7 +117,6 @@
                     </div>
                 </li>
                 <li class="nav-item">
-
                     <a class="nav-link menu-link" href="#sidebarPagesvoucher" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarPagesvoucher">
                         <i class="fa-solid fa-ticket"></i> <span data-key="t-pages">Voucher</span>
