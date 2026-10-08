@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'google_id',
     ];
 
     /**
@@ -47,8 +48,8 @@ class User extends Authenticatable
     }
 
     //khai bao quan he vs bang user_catalogues (N)
-    public function userCatalogues():BelongsTo{
+    public function userCatalogues(): BelongsTo
+    {
         return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id');
     }
-    
 }
