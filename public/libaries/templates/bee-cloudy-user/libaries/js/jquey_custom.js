@@ -155,7 +155,8 @@
   FS.boxQuantity = () => {
     $(".quantity-minus, .quantity-plus").click(function () {
       var $inputVisible = $(this).siblings("input.form-control");
-      var $inputHidden = $(this).siblings('input[type="hidden"]');
+      var $inputHidden = $(this).siblings('input[name="quantity"]');
+      var $quantityCart = $(this).siblings('input[name="quantity-product-cart"]')
 
       var value = parseInt($inputVisible.val(), 10);
       if ($(this).hasClass("quantity-minus") && value > 1) {
@@ -166,8 +167,25 @@
 
       $inputVisible.val(value);
       $inputHidden.val(value);
+      $quantityCart.val(value);
     });
   };
+  // FS.boxQuantityCart = () => {
+  //   $(".quantity-minus, .quantity-plus").click(function () {
+  //     var $inputVisible = $(this).siblings("input.form-control");
+  //     var $inputHidden = $(this).siblings('input[name="quantity-product-cart"]');
+
+  //     var value = parseInt($inputVisible.val(), 10);
+  //     if ($(this).hasClass("quantity-minus") && value > 1) {
+  //       value--;
+  //     } else if ($(this).hasClass("quantity-plus")) {
+  //       value++;
+  //     }
+
+  //     $inputVisible.val(value);
+  //     $inputHidden.val(value);
+  //   });
+  // };
   FS.backToTop = () => {
     window.addEventListener("scroll", () => {
       // bắt sự kiện cuộn mà hình theo chiều thẳng đứng hơn 300 ...
@@ -254,5 +272,6 @@ FS.CheckBox = () => {
     FS.chooseMoneyActive();
     FS.nextTab()
     FS.CheckBox()
+    // FS.boxQuantityCart()
   });
 })(jQuery);

@@ -58,7 +58,7 @@ class ProductService implements ProductServiceInterface
             $this->paginateSelect(),
             $condition,
             $relation,
-            ['id', 'ASC'],
+            ['id', 'DESC'],
             $perPage,
         );
 
@@ -330,6 +330,8 @@ class ProductService implements ProductServiceInterface
             'name',
             'slug',
             'price',
+            'album',
+            'instock',
             'del',
             'info',
             'sku',
@@ -350,6 +352,8 @@ class ProductService implements ProductServiceInterface
             'id',
             'name',
             'image',
+            'album',
+            'instock',
             'slug',
             'short_desc',
             'description',

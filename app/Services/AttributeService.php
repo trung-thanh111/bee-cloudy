@@ -42,7 +42,7 @@ class AttributeService implements AttributeServiceInterface
             $this->paginateSelect(),
             $condition,
             $relation,
-            ['id', 'ASC'],
+            ['id', 'DESC'],
             $perPage,
         );
 

@@ -39,7 +39,7 @@ class AttributeCatalogueService implements AttributeCatalogueServiceInterface
             $this->selectColumn(),
             $condition,
             ['parentReference'],
-            ['id', 'ASC'],
+            ['id', 'DESC'],
             $perPage,
         );
         return $attributeCatalogues;

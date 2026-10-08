@@ -20,6 +20,8 @@
 <script src="/libaries/js/choose_variant.js"></script>
 {{-- cart  --}}
 <script src="/libaries/js/cart.js"></script>
+{{-- flaher notify  --}}
+<script defer src="https://cdn.jsdelivr.net/npm/@flasher/flasher@1.2.4/dist/flasher.min.js"></script>
 {{-- vue js  --}}
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 @vite(['resources/js/app.js'])
