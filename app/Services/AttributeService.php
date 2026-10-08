@@ -31,7 +31,7 @@ class AttributeService implements AttributeServiceInterface
     {
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
-            'publish' => $request->has('publish') ? $request->integer('publish') : 0,
+            'publish' => $request->input('publish') !== null ? $request->integer('publish') : null,
             'where' => [
                 ['attribute_catalogue_id', '=',  $request->integer('attribute_catalogue_id')]
             ]

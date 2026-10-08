@@ -57,7 +57,7 @@
                 <div class="d-flex">
                     <div class="record ms-2">
                         <select name="perpage" id="" class="form-control setUpSelect2" style="width: 280px">
-                            @for ($i = 10; $i <= 200; $i += 10)
+                            @for ($i = 5; $i <= 100; $i += 5)
                                 <option {{ $perpage == $i ? 'selected' : '' }} value="{{ $i }}">
                                     {{ $i }} bản ghi</option>
                             @endfor
@@ -69,7 +69,7 @@
                 <div class="d-flex">
                     <div class="fillter-publish ms-2">
                         <select name="publish" id="publish" class="form-control text-muted" style="width: 180px">
-                            <option value="">[Trạng thái]</option>
+                            <option value="">[Tất cả trạng thái]</option>
                             <option value="1" {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>
                                 Hiển thị</option>
                             <option value="0" {{ old('publish', request('publish')) == '0' ? 'selected' : '' }}>Ẩn

@@ -52,7 +52,7 @@
                                 
                             </div>
                         </div>
-                    <td class="order text-center">{{ number_format($item->price_original, '0', ',', '.') }}đ</td>
+                    <td class="order text-center">{{ number_format($item->price, '0', ',', '.') }}đ</td>
                     <td class="status text-center">
                         {!! $badge !!}
                     </td>

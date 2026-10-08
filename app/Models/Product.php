@@ -17,12 +17,17 @@ class Product extends Model
     protected $fillable = [
         'id',
         'name',
+        'image',
         'slug',
         'short_desc',
         'description',
         'info',
         'brand_id',
+        'sku',
         'user_id',
+        'attributeCatalogue',
+        'attribute',
+        'variant',
         'price',
         'publish',
         'created_at',
@@ -30,19 +35,23 @@ class Product extends Model
     ];
 
     //khai báo quan hệ n-n vs bảng product_catalogues thông qua bảng pivot 
-    public function productCatalogues():BelongsToMany {
+    public function productCatalogues(): BelongsToMany
+    {
         return $this->belongsToMany(ProductCatalogue::class, 'product_catalogue_product', 'product_id', 'product_catalogue_id');
     }
     // khia báo quán hệ vs bảng brand (n)
-    public function brands():BelongsTo{
+    public function brands(): BelongsTo
+    {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
     // khia báo quan hệ với bảng user (n)
-    public function users():BelongsTo{
+    public function users(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
     //khia báo quan hệ với bảng product variant (1pro - nhiều phiên bản)
-    public function productVariant():HasMany{
+    public function productVariant(): HasMany
+    {
         return $this->hasMany(ProductVariant::class, 'product_id', 'id');
     }
 }

@@ -29,7 +29,7 @@ class BrandService implements BrandServiceInterface
     {
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
-            'publish' => $request->has('publish') ? $request->integer('publish') : 0,
+            'publish' => $request->input('publish') !== null ? $request->integer('publish') : null,
         ];
         $perPage = $request->integer('perpage') ?: 5; // mặc định mỗi trang 5 record 
 

@@ -32,12 +32,13 @@ trait QueryScopes
 
     // Hàm phạm vi trạng thái
     public function scopePublish($query, $publish)
-    {
-        if (isset($publish) && $publish != 0) {
-            $query->where('publish', $publish);
-        }
-        return $query;
+{
+    if ($publish !== null) { // Nếu publish có giá trị (1 hoặc 0)
+        $query->where('publish', $publish);
     }
+    return $query;
+}
+
 
     // Phạm vi về mỗi quan hệ
     public function scopeRelationCount($query, $relations)
