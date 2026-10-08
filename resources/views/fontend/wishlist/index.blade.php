@@ -175,7 +175,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-body p-2">
-                                                        <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                                        <h6 class="fw-medium overflow-hidden mb-0" style="height: 39px">
                                                             <a href="#"
                                                                 class="text-break w-100 text-muted">{{ $item->name }}</a>
                                                         </h6>

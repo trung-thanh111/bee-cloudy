@@ -24,6 +24,8 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Fontend\PostController as FontendPostController;
 use App\Http\Controllers\Fontend\ShopController;
 use App\Http\Controllers\Backend\PromotionController;
+use App\Http\Controllers\Backend\UserCatalogueController;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Fontend\MomoController;
 use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\VnpayController;
@@ -61,6 +63,8 @@ Route::get('return/momo_ipn', [MomoController::class, 'momoIpn'])->name('momo.ip
 //FONTEND
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('product/category/{id}', [ShopController::class, 'productIncategory'])->where(['id' => '[0-9]+'])->name('product.category');
+Route::get('product/filter', [ShopController::class, 'productFilter'])->name('product.filter');
 Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
 Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
@@ -72,7 +76,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('info', [FontendUserController::class, 'info'])->name('account.info');
         Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
         Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
-
     });
 
     // CART
@@ -83,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/promotion', [PromotionController::class, 'showAllPromotions'])->name('promotion.index');
     Route::post('/promotion/receive/{promotion}', [PromotionController::class, 'receivePromotion'])->name('promotion.receive');
     // Route::get('/my-vouchers', [PromotionController::class, 'myVouchers'])->name('promotion.my_vouchers');
-    
+
     // ORDER 
     Route::group(['prefix' => 'order'], function () {
         Route::get('checkout', [FontendOrderController::class, 'checkout'])->name('order.checkout');
@@ -107,6 +110,32 @@ Route::group(['prefix' => 'post'], function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    // usercatalogue
+    Route::group(['prefix' => 'user/catalogue'], function () {
+        Route::get('index', [UserCatalogueController::class, 'index'])->name('user.catalogue.index');
+        Route::get('create', [UserCatalogueController::class, 'create'])->name('user.catalogue.create');
+        Route::post('store', [UserCatalogueController::class, 'store'])->name('user.catalogue.store');
+        Route::get('update/{slug}', [UserCatalogueController::class, 'update'])->name('user.catalogue.update');
+        Route::post('edit/{slug}', [UserCatalogueController::class, 'edit'])->name('user.catalogue.edit');
+        Route::get('delete/{id}', [UserCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.catalogue.delete');
+        Route::delete('destroy/{id}', [UserCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.catalogue.destroy');
+        Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
+        Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission');
+    });
+
+    // users 
+    Route::group(['prefix' => 'user/'], function () {
+        Route::get('index', [UserController::class, 'index'])->name('user.index');
+        Route::get('create', [UserController::class, 'create'])->name('user.create');
+        Route::post('store', [UserController::class, 'store'])->name('user.store');
+        Route::get('update/{id}', [UserController::class, 'update'])->where(['id' => '[0-9]+'])->name('user.update');
+        Route::post('edit/{id}', [UserController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.edit');
+        Route::get('delete/{id}', [UserController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.delete');
+        Route::delete('destroy/{id}', [UserController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy');
+        Route::get('permission', [UserController::class, 'permission'])->name('user.permission');
+        Route::post('updatePermission', [UserController::class, 'updatePermission'])->name('user.updatePermission');
+    });
 
     // attribute catalogue
     Route::group(['prefix' => 'attribute/catalogue'], function () {
@@ -156,7 +185,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
     });
 
-    
+
 
     //product
     Route::group(['prefix' => 'product'], function () {
@@ -171,7 +200,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 
     Route::group(['prefix' => 'promotion'], function () {
-
         Route::get('/create', [PromotionController::class, 'create'])->name('promotions.catalogue.create');
         Route::get('/index', [PromotionController::class, 'index'])->name('promotions.index');
         Route::get('/edit/{id}', [PromotionController::class, 'edit'])->name('promotions.catalogue.edit');
@@ -208,7 +236,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
         Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
-        
     });
 });
 

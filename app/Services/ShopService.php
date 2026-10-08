@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use App\Models\Product;
-use App\Models\ProductVariant;
+use App\Repositories\AttributeRepository;
+use App\Repositories\ProductCatalogueRepository;
 use App\Repositories\ShopRepository;
 use App\Services\Interfaces\ShopServiceInterface;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Services\BrandService;
 
 /**
  * interface  UserService
@@ -17,11 +17,20 @@ use Illuminate\Support\Facades\DB;
 class ShopService implements ShopServiceInterface
 {
     protected $shopRepository;
+    protected $brandService;
+    protected $attributeRepository;
+    protected $productCatalogueRepository;
     public function __construct(
-        ShopRepository $shopRepository
+        ShopRepository $shopRepository,
+        ProductCatalogueRepository $productCatalogueRepository,
+        BrandService $brandService,
+        AttributeRepository $attributeRepository,
 
     ) {
         $this->shopRepository = $shopRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->brandService = $brandService;
+        $this->attributeRepository = $attributeRepository;
     }
 
     public function all()
@@ -73,7 +82,81 @@ class ShopService implements ShopServiceInterface
 
         return $productShops;
     }
+    public function productShopNews()
+    {
+        return $this->shopRepository->getLimitOrder(
+            ['productVariant', 'productCatalogues', 'productVariant.attributes'],
+            [
+                ['publish', '!=', 0],
+            ],
+            [
+                ['created_at', 'asc']
+            ],
+            8
+        );
+    }
+    public function productShopPriceMins()
+    {
+        return $this->shopRepository->getLimitOrder(
+            ['productVariant', 'productCatalogues', 'productVariant.attributes'],
+            [
+                ['publish', '!=', 0],
+            ],
+            [
+                ['price', 'asc']
+            ],
+            8
+        );
+    }
 
+    public function productFilter($request)
+    {
+        $payload = $request->only('brand', 'category', 'size', 'color', 'price');
+        $query = Product::query();
+
+        // Filter theo thương hiệu
+        if (!empty($payload['brand'])) {
+            $query->whereHas('brands', function ($q) use ($payload) {
+                $q->where('slug', $payload['brand']);
+            });
+        }
+
+        // Filter theo danh mục
+        if (!empty($payload['category'])) {
+            $query->whereHas('productCatalogues', function ($q) use ($payload) {
+                $q->where('slug', $payload['category']);
+            });
+        }
+
+        // Filter theo size
+        // if (!empty($payload['size'])) {
+        //     $query->whereHas('sizes', function($q) use ($payload) {
+        //         $q->where('slug', $payload['size']);
+        //     });
+        // }
+
+        // // Filter theo màu sắc  
+        // if (!empty($payload['color'])) {
+        //     $query->whereHas('colors', function($q) use ($payload) {
+        //         $q->where('slug', $payload['color']);
+        //     });
+        // }
+
+        // Filter theo khoảng giá
+        if (!empty($payload['price'])) {
+            $priceRange = explode('-', $payload['price']);
+            $minPrice = $priceRange[0];
+            $maxPrice = $priceRange[1];
+            $query->whereBetween('price', [$minPrice, $maxPrice]);
+        }
+        dd($query->toSql());
+
+
+        // Lấy kết quả
+        $products = $query->get();
+
+        return $products;
+    }
 
     private function paginateSelect()
     {
@@ -88,11 +171,6 @@ class ShopService implements ShopServiceInterface
             'price',
             'del',
             'sku',
-            // 'brand_id',
-            // 'user_id',
-            // 'attributeCatalogue',
-            // 'attribute',
-            // 'variant',
             'publish',
             'created_at'
         ];

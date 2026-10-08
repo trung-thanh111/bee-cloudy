@@ -51,6 +51,7 @@
                     foreach ($product->productVariant as $variant) {
                         $totalReviewCount += $variant->rating_count;
                     }
+                    // -- //
                 @endphp
                 <!-- content detail -->
                 <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5 productVariantId">
@@ -74,10 +75,11 @@
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
                                     data-bs-title="{{ in_array($variantId, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}">
                                     <div class="position-relative">
-                                        <button type="button" class="position-absolute start-50 translate-middle "
+                                        <a href="#" class="position-absolute start-50 translate-middle border-0"
                                             style="top: 20px;">
-                                            <i class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
-                                        </button>
+                                            <i
+                                                class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
+                                        </a>
                                     </div>
                                     <span class="product_variant_id_wishlist d-none"></span>
                                     <span class="product_id_wishlist d-none">
@@ -186,6 +188,7 @@
                                         sản phẩm</span>
                                 </span>
                             </div>
+
                             <p class="fz-14">{!! $product->info !!}</p>
                             @if (!is_null($attrCatalogues) && !empty($attrCatalogues))
                                 <div class="product-attributes">
@@ -201,12 +204,11 @@
                                                     </a>
                                                 @endif
                                             </div>
-
                                             @if (!is_null($val->attributes) && is_iterable($val->attributes))
                                                 <div class="attribute-value d-flex flex-wrap gap-3 ps-4 mb-3">
                                                     @foreach ($val->attributes as $keyAttr => $attribute)
                                                         <a href="#"
-                                                            class="choose-attribute  {{ $keyAttr == 0 ? 'active' : '' }}  {{ $val->id == 1 ? 'color-item' : 'size-item' }} "
+                                                            class="choose-attribute {{ $keyAttr == 0 ? 'active' : '' }}  {{ $val->id == 1 ? 'color-item' : 'size-item' }} "
                                                             data-attributeId="{{ $attribute->id }}"
                                                             title="{{ $attribute->name }}">
                                                             <div class="attribute-item">
@@ -270,15 +272,15 @@
                                     <div class="title-quantity mb-2">
                                         <span class="fw-medium fz-18">Số lượng</span>
                                     </div>
-                                    <div class="  hstack gap-3 ps-5 flex-sm-wrap flex-xs-wrap flex-md-wrap mb-3">
+                                    <div class=" hstack gap-3 ps-5 flex-sm-wrap flex-xs-wrap flex-md-wrap mb-3">
                                         <div class="input-group componant-quantity shadow-sm flex-grow mb-3 w-25">
                                             <button class="quantity-minus w-md-100 rounded-3 " type="button"
                                                 id="button-addon1">
                                                 <i class='bx bx-minus fw-medium'></i>
                                             </button>
-                                            <input type="text" name="quantity-product-variant w-sm-25 "
-                                                class="form-control border-0 fz-20 text-center fw-600" value="1"
-                                                min="1" max="">
+                                            <input type="text" name="quantity-product-variant w-sm-25"
+                                                class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
+                                                value="1" min="1" max="">
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -706,7 +708,7 @@
                                 <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="ads-item mb-3">
+                                <div class="categoryP-item mb-3 overflow-y-scroll">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($categories) && !empty($categories))
                                             @foreach ($categories as $category)
@@ -730,7 +732,7 @@
                                 <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="ads-item mb-3">
+                                <div class="brand-item mb-3 overflow-y-scroll">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)

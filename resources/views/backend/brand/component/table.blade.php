@@ -77,7 +77,5 @@
 </div>
 {{-- pagination  --}}
 <div class="container-fluid">
-    @if ($brands != null)
-        {{ $brands->onEachSide(3)->links('pagination::bootstrap-5') }}
-    @endif
+    {{ $brands->onEachSide(3)->links('pagination::bootstrap-5') }}
 </div>

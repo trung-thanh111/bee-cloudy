@@ -58,17 +58,17 @@
                                                                         <img src="{{ explode(',', $cartItem->productVariants->album)[0] }}"
                                                                             alt="image-product" width="90"
                                                                             height="90"
-                                                                            class="img-fluid d-block object-fit-cover rounded-2 text-break">
+                                                                            class="d-block object-fit-cover rounded-2 text-break">
                                                                     @elseif ($cartItem->products)
                                                                         <img src="{{ $cartItem->products->image }}"
                                                                             alt="image-product" width="90"
                                                                             height="90"
-                                                                            class="img-fluid d-block object-fit-cover rounded-2">
+                                                                            class="d-block object-fit-cover rounded-2">
                                                                     @else
                                                                         <img src="/libaries/upload/libaries/images/img-notfound.png"
                                                                             alt="Product Image" width="90"
                                                                             height="90"
-                                                                            class="img-fluid d-block object-fit-cover rounded-2">
+                                                                            class="d-block object-fit-cover rounded-2">
                                                                     @endif
                                                                 </div>
                                                             </div>
@@ -82,22 +82,22 @@
                                                                         @endif
                                                                     </a>
                                                                 </p>
-                                                                {{-- <ul class="list-inline text-muted fz-14 mb-1">
-                                                                    @if ($cartItem->productVariants)
-                                                                        @foreach ($cartItem->productVariants->attributes as $attribute)
+                                                                <ul class="list-inline text-muted fz-14 mb-1">
+                                                                    @if (isset($attributesByCartItem[$cartItem->id]))
+                                                                        @foreach ($attributesByCartItem[$cartItem->id] as $attribute)
                                                                             <li class="list-inline-item">
-                                                                                
                                                                                 {{ $attribute->name }}
                                                                             </li>
                                                                         @endforeach
                                                                     @endif
-                                                                </ul> --}}
+                                                                </ul>
+
                                                                 <a href="javascript:void(0)"
                                                                     class="d-block text-danger fz-14 destroyCart"
                                                                     data-id="{{ $cartItem->products->id ?? '' }}"
                                                                     data-variant-id="{{ $cartItem->productVariants->id ?? '' }}">
                                                                     <i
-                                                                        class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
+                                                                        class="fa-solid fa-trash text-danger align-bottom me-1 mb-1"></i>
                                                                     <span class="mt-1 align-middle"> xóa</span>
                                                                 </a>
                                                             </div>
@@ -145,6 +145,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+
                                     </tbody>
 
 
@@ -227,7 +228,7 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <h5 class="fz-14 text-break">
+                                                                <h5 class="fz-14 text-truncate mb-0" style="width: 220px">
                                                                     <a href="#" class="text-body">
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}
@@ -235,6 +236,15 @@
                                                                             {{ $cartItem->products->name }}
                                                                         @endif
                                                                     </a>
+                                                                    <ul class="list-inline text-muted fz-12 my-1">
+                                                                        @if (isset($attributesByCartItem[$cartItem->id]))
+                                                                            @foreach ($attributesByCartItem[$cartItem->id] as $attribute)
+                                                                                <li class="list-inline-item">
+                                                                                    {{ $attribute->name }}
+                                                                                </li>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </ul>
                                                                 </h5>
                                                                 <p class="text-muted mb-0 fz-14">
                                                                     {{ number_format($cartItem->price, 0, ',', '.') }}đ
@@ -366,12 +376,10 @@
                                                 class="img-fluid object-fit-cover rounded-top-2" style="height: 300px">
                                             <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                 <div class="hstack gap-3">
-                                                    <div class="p-2 overflow-x-hidden w-50">
+                                                    <div class="p-2 overflow-x-hidden">
                                                         <span
-                                                            class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            @foreach ($valProductSimilar->productCatalogues as $catalogue)
-                                                                {{ $catalogue->name }}
-                                                            @endforeach
+                                                            class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                            {{ $valProductSimilar->productCatalogues[0]->name }}
                                                         </span>
                                                     </div>
                                                     <div class="p-2 ms-auto">

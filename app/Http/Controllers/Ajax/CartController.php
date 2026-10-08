@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
 use App\Services\CartService;
+use App\Models\Attribute;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends FontendController
@@ -27,24 +28,28 @@ class CartController extends FontendController
     }
 
     public function index()
-    {
-        $carts = $this->cartService->all();
-        // dd($carts);
-        $productNews = $this->productRepository->getLimit(
-            ['productVariant', 'productCatalogues', 'productVariant.attributes'],
-            [
-                ['publish', '=', 1],
-                ['created_at', 'DESC']
-            ],
-            4 
-        );
-        $countCart = $this->cartService->countProductIncart();
-        return view('fontend.cart.index', compact(
-            'carts',
-            'countCart',
-            'productNews',
-        ));
-    }
+{
+    $carts = $this->cartService->all();
+    $attributesByCartItem = $this->cartService->findAttributesByCode();
+    $productNews = $this->productRepository->getLimit(
+        ['productVariant', 'productCatalogues', 'productVariant.attributes'],
+        [
+            ['publish', '=', 1],
+            ['created_at', 'DESC']
+        ],
+        4
+    );
+
+    $countCart = $this->cartService->countProductIncart();
+
+    return view('fontend.cart.index', compact(
+        'carts',
+        'countCart',
+        'productNews',
+        'attributesByCartItem'
+    ));
+}
+    
 
     public function addToCart(Request $request)
     {
@@ -107,7 +112,7 @@ class CartController extends FontendController
 
         try {
             $destroy = $this->cartService->destroy($request);
-            
+
             if ($destroy) {
                 return response()->json([
                     'code' => 10,
