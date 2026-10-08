@@ -3,6 +3,65 @@
 Trang Chủ
 @endsection
 @section('content')
+<div class="container-fluid p-0">
+    <img src="/libaries/templates/bee-cloudy-user/libaries/images/mainbanner.jpg" class="img-fluid" alt="...">
+</div>
+<div class="container-fluid p-0" style="background-color:#fff">
+    <div class="container policy py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-4 col-12 mb-3">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <i class="fa-solid fa-medal fs-2" style="color:#878a99;"></i>
+                    </div>
+                    <div class="col-10 pt-1 ">
+                        Sản phẩm độc quyền
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-12 mb-3">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <i class="fa-solid fa-box fs-2" style="color:#878a99;"></i>
+                    </div>
+                    <div class="col-10 pt-1 ">
+                        Đóng gói chất lượng
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-12 mb-3">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <i class="fa-solid fa-money-bill fs-2" style="color:#878a99;"></i>
+                    </div>
+                    <div class="col-10 pt-1 ">
+                        Thanh toán dễ dàng
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-12 mb-3">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <i class="fa-solid fa-clock-rotate-left fs-2" style="color:#878a99;"></i>
+                    </div>
+                    <div class="col-10 pt-1 ">
+                        Trả hàng sau 7 ngày
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-12 mb-3">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <i class="fa-solid fa-truck-fast fs-2" style="color:#878a99;"></i>
+                    </div>
+                    <div class="col-10 pt-1 ">
+                        Miễn phí vận chuyển
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 <section>
     <div class="container newArrive mt-3">
         <div class="product-category p-2">
@@ -593,11 +652,11 @@ Trang Chủ
     <div class="sub-banner my-5">
         <div class="container-fluid p-0">
             <div class="row">
-                <!-- <div class="col-lg-5 col-md-6 col-12 mb-4">
-                    <img src="libaries/images/banner-sub1.webp" class="img-fluid" alt="...">
-                </div> -->
+                {{-- <div class="col-lg-5 col-md-6 col-12 mb-4">
+                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-sub1.webp" class="img-fluid" alt="...">
+                </div> --}}
                 <div class="col-lg-6 col-md-6 col-12 mb-4"></div>
-                    <img src="libaries/images/banner-sub2.jpg" class="img-fluid" alt="...">
+                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-sub2.jpg" class="img-fluid" alt="...">
                 </div>
             </div>
         </div>   
