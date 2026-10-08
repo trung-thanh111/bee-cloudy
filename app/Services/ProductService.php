@@ -327,6 +327,7 @@ class ProductService implements ProductServiceInterface
         $product->attributeCatalogue = $attributeCatalogues;
         return $product;
     }
+
     public function checkAttributeVariantQuantity(string $slug = '')
     {
         $productVariants = $this->productRepository->getVariantFindBySlug(
@@ -391,6 +392,7 @@ class ProductService implements ProductServiceInterface
         }
         return $arrayColorId;
     }
+
     private function payload()
     {
         return [

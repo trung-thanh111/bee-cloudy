@@ -445,8 +445,10 @@
                                                                 alt="Avatar User" class="rounded-circle object-fit-cover"
                                                                 width="60" height="60">
                                                             <p class="text-center mt-2">
-                                                                <span
-                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                @if (Auth::check())
+                                                                    <span
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                @endif
                                                             </p>
                                                         </span>
                                                     </button>
@@ -674,7 +676,7 @@
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($categories) && !empty($categories))
                                             @foreach ($categories as $category)
-                                                <li class="list-group-item">
+                                                <li class="list-group-item item-category">
                                                     <a href="#"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $category->image }}" alt="{{ $category->name }}"
@@ -698,7 +700,7 @@
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)
-                                                <li class="list-group-item">
+                                                <li class="list-group-item item-category">
                                                     <a href="#"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $brand->image }}" alt="{{ $brand->name }}"

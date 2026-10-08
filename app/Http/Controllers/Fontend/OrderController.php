@@ -61,9 +61,10 @@ class OrderController extends FontendController
     public function checkout(Request $request)
     {
         $carts = $this->cartService->all();
-
+        $attributesByCartItem = $this->cartService->findAttributesByCode();
         return view('fontend.order.checkout', compact(
-            'carts'
+            'carts',
+            'attributesByCartItem'
         ));
     }
     public function store(StoreOrderRequest $request)
@@ -140,6 +141,7 @@ class OrderController extends FontendController
         $attributesByOderItem = $this->orderService->findAttributesByCode();
         return view('fontend.account.order_detail', compact(
             'order',
-            'attributesByOderItem',));
+            'attributesByOderItem',
+        ));
     }
 }

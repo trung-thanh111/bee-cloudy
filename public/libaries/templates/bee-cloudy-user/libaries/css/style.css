@@ -1444,7 +1444,7 @@ footer {
     background-color: #14b6a0 !important;
 }
 .categoryP-item{
-    max-height: 400px;
+    max-height: 300px;
 }
 .brand-item{
     max-height: 400px;
@@ -1452,4 +1452,34 @@ footer {
  /* filter  */
 .filter-category{
     max-height: 270px;
+}
+.overflow-y-scroll {
+    overflow-y: scroll !important;
+}
+
+/* Điều chỉnh độ rộng tổng thể */
+.overflow-y-scroll::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+/* Track (phần nền) */
+.overflow-y-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 20px !important;
+}
+
+/* Thumb (thanh kéo) */
+.overflow-y-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 20px !important; 
+    max-height: 30px !important;
+}
+
+/* Hiệu ứng hover */
+.overflow-y-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.item-category:hover{
+    background-color: #f8f8f8;
 }

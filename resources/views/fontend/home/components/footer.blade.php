@@ -21,25 +21,24 @@
                         <h6 class="text-uppercase fw-bold fz-16">Cửa hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
+                                <a href="{{ route('cart.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
+                                <a href="{{ route('shop.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
+                                <a href="" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
+                                <a href="{{ route('wishlist.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <h6 class="text-uppercase fw-bold fz-16">Hỗ trợ khách hàng</h6>
+                        <h6 class="text-uppercase fw-bold fz-16">Chính sách cửa hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
-                                    gặp</a>
+                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Chính sách</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
                                 <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Điều khoản &
@@ -48,19 +47,17 @@
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <h6 class="text-uppercase fw-bold fz-16">Dịch vụ khách hàng</h6>
+                        <h6 class="text-uppercase fw-bold fz-16">Chăm sóc khách hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">GIỏ hàng</a>
+                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Liên hệ</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
+                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Chat</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
-                            </li>
-                            <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
+                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
+                                    gặp</a>
                             </li>
                         </ul>
                     </div>

@@ -73,7 +73,7 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="ck-editor" data-height="200" name="description">{{ old('description', $postCatalogue->description) }}</textarea>
+                                        <textarea class="form-control " rows="6" name="description">{{ old('description', $postCatalogue->description) }}</textarea>
                                     </div>
                                 </div>
                             </div>

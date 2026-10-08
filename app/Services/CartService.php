@@ -206,6 +206,24 @@ class CartService implements CartServiceInterface
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
+
+    public function findAttributesByCode()
+    {
+        $carts = $this->all();
+        $attributesByCartItem = [];
+        if (isset($carts->cartItems) && count($carts->cartItems) > 0) {
+            foreach ($carts->cartItems as $cartItem) {
+                if ($cartItem->productVariants) {
+                    $codeIds = explode(',', $cartItem->productVariants->code);
+                    $attributes = Attribute::whereIn('id', $codeIds)->get();
+                    //lấy dúng attribut của cartitem đó
+                    $attributesByCartItem[$cartItem->id] = $attributes;
+                }
+            }
+        }
+        return $attributesByCartItem;
+    }
+
     public function clearPromotionsSession()
 {
     try {
@@ -238,7 +256,6 @@ class CartService implements CartServiceInterface
         return redirect()->back()->with('success', 'Xóa mã giảm giá thành công.');
     } catch (\Exception $e) {
         // Ghi lỗi chi tiết vào log
-        \Log::error('Lỗi trong clearPromotionsSession: ' . $e->getMessage());
         
         // Thông báo lỗi cho người dùng
         return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa voucher. Vui lòng thử lại sau.');
