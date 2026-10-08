@@ -211,10 +211,43 @@ class CartService implements CartServiceInterface
         }
     }
     public function clearPromotionsSession()
-    {
-        session()->forget('promotions');
-    }
+{
+    try {
+        // Kiểm tra xem có mã giảm giá trong session không
+        if (!session()->has('promotions')) {
+            return redirect()->back()->with('error', 'Không có mã giảm giá nào để xóa.');
+        }
 
+        // Xóa mã giảm giá khỏi session
+        session()->forget('promotions');
+
+        // Lấy lại các sản phẩm trong giỏ hàng từ session
+        $cartItems = session()->get('cart', []);
+        
+        // Kiểm tra nếu giỏ hàng trống
+        if (empty($cartItems)) {
+            return redirect()->back()->with('error', 'Giỏ hàng trống, không thể cập nhật tổng số tiền.');
+        }
+
+        // Tính lại tổng số tiền trong giỏ hàng
+        $total = 0;
+        foreach ($cartItems as $item) {
+            // Cộng lại số tiền cho mỗi sản phẩm trong giỏ hàng mà không có mã giảm giá
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        // Cập nhật tổng số tiền mới vào session
+        session()->put('cart_total', $total);
+
+        return redirect()->back()->with('success', 'Xóa mã giảm giá thành công.');
+    } catch (\Exception $e) {
+        // Ghi lỗi chi tiết vào log
+        \Log::error('Lỗi trong clearPromotionsSession: ' . $e->getMessage());
+        
+        // Thông báo lỗi cho người dùng
+        return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa voucher. Vui lòng thử lại sau.');
+    }
+}
 
     public function calculateCartTotal($cartId)
     {
