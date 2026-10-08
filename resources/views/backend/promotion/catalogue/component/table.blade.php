@@ -13,8 +13,6 @@
                 <th>Số lượng</th>
                 <th>Số tiền tối thiểu</th>
                 <th>Áp dụng</th>
-                <th>bắt đầu</th>
-                <th>kết thúc</th>
                 <th>Trạng thái</th>
                 <th class="sort text-end">Thao tác</th>
             </tr>
@@ -22,16 +20,13 @@
         <tbody class="list form-check-all">
             @foreach ($promotions as $item)
                     <tr>
-                        <td><input type="checkbox" name="" id=""></td>
+                    <td><input type="checkbox" class="select-item" value="{{ $item->id }}"></td>
                         <td>{{ $item->code }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->discount_value }}</td>
+                        <td>{{ $item->discount }}</td>
                         <td>{{ $item->usage_limit }}</td>
                         <td>{{ $item->minimum_amount }}</td>
                         <td>{{ $item->apply_for }}</td>
-                        <td>{{ $item->start_date }}</td>
-                        <td>{{ $item->end_date }}</td>
-
                         <td class="status text-center">
                             {!! $item->status == 'active'
                 ? '<span class="badge bg-success-subtle text-success text-uppercase p-2">Đang hoạt động</span>'
@@ -44,15 +39,15 @@
                                     <i class="ri-more-2-fill fs-5"></i>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink5" style="">
-                                    {{-- <li><a class="dropdown-item text-primary" href="#"><i
-                                                class="ri-eye-line align-middle"></i> Xem</a></li> --}}
                                     <li><a class="dropdown-item text-info"
                                             href="{{ route('promotions.catalogue.edit', $item->id) }}"> <i
                                                 class="ri-edit-box-line"></i>
                                             Chỉnh sửa</a></li>
 
-                                    <li><a class="dropdown-item text-danger" href=""><i class="ri-delete-bin-line"></i>
+                                    <li><a class="dropdown-item text-danger" href="{{ route('promotions.confirm_delete', $item->id) }}"><i class="ri-delete-bin-line"></i>
                                             Xóa</a></li>
+                                    <li><a class="dropdown-item text-danger" href="{{ route('promotions.show', $item->id) }}"></i>
+                                            xem </a></li>
                                 </ul>
                             </div>
                         </td>
@@ -61,3 +56,4 @@
         </tbody>
     </table>
 </div>
+

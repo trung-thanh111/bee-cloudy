@@ -88,7 +88,7 @@ Route::get('product/category/{id}', [ShopController::class, 'productIncategory']
 Route::get('product/filter', [ShopController::class, 'productFilter'])->name('product.filter');
 Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
-Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
+Route::get('search/result', [AjaxSearchController::class, 'searchResult'])->name('search.result');
 
 
 
@@ -100,12 +100,20 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
+        Route::post('/apply-discount', [AjaxCartController::class, 'applyPromotion'])->name('cart.applyDiscount');
+        Route::post('/remove-voucher/{voucherId}', [AjaxCartController::class, 'removeVoucher'])->name('cart.removeVoucher');
+
     });
-    // promotion 
+
+});
+//promotion
+Route::middleware(['auth'])->group(function () {
     Route::get('/promotion', [PromotionController::class, 'showAllPromotions'])->name('promotion.index');
     Route::post('/promotion/receive/{promotion}', [PromotionController::class, 'receivePromotion'])->name('promotion.receive');
-    // Route::get('/my-vouchers', [PromotionController::class, 'myVouchers'])->name('promotion.my_vouchers');
-    
+});
+// order 
+Route::middleware(['auth'])->group(function () {
+
     // ORDER 
     Route::group(['prefix' => 'order'], function () {
         Route::get('checkout', [FontendOrderController::class, 'checkout'])->name('order.checkout');
@@ -223,7 +231,20 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('destroy/{id}', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.destroy');
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
+    //promotion_dashboar
+    Route::group(['prefix' => 'promotion'], function () {
 
+        Route::get('/create', [PromotionController::class, 'create'])->name('promotions.catalogue.create');
+        Route::get('/index', [PromotionController::class, 'index'])->name('promotions.index');
+        Route::get('/edit/{id}', [PromotionController::class, 'edit'])->name('promotions.catalogue.edit');
+        Route::put('/update/{id}', [PromotionController::class, 'update'])->name('promotions.update');
+        Route::get('/show/{id}', [PromotionController::class, 'show'])->name('promotions.show');
+        Route::post('/index', [PromotionController::class, 'store'])->name('promotions.store');
+        Route::get('/confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->name('promotions.confirm_delete');
+        Route::delete('/delete/{id}', [PromotionController::class, 'destroy'])->name('promotions.destroy');
+        Route::delete('/bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
+
+    });
     Route::group(['prefix' => 'promotion'], function () {
         Route::get('/create', [PromotionController::class, 'create'])->name('promotions.catalogue.create');
         Route::get('/index', [PromotionController::class, 'index'])->name('promotions.index');

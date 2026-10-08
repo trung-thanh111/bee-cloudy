@@ -62,13 +62,11 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariant::class, 'product_id', 'id');
     }
-    
-    public function wishlists(): HasMany
+    public function promotions()
     {
-        return $this->hasMany(WishList::class, 'product_id', 'id');
-    }
-    public function vouchers()
-    {
-        return $this->belongsToMany(Voucher::class, 'voucher_products');
+        return $this->belongsToMany(Promotion::class, 'promotion_product_variants')
+                    ->withPivot('discount')
+                    ->withTimestamps();
+
     }
 }

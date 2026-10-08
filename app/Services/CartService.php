@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Attribute;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Promotion;
+use App\Models\UserVoucher;
 use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
@@ -136,12 +138,14 @@ class CartService implements CartServiceInterface
                         // Cập nhật
                         $quantity = $payload['quantity'];
                         $item->update(['quantity' => $quantity]);
+
                     } elseif ($payload['product_id'] && $item->products && $item->products->id == $payload['product_id']) {
                         $quantity = $payload['quantity'];
                         $item->update(['quantity' => $quantity]);
                     }
                 }
             }
+
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -178,35 +182,76 @@ class CartService implements CartServiceInterface
             return false;
         }
     }
-    public function clear()
+
+    public function clear(Request $request)
     {
         DB::beginTransaction();
         try {
-            // $cartId = $request->input('cart_id');
-            $cart = Cart::where('user_id', Auth::id())
-                ->first();
-            $cart->delete();
-            DB::commit();
-            return true;
+            $cartId = $request->input('cart_id');
+            $cart = Cart::where('user_id', Auth::id())->first();
+
+            if ($cart) {
+                $cart->delete();
+                DB::commit();
+
+                app('App\Services\CartService')->clearPromotionsSession();
+
+                return response()->json(['success' => true]);
+            } else {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'Cart not found.']);
+            }
         } catch (\Exception $e) {
             DB::rollBack();
-            return false;
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
-    public function findAttributesByCode()
+    public function clearPromotionsSession()
+{
+    try {
+        // Kiểm tra xem có mã giảm giá trong session không
+        if (!session()->has('promotions')) {
+            return redirect()->back()->with('error', 'Không có mã giảm giá nào để xóa.');
+        }
+
+        // Xóa mã giảm giá khỏi session
+        session()->forget('promotions');
+
+        // Lấy lại các sản phẩm trong giỏ hàng từ session
+        $cartItems = session()->get('cart', []);
+        
+        // Kiểm tra nếu giỏ hàng trống
+        if (empty($cartItems)) {
+            return redirect()->back()->with('error', 'Giỏ hàng trống, không thể cập nhật tổng số tiền.');
+        }
+
+        // Tính lại tổng số tiền trong giỏ hàng
+        $total = 0;
+        foreach ($cartItems as $item) {
+            // Cộng lại số tiền cho mỗi sản phẩm trong giỏ hàng mà không có mã giảm giá
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        // Cập nhật tổng số tiền mới vào session
+        session()->put('cart_total', $total);
+
+        return redirect()->back()->with('success', 'Xóa mã giảm giá thành công.');
+    } catch (\Exception $e) {
+        // Ghi lỗi chi tiết vào log
+        \Log::error('Lỗi trong clearPromotionsSession: ' . $e->getMessage());
+        
+        // Thông báo lỗi cho người dùng
+        return redirect()->back()->with('error', 'Có lỗi xảy ra khi xóa voucher. Vui lòng thử lại sau.');
+    }
+}
+
+    public function calculateCartTotal($cartId)
     {
-        $carts = $this->all();
-        $attributesByCartItem = [];
-        if (isset($carts->cartItems) && count($carts->cartItems) > 0) {
-            foreach ($carts->cartItems as $cartItem) {
-                if ($cartItem->productVariants) {
-                    $codeIds = explode(',', $cartItem->productVariants->code);
-                    $attributes = Attribute::whereIn('id', $codeIds)->get();
-                    //lấy dúng attribut của cartitem đó
-                    $attributesByCartItem[$cartItem->id] = $attributes;
-                }
-            }
-        }
-        return $attributesByCartItem;
+        // Tính tổng giá dựa trên cart_items
+        return CartItem::where('cart_id', $cartId)->sum('price');
     }
+
+
+
+
 }
