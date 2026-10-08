@@ -72,7 +72,7 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm" style="width: 250px;">
+                                                            <div class="col-sm text-start" style="width: 250px;">
                                                                 <p class="fz-16 text-break lh-sm fw-500 mb-2">
                                                                     <a href="#" class="text-muted">
                                                                         @if ($cartItem->productVariants)
@@ -104,7 +104,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="text-center">
+                                                <td class="text-end">
                                                     <span class="product-price fw-medium text-muted"
                                                         data-price="{{ $cartItem->price }}">
                                                         {{ number_format($cartItem->price, 0, ',', '.') }}đ
@@ -228,7 +228,7 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <h5 class="fz-14 text-truncate mb-0" style="width: 220px">
+                                                                <h5 class="fz-14 text-start text-truncate mb-0" style="width: 220px">
                                                                     <a href="#" class="text-body">
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}
@@ -246,7 +246,7 @@
                                                                         @endif
                                                                     </ul>
                                                                 </h5>
-                                                                <p class="text-muted mb-0 fz-14">
+                                                                <p class="text-muted text-start mb-0 fz-14">
                                                                     {{ number_format($cartItem->price, 0, ',', '.') }}đ
                                                                     <strong
                                                                         class="text-info orderQuantity">x{{ $cartItem->quantity }}</strong>
@@ -283,18 +283,18 @@
                                                     </td>
                                                 </tr>
                                                 <tr style="height: 50px;">
-                                                    <td class="fz-16" colspan="2">Thành tiền:</td>
+                                                    <td class=" text-start fz-16" colspan="2">Thành tiền:</td>
                                                     <td class="fw-semibold text-end">
                                                         {{ number_format($total, 0, ',', '.') }}đ
                                                     </td>
                                                 </tr>
                                                 <tr style="height: 50px;">
-                                                    <td class="fz-16" colspan="2">Giảm giá:
+                                                    <td class=" text-start fz-16" colspan="2">Giảm giá:
                                                     </td>
                                                     <td class="fw-semibold text-end">0</td>
                                                 </tr>
                                                 <tr style="height: 60px;">
-                                                    <td class="fz-16" colspan="2">Phí vận chuyển:</td>
+                                                    <td class=" text-start fz-16" colspan="2">Phí vận chuyển:</td>
                                                     <td class="fw-semibold text-end">25.000đ</td>
                                                 </tr>
 

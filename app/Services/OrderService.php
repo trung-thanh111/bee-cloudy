@@ -207,6 +207,7 @@ class OrderService implements OrderServiceInterface
             'where' => [
                 ['customer_id', '=',  Auth::id()],
                 ['status', '=',  'pending'],
+
             ]
         ];
         $condition['created_at'] = $request->input('created_at') ;

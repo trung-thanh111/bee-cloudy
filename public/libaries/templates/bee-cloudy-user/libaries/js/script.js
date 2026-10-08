@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
       type: "slide",
       autoplay: 5000,
       gap: 10,
-      perPage: 1, 
+      perPage: 1,
       perMove: 1,
       rewind: true,
       height: 580,
@@ -193,3 +193,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }).mount();
   }
 });
+

@@ -20,6 +20,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    
+
     protected $fillable = [
         'id',
         'name',
@@ -71,7 +73,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
-    public function wishLists():HasMany
+    public function wishLists(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'user_id', 'id');
     }
