@@ -63,7 +63,7 @@
                                 @endif
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="accept_clause" value=""
+                                <input required class="form-check-input" type="checkbox" name="accept_clause" value=""
                                     id="auth-remember-check" {{ old('accept_clause') ? 'checked' : '' }}>
                                 <label class="form-check-label fz-14" for="auth-remember-check">Chấp nhận điều khoản
                                     <a href="#" class="text-decoration-underline">của chúng tôi!</a>
