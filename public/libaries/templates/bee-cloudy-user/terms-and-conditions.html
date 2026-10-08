@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang - Liên hệ</title>
+    <!-- css  -->
+    <link rel="stylesheet" href="/libaries/css/style.css">
+    <!-- icon  -->
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/libaries/images/snapedit_1726153632947.png">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- box-icon  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- splidejs css  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/css/splide.min.css">
+    <!-- bootstrap5 css  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- animation  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- select2 css  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <!-- header  -->
+    <section>
+        <header>
+            <div class="container-fuild text-bg-dark">
+                <div class="container">
+                    <div class="d-flex justify-content-between align-items-center p-2 fz-15">
+                        <div class="splide" id="promo-carousel">
+                            <div class="splide__track">
+                                <ul class="splide__list fz-14">
+                                    <li class="splide__slide text-truncate">
+                                        <span>Khuyến mãi 50% cho đơn hàng đầu tiên</span>
+                                    </li>
+                                    <li class="splide__slide text-truncate">
+                                        <span>Miễn phí vận chuyển cho đơn hàng trên 500k</span>
+                                    </li>
+                                    <li class="splide__slide text-truncate">
+                                        <span>Giảm 20% khi thanh toán qua thẻ</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="">
+                            <form action="#" method="get" class="app-search d-none d-md-block ">
+                                <div class="input-group input-group-sm w-100 position-relative ">
+                                    <input type="text" name="keyword" class="form-control search-header rounded-start-2"
+                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                                        placeholder="bạn đang cần gì?">
+                                    <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
+                                        <i class='bx bx-search-alt-2'></i>
+                                    </button>
+                                </div>
+                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3"
+                                    style="top: 165px;">
+                                    <div class="card p-2 border-0 mt-2 rounded-1 shadow-sm justify-content-center"
+                                        style="width: 500px !important">
+                                        <div class="card-body py-2 px-2">
+                                            <div class="title-search-recent">
+                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Tìm kiếm
+                                                    gần gây</h6>
+                                            </div>
+                                            <div class="content-search-recent mt-3">
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i> Sản phẩm độc quyền
+                                                        của chúng tôi
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i> Iphone 15
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i> Iphone 15
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i> Iphone 15
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body py-2 px-2">
+                                            <div class="title-search-recent">
+                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách
+                                                    nổi bật</h6>
+                                            </div>
+                                            <div class="content-search-hot mt-3">
+                                                <ul>
+                                                    <li
+                                                        class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-2">
+                                                        <a href="#" class="content-search-mnpoly text-muted">Sản phẩm
+                                                            độc quyền</a>
+                                                        <i class="fa-solid fa-bookmark " data-bs-toggle="tooltip"
+                                                            data-bs-title="top tìm kiếm"></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="fw-medium d-none d-lg-block">
+                            <span>Cửa hàng </span>
+                            <span class="ms-2">Hotline: <a href="#">0900112583</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <section>
+        <header>
+            <div class="container-fuild ">
+                <nav class="navbar navbar-expand-lg shadow-sm bg-white p-0 sticky-nav">
+                    <div class="container p-0">
+                        <a class="navbar-brand" href="#"><img src="/libaries/images/snapedit_1726153632947.png"
+                                class="object-fit-cover logo-index" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-lg-center justify-content-md-center justify-content-sm-start"
+                            id="navbarSupportedContent">
+                            <ul
+                                class="nav fw-bold justify-content-lg-center justify-content-md-center justify-content-sm-start align-items-center text-color">
+                                <li class="menu-li-item px-2 py-3">
+                                    <a href="#" class="menu-item-a text-decoration-none fz-18">Trang chủ</a>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#" class="menu-item-a text-decoration-none fz-18 dropdown-a">Cửa hàng <i
+                                            class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header fw-medium p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#" class="menu-item-a text-decoration-none fz-18 dropdown-a">Bài viết <i
+                                            class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header fw-medium p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-li-item px-2 py-3">
+                                    <a href="#" class="menu-item-a text-decoration-none fz-18">Liên hệ</a>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#" class="menu-item-a text-decoration-none fz-18 dropdown-a">Trang khác <i
+                                            class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header fw-medium p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="d-flex icon-header align-items-center">
+                            <div class="icon-item">
+                                <span class="box-icon-profile">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button"
+                                        aria-controls="offcanvasRight">
+                                        <i class="fa-solid fa-bookmark" data-bs-toggle="tooltip"
+                                            data-bs-title="Yêu thích"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="icon-item">
+                                <span class="box-icon-profile">
+                                    <a href="#">
+                                        <i class="fa-solid fa-cart-shopping" data-bs-toggle="tooltip"
+                                            data-bs-title="Giỏ hàng"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="icon-item ">
+                                <!-- chưa đăng nhập  -->
+                                <!-- <span class="box-icon-profile">
+                                    <a class="acount-profile" href="#">
+                                        <i class="fa-solid fa-user fz-20 p-3" data-bs-toggle="tooltip"
+                                            data-bs-title=""></i>
+                                    </a>
+                                </span> -->
+                                <!-- đã đăng nhập  -->
+                                <button type="button" class="btn border-0 gear-profile dropdown-toggle "
+                                    data-bs-toggle="dropdown">
+                                    <span class="d-flex align-items-center">
+                                        <img class="rounded-circle header-profile-user"
+                                            src="/libaries/images/user-default.avif" alt="Avatar User"
+                                            class="rounded-circle object-fit-cover" width="40" height="40">
+                                        <span class="text-start ms-xl-2">
+                                            <span class="d-none d-xl-inline-block ms-1 fw-medium text-muted">Thanh
+                                                Trung</span>
+                                            <span class="d-none d-xl-block ms-1 fz-14 text-secondary">Quản trị
+                                                viên</span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <div class="rounded-1 shadow-sm dropdown-menu border-0"
+                                    style="min-width: 180px; left: auto;">
+                                    <ul class="ul-menu p-0 dropdown-content mb-1 text-muted">
+                                        <li class="li-menu-header p-2">
+                                            <span class="text-decoration-none fw-medium fz-14 ps-1">
+                                                Xin chào thanh trung!
+                                            </span>
+                                        </li>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-12 ps-1">
+                                                <i class="fa-solid fa-pen me-2"></i>Cập nhật
+                                            </a>
+                                        </li>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-12 ps-1 text-danger">
+                                                <i
+                                                    class="fa-solid fa-arrow-right-from-bracket me-2 text-danger"></i>Đăng
+                                                xuất
+                                            </a>
+                                        </li>
+                                        <hr>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-12 ps-1 text-muted">
+                                                <i class="fa-solid fa-circle-info me-2"></i>Hỗ trợ
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </section>
+    <!-- end header  -->
+    <section>
+        <div class="container contact p-0">
+            <!-- breadcrumb  -->
+          <nav class="pt-3 pb-3" aria-label="breadcrumb">
+            <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
+                <li class="breadcrumb-item "><a href="#" class="text-decoration-none text-muted">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Thông tin cá nhân</li>
+            </ol>
+        </nav>
+        <!-- end breadcrumb  -->
+        <div class="card">
+            <div class="card-body m-2">
+                <h2 class="pb-4 text-center underline-text">Điều Khoản Và Điều Kiện</h2>
+                <br>
+                <strong class="text-center pt-5">
+                    Chào mừng bạn đến với BeeFashion Khi truy cập và sử dụng trang web này,
+                     bạn đồng ý tuân theo các điều khoản và điều kiện sau đây. Vui lòng đọc kỹ để hiểu rõ quyền 
+                     và nghĩa vụ của mình.
+                </strong>
+
+                <h5 class="pt-4">1. Giới thiệu và phạm vi</h5>
+                <p>
+                    Trang web BeeFashion cung cấp các sản phẩm giày dép và phụ kiện thời trang. 
+                    Các điều khoản và điều kiện này áp dụng cho mọi khách hàng sử dụng trang web và dịch vụ của chúng tôi.
+                </p>
+
+                <h5 class="">2. Điều khoản sử dụng</h5>
+                <p>
+                    •	Người dùng cam kết cung cấp thông tin cá nhân chính xác và đầy đủ khi đăng ký tài khoản. <br>
+                    •	Người dùng không được phép thực hiện các hành vi gian lận, hack, hoặc sử dụng thông tin của người khác. <br>
+                    •	Bất kỳ hành vi vi phạm nào sẽ dẫn đến việc hủy bỏ tài khoản và các biện pháp pháp lý liên quan.
+
+                </p>
+
+                <h5 class="pb-2">3. Chính sách mua hàng</h5>
+                    <p>
+                        <strong>Đặt hàng:</strong> Khách hàng có thể đặt hàng trực tuyến qua trang web. 
+                        Sau khi hoàn tất đặt hàng, bạn sẽ nhận được email xác nhận đơn hàng. <br>
+                    </p>
+                    <p>
+                        <strong>Giá cả và thanh toán:</strong> <br>
+                    </p>
+                    <p>
+                        •	Tất cả giá sản phẩm được niêm yết bằng VND và đã bao gồm thuế (nếu có). <br>
+                        •	Chúng tôi chấp nhận thanh toán qua Momo, thanh toán khi nhận hàng. <br>
+                    </p>
+                    <p>
+                        <strong>Chính sách đổi trả và hoàn tiền:</strong> <br>
+                    </p>
+                    <p>
+                        •	Khách hàng có quyền đổi trả sản phẩm trong vòng 5 ngày kể từ ngày nhận hàng, 
+                        với điều kiện sản phẩm còn nguyên vẹn, chưa qua sử dụng và còn tem mác. <br>
+                        •	Để đổi trả, vui lòng liên hệ bộ phận 
+                        chăm sóc khách hàng của chúng tôi qua <a href="">beefashion@gmail.com</a> hoặc <a href="">0379000358</a> <br>
+                    </p>
+                    <p>
+                        <strong>Vận chuyển và giao nhận:</strong> <br>
+                    </p>
+                    <p>
+                        •	Thời gian giao hàng dự kiến là 7 ngày làm việc, tùy thuộc vào địa chỉ nhận hàng. <br>
+                        •	Phí vận chuyển sẽ được tính tùy vào khu vực giao hàng và tổng giá trị đơn hàng. <br>
+                    </p>
+
+                    <h5 class="">4. Quyền và nghĩa vụ của người dùng</h5>
+                    <p>
+                        •	Khách hàng có quyền nhận thông tin chính xác về sản phẩm và dịch vụ. <br>
+                        •	Khách hàng có trách nhiệm thanh toán đầy đủ và đúng hạn cho đơn hàng của mình. <br>
+                    </p>
+
+                    <h5 class="">5. Quyền và nghĩa vụ của cửa hàng</h5>
+                    <p>
+                        •	Beefashion cam kết cung cấp sản phẩm chính hãng, đúng 
+                        mô tả và đảm bảo chất lượng. <br>
+                        •	Chúng tôi sẽ bảo mật thông tin cá nhân của khách hàng và 
+                        không chia sẻ cho bên thứ ba mà không có sự đồng ý của bạn. <br>
+                    </p>
+                    <h5 class="">6. Chính sách bảo mật</h5>
+                    <p>
+                        Chúng tôi thu thập thông tin cá nhân của khách hàng để xử lý đơn hàng và cung cấp dịch 
+                        vụ tốt nhất. Mọi thông tin được bảo mật và chỉ sử dụng cho các mục đích được thông báo.
+                    </p>
+                    <h5 class="">7. Điều khoản về sở hữu trí tuệ</h5>
+                    <p>
+                        Mọi nội dung, hình ảnh, và thương hiệu trên trang web này thuộc sở hữu của Beefashion và 
+                        được bảo vệ bởi luật sở hữu trí tuệ. Nghiêm cấm sao chép, sử dụng mà không có sự đồng ý 
+                        bằng văn bản từ chúng tôi.
+                    </p>
+                    <h5 class="">8. Miễn trừ trách nhiệm</h5>
+                    <p>
+                        •	Beefashion không chịu trách nhiệm về sự cố kỹ thuật, lỗi phần mềm, 
+                        hoặc các vấn đề ngoài tầm kiểm soát ảnh hưởng đến việc truy cập và sử dụng trang web. <br>
+                        •	Chúng tôi không chịu trách nhiệm cho bất kỳ thiệt hại gián tiếp 
+                        nào liên quan đến việc sử dụng sản phẩm. <br>
+                    </p>
+                    <h5 class="">9. Thay đổi điều khoản</h5>
+                    <p>
+                        Chúng tôi có quyền thay đổi các điều khoản và điều kiện này bất kỳ lúc nào. 
+                        Các thay đổi sẽ được cập nhật trên trang web,
+                         và việc tiếp tục sử dụng trang web của bạn đồng nghĩa với việc chấp nhận các thay đổi đó.
+                    </p>
+                    <h5 class="">10. Luật áp dụng và giải quyết tranh chấp</h5>
+                    <p>
+                        Mọi tranh chấp phát sinh từ việc sử dụng trang web và dịch vụ của Beefashion sẽ được
+                         giải quyết theo pháp luật của Việt Nam. 
+                        Các bên sẽ nỗ lực giải quyết tranh chấp thông qua thương lượng trước khi đưa ra các cơ quan
+                         tài phán có thẩm quyền.
+                    </p>
+            </div>
+        </div>
+    </section>
+    <!-- footer  -->
+    <section>
+        <footer>
+            <div class="container-fuild">
+                <div class="container">
+                    <div class="row flex-grow">
+                        <div class="col-lg-3 col-md-8 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Cửa hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Giỏ hàng</a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Sản phẩm</a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Thương hiệu</a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Yêu thích</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Hỗ trợ khách hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Câu hỏi thường gặp</a>
+                                </li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Điều khoản & Dịch vụ</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Dịch vụ khách hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">GIỏ hàng</a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Sản phẩm</a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Thương hiệu</a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-15 fw-normal ">Yêu thích</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Theo dõi chúng tôi</h6>
+                            <ul class="p-0 d-flex justify-content-around align-items-center w-75">
+                                <li class="list-unstyled pt-2 ps-0 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-20 fw-normal "><i
+                                            class="fa-brands fa-facebook" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Facebook"></i></a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-20 fw-normal "><i
+                                            class="fa-brands fa-square-instagram" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Instagram"></i></a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-20 fw-normal "><i
+                                            class="fa-brands fa-youtube" data-bs-toggle="tooltip"
+                                            data-bs-title="Nền tảng Youtube"></i></a></li>
+                                <li class="list-unstyled pt-2 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-20 fw-normal "><i
+                                            class="fa-brands fa-square-twitter" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Twitter"></i></a></li>
+                            </ul>
+                            <h6 class="text-uppercase fw-bold fz-16">Khuyến mãi</h6>
+                            <span class="text-dark fz-14">
+                                Đăng ký để nhận giảm giá tới 20% cho đơn hàng.
+                            </span>
+                            <div class="input-group mb-3 mt-3">
+                                <input type="text" class="form-control" placeholder="Đăng ký ngay"
+                                    aria-describedby="button-addon2">
+                                <button class="btn btn-success px-3" type="button" id="button-addon2">Gửi</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-9 col-md-6 col-sm-6">
+                            <span class="text-decoration-none text-dark fz-15 fw-normal ">@2023 - 2024 phát triển toàn
+                                diện</span>
+                            <ul class="d-flex justify-content-start  align-items-center p-0">
+                                <li class="list-unstyled pt-2 pb-2 me-2"><a href="#"
+                                        class="text-decoration-underline text-dark fz-15 fw-medium ">Trung tâm bảo
+                                        mật</a></li>
+                                <li class="list-unstyled pt-2 pb-2 me-2"><a href="#"
+                                        class="text-decoration-underline text-dark fz-15 fw-medium ">Chính sách</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Phương thức thanh toán</h6>
+                            <ul class="p-0 d-flex justify-content-sm-around align-items-center w-75">
+                                <li class="list-unstyled pt-2 ps-0 pb-2"><a href="#"
+                                        class="text-decoration-none text-dark fz-20 fw-normal "><img
+                                            src="/libaries/images/pay.svg" alt="" class="w-100" data-bs-toggle="tooltip"
+                                            data-bs-title="Các phuong thức thanh toán"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <tfoot>
+            <div class="container-fuild text-bg-dark">
+                <div class="container text-lg-center p-2">
+                    <span class="p-2 fz-14">Bản quyền thuộc © thewinner 2024 - 2025</span>
+                </div>
+            </div>
+        </tfoot>
+    </section>
+    <!-- end footer  -->
+</body>
+
+<!-- jQuery  -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+<!-- jQurery Ui  -->
+<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"
+    integrity="sha256-u0L8aA6Ev3bY2HI4y0CAyr9H8FRWgX4hZ9+K7C2nzdc=" crossorigin="anonymous"></script>
+<!-- bootstrap5 js   -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<!-- splide js  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.min.js"></script>
+<!-- select2 js  -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- js  -->
+<script src="/libaries/js/script.js"></script>
+<!-- jquery  -->
+<script src="/libaries/js/jquey_custom.js"></script>
+
+</html>

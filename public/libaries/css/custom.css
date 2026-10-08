@@ -1,0 +1,205 @@
+.bg-main-aside{
+    background-color: #1f2c3e !important;
+}
+.fl-wrapper {
+    top: 20px !important;
+    z-index: 9999 !important;
+}
+.search-box .search-icon{
+    left: 0 !important;
+}
+.table .sort::before {
+    display: none !important;
+}
+
+.table .sort::after {
+    display: none !important;
+}
+.search{
+    padding-left: 50px !important;
+}
+.customer_single_td{
+    display: flex; 
+    justify-content: start;
+    align-items: center;
+}
+.select2-container .select2-selection--single {
+    width: 100% !important;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 37px !important;
+    border-color: #e7eaed !important;
+    border-radius: 2px !important;
+    color: #595c5f !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    padding-left: 10px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #595c5f !important;
+    line-height: 33px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 35px !important;
+    position: absolute;
+    top: 1px;
+    right: 5px !important;
+    width: 20px;
+}
+.record .select2-selection__rendered{
+    width: 180px !important;
+}
+.fillter-attribute_catalogue_id .select2-selection__rendered{
+    width: 180px !important;
+}
+.search-box .input-group .search{
+    border-radius: 2px !important;
+    border: 1px solid #aaa !important;
+}
+.select2-container--default .select2-selection--single{
+    border: 1px solid #aaa !important;
+
+}
+.fillter-publish select {
+    border: 1px solid #aaa !important;
+
+}
+.select2-container .select2-selection--multiple {
+    height: 37px !important;
+    border-radius: 2px !important;
+    line-height: 1.5rem !important;
+    padding-left: 3px;
+}
+.select2-selection__choice {
+    background-color: #495057 !important;
+}
+
+/* css product variant  */
+
+.hidden{
+    display: none !important;
+}
+.variant-box .description{
+    font-size:10px;
+}
+.variant-checkbox input{
+    margin-top:0;
+    width:16px;
+    height:16px;
+}
+.variant-checkbox label{
+    margin-bottom:0;
+    margin-left:10px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.variant-container{
+    margin-top:30px;
+}
+.attribute-title{
+    font-size:12px;
+    color:#1791f2;
+}
+.variant-body{
+    margin-top:10px;
+}
+.variant-body .remove-attribute,
+.fake-variant{
+    height:42px;
+    border-radius: 5px;
+}
+.niceSelect{
+    width:100% !important;
+}
+
+.nice-select {
+    padding-left: 10px;
+}
+.add-variant{
+    height:42px;
+    color:#1791f2;
+    border:1px dashed #1791f2;
+    background: #fafafa;
+    text-align: center;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    padding:0 16px;
+}
+.add-variant:hover{
+    background: #efefef;
+}
+.select2-container .select2-selection--multiple{
+    min-height:42px;
+    line-height:29px;
+}
+
+.select2-container .select2-search--inline .select2-search__field{
+    height:25px;
+}
+.variantTable thead{
+    background:#333;
+    color:#fff;
+}
+.variantTable tbody td,
+.variantTable thead td{
+    text-align: right;
+    cursor:pointer;
+}
+.variantTable thead td:first-child{
+    text-align: left;
+}
+.variantTable .variant-row .image{
+    width:28px;
+    height:28px;
+}
+.updateVariant{
+    box-shadow: none !important;
+    background:#eaeaea;
+}
+.click-to-upload-variant{
+    text-align: center;
+    border:1px dashed #b8b2b2;
+    padding:20px;
+}
+.updateVariant label{
+    margin-bottom:0;
+    font-weight: 600;
+    color:#1a0dab;
+    margin-bottom:5px;
+}
+
+/* custom album ảnh */
+.delete-image{
+    background-color: #ffffff;
+    border: 0px solid #ffffff;
+    padding: 3px 8px;
+    margin: 5px;
+    border-radius: 2px;
+}
+.fa-trash{
+    color: red;
+}
+.delete-variant-image{
+    background-color: #ffffff;
+    border: 0px solid #ffffff;
+    padding: 3px 8px;
+    margin: 5px;
+    border-radius: 2px;
+}
+.fa-trash{
+    color: red;
+}
+.imageSrc{
+    width: 120px !important;
+    height: 70px !important;
+    object-fit: contain;
+}
+/*  */

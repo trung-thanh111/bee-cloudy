@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng thời trang - Đăng nhập</title>
+    <!-- css  -->
+    <link rel="stylesheet" href="/libaries/css/style.css">
+    <link rel="stylesheet" href="/libaries/css/custom_reponsive.css">
+    <!-- icon  -->
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/libaries/images/app_icon.png">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- box-icon  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- splidejs css  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/css/splide.min.css">
+    <!-- bootstrap5 css  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- animation  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- select2 css  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- header  -->
+    <section>
+        <header>
+            <div class="container-fuild text-bg-dark">
+                <div class="container">
+                    <div class="d-flex justify-content-between align-items-center p-2 fz-15">
+                        <div class="splide" id="promo-carousel">
+                            <div class="splide__track">
+                                <ul class="splide__list fz-14">
+                                    <li class="splide__slide text-truncate">
+                                        <span>Khuyến mãi 50% cho đơn hàng đầu tiên</span>
+                                    </li>
+                                    <li class="splide__slide text-truncate">
+                                        <span>Miễn phí vận chuyển cho đơn hàng trên 500k</span>
+                                    </li>
+                                    <li class="splide__slide text-truncate">
+                                        <span>Giảm 20% khi thanh toán qua thẻ</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="search-final">
+                            <form action="#" method="get" class="app-search d-none d-md-block ">
+                                <div class="input-group input-group-sm w-100 position-relative ">
+                                    <input type="text" name="keyword" class="form-control search-header py-0"
+                                        placeholder="bạn đang cần gì?">
+                                    <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
+                                        <i class='bx bx-search-alt-2'></i>
+                                    </button>
+                                </div>
+                                <div class="wallpaper d-none position-absolute start-50 translate-middle z-3"
+                                    style="top: 165px;">
+                                    <div class="card p-2 border-0 mt-2 rounded-1 shadow-sm justify-content-center"
+                                        style="width: 500px !important">
+                                        <div class="card-body py-2 px-2">
+                                            <div class="title-search-recent">
+                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Tìm kiếm
+                                                    gần gây</h6>
+                                            </div>
+                                            <div class="content-search-recent mt-3">
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            Sản phẩm độc quyền của chúng tôi
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            ip 15 promax
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            iphone xs max
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                                <span class="search-recent-item m-1 fz-14 ">
+                                                    <a href="#" class="text-decoration-none text-muted">
+                                                        <i class='bx bx-search-alt-2 fz-16 me-2'></i>
+                                                        <span class="keyword-recent">
+                                                            iphone 16 pro
+                                                        </span>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="card-body py-2 px-2">
+                                            <div class="title-search-recent">
+                                                <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách
+                                                    nổi bật</h6>
+                                            </div>
+                                            <div class="content-search-hot mt-3">
+                                                <ul>
+                                                    <li
+                                                        class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-2">
+                                                        <a href="javascript:void(0)"
+                                                            class="content-search-mnpoly text-muted">Sản phẩm
+                                                            độc quyền</a>
+                                                        <i class="fa-solid fa-bookmark " data-bs-toggle="tooltip"
+                                                            data-bs-title="top tìm kiếm"></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="fw-medium d-none d-lg-block">
+                            <a href="#" class="text-white">Cửa hàng </a>
+                            <span class="ms-2">Hotline: <a href="tel:0900112583">0900112583</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <section>
+        <header>
+            <div class="container-fuild">
+                <nav class="navbar navbar-expand-lg shadow-sm bg-white p-0 sticky-nav">
+                    <div class="container p-0">
+                        <a class="navbar-brand" href="#"><img src="/libaries/images/app_icon.png"
+                                class="object-fit-cover logo-index" alt=""></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-lg-center justify-content-md-center justify-content-sm-start"
+                            id="navbarSupportedContent">
+                            <ul
+                                class="nav fw-bold justify-content-lg-center justify-content-md-center justify-content-sm-start align-items-center text-color">
+                                <li class="menu-li-item px-2 py-3">
+                                    <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Trang
+                                        chủ</a>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#"
+                                        class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Cửa
+                                        hàng <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#"
+                                        class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Bài
+                                        viết <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-li-item px-2 py-3">
+                                    <a href="#" class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
+                                        hệ</a>
+                                </li>
+                                <li class="menu-li-item px-2 py-3 dropdown align-items-center">
+                                    <a href="#"
+                                        class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Trang
+                                        khác <i class="fas fa-minus fz-12 fw-bold"></i></a>
+                                    <ul class="ul-menu-header p-0 dropdown-content">
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Sản phẩm</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Thương hiệu</a></li>
+                                        <li class="li-menu-header"><a href="#"
+                                                class="text-decoration-none fz-16 text-color">Danh mục</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-flex icon-header align-items-center">
+                            <div class="dropdown icon-item">
+                                <a class="position-relative box-icon-profile gear-profile dropdown-toggle" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-bell"></i>
+                                    <span
+                                        class="fz-14 fw-bold text-danger position-absolute top-0 start-100 translate-middle">
+                                        5
+                                    </span>
+                                </a>
+                                <div
+                                    class="dropdown-menu dropdown-menu-notify dropdown-menu-end border-0 shadow-lg p-0">
+                                    <div
+                                        class="dropdown-header text-bg-success  d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold">Thông báo</span>
+                                        <a href="#" class="text-light fz-12">Xem chi tiết</a>
+                                    </div>
+                                    <ul class="ul-menu p-0 mb-1 text-muted">
+                                        <li class="li-menu-header py-1 px-3">
+                                            <a href="#">
+                                                <div class="title-notify text-truncate mb-1">
+                                                    <span class="fz-15 fw-600">Đặt hàng thành côngĐặt hàng thành côngĐặt
+                                                        hàng thành công</span>
+
+                                                </div>
+                                                <div class="content-notify">
+                                                    <p class="fz-13 fst-italic mb-0 overflow-hidden"
+                                                        style="height: 43px;">
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn</p>
+                                                </div>
+                                                <div class="foot-notify text-end">
+                                                    <span class="fz-13 text-danger">Chưa đọc</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="li-menu-header py-1 px-3">
+                                            <a href="#">
+                                                <div class="title-notify text-truncate mb-1">
+                                                    <span class="fz-15 fw-600">Đặt hàng thành côngĐặt hàng thành côngĐặt
+                                                        hàng thành công</span>
+
+                                                </div>
+                                                <div class="content-notify">
+                                                    <p class="fz-13 fst-italic mb-0 overflow-hidden"
+                                                        style="height: 43px;">
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn Thông báo mới cho bạn Thông báo mới cho
+                                                        bạn
+                                                        Thông báo mới cho bạn</p>
+                                                </div>
+                                                <div class="foot-notify text-end">
+                                                    <span class="fz-13 text-danger">Chưa đọc</span>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="icon-item">
+                                <span class="box-icon-profile">
+                                    <a class="" role="button">
+                                        <i class="fa-solid fa-bookmark" data-bs-toggle="tooltip"
+                                            data-bs-title="Yêu thích"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="icon-item">
+                                <span class="box-icon-profile">
+                                    <a href="#">
+                                        <i class="fa-solid fa-cart-shopping" data-bs-toggle="tooltip"
+                                            data-bs-title="Giỏ hàng"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="icon-item dropdown">
+                                <!-- chưa đăng nhập  -->
+                                <!-- <span class="box-icon-profile">
+                                    <a class="acount-profile" href="#">
+                                        <i class="fa-solid fa-user fz-20 p-3" data-bs-toggle="tooltip"
+                                            data-bs-title=""></i>
+                                    </a>
+                                </span> -->
+
+                                <!-- đã đăng nhập  -->
+                                <button type="button" class="btn border-0 gear-profile dropdown-toggle "
+                                    data-bs-toggle="dropdown">
+                                    <span class="d-flex align-items-center">
+                                        <img class="rounded-circle header-profile-user"
+                                            src="/libaries/images/user-default.avif" alt="Avatar User"
+                                            class="rounded-circle object-fit-cover" width="40" height="40">
+                                        <!-- <span class="text-start ms-xl-2">
+                                            <span class="d-none d-xl-inline-block ms-1 fw-medium text-muted">Thanh
+                                                Trung</span>
+                                            <span class="d-none d-xl-block ms-1 fz-14 text-secondary">Quản trị
+                                                viên</span>
+                                        </span> -->
+                                    </span>
+                                </button>
+                                <div class="rounded-1 shadow-sm dropdown-menu dropdown-menu-end border-0"
+                                    style="min-width: 180px;">
+                                    <ul class="ul-menu p-0 mb-1 text-muted">
+                                        <li class="li-menu-header p-2">
+                                            <span class="text-decoration-none fw-medium fz-14 ps-1">
+                                                Xin chào thanh trung!
+                                            </span>
+                                        </li>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-13 ps-1">
+                                                <i class="fa-solid fa-pen me-2"></i>Cập nhật
+                                            </a>
+                                        </li>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-13 ps-1 text-danger">
+                                                <i
+                                                    class="fa-solid fa-arrow-right-from-bracket me-2 text-danger"></i>Đăng
+                                                xuất
+                                            </a>
+                                        </li>
+                                        <hr>
+                                        <li class="li-menu-header p-2">
+                                            <a href="#" class="text-decoration-none fz-13 ps-1 text-muted">
+                                                <i class="fa-solid fa-circle-info me-2"></i>Hỗ trợ
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    </section>
+    <!-- end header  -->
+    <section>
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                <div class="card border-0 shadow-sm mt-4 card-bg-fill">
+
+                    <div class="card-body p-4">
+                        <div class="text-center mt-2">
+                            <h5 class="text-body fz-18">Đăng nhập</h5>
+                            <p class="text-muted fz-14">Chào mừng bạn trở lại!</p>
+                        </div>
+                        <div class="p-2 mt-4">
+                            <form action="#">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Nhập email">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="float-end">
+                                        <a href="#" class="text-muted fz-14">Quên mật khẩu?</a>
+                                    </div>
+                                    <div class="mb-3">
+                                    <label class="form-label" for="password-input">Mật khẩu</label>
+                                        <div class="input-group flex-nowrap">
+                                            <input type="password" class="form-control input-group-password" id="password-input" placeholder="Nhập mật khẩu" >
+                                            <span class="input-group-text icon-eye-password" id="addon-wrapping">
+                                                <i class="fa-solid fa-eye"></i>
+                                                <i class="fa-solid fa-eye-slash d-none"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
+                                    <label class="form-check-label fz-14" for="auth-remember-check">Ghi nhớ đăng nhập</label>
+                                </div>
+                                <div class="mt-4">
+                                    <button class="btn btn-success w-100" type="submit">Đăng nhập</button>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <div class="signin-other-title">
+                                        <h5 class="fz-13 mb-4 title">Đăng nhập với </h5>
+                                    </div>
+                                    <div>
+                                        <a href="#" type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="fa-brands fa-google-plus fz-18"></i></a>
+                                        <a href="#" type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="fa-brands fa-github fz-18"></i></i></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="mt-4 text-center fz-14">
+                            <p class="mb-0">Chưa có tài khoản ? <a href="#" class="fw-semibold text-primary text-decoration-underline"> Đăng ký </a> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- back to top  -->
+    <!-- footer  -->
+    <section>
+        <div class="">
+            <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
+                style="bottom: 60px; right: 30px;">
+                <div class=" border-2 rounded-circle">
+                    <i
+                        class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
+                </div>
+            </a>
+            <!-- <div class=" live-chat ms-lg-16">
+                <a href="zalo">
+                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                </a>
+            </div> -->
+        </div>
+        <footer>
+            <div class="container-fuild z-0">
+                <div class="container">
+                    <div class="row flex-grow">
+                        <div class="col-lg-3 col-md-8 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Cửa hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Hỗ trợ khách hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
+                                        gặp</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Điều khoản &
+                                        Dịch vụ</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Dịch vụ khách hàng</h6>
+                            <ul class="p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">GIỏ hàng</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Theo dõi chúng tôi</h6>
+                            <ul class="p-0 d-flex justify-content-around align-items-center w-75">
+                                <li class="list-unstyled menu-footer-item pt-2 ps-0 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-facebook" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-square-instagram" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Instagram"></i>
+                                    </a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-youtube" data-bs-toggle="tooltip"
+                                            data-bs-title="Nền tảng Youtube"></i>
+                                    </a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <i class="fa-brands fa-square-twitter" data-bs-toggle="tooltip"
+                                            data-bs-title="Mạng xã hội Twitter"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <h6 class="text-uppercase fw-bold fz-16">Khuyến mãi</h6>
+                            <span class="text-dark fz-14">
+                                Đăng ký để nhận giảm giá tới 20% cho đơn hàng.
+                            </span>
+                            <div class="input-group mb-3 mt-3">
+                                <input type="text" class="form-control" placeholder="Đăng ký ngay"
+                                    aria-describedby="button-addon2">
+                                <button class="btn btn-success px-3" type="button" id="button-addon2">Gửi</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-9 col-md-6 col-sm-6">
+                            <span class="text-decoration-none text-dark fz-15 fw-normal">@2023 - 2024 phát triển toàn
+                                diện</span>
+                            <ul class="d-flex justify-content-start  align-items-center p-0">
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2 me-2">
+                                    <a href="#" class="text-decoration-underline text-dark fz-15 fw-medium ">Trung tâm
+                                        bảo
+                                        mật</a>
+                                </li>
+                                <li class="list-unstyled menu-footer-item pt-2 pb-2 me-2">
+                                    <a href="#" class="text-decoration-underline text-dark fz-15 fw-medium ">Chính
+                                        sách</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <h6 class="text-uppercase fw-bold fz-16">Phương thức thanh toán</h6>
+                            <ul class="p-0 d-flex justify-content-sm-around align-items-center w-75">
+                                <li class="list-unstyled menu-footer-item pt-2 ps-0 pb-2">
+                                    <a href="#" class="text-decoration-none text-dark fz-20 fw-normal">
+                                        <img src="/libaries/images/pay.svg" alt="" class="w-100"
+                                            data-bs-toggle="tooltip" data-bs-title="Các phuong thức thanh toán">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <tfoot>
+            <div class="container-fuild text-bg-dark">
+                <div class="container text-lg-center p-2">
+                    <span class="p-2 fz-14">Bản quyền thuộc © thewinner 2024 - 2025</span>
+                </div>
+            </div>
+        </tfoot>
+    </section>
+    <!-- end footer  -->
+</body>
+<!-- jQuery  -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+<!-- jQurery Ui  -->
+<script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"
+    integrity="sha256-u0L8aA6Ev3bY2HI4y0CAyr9H8FRWgX4hZ9+K7C2nzdc=" crossorigin="anonymous"></script>
+<!-- bootstrap5 js   -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<!-- splide js  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.min.js"></script>
+<!-- select2 js  -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- js  -->
+<script src="/libaries/js/script.js"></script>
+<!-- jquery  -->
+<script src="/libaries/js/jquey_custom.js"></script>
+
+</html>

@@ -1,0 +1,1 @@
+var switchery = new Switchery('.js-switch', { size: 'small' });
