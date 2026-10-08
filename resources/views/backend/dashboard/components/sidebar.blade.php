@@ -94,7 +94,7 @@
                                                 Danh sách</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('voucher.create') }}" class="nav-link">Thêm mới </a>
+                                            <a href="" class="nav-link">Thêm mới </a>
                                         </li>
                                     </ul>
                                 </div>

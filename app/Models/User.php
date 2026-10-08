@@ -59,10 +59,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
-    public function vouchers()
+    public function userVouchers()
     {
-        return $this->belongsToMany(Voucher::class, 'user_voucher');
+        return $this->hasMany(UserVoucher::class);
     }
+
+
 
 }
 
