@@ -82,6 +82,13 @@
     background-color: #495057 !important;
 }
 
+
+/* //rangepicke  */
+.rangepicker{
+    height: 37px !important;
+    border: 1px solid #595c5f !important;
+}
+
 /* css product variant  */
 
 .hidden{
@@ -206,3 +213,4 @@
 .visibility-none {
     visibility: hidden;
 }
+
