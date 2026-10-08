@@ -173,11 +173,10 @@
                         <div class="dropdown icon-item">
                             <a class="position-relative box-icon-profile gear-profile dropdown-toggle" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-bell"></i>
-                                <span
-                                    class="fz-14 fw-bold text-danger position-absolute top-0 start-100 translate-middle">
-                                    5
-                                </span>
+                                <button type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-bell fz-16"></i>
+                                    <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-circle text-danger" style="top: 5px">3</span>
+                                </button>
                             </a>
                             <div class="dropdown-menu dropdown-menu-notify dropdown-menu-end border-0 shadow-lg p-0">
                                 <div
@@ -246,9 +245,10 @@
                         </div>
                         <div class="icon-item">
                             <span class="box-icon-profile">
-                                <a href="{{ route('cart.index') }}">
-                                    <i class="fa-solid fa-cart-shopping" data-bs-toggle="tooltip"
+                                <a href="{{ route('cart.index') }}" type="button" class="btn btn-icon btn-topbar material-shadow-none btn-ghost-secondary rounded-circle" >
+                                        <i class="fa-solid fa-cart-shopping fz-16" data-bs-toggle="tooltip"
                                         data-bs-title="Giỏ hàng"></i>
+                                        <span class="position-absolute topbar-badge fs-10 translate-middle badge count-element rounded-pill bg-info {{ $productInCart == 0 ? 'hidden-visibility': '' }}">{{ !is_null($productInCart) ? $productInCart : '' }}</span>
                                 </a>
                             </span>
                         </div>

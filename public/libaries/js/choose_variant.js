@@ -158,6 +158,7 @@
                 success: function (res) {
                     // xử lý sau khi đã có dữ liệu trả về
                     FS.setupVariantGallery(res);
+                    FS.setUpVariantId(res);
                     FS.setUpVariantName(res)
                     FS.setUpVariantPrice(res)
                     FS.productVariantSold(res)
@@ -165,7 +166,12 @@
             });
         }
     };
+    FS.setUpVariantId = (res) => {
+        let productVariantId = res.productVariant.id
+        $('.product-variant-id').html(productVariantId)
+    }
     FS.setUpVariantName = (res) => {
+        console.log(res)
         let productVariantName = res.productVariant.name
         $('.product-variant-title').html(productVariantName)
     }

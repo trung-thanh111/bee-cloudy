@@ -567,7 +567,7 @@
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
                                                         <span
-                                                            class="text-danger fz-20 fw-medium me-3 product-variant-price " data-price="{{ $price.'' }}">{{ $price }}đ 
+                                                            class="text-danger fz-20 fw-medium me-3 product-variant-price" data-price="{{ $price }}">{{ $price }}đ 
                                                         </span>
                                                         <span
                                                             class="mt-1 ">

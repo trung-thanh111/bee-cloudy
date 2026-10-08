@@ -39,7 +39,7 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
             $this->selectColumn(),
             $condition,
             ['parentReference'],
-            ['id', 'ASC'],
+            ['id', 'DESC'],
             $perPage,
         );
         return $productCatalogues;

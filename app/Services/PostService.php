@@ -40,7 +40,7 @@ class PostService implements PostServiceInterface
             $this->paginateSelect(),
             $condition,
             $relation,
-            ['id', 'ASC'],
+            ['id', 'DESC'],
             $perPage,
         );
 
