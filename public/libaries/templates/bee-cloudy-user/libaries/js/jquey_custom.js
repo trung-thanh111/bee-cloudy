@@ -298,23 +298,6 @@ FS.CheckBox = () => {
             $quantityCart.val(value);
         });
     };
-
-    // FS.boxQuantityCart = () => {
-    //   $(".quantity-minus, .quantity-plus").click(function () {
-    //     var $inputVisible = $(this).siblings("input.form-control");
-    //     var $inputHidden = $(this).siblings('input[name="quantity-product-cart"]');
-
-    //     var value = parseInt($inputVisible.val(), 10);
-    //     if ($(this).hasClass("quantity-minus") && value > 1) {
-    //       value--;
-    //     } else if ($(this).hasClass("quantity-plus")) {
-    //       value++;
-    //     }
-
-    //     $inputVisible.val(value);
-    //     $inputHidden.val(value);
-    //   });
-    // };
     FS.backToTop = () => {
         window.addEventListener("scroll", () => {
             // bắt sự kiện cuộn mà hình theo chiều thẳng đứng hơn 300 ...
