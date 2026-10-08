@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Promotion extends Model
+{
+    // Khai báo bảng tương ứng với model
+    protected $table = 'promotions';
+
+    // Các cột có thể được fill từ dữ liệu đầu vào
+    protected $fillable = [
+        'name',
+        'code',
+        'start_date',
+        'end_date',
+        'discount',
+        'minimum_amount',
+        'usage_limit',
+        'apply_for',
+        'status',
+        'quantity',
+    ];
+
+    // Định dạng các cột ngày tháng
+    protected $dates = ['start_date', 'end_date'];
+
+    // Định nghĩa kiểu dữ liệu cho các trường
+    protected $casts = [
+        'discount' => 'decimal:2',
+        'minimum_amount' => 'decimal:2',
+        'usage_limit' => 'integer',
+        'quantity' => 'integer',
+    ];
+    public function products()
+{
+    return $this->belongsToMany(Product::class, 'promotion_product_variants')
+                ->withPivot('discount')
+                ->withTimestamps();
+}
+public function userVouchers()
+{
+    return $this->hasMany(UserVoucher::class, 'promotion_id');
+}
+
+
+
+ 
+}
