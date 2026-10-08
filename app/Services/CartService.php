@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Promotion;
+use App\Models\UserVoucher;
 use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductVariantRepository;
@@ -51,7 +53,7 @@ class CartService implements CartServiceInterface
             ]
         );
         $count = 0;
-        if($carts){
+        if ($carts) {
             $cart = Cart::with('cartItems.products', 'cartItems.productVariants')->find($carts->id);
             foreach ($cart->cartItems as $item) {
                 if ($item->products || $item->productVariants) {
@@ -130,26 +132,26 @@ class CartService implements CartServiceInterface
                 ['cartItems', 'cartItems.productVariants', 'cartItems.productVariants.attributes', 'cartItems.products'],
                 [
                     ['user_id', Auth::id()],
-                    ]
-                );
-                if ($cart) {
-                    // loop qua các item trong giỏ hàng 
-                    foreach ($cart->cartItems as $item) {
-                        $payload = $request->input();
-                
-                        // product_variant_id tồn tại trong payload (request)
-                        if ($payload['product_variant_id'] && $item->productVariants && $item->productVariants->id == $payload['product_variant_id']) {
-                            // Cập nhật
-                            $quantity = $payload['quantity'];
-                            $item->update(['quantity' => $quantity]);
-                
-                        } elseif ($payload['product_id'] && $item->products && $item->products->id == $payload['product_id']) {
-                            $quantity = $payload['quantity'];
-                            $item->update(['quantity' => $quantity]);
-                        }
+                ]
+            );
+            if ($cart) {
+                // loop qua các item trong giỏ hàng 
+                foreach ($cart->cartItems as $item) {
+                    $payload = $request->input();
+
+                    // product_variant_id tồn tại trong payload (request)
+                    if ($payload['product_variant_id'] && $item->productVariants && $item->productVariants->id == $payload['product_variant_id']) {
+                        // Cập nhật
+                        $quantity = $payload['quantity'];
+                        $item->update(['quantity' => $quantity]);
+
+                    } elseif ($payload['product_id'] && $item->products && $item->products->id == $payload['product_id']) {
+                        $quantity = $payload['quantity'];
+                        $item->update(['quantity' => $quantity]);
                     }
                 }
-            
+            }
+
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -163,16 +165,16 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->input();
-            
+
             $id = $payload['product_id'] ? $payload['product_id'] : $payload['product_variant_id'];
             // lấy ra item dựa trên mối quan hệ                         // closure
-            $cartItem = CartItem::whereHas('productVariants', function($query) use ($id) {
+            $cartItem = CartItem::whereHas('productVariants', function ($query) use ($id) {
                 $query->where('product_variant_id', $id);
             })
-            ->orWhereHas('products', function($query) use ($id) {
-                $query->where('product_id', $id);
-            })
-            ->first();
+                ->orWhereHas('products', function ($query) use ($id) {
+                    $query->where('product_id', $id);
+                })
+                ->first();
             if ($cartItem) {
                 $cartItem->delete();
             }
@@ -184,19 +186,42 @@ class CartService implements CartServiceInterface
             return false;
         }
     }
+    // CartController.php
     public function clear(Request $request)
-{
-    DB::beginTransaction();
-    try {
-        $cartId = $request->input('cart_id');
-        $cart = Cart::where('user_id', Auth::id())
-                      ->first();
-        $cart->delete();
-        DB::commit();
-        return true;
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return false;
+    {
+        DB::beginTransaction();
+        try {
+            $cartId = $request->input('cart_id');
+            $cart = Cart::where('user_id', Auth::id())->first();
+
+            if ($cart) {
+                $cart->delete();
+                DB::commit();
+
+                app('App\Services\CartService')->clearPromotionsSession();
+
+                return response()->json(['success' => true]);
+            } else {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'Cart not found.']);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+        }
     }
-}
+    public function clearPromotionsSession()
+    {
+        session()->forget('promotions');
+    }
+
+
+    public function calculateCartTotal($cartId)
+    {
+        // Tính tổng giá dựa trên cart_items
+        return CartItem::where('cart_id', $cartId)->sum('price');
+    }
+
+
+
 }

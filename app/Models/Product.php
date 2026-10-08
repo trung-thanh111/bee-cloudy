@@ -62,4 +62,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariant::class, 'product_id', 'id');
     }
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class, 'promotion_product_variants')
+                    ->withPivot('discount')
+                    ->withTimestamps();
+    }
 }
