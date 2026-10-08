@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Traits\QueryScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,18 +13,30 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, QueryScopes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    
+
     protected $fillable = [
+        'id',
         'name',
+        'image',
+        'phone',
+        'description',
+        'birthday',
+        'province_id',
+        'district_id',
+        'ward_id',
+        'address',
         'email',
         'password',
         'google_id',
+        'created_at',
     ];
 
     /**
@@ -55,12 +69,13 @@ class User extends Authenticatable
     }
 
     // Khai báo quan hệ hasMany với bảng carts
-    public function carts(): HasMany {
+    public function carts(): HasMany
+    {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
+
     public function userVouchers()
     {
         return $this->hasMany(UserVoucher::class);
     }
 }
-

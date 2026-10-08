@@ -80,6 +80,7 @@
                                     <input type="number" class="form-control" name="discount" value="{{ old('discount', $promotion->discount) }}" placeholder="Số tiền chiết khấu">
                                     @if ($errors->has('discount'))
                                         <span class="text-danger fz-12 mt-1">{{ $errors->first('discount') }}</span>
+
                                     @endif
                                 </div>
 

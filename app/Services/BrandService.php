@@ -31,7 +31,7 @@ class BrandService implements BrandServiceInterface
             'keyword' => addslashes($request->input('keyword')),
             'publish' => $request->input('publish') !== null ? $request->integer('publish') : null,
         ];
-        $perPage = $request->integer('perpage') ?: 5; // mặc định mỗi trang 5 record 
+        $perPage = $request->integer('perpage') ?: 5; 
 
         $brands = $this->brandRepository->pagination(
             $this->selectColumn(),

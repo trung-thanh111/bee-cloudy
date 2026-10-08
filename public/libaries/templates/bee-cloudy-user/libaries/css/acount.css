@@ -1,0 +1,86 @@
+.container-acount {
+    width: 100%;
+    height: 547px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 15px;
+    margin-top: 30px;
+}
+
+.parent {
+    width: 100%;
+    /* height: 527px; */
+}
+
+.text-people {
+    margin-top: 15px;
+}
+
+.text-people a {
+    text-decoration: none;
+}
+
+.recent-oder {
+    width: 100%;
+    height: 92px;
+    margin-top: 20px;
+}
+
+.table-ord {
+    width: 100%;
+    height: 36px;
+    border: 1px solid #ddd;
+}
+
+.table-cart {
+    width: 100%;
+    height: 36px;
+    border-top: 1px solid #ddd;
+    background: #acacac;
+}
+
+.danh_gia {
+    /* text-decoration: underline; */
+    color: red;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    /* border-left: 1px solid #ddd; */
+
+}
+
+.block-acount {
+    width: 262px;
+    height: 360px;
+    border: 1px solid #d3aeae;
+    margin-top: 20px;
+    padding: 25px;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #3A3A3C;
+}
+
+.tel-user {
+    color: #C49A6C;
+    margin-right: 8px;
+
+}
+
+.button-acount {
+    width: 211px;
+    height: 50px;
+    background-color: #C49A6C;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+}
+
+.button-acount:hover {
+    background-color: #b86e1f;
+
+}

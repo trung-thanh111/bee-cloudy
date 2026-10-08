@@ -13,6 +13,7 @@ class UserVoucher extends Model
        'user_id', 
         'promotion_id', 
         'code', 
+
     ];
 
     // Define relationships if needed
@@ -25,5 +26,5 @@ class UserVoucher extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
-    
+
 }

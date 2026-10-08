@@ -39,7 +39,7 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
             $this->selectColumn(),
             $condition,
             ['parentReference'],
-            ['order', 'ASC'],
+            ['id', 'desc'],
             $perPage,
         );
         return $productCatalogues;
@@ -66,36 +66,40 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
         }
     }
     public function update($slug, $request)
-{
-    DB::beginTransaction();
-    try {
-        $payload = $request->except(['_token', 'submit']);            
-        $productCatalogue = $this->productCatalogueRepository->findBySlug($slug);
-        $orderSameSelected = $this->productCatalogueRepository->findByCondition([
-            ['order', $payload['order']]
-        ], $productCatalogue->id);
-    
-        if ($orderSameSelected) {
-            $originalOrder = $productCatalogue->order;
-        
-            $orderSameSelected->order = $originalOrder;
-            $orderSameSelected->save();
-        
-            $productCatalogue->order = (int)$payload['order'];
-            $productCatalogue->save();
-        } else {
-            $productCatalogue->order = (int)$payload['order'];
-            $productCatalogue->save();
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->except(['_token', 'submit']);
+            $productCatalogue = $this->productCatalogueRepository->findBySlug($slug);
+            $orderSameSelected = $this->productCatalogueRepository->findByCondition([
+                ['order', $payload['order']]
+            ], $productCatalogue->id);
+
+            if ($orderSameSelected->isNotEmpty()) {  // Kiểm tra xem collection có dữ liệu hay không
+                $originalOrder = $productCatalogue->order;
+
+                // Lặp qua từng model trong collection và cập nhật
+                foreach ($orderSameSelected as $order) {
+                    $order->order = $originalOrder;
+                    $order->save();
+                }
+
+                // Cập nhật lại order cho productCatalogue
+                $productCatalogue->order = (int)$payload['order'];
+                $productCatalogue->save();
+            } else {
+                // Nếu $orderSameSelected rỗng, chỉ cập nhật productCatalogue
+                $productCatalogue->order = (int)$payload['order'];
+                $productCatalogue->save();
+            }
+            $this->productCatalogueRepository->update($slug, $payload);
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new \Exception("Cập nhật thất bại: " . $e->getMessage());
         }
-    
-        $this->productCatalogueRepository->update($slug, $payload);
-        DB::commit();
-        return true;
-    } catch (\Exception $e) {
-        DB::rollBack();
-        throw new \Exception("Cập nhật thất bại: " . $e->getMessage());
     }
-}      
 
     public function destroy($id = 0)
     {

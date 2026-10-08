@@ -36,7 +36,7 @@ class Product extends Model
         'created_at',
 
     ];
-
+    
     // casts chuyển json thành mảng khi lấy ra và thành json khi insert vào 
     protected $casts = [
         'attribute' => 'json'
@@ -67,5 +67,6 @@ class Product extends Model
         return $this->belongsToMany(Promotion::class, 'promotion_product_variants')
                     ->withPivot('discount')
                     ->withTimestamps();
+
     }
 }

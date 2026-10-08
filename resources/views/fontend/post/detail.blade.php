@@ -3,7 +3,7 @@
     Chi tiết bài viết
 @endsection
 @section('content')
-    <section>
+    <section id="app">
         <article>
             <div class="container p-0">
                 <!-- breadcrumb  -->
@@ -74,7 +74,7 @@
                                         <button class="accordion-button fz-16 fw-500 text-dark" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#collapseTow" aria-expanded="true"
                                             aria-controls="collapseTow">
-                                            <span class="">Đánh giá bài viết</span>
+                                            <span class="">Bình luận bài viết</span>
 
                                         </button>
                                     </h2>
@@ -87,14 +87,13 @@
                                                         <button type="button" class="btn border-0 px-0">
                                                             <span class="d-block align-items-center">
                                                                 <img class="rounded-circle header-profile-user"
-                                                                    src="/libaries/images/user-default.avif"
+                                                                    src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
                                                                     alt="Avatar User"
                                                                     class="rounded-circle object-fit-cover" width="60"
                                                                     height="60">
                                                                 <p class="text-center mt-2">
                                                                     <span
-                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">Thanh
-                                                                        trung</span>
+                                                                        class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{Auth::user()->name}}</span>
                                                                 </p>
                                                             </span>
                                                         </button>
@@ -103,11 +102,11 @@
                                                         class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
                                                         <form>
                                                             <div class="form-group position-relative ">
-                                                                <textarea class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment" rows="4"
+                                                                <textarea v-model="create.content" class=" textarea-comment form-control rounded-2  shadwo-sm" id="comment" rows="4"
                                                                     placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
-                                                                <button type="submit"
+                                                                <button type="button"
                                                                     class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                    style="bottom: 8px ; right: 20px;">Gửi</button>
+                                                                    style="bottom: 8px ; right: 20px;"   v-on:click="createContent()">Gửi</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -115,147 +114,86 @@
                                             </div>
                                             <div class="review-coment mt-3 mb-2">
                                                 <div class="py-2 me-3 mb-3">
-                                                    <span class="fw-500 fz-16 ">Xem đánh giá (33)</span>
+                                                    <span class="fw-500 fz-16 ">Xem đánh giá (@{{ comment }})</span>
                                                 </div>
-                                                <div class="row mx-2">
-                                                    <div
-                                                        class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
-                                                        <button type="button" class="btn  border-0 px-0">
-                                                            <span class="d-block justify-content-end align-items-center">
-                                                                <img class="rounded-circle header-profile-user"
-                                                                    src="/libaries/images/user-default.avif"
-                                                                    alt="Avatar User"
-                                                                    class="rounded-circle object-fit-cover" width="50"
-                                                                    height="50">
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div
-                                                        class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
-                                                        <div class="box-review">
-                                                            <div class="review-item rounded-2 my-2">
-                                                                <div
-                                                                    class="hstack gap-2 d-flex justify-content-start align-items-center">
-                                                                    <div class="pt-2 d-inline-block">
-                                                                        <h6 class="fz-18 mb-0">thanh trung</h6>
+                                                <template v-for="(v,k) in list">
+                                                    <div class="row mx-2">
+                                                        <div
+                                                            class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
+                                                            <button type="button" class="btn  border-0 px-0">
+                                                                <span
+                                                                    class="d-block justify-content-end align-items-center">
+                                                                    <img class="rounded-circle header-profile-user"
+                                                                        src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                        alt="Avatar User"
+                                                                        class="rounded-circle object-fit-cover"
+                                                                        width="50" height="50">
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                        <div
+                                                            class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
+                                                            <div class="box-review">
+                                                                <div class="review-item rounded-2 my-2">
+                                                                    <div
+                                                                        class="hstack gap-2 d-flex justify-content-start align-items-center">
+                                                                        <div class="pt-2 d-inline-block">
+                                                                            <h6 class="fz-18 mb-0">@{{v.name}}</h6>
+                                                                        </div>
+                                                                        <div class="dropdown ms-auto ">
+                                                                            <a class=" dropdown-toggle" href="#"
+                                                                                role="button" data-bs-toggle="dropdown"
+                                                                                aria-expanded="false">
+                                                                                <i
+                                                                                    class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
+                                                                            </a>
+                                                                            <ul
+                                                                                class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
+                                                                                <li class="p-1 li-menu-header"  data-bs-toggle='modal' data-bs-target='#delPosts'
+                                                                                v-on:click="del = Object.assign({},v)">
+                                                                                    <a href="#"
+                                                                                        class="text-decoration-none text-danger fz-14 ps-1">
+                                                                                        <i
+                                                                                            class="fa-solid fa-trash me-2"></i>Xóa
+                                                                                    </a>
+                                                                                </li>
+                                                                                <template v-if="v.edit_count == 0">
+                                                                                    <li class="p-1 li-menu-header"  data-bs-toggle='modal' data-bs-target='#updatePosts'
+                                                                                    v-on:click="update = Object.assign({},v)">
+                                                                                    <a href="#"
+                                                                                        class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                        <i
+                                                                                            class="fa-solid fa-circle-info me-2"></i>Chỉnh sửa
+                                                                                    </a>
+                                                                                </li>
+                                                                                </template>
+                                                                                <template  v-if="v.edit_count == 1">
+                                                                                   
+                                                                                </template>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="dropdown ms-auto ">
-                                                                        <a class=" dropdown-toggle" href="#"
-                                                                            role="button" data-bs-toggle="dropdown"
-                                                                            aria-expanded="false">
-                                                                            <i
-                                                                                class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
-                                                                        </a>
-                                                                        <ul
-                                                                            class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                            <li class="p-1 li-menu-header">
-                                                                                <a href="#"
-                                                                                    class="text-decoration-none text-danger fz-14 ps-1">
-                                                                                    <i
-                                                                                        class="fa-solid fa-trash me-2"></i>Xóa
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="p-1 li-menu-header">
-                                                                                <a href="#"
-                                                                                    class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                    <i
-                                                                                        class="fa-solid fa-circle-info me-2"></i>Báo
-                                                                                    xấu
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
+                                                                    <div class="review-time">
+                                                                        <span class="fz-12">@{{v.date}}</span>
                                                                     </div>
-                                                                </div>
-                                                                <div class="review-time">
-                                                                    <span class="fz-12">12:23:53 - 12/12/2323</span>
-                                                                </div>
-                                                                <div class="content-review mt-2">
-                                                                    <p class="fz-14 fst-italic fw-500">
-                                                                        Quan trọng là tối ưu tốt thôi bạn. 60Hz của
-                                                                        iPhone
-                                                                        cũng như 120Hz bên Android thôi. Chip mạnh + Ram
-                                                                        nhiều + AI bố của thông minh còn đòi gì nữa
-                                                                    </p>
-                                                                </div>
-                                                                <div class="icon-reaction pb-2">
-                                                                    <a href="#"><i
-                                                                            class="fa-regular fa-heart me-2"></i></a>
-                                                                    <span>18 thích</span>
+                                                                    <div class="content-review mt-2">
+                                                                        <p class="fz-14 fst-italic fw-500">
+                                                                           @{{v.content}}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="icon-reaction pb-2">
+                                                                        <button v-on:click="Like(k)" :id="'likeBtn-' + k">
+                                                                            <i class="fa-regular fa-heart me-2"></i>
+                                                                        </button>
+                                                                        <span :id="'likeCount-' + k">0</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </template>
                                                 <!-- item review  -->
-                                                <div class="row mx-2">
-                                                    <div
-                                                        class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
-                                                        <button type="button" class="btn  border-0 px-0">
-                                                            <span class="d-block justify-content-end align-items-center">
-                                                                <img class="rounded-circle header-profile-user"
-                                                                    src="/libaries/images/user-default.avif"
-                                                                    alt="Avatar User"
-                                                                    class="rounded-circle object-fit-cover" width="50"
-                                                                    height="50">
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div
-                                                        class="col-lg-10 col-md-10 col-12 d-block justify-content-center ps-0">
-                                                        <div class="box-review">
-                                                            <div class="review-item rounded-2 my-2">
-                                                                <div
-                                                                    class="hstack gap-2 d-flex justify-content-start align-items-center">
-                                                                    <div class="pt-2 d-inline-block">
-                                                                        <h6 class="fz-18 mb-0">thanh trung</h6>
-                                                                    </div>
-                                                                    <div class="dropdown ms-auto ">
-                                                                        <a class=" dropdown-toggle" href="#"
-                                                                            role="button" data-bs-toggle="dropdown"
-                                                                            aria-expanded="false">
-                                                                            <i
-                                                                                class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
-                                                                        </a>
-                                                                        <ul
-                                                                            class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
-                                                                            <li class="p-1 li-menu-header">
-                                                                                <a href="#"
-                                                                                    class="text-decoration-none text-danger fz-14 ps-1">
-                                                                                    <i
-                                                                                        class="fa-solid fa-trash me-2"></i>Xóa
-                                                                                </a>
-                                                                            </li>
-                                                                            <li class="p-1 li-menu-header">
-                                                                                <a href="#"
-                                                                                    class="text-decoration-none text-muted fz-14 ps-1">
-                                                                                    <i
-                                                                                        class="fa-solid fa-circle-info me-2"></i>Báo
-                                                                                    xấu
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="review-time">
-                                                                    <span class="fz-12">12:23:53 - 12/12/2323</span>
-                                                                </div>
-                                                                <div class="content-review mt-2">
-                                                                    <p class="fz-14 fst-italic fw-500">
-                                                                        Quan trọng là tối ưu tốt thôi bạn. 60Hz của
-                                                                        iPhone
-                                                                        cũng như 120Hz bên Android thôi. Chip mạnh + Ram
-                                                                        nhiều + AI bố của thông minh còn đòi gì nữa
-                                                                    </p>
-                                                                </div>
-                                                                <div class="icon-reaction pb-2">
-                                                                    <a href="#"><i
-                                                                            class="fa-regular fa-heart me-2"></i></a>
-                                                                    <span>18 thích</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                                 <!-- phân trang bình luận  -->
                                                 <div class="d-flex justify-content-center align-items-center mt-3">
                                                     <nav aria-label="Page navigation example">
@@ -289,7 +227,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-12 col-12">
+                        <div class="col-lg-3 col-md-12 col-12 mt-4">
                             <div class="card border-0 rounded-1 mb-4">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Tìm kiếm</h6>
@@ -301,7 +239,8 @@
                                                 class="form-control rounded-start-2" aria-label="Sizing example input"
                                                 aria-describedby="inputGroup-sizing-sm"
                                                 placeholder="tìm theo ID, tiêu đề v.v ..">
-                                            <button type="submit" class="input-group-text text-bg-success" id="inputGroup-sizing-sm">
+                                            <button type="submit" class="input-group-text text-bg-success"
+                                                id="inputGroup-sizing-sm">
                                                 <i class='bx bx-search-alt-2'></i>
                                             </button>
                                         </div>
@@ -411,6 +350,48 @@
             </div>
         </article>
     </section>
+    <div class='modal fade' id='updatePosts' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+        <div class='modal-dialog modal-lg'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h1 class='modal-title fs-5' id='exampleModalLabel'>
+                        Update a Post
+                    </h1>
+                    <button type='button' class='btn-close content' data-bs-dismiss='modal' aria-label='Close'></button>
+                </div>
+                <div class="container">
+                    <label for="content">Content:</label>
+                    <textarea v-model="update.content" id="content" name="content" rows="4" required></textarea>
+
+                   
+                </div>
+                <div class='modal-footer'>
+                    <button type="button" class="btn-content" data-bs-dismiss='modal' v-on:click="updateContent">Xác
+                        Nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='modal fade' id='delPosts' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h1 class='modal-title fs-5' id='exampleModalLabel'>
+                        Delete a Post
+                    </h1>
+                    <button type='button' class='btn-close content' data-bs-dismiss='modal'
+                        aria-label='Close'></button>
+                </div>
+                <div class="container">
+                    Bạn có chắc chăn muốn xóa ? Việc này không thể hoàn tác được.
+                </div>
+                <div class='modal-footer'>
+                    <button type="button" class="btn-content" data-bs-dismiss='modal' v-on:click="deleteContent">Xác
+                        Nhận Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="">
         <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
             style="bottom: 60px; right: 30px;">
@@ -419,9 +400,114 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                <a href="zalo">
-                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                </a>
-                                            </div> -->
+                                                    <a href="zalo">
+                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                    </a>
+                                                </div> -->
     </div>
+@endsection
+@section('js')
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            list: [],
+            create: {},
+            update: {},
+            del: {},
+            comment: 0,
+            likes: []
+        },
+        created() {
+            this.loadContent();
+        },
+        methods: {
+            loadContent() {
+                axios
+                    .get('/view-content-data')
+                    .then((res) => {
+                        this.list = res.data.data;
+                        this.comment = res.data.comment_count;
+                        // console.log(this.comment);
+                    });
+            },
+            createContent() {
+                axios
+                    .post('/view-content-create', this.create)
+                    .then((res) => {
+                        if (res.data.status) {
+                            alert(res.data.message);
+                            this.create = {};
+                            this.loadContent();
+                        } else {
+                            // toaster.error(res.data.message);
+                        }
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {
+                            toastr.error(v[0], 'Error');
+                        });
+                    });
+            },
+            updateContent() {
+                axios
+                    .post('/view-content-update', this.update)
+                    .then((res) => {
+                        if (res.data.status) {
+                            alert(res.data.message);
+                            this.loadContent();
+                        } else {
+                            // toaster.error(res.data.message);
+                        }
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {
+                            toastr.error(v[0], 'Error');
+                        });
+                    });
+            },
+            deleteContent() {
+                axios
+                    .post('/view-content-delete', this.del)
+                    .then((res) => {
+                        if (res.data.status) {
+                            alert(res.data.message);
+                            this.loadContent();
+                        } else {
+                            // toaster.error(res.data.message);
+                        }
+                    })
+                    .catch((res) => {
+                        $.each(res.response.data.errors, function(k, v) {
+                            toastr.error(v[0], 'Error');
+                        });
+                    });
+            },
+
+            Like(k) {
+                if (this.likes[k] === 0) {
+                    this.likes[k] = 1;
+                } else {
+                    this.likes[k] = 0;
+                }
+                let likeCountElement = document.getElementById('likeCount-' + k);
+                likeCountElement.textContent = this.likes[k];
+
+                let heartIcon = document.getElementById('likeBtn-' + k).querySelector('i');
+                if (this.likes[k] === 1) {
+                    heartIcon.classList.remove('fa-regular');
+                    heartIcon.classList.add('fa-solid');
+                } else {
+                    heartIcon.classList.remove('fa-solid');
+                    heartIcon.classList.add('fa-regular');
+                }
+            },
+
+            toggleMenu(k) {
+                let menu = document.getElementById('menu-' + k);
+                menu.classList.toggle('show');
+            }
+        },
+    });
+</script>
 @endsection
