@@ -47,7 +47,6 @@ class ShopController extends Controller
         $postCategories = $this->postCatalogueRepository->allWhere([
             ['publish', 1]
         ]);
-        $productShops = $this->shopService->paginate($request);
         $productShopNews = $this->shopService->productShopNews();
         $productShopPriceMins = $this->shopService->productShopPriceMins(); 
         // -- // lọc 
@@ -62,16 +61,20 @@ class ShopController extends Controller
             ['publish', 1],
             ['attribute_catalogue_id', 2]
         ]);
-        $productFilter = $this->shopService->productFilter($request);
         $brands = $this->brandRepository->allWhere([
             ['publish', '=', 1],
         ]);
         // -- //
+        if ($request->hasAny(['brand', 'category', 'size', 'color', 'price'])) {
+            $productShops = $this->shopService->productFilter($request);
+        } else {
+            $productShops = $this->shopService->paginate($request);
+        }
+
         return view('fontend.product.shop', compact(
             'brands',
             'brandFilters',
             'productShops',
-            'productFilter',
             'postCategories',
             'attributeSizes',
             'productShopNews',
@@ -80,7 +83,7 @@ class ShopController extends Controller
             'productShopPriceMins',
         ));
     }
-    public function productIncategory($id = 0)
+    public function productIncategory($id = 0,Request $request)
     {
         $category = $this->productCatalogueRepository->findById($id, ['childrenReference']);
         $productCatalogues = $this->productCatalogueRepository->allWhere([
@@ -96,26 +99,44 @@ class ShopController extends Controller
         $productShopNews = $this->shopService->productShopNews();
         $productShopPriceMins = $this->shopService->productShopPriceMins();
         // --//
+        $brandFilters = $this->brandRepository->allWhere([
+            ['publish', 1]
+        ]);
+        $attributeColors = $this->attributeRepository->allWhere([
+            ['publish', 1],
+            ['attribute_catalogue_id', 1]
+        ]);
+        $attributeSizes = $this->attributeRepository->allWhere([
+            ['publish', 1],
+            ['attribute_catalogue_id', 2]
+        ]);
         $categoryIds = collect([$id]); // mảng id của danh mục chính và con 
         if ($category->childrenReference->count() > 0) {
             $categoryIds = $categoryIds->merge($category->childrenReference->pluck('id'));
         }
-        $productInCategories = Product::whereHas('productCatalogues', function ($query) use ($categoryIds) {
-            $query->whereIn('product_catalogues.id', $categoryIds);
-        })
-            ->where('publish', 1)
-            ->paginate(9);
+        if ($request->hasAny(['brand', 'category', 'size', 'color', 'price'])) {
+            $productInCategories = $this->shopService->productFilter($request);
+        } else {
+            $productInCategories = Product::whereHas('productCatalogues', function ($query) use ($categoryIds) {
+                $query->whereIn('product_catalogues.id', $categoryIds);
+            })
+                ->where('publish', 1)
+                ->paginate(9);
+        }
         return view('fontend.product.category', compact(
             'category',
             'brandAll',
+            'brandFilters',
             'postCategories',
+            'attributeSizes',
+            'attributeColors',
             'productShopNews',
             'productCatalogues',
             'productInCategories',
             'productShopPriceMins',
         ));
     }
-    public function productInBrand($id = 0){
+    public function productInBrand($id = 0, Request $request){
         $brand = $this->brandRepository->findById($id, []);
         $brandAll = $this->brandRepository->allWhere([
             ['publish', 1],
@@ -127,15 +148,33 @@ class ShopController extends Controller
         $postCategories = $this->postCatalogueRepository->allWhere([
             ['publish', 1]
         ]);
+        $brandFilters = $this->brandRepository->allWhere([
+            ['publish', 1]
+        ]);
+        $attributeColors = $this->attributeRepository->allWhere([
+            ['publish', 1],
+            ['attribute_catalogue_id', 1]
+        ]);
+        $attributeSizes = $this->attributeRepository->allWhere([
+            ['publish', 1],
+            ['attribute_catalogue_id', 2]
+        ]);
         $productShopNews = $this->shopService->productShopNews();
         $productShopPriceMins = $this->shopService->productShopPriceMins();
         //--//
-        $productInBrands = Product::where('brand_id', $brand->id)
-        ->where('publish', 1)
-        ->paginate(9);
+        if ($request->hasAny(['brand', 'category', 'size', 'color', 'price'])) {
+            $productInBrands = $this->shopService->productFilter($request);
+        } else {
+            $productInBrands = Product::where('brand_id', $brand->id)
+                ->where('publish', 1)
+                ->paginate(9);
+        }
         return view('fontend.product.brand', compact(
             'brand',
             'brandAll',
+            'brandFilters',
+            'attributeSizes',
+            'attributeColors',
             'postCategories',
             'productShopNews',
             'productInBrands',

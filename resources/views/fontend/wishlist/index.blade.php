@@ -17,10 +17,18 @@
                 </nav>
                 <!-- end breadcrumb  -->
                 <div class="whistlist">
-                    <h4 class="fs-4 fw-500 mb-3 text-uppercase">
-                        Danh sách yêu thích
-                        <hr class=" border-4 border-info mb-2" style="width: 80px;">
-                    </h4>
+                    <div class="title-product mb-4 col-3">
+                        <div class="price-banner">
+                            <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-fire text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    Yêu thích của bạn
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- content detail -->
@@ -169,7 +177,19 @@
                                         @endif
                                     @endforeach
                                 @else
-                                    <h3 class="text-center p-5">Bạn chưa có yêu thích nào.</h3>
+                                <div class="order-null p-3">
+                                    <div class="img-null text-center">
+                                        <img src="/libaries/upload/images/order-null.png" alt=""
+                                            class="" width="300" height="200">
+                                    </div>
+                                    <div class="flex flex-col text-center align-items-center">
+                                        <h5 class="mb-2 fw-semibold">Bạn chưa có yêu thích nào!
+                                        </h5>
+                                        <p>Hãy khác phá để có những sản phẩm ưng ý với bạn!</p>
+                                        <a href="{{ route('shop.index') }}"
+                                            class="btn btn-info text-white rounded-pill mt-3 pz-3">Khám phá ngay</a>
+                                    </div>
+                                </div>
                                 @endif
                             </div>
                         </div>
