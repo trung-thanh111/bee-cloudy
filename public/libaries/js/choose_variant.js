@@ -47,29 +47,33 @@
         }
     };
     FS.setupVariantGallery = (res) => {
+        let product_id = $(".product_id_wishlist").html() ?? null; 
+        
         let albumVariant = res.productVariant.album.split(",");
         let html = `<div id="main-carousel" style="margin-bottom: 10px;" class="splide " aria-label="Main Carousel">
                         <div class="splide__track ">
                             <ul class="splide__list position-relative">`;
-                            albumVariant.forEach(function (image) {
+        albumVariant.forEach(function (image) {
             html += `<li class="splide__slide image-product image-product">
                         <img src="${image}" alt="${image}" class="img-fluid">
                      </li>`;
         });
         html += `</ul>
-                <div class="box-favourite position-absolute z-3" data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích">
+                <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích" >
                     <div class="position-relative">
                         <a href="#" class="position-absolute start-50 translate-middle" style="top: 20px;">
                             <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted"></i>
                         </a>
                     </div>
+                   <span class="product_variant_id_wishlist d-none">${res.productVariant ? res.productVariant.id : ''}</span>
+                    <span class="product_id_wishlist d-none">${product_id}</span>
                 </div>
             </div>
         </div>
         <div id="thumbnail-carousel" class="splide mb-5">
             <div class="splide__track">
                 <ul class="splide__list">`;
-                albumVariant.forEach(function (image) {
+        albumVariant.forEach(function (image) {
             html += `<li class="splide__slide image-product">
                         <img src="${image}" alt="${image}" class="img-fluid">
                      </li>`;
@@ -159,42 +163,46 @@
                     // xử lý sau khi đã có dữ liệu trả về
                     FS.setupVariantGallery(res);
                     FS.setUpVariantId(res);
-                    FS.setUpVariantName(res)
-                    FS.setUpVariantPrice(res)
-                    FS.productVariantSold(res)
+                    FS.setUpVariantName(res);
+                    FS.setUpVariantPrice(res);
+                    FS.productVariantSold(res);
                 },
             });
         }
     };
     FS.setUpVariantId = (res) => {
-        let productVariantId = res.productVariant.id
-        $('.product-variant-id').html(productVariantId)
-    }
+        let productVariantId = res.productVariant.id;
+        $(".product-variant-id").html(productVariantId);
+    };
     FS.setUpVariantName = (res) => {
-        console.log(res)
-        let productVariantName = res.productVariant.name
-        $('.product-variant-title').html(productVariantName)
-    }
+        console.log(res);
+        let productVariantName = res.productVariant.name;
+        $(".product-variant-title").html(productVariantName);
+    };
     FS.setUpVariantPrice = (res) => {
-        let productVariantPrice = res.productVariant.price
-        let productVariantPriceFormat = productVariantPrice.toLocaleString('de-DE')
-        $('.product-variant-price').html(productVariantPriceFormat+'đ')
-    }
+        let productVariantPrice = res.productVariant.price;
+        let productVariantPriceFormat =
+            productVariantPrice.toLocaleString("de-DE");
+        $(".product-variant-price").html(productVariantPriceFormat + "đ");
+    };
     FS.productVariantSold = (res) => {
-        let productVariantSold = res.productVariant.sold_count
-        $('.product-variant-sold').html(productVariantSold)
-    }
+        let productVariantSold = res.productVariant.sold_count;
+        $(".product-variant-sold").html(productVariantSold);
+    };
     FS.activeVariantFirst = () => {
-        if($('.attributeCatalogue').length){
-            let attributeCatalogue = JSON.parse($('.attributeCatalogue').val())
-            if(typeof attributeCatalogue != 'undefined' && attributeCatalogue.length) {
-            FS.handleAttribute()
+        if ($(".attributeCatalogue").length) {
+            let attributeCatalogue = JSON.parse($(".attributeCatalogue").val());
+            if (
+                typeof attributeCatalogue != "undefined" &&
+                attributeCatalogue.length
+            ) {
+                FS.handleAttribute();
             }
         }
-    }
+    };
     // gọi hàm
     $(document).ready(function () {
         FS.selectVairantProduct();
-        FS.activeVariantFirst()
+        FS.activeVariantFirst();
     });
 })(jQuery);

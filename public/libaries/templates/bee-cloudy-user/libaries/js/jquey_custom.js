@@ -75,9 +75,11 @@
         $(".search-header").val().length == 0 ||
         $(".search-header") === undefined
       ) {
+        
         $(".wallpaper").addClass("d-none");
       } else {
         $(".wallpaper").removeClass("d-none");
+        $(".list-search").removeClass("d-none");
       }
       //call back
       FS.searchKeyUpShowPaper();
