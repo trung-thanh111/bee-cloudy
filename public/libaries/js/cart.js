@@ -143,10 +143,6 @@
             });
         });
     };
-<<<<<<< HEAD
-    FS.clearCart = () => {
-        let modal; 
-=======
 
     FS.updateQuantityOrder = () => {
         $("input[name=quantity-input]").each(function () {
@@ -184,15 +180,10 @@
     };
     FS.clearCart = () => {
         let modal;
->>>>>>> thanhtrung
         const modelE = document.getElementById("clearCartModal");
         if (modelE) {
             modal = new bootstrap.Modal(modelE);
         }
-<<<<<<< HEAD
-        
-=======
->>>>>>> thanhtrung
 
         $(document).on("click", ".clearCart", function (e) {
             e.preventDefault();

@@ -77,15 +77,9 @@
                                     <div class="position-relative">
                                         <a href="#" class="position-absolute start-50 translate-middle border-0"
                                             style="top: 20px;">
-<<<<<<< HEAD
-                                            <i class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
-                                        </button>
-=======
                                             <i
                                                 class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
                                         </a>
-
->>>>>>> thanhtrung
                                     </div>
                                     <span class="product_variant_id_wishlist d-none"></span>
                                     <span class="product_id_wishlist d-none">
@@ -960,12 +954,7 @@
                     const options = {
                         day: '2-digit',
                         month: '2-digit',
-<<<<<<< HEAD
-                        year: 'numeric',p
-=======
                         year: 'numeric',
-                        p
->>>>>>> thanhtrung
                         hour: '2-digit',
                         minute: '2-digit',
                         second: '2-digit',

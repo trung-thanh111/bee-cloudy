@@ -110,15 +110,9 @@
                                         @foreach ($productCategories as $keyPCate => $productCate)
                                             <li
                                                 class="nav-item li-menu-header {{ $productCate->childrenReference->isNotEmpty() ? 'menu-item-v2' : '' }} position-relative">
-<<<<<<< HEAD
-                                                <a href=""
-                                                    class="d-flex justify-content-between align-items-center px-1 position-relative ">
-                                                    <span class="nav-link menu-link p-0  text-muted" href="#">
-=======
                                                 <a href="{{ route('product.category', ['id' => $productCate->id]) }}"
                                                     class="d-flex justify-content-between align-items-center position-relative ">
                                                     <span class="nav-link menu-link p-0 text-muted">
->>>>>>> thanhtrung
                                                         <span>{{ $productCate->name }}</span>
                                                     </span>
                                                     <i
@@ -134,13 +128,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-between align-items-center px-1 position-relative">
                                                                         <a class="nav-link menu-link p-0 menu-item-v3"
-<<<<<<< HEAD
-                                                                            href="#">
-=======
-
                                                                             href="{{ route('product.category', ['id' => $valChild->id]) }}">
-
->>>>>>> thanhtrung
                                                                             <span>{{ $valChild->name }}</span>
                                                                         </a>
                                                                         {{-- <i
@@ -164,13 +152,8 @@
                                             </li>
                                         @endforeach
                                     @endif
-                                    <li
-<<<<<<< HEAD
-                                        class="nav-item li-menu-header menu-item-v2 {{ $brands == null ? 'd-none' : '' }} position-relative">
-=======
+                                    <li 
                                         class="nav-item li-menu-header menu-item-v2 {{ $brandHeaders == null ? 'd-none' : '' }} position-relative">
-
->>>>>>> thanhtrung
                                         <a href=""
                                             class="d-flex justify-content-between align-items-center px-1 position-relative ">
                                             <span class="nav-link menu-link p-0  text-muted" href="#">
@@ -180,14 +163,9 @@
                                         </a>
                                         <div
                                             class="menu-dropdown-v2 position-absolute start-100 top-0 p-0 shadow-sm w-100">
-                                            <ul class="menu-link p-0 list-unstyled">
-<<<<<<< HEAD
-                                                @if ($brands)
-                                                    @foreach ($brands as $keyBrand => $valBrand)
-=======
+                                            <ul class="menu-link p-0 list-unstyled"> 
                                                 @if ($brandHeaders)
                                                     @foreach ($brandHeaders as $keyBrand => $valBrand)
->>>>>>> thanhtrung
                                                         <li
                                                             class="nav-item li-menu-header position-relative ps-2 menu-item-v2">
                                                             <a href="#"

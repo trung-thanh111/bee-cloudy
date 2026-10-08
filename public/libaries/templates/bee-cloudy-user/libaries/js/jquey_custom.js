@@ -1,38 +1,5 @@
 (function ($) {
-<<<<<<< HEAD
-  "use strict";
-  var FS = {};
-  FS.animateMenuLink = () => {
-    // Check if there's a stored active menu item
-    const activeMenuItem = localStorage.getItem('activeMenuItem');
-    if (activeMenuItem) {
-        $(`.menu-item-a[href="${activeMenuItem}"]`).addClass('active');
-    }
 
-    $(document).on("click", ".menu-item-a", function(e) {
-        // Không preventDefault() để cho phép chuyển trang
-        let $this = $(this);
-        let href = $this.attr('href');
-
-        // Lưu href của menu item vừa click vào localStorage
-        localStorage.setItem('activeMenuItem', href);
-
-        // Xóa class active khỏi tất cả items
-        $(".menu-item-a").removeClass("active");
-        
-        // Thêm active và animation cho item được click
-        $this.addClass("active").animate({
-            left: "60px",
-        }, 300, function() {
-            // Sau khi animation hoàn thành thì chuyển trang
-            window.location.href = href;
-        });
-    });
-};
-  // menu aside acount
-  FS.showSubMenu = () => {
-    $(".nav-item-main").click(function (e) {
-=======
     "use strict";
     var FS = {};
     FS.animateMenuLink = () => {
@@ -41,7 +8,6 @@
         if (activeMenuItem) {
             $(`.menu-item-a[href="${activeMenuItem}"]`).addClass("active");
         }
->>>>>>> thanhtrung
 
         $(document).on("click", ".menu-item-a", function (e) {
             // Không preventDefault() để cho phép chuyển trang
@@ -92,18 +58,13 @@
                 $iconDown.addClass("d-none");
             }
         });
-<<<<<<< HEAD
         $(this).removeClass("active");
         $iconRightLv3.removeClass("d-none");
         $iconDownLv3.addClass("d-none");
       }
     });
-  };
   // search key
   
-=======
-    };
->>>>>>> thanhtrung
 
     FS.showSubMenuLv3 = () => {
         $(".sub-menu-li").click(function (e) {
@@ -237,8 +198,6 @@
         });
     };
 
-<<<<<<< HEAD
-
   $(document).ready(function () {
     FS.animateMenuLink();
     FS.showSubMenu();
@@ -255,93 +214,5 @@
     FS.nextTab()
     FS.CheckBox()
     // FS.boxQuantityCart()
-  });
-=======
-    // FS.chooseOneSize = () => {
-    //   $(document).on("click", ".choose-size-item input", function () {
 
-    //     if ($(this).is(":checked")) {
-    //       console.log("Selected size:", $(this).next('p').text());
-    //     }
-    //   });
-    // }
-
-    FS.chooseColorActive = () => {
-        $(document).on("click", ".img-choose-color", function () {
-            // chỉ một phàn tuer cùng class đc click đc active
-            $(".img-choose-color").removeClass("active");
-            $(this).addClass("active");
-        });
-    };
-    FS.chooseMoneyActive = () => {
-        $(document).on("click", ".box-item-choose-money", function () {
-            // chỉ một phàn tuer cùng class đc click đc active
-            $(".box-item-choose-money").removeClass("active");
-            $(this).addClass("active");
-        });
-    };
-    FS.nextTab = () => {
-        $(".btnNext").click(function () {
-            const nextTabLinkEl = $(".nav-tabs .active")
-                .closest("li")
-                .next("li")
-                .find("button")[0];
-            if (nextTabLinkEl) {
-                const nextTab = new bootstrap.Tab(nextTabLinkEl);
-                nextTab.show();
-            }
-        });
-
-        $(".btnPrevious").click(function () {
-            const prevTabLinkEl = $(".nav-tabs .active")
-                .closest("li")
-                .prev("li")
-                .find("button")[0];
-            if (prevTabLinkEl) {
-                const prevTab = new bootstrap.Tab(prevTabLinkEl);
-                prevTab.show();
-            }
-        });
-    };
-    FS.CheckBox = () => {
-        // Xử lý khi checkbox "check-all" được click
-        $("#check-all").on("change", function () {
-            // Đặt thuộc tính 'checked' cho tất cả checkbox "checkbox-item" giống với trạng thái của checkbox "check-all"
-            $(".checkbox-item").prop("checked", this.checked);
-        });
-
-        // Xử lý khi từng checkbox "checkbox-item" được click
-        $(".checkbox-item").on("change", function () {
-            // Kiểm tra nếu tất cả các checkbox "checkbox-item" đều được chọn
-            if (
-                $(".checkbox-item:checked").length ===
-                $(".checkbox-item").length
-            ) {
-                // Đặt checkbox "check-all" thành checked
-                $("#check-all").prop("checked", true);
-            } else {
-                // Nếu có ít nhất một checkbox "checkbox-item" không được chọn, bỏ chọn checkbox "check-all"
-                $("#check-all").prop("checked", false);
-            }
-        });
-    };
-
-    $(document).ready(function () {
-        FS.animateMenuLink();
-        FS.showSubMenu();
-        FS.showSubMenuLv3();
-        FS.setUpSelect2();
-        FS.clickShowPass();
-        FS.activeColorChoosed();
-        FS.activeSizeChoosed();
-        FS.boxQuantity();
-        FS.showhideAds();
-        FS.backToTop();
-        FS.chooseColorActive();
-        FS.chooseMoneyActive();
-        FS.nextTab();
-        FS.CheckBox();
-        // FS.boxQuantityCart()
-    });
->>>>>>> thanhtrung
 })(jQuery);

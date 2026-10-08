@@ -44,14 +44,8 @@
 <script type="text/javascript" src="/libaries/js/variant.js"></script>
 {{-- <script type="text/javascript" src="/libaries/js/variant_v2.js"></script> --}}
 {{-- set up val order final  --}}
-<<<<<<< HEAD
 <script src="/libaries/js/val_order.js"></script>
-=======
-<<<<<<< HEAD
 <script src="/libaries/js/val_order.js"></script>
 {{-- address --}}
 <script src="/libaries/js/address_vn.js"></script>
-=======
 <script src="/libaries/js/val_order.js"></script>
->>>>>>> fc8250f5071a0d65c234873629c31b1ba1604ce2
->>>>>>> thanhtrung

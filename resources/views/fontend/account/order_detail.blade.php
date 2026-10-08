@@ -237,9 +237,6 @@
                                                     </div>
                                                 </div>
                                                 <div>
-<<<<<<< HEAD
-                                                    <span class="text-warning">Đang vận chuyển</span>
-=======
                                                     <button
                                                         class="btn btn-success py-2 px-4 rounded-2 fz-13 fw-medium dropdown-toggle updateStatus"
                                                         type="button" data-bs-toggle="dropdown" data-status="completed">
@@ -247,7 +244,6 @@
                                                     </button>
                                                     <input type="hidden" name="order_id" class="orderId"
                                                         value="{{ $order->id }}">
->>>>>>> thanhtrung
                                                 </div>
                                             </div>
                                         @elseif($order->status == 'canceled')
@@ -272,11 +268,7 @@
                                                     <img src="/libaries/upload/images/poper-icon.png" alt=""
                                                         width="40" class="me-2">
                                                     <div>
-<<<<<<< HEAD
-                                                        <h6 class="mb-1 fz-18">Đơn hàng đá giao thành công!</h6>
-=======
                                                         <h6 class="mb-1 fz-18">Đơn hàng đâ giao thành công!</h6>
->>>>>>> thanhtrung
                                                         <p class="mb-0 small">Hãy để lại đánh giá về sản phẩm của chúng
                                                             tôi.</p>
                                                     </div>
@@ -414,11 +406,6 @@
                                                                             height="80"
                                                                             class="rounded-2 me-2 bg-light">
                                                                     @endif
-
-<<<<<<< HEAD
-                                                                    <span
-                                                                        class="text-break fw-medium">{{ $val->product_name }}</span>
-=======
                                                                     <div>
                                                                         <a href="#"
                                                                             class="text-break text-muted fw-medium">{{ $val->product_name }}</a>
@@ -432,27 +419,18 @@
                                                                             @endif
                                                                         </ul>
                                                                     </div>
->>>>>>> thanhtrung
                                                                 </div>
                                                                 <div class="col-2 text-end">{{ $val->final_quantity }}
                                                                 </div>
                                                                 <div class="col-2 text-end">
                                                                     {{ number_format($val->final_price, '0', ',', '.') }}đ
-<<<<<<< HEAD
-=======
-                                                                    
->>>>>>> thanhtrung
                                                                 </div>
                                                                 <div class="col-2 text-end fw-bold">
                                                                     {{ number_format($moneyCheckout, '0', ',', '.') }}đ
                                                                 </div>
                                                             </div>
-<<<<<<< HEAD
-                                                            <div class="row p-3 {{ ($order->status != 'completed') ? 'd-none': '' }}">
-=======
                                                             <div
                                                                 class="row p-3 {{ $order->status != 'completed' ? 'd-none' : '' }}">
->>>>>>> thanhtrung
                                                                 <div class="col text-end">
                                                                     <div class="d-flex justify-content-end gap-2 ">
                                                                         <a href="#"
@@ -480,11 +458,6 @@
                                                 Thanh toán
                                             </h6>
                                             <div class="bg-light p-3 rounded-3">
-<<<<<<< HEAD
-                                                
-=======
-
->>>>>>> thanhtrung
                                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                                     <div>
                                                         <span class="text-muted">Phương thức thanh toán</span>
@@ -532,11 +505,6 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-            </div>
-            </div>
-=======
->>>>>>> thanhtrung
         </article>
     </section>
     <div class="">
@@ -546,17 +514,5 @@
                 <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
             </div>
         </a>
-        <!-- <div class=" live-chat ms-lg-16">
-<<<<<<< HEAD
-                                                                                                                                                                                        <a href="zalo">
-                                                                                                                                                                                            <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                                                        </a>
-                                                                                                                                                                                    </div> -->
-=======
-                                                                                                                                                                                                <a href="zalo">
-                                                                                                                                                                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                                                                </a>
-                                                                                                                                                                                            </div> -->
->>>>>>> thanhtrung
     </div>
 @endsection

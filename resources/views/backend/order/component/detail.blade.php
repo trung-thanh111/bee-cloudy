@@ -271,8 +271,6 @@
                                                     style="max-width: 560px;">
                                                     {{ $val->product_name }}
                                                 </span>
-<<<<<<< HEAD
-=======
                                                 <ul class="list-inline text-muted fz-12 my-1">
                                                     @if (isset($attributesByCartItem[$val->id]))
                                                         @foreach ($attributesByCartItem[$val->id] as $attribute)
@@ -282,7 +280,6 @@
                                                         @endforeach
                                                     @endif
                                                 </ul>
->>>>>>> thanhtrung
                                             </td>
                                             <td class="text-center">{{ $val->final_quantity }}</td>
                                             <td class="text-end">

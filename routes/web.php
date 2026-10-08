@@ -25,16 +25,10 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Fontend\PostController as FontendPostController;
 use App\Http\Controllers\Fontend\ShopController;
 use App\Http\Controllers\Backend\PromotionController;
-<<<<<<< HEAD
-use App\Http\Controllers\ContentController;
-use App\Http\Controllers\Fontend\MomoController;
-=======
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\Fontend\MomoController;
-use App\Http\Controllers\Fontend\UserController as FontendUserController;
->>>>>>> thanhtrung
 use App\Http\Controllers\Fontend\VnpayController;
 use App\Http\Controllers\ProductReviewController;
 use Illuminate\Support\Facades\Route;
@@ -103,14 +97,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('info', [FontendUserController::class, 'info'])->name('account.info');
         Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
         Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
-<<<<<<< HEAD
 
     });
-
-    // CART
-=======
-    });
->>>>>>> thanhtrung
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
     });
@@ -270,17 +258,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [PostController::class, 'destroyMultiple'])->name('post.bulkdelete');
     });
 
-<<<<<<< HEAD
-    //order
+    // order //
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
         Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
-        
-=======
-    Route::group(['prefix' => 'order'], function () {
-        Route::get('index', [OrderController::class, 'index'])->name('order.index');
-        Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
->>>>>>> thanhtrung
     });
 });
 
