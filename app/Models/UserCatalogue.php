@@ -24,7 +24,8 @@ class UserCatalogue extends Model
     ];
 
     //khai bao quan he vs bang users (1)
-    public function users():HasMany{
+    public function users(): HasMany
+    {
         return $this->hasMany(User::class, 'user_catalogue_id');
     }
 }
