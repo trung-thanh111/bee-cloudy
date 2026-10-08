@@ -19,78 +19,58 @@
                         </div>
                     </div>
                     <div class="search-final">
-                        <form action="#" method="get" class="app-search d-none d-md-block">
-                            <div class="input-group input-group-sm w-100 position-relative ">
-                                <input type="text" id="keyword" name="keyword" class="form-control search-header py-0"
-                                    placeholder="Bạn đang cần gì?">
+                        <form action="{{ route('search.result') }}" method="get" class="app-search d-none d-md-block ">
+                            <div class="input-group input-group-sm w-100 position-relative">
+                                <input type="text" id="keyword" name="keyword" class="form-control search-header py-0" placeholder="Bạn đang cần gì?">
                                 <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
                                     <i class='bx bx-search-alt-2'></i>
                                 </button>
                             </div>
-                            <div class="wallpaper d-none position-absolute start-50 translate-middle z-3"
-                                style="top: 165px;">
-                                <div class="card p-2 border-0 mt-2 rounded-1 shadow-sm justify-content-center"
-                                    style="width: 500px !important">
+                            <div class="wallpaper d-none position-absolute start-50 translate-middle z-3" style="top: 200px">
+                                <div class="card p-2 border-0 rounded-1 shadow-sm justify-content-center" style="width: 500px !important">
                                     <div class="card-body py-2 px-2">
                                         <div class="title-search-recent">
-                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Tìm kiếm
-                                                gần gây</h6>
+                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Tìm kiếm nổi bật</h6>
                                         </div>
                                         <div class="content-search-recent mt-3">
-                                            <span class="search-recent-item m-1 fz-14 ">
+                                            <span class="search-recent-item search-item m-1 fz-14">
                                                 <a href="#" class="text-decoration-none text-muted">
                                                     <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">
-                                                        Sản phẩm độc quyền của chúng tôi
-                                                    </span>
+                                                    <span class="keyword-recent">Sản phẩm độc quyền của chúng tôi</span>
                                                 </a>
                                             </span>
-                                            <span class="search-recent-item m-1 fz-14 ">
+                                            <span class="search-recent-item search-item m-1 fz-14">
                                                 <a href="#" class="text-decoration-none text-muted">
                                                     <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">
-                                                        ip 15 promax
-                                                    </span>
+                                                    <span class="keyword-recent">ip 15 promax</span>
                                                 </a>
                                             </span>
-                                            <span class="search-recent-item m-1 fz-14 ">
+                                            <span class="search-recent-item search-item m-1 fz-14">
                                                 <a href="#" class="text-decoration-none text-muted">
                                                     <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">
-                                                        iphone xs max
-                                                    </span>
+                                                    <span class="keyword-recent">iphone xs max</span>
                                                 </a>
                                             </span>
-                                            <span class="search-recent-item m-1 fz-14 ">
+                                            <span class="search-recent-item search-item m-1 fz-14">
                                                 <a href="#" class="text-decoration-none text-muted">
                                                     <i class='bx bx-search-alt-2 fz-16 me-2'></i>
-                                                    <span class="keyword-recent">
-                                                        iphone 16 pro
-                                                    </span>
+                                                    <span class="keyword-recent">iphone 16 pro</span>
                                                 </a>
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="card-body py-2 px-2">
+                                    <div class="card-body py-2 px-2 " >
                                         <div class="title-search-recent">
-                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách
-                                                nổi bật</h6>
+                                            <h6 class="text-overflow text-muted mb-0 text-uppercase fz-13">Danh sách tìm kiếm</h6>
                                         </div>
-                                        <div class="content-search-hot mt-3">
-                                            <ul>
-                                                <li
-                                                    class="list-unstyled d-flex justify-content-between align-items-center text-muted mb-2">
-                                                    <a href="javascript:void(0)"
-                                                        class="content-search-mnpoly text-muted">Sản phẩm
-                                                        độc quyền</a>
-                                                    <i class="fa-solid fa-bookmark " data-bs-toggle="tooltip"
-                                                        data-bs-title="top tìm kiếm"></i>
-                                                </li>
+                                        <div class="content-search-hot mt-3 d-block overflow-y-auto" style="max-height: 100px">
+                                            <ul id="suggestions-list" class="list-unstyled">
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </form>
                     </div>
                     <div class="fw-medium d-none d-lg-block">

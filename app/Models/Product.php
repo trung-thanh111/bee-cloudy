@@ -36,10 +36,6 @@ class Product extends Model
         'created_at',
 
     ];
-    public function vouchers()
-    {
-        return $this->belongsToMany(Voucher::class, 'voucher_products');
-    }
 
     // casts chuyển json thành mảng khi lấy ra và thành json khi insert vào 
     protected $casts = [

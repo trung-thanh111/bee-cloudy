@@ -562,14 +562,14 @@ hr {
 }
 
 /* search recent */
-.search-recent-item {
+.search-recent-item.search-item {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 13px;
     padding: 6px 20px;
     display: inline-block;
 }
 
-.search-recent-item:hover {
+.search-recent-item.search-item:hover {
     background-color: #c2c4d0;
     color: #ffffff;
 }
