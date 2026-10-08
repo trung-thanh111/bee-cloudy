@@ -31,24 +31,50 @@ class ShopService implements ShopServiceInterface
 
     public function paginate($request)
     {
+        // Điều kiện cơ bản
         $condition = [
-            []
+            'where' => [
+                ['publish', '!=', 0],
+            ]
         ];
-        $relation = ['productVariant','productCatalogues'];
-        $perPage = $request->integer('perpage') ?: 12;
-        $shops = $this->shopRepository->pagination(
+        $relation = ['productVariant', 'productCatalogues', 'productVariant.attributes'];
+        $perPage = $request->integer('perpage') ?: 9;
+        $orderBy = ['id', 'DESC'];
+
+        $sort = $request->query('sort');
+        switch ($sort) {
+            case 'price_high':
+                $orderBy = ['price', 'DESC'];
+                break;
+            case 'price_low':
+                $orderBy = ['price', 'ASC'];
+                break;
+            case 'newest':
+                $orderBy = ['created_at', 'DESC'];
+                break;
+            case 'oldest':
+                $orderBy = ['created_at', 'ASC'];
+                break;
+            case 'name_asc':
+                $orderBy = ['name', 'ASC'];
+                break;
+            case 'name_desc':
+                $orderBy = ['name', 'DESC'];
+                break;
+        }
+
+        $productShops = $this->shopRepository->pagination(
             $this->paginateSelect(),
             $condition,
             $relation,
-            ['id', 'DESC'],
-            $perPage,
+            $orderBy,
+            $perPage
         );
 
-        // dd($shops);
-        return $shops;
+        return $productShops;
     }
 
-    
+
     private function paginateSelect()
     {
         return [
@@ -60,11 +86,13 @@ class ShopService implements ShopServiceInterface
             'description',
             'info',
             'price',
-            'brand_id',
-            'user_id',
-            'attributeCatalogue',
-            'attribute',
-            'variant',
+            'del',
+            'sku',
+            // 'brand_id',
+            // 'user_id',
+            // 'attributeCatalogue',
+            // 'attribute',
+            // 'variant',
             'publish',
             'created_at'
         ];

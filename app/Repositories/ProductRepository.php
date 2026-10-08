@@ -24,7 +24,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model
         ->select(['*'])
-            ->with(['productCatalogues', 'productVariant'])
+            ->with(['productCatalogues', 'productVariant', 'productVariant.attributes'])
             ->where('slug', $slug)
             ->first();
     }

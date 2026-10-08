@@ -98,7 +98,7 @@ class ProductController extends Controller
             return redirect()->route('product.index');
         } else {
             flash()->error('Thất bại. Đã có lỗi xảy ra vui lòng thử lại!');
-            return redirect()->back();
+            // return redirect()->back();
         }
     }
     public function delete($id = 0)

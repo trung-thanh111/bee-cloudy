@@ -31,9 +31,12 @@ class AttributeRepository extends BaseRepository implements AttributeRepositoryI
     public function findAttributeByIdArray($attributeArray = []){
         return $this->model->select([
             'attributes.id',
-            'attributes.name'
+            'attributes.image',
+            'attributes.name',
+            'attributes.attribute_catalogue_id',
         ])
         // đk whereIn tìn kiếm id trong một mảng chứa id
+        ->where('publish', 1)
         ->whereIn('attributes.id', $attributeArray)
         ->get();
     }

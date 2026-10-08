@@ -708,12 +708,13 @@ hr {
 }
 
 .color-item {
-
+    color: #2b2f32;
     padding: 5px 10px 5px 5px;
     border: 0.3px solid #ffffff;
     background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
 }
 
 .color-item:hover {
@@ -725,6 +726,8 @@ hr {
 .color-item.active {
     background-color: #c1c1c6;
     border-color: #c1c1c6;
+    /* color: #fff; */
+
 }
 
 .size-item {
@@ -735,6 +738,7 @@ hr {
     border-radius: 50%;
     text-align: center;
     padding-top: 12px;
+    color: #2b2f32;
 }
 
 .size-item:hover {
@@ -746,7 +750,7 @@ hr {
 .size-item.active {
     background-color: #405189;
     border-color: #f3f3f9;
-    color: #fff;
+    color: #fff !important;
 }
 
 .input-group.componant-quantity {

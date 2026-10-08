@@ -463,133 +463,158 @@
 
                                     <ul class="dropdown-menu dropdown-menu-end ul-menu p-0 border-0 shadow-lg mb-1">
                                         <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1">
+                                            <a href="?sort=price_high" class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-square-caret-down me-2"></i>Giá cao - thấp
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1">
+                                            <a href="?sort=price_low" class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-square-caret-up me-2"></i>Giá thấp - cao
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1">
+                                            <a href="?sort=newest" class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-clock-rotate-left me-2"></i>Mới nhất
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1">
+                                            <a href="?sort=oldest" class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-clock me-2"></i>Cũ nhất
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1">
+                                            <a href="?sort=name_desc" class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-sort-alpha-down me-2"></i>Ký tự Z - A
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1">
+                                            <a href="?sort=name_asc" class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-sort-alpha-up me-2"></i>Ký tự A - Z
                                             </a>
                                         </li>
                                     </ul>
+
                                 </div>
                                 </p>
                             </div>
                             <div class="content-product-cate row flex-wrap">
-                                @foreach ($productShops as $key => $product)
+                                @if (count($productShops) != 0 && !empty($productShops))
+                                    @foreach ($productShops as $key => $product)
+                                        @php
+                                            $shownColors = []; // Mảng để theo dõi các màu đã được hiển thị
+
+                                            // $badge = '';
+                                            // if ($product->quantity >= 20) {
+                                            //     $badge =
+                                            //         '<span class="badge text-center w-100 fz-12 bg-success-subtle text-success text-uppercase px-3 py-2">Cửa hàng còn ' .
+                                            //         $product->quantity .
+                                            //         ' sản phẩm</span>';
+                                            // } elseif ($product->quantity >= 1) {
+                                            //     $badge =
+                                            //         '<span class="badge text-center w-100 fz-12 bg-warning-subtle text-warning text-uppercase px-3 py-2">Cửa hàng chỉ còn ' .
+                                            //         $product->quantity .
+                                            //         ' sản phẩm</span>';
+                                            // } else {
+                                            //     $badge =
+                                            //         '<span class="badge text-center w-100 fz-12 bg-warning-subtle text-warning text-uppercase px-3 py-2">Hiện tại đang hết hàng. Quý khách thông cảm!</span>';
+                                            // }
+                                            $promotion =
+                                                $product->del != 0 && $product->del != null
+                                                    ? (($product->price - $product->del) / $product->price) * 100
+                                                    : '0';
+                                        @endphp
                                         <div class="col-lg-4 col-md-6 col-12 mb-4">
-                                            <div class="card card-product shadow-sm border-0 mb-2">
+                                            <div class="card card-product shadow-sm border-0 mb-2 pt-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
                                                         <span
-                                                            class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
-                                                        <span class="text-end me-2 text-muted" data-bs-toggle="tooltip"
-                                                            data-bs-title="Thêm vào yêu thích">
+                                                            class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
+                                                            giảm {{ round($promotion, 1) . '%' }}
+                                                        </span>
+                                                        <span class="text-end mt-2 me-2 text-muted"
+                                                            data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích">
                                                             <i class="fa-regular fa-bookmark fz-16"></i>
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div class="image-main-product position-relative">
-                                                    <img src="{{ $product->image }}" alt="product image"
-                                                        width="100%" height="250" class="img-fluid object-fit-cover rounded-top-2" style="height: 300px">
+                                                    <img src="{{ $product->image }}" alt="product image" width="100%"
+                                                        height="250" class="img-fluid object-fit-cover rounded-top-2"
+                                                        style="height: 300px">
                                                     <div
                                                         class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                         <div class="hstack gap-3">
                                                             <div class="p-2 overflow-x-hidden w-50">
                                                                 <span
-                                                                class="fz-14 text-uppercase text-bg-dark rounded-2 p-2 fw-600">
-                                                                @foreach($product->productCatalogues as $catalogue)
-                                                                    {{ $catalogue->name }}
+                                                                    class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                    @foreach ($product->productCatalogues as $catalogue)
+                                                                        {{ $catalogue->name }}
                                                                     @endforeach
                                                                 </span>
-                                                                
                                                             </div>
                                                             <div class="p-2 ms-auto">
                                                                 <div class="product-image-color">
-                                                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/blue.png"
-                                                                        alt="image color product" width="14"
-                                                                        height="14"
-                                                                        class="rounded-circle img-fluid me-1">
-                                                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/yellow.png"
-                                                                        alt="image color product" width="14"
-                                                                        height="14"
-                                                                        class="rounded-circle img-fluid me-1">
-                                                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png"
-                                                                        alt="image color product" width="14"
-                                                                        height="14"
-                                                                        class="rounded-circle img-fluid me-1">
+                                                                    @foreach ($product->productVariant as $variant)
+                                                                        @foreach ($variant->attributes as $attribute)
+                                                                            @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                                <img src="{{ $attribute->image }}"
+                                                                                    alt="{{ $attribute->name }}"
+                                                                                    width="14" height="14"
+                                                                                    class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                                @php
+                                                                                    // Đánh dấu màu này đã được hiển thị
+                                                                                    $shownColors[] = $attribute->name;
+                                                                                @endphp
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endforeach
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-2">
-                                                    <h6 class="fw-medium overflow-hidden " style="height: 25px">
+                                                    <h6 class="fw-medium overflow-hidden " style="height: 35px">
                                                         <a href="#"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
-                                                    <div class="d-flex justify-content-start mb-2">
+                                                    <div class="d-flex justify-content-start mb-2 ">
                                                         <span
-                                                            class="text-danger fz-20 fw-medium me-3">{{ number_format($product->price, '0', ',', '.') }}đ
+                                                            class="text-danger fz-20 fw-medium me-3">{{ ($product->del != 0 && $product->del != null) ?number_format($product->del, '0', ',', '.') : number_format($product->price, '0', ',', '.') }}đ 
                                                         </span>
-                                                        <span class="mt-1">
+                                                        <span
+                                                            class="mt-1 ">
                                                             <del
-                                                                class="text-secondary fz-14 ">{{ number_format($product->price, '0', ',', '.') }}đ</del>
+                                                                class="text-secondary fz-14 {{ $product->del == 0 && $product->del == null ? 'hidden-visibility' : '' }}">{{ number_format($product->price, '0', ',', '.') }}đ</del>
                                                         </span>
                                                     </div>
                                                     <div class="box-action">
-                                                        <a href="#" class="action-cart-item-buy">
-                                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
-                                                            <span>Mua ngay</span>
+                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}" class="action-cart-item-buy">
+                                                            <span>Xem chi tiết</span>
                                                         </a>
                                                         <a href="#" class="action-cart-item-add">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
-
                                                         </a>
                                                     </div>
                                                     <div class="head-card d-flex p-1">
                                                         <span class="fz-14 ">
-                                                            <div class="rating">
-                                                                <span class="fa fa-star text-warning"></span>
-                                                                <span class="fa fa-star text-warning"></span>
-                                                                <span class="fa fa-star text-warning"></span>
-                                                                <span class="fa fa-star text-warning"></span>
-                                                                <span class="fa fa-star text-warning"></span>
-                                                            </div>
+                                                            Mã sản phẩm
                                                         </span>
-                                                        <span class="ms-auto fz-14">25</span>
+                                                        <span class="ms-auto text-dark fw-500 fz-14">{{ $product->sku }}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                @endforeach
+                                    @endforeach
+                                @endif
+
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end pagination-sm ">
-                            {{ $productShops->onEachSide(3)->links('pagination::bootstrap-5') }}
+                        <div class="d-flex justify-content-end pagination pagination-sm">
+                            {{ $productShops->appends(request()->except('page'))->onEachSide(3)->links('pagination::bootstrap-5') }}
                         </div>
+
                     </div>
                 </div>
                 <div class="banner-shop my-3">
@@ -607,7 +632,7 @@
                         <div class="col-lg-3 col-md-6 col-12 mb-3">
                             <div class="card card-product shadow-sm border-0 mb-2">
                                 <div class="head-card d-flex p-2">
-                                    <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12%</span>
+                                    <span class="text-bg-danger rounded-end ps-2 pe-2 pt-1 fz-10">12$</span>
                                     <span class="ms-auto text-muted" data-bs-toggle="tooltip"
                                         data-bs-title="Thêm vào yêu thích">
                                         <i class="fa-regular fa-bookmark fz-16"></i>
@@ -1915,10 +1940,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                    <a href="zalo">
-                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                    </a>
-                </div> -->
+                                                                    <a href="zalo">
+                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                    </a>
+                                                                </div> -->
         </div>
     </section>
     <!-- end footer  -->
