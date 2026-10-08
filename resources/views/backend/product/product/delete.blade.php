@@ -8,7 +8,7 @@
                         <h4 class="mb-sm-0">Xóa dữ liệu</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="{{ route('attribute.index') }}">Danh sách</a>
+                                <li class="breadcrumb-item"><a href="{{ route('product.index') }}">Danh sách</a>
                                 </li>
                                 <li class="breadcrumb-item active">Xóa dữ liệu</li>
                             </ol>
@@ -38,14 +38,14 @@
                                 <h5>Thông tin</h5>
                                 <div class="pt-3 pb-3">
                                     <span style="line-height: 1.4rem">Thông tin bạn đang muốn xóa là<span
-                                            class="text-danger fw-bold fz-14"> {{ $attribute->name }}.</span> Không thể khôi phục!</span>
+                                            class="text-danger fw-bold fz-14"> {{ $product->name }}.</span> Không thể khôi phục!</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <form action="{{ route('attribute.destroy', ['id' => $attribute->id]) }}" method="POST" >
+                    <form action="{{ route('product.destroy', ['id' => $product->id]) }}" method="POST" >
                         @csrf
                         @method('DELETE')
                         <div class="row">
@@ -55,7 +55,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" style="padding-bottom: 2px">Tên nhóm:</label>
                                             <input type="text" class="form-control" name="name" id=""
-                                                value="{{ e($attribute->name) }}" disabled>
+                                                value="{{ e($product->name) }}" disabled>
                                             @if ($errors->has('name'))
                                                 <span class="text-danger fz-12 mt-1">{{ $errors->first('name') }}</span>
                                             @endif

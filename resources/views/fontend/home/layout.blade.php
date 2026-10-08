@@ -10,7 +10,7 @@
     <!-- header  -->
     @include('fontend.home.components.header')
     <!-- end header  -->
-    @include($template)
+    @yield('content')
     <!-- back to top  -->
     <!-- footer  -->
     @include('fontend.home.components.footer')

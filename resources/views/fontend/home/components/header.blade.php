@@ -107,7 +107,7 @@
         <div class="container-fuild">
             <nav class="navbar navbar-expand-lg shadow-sm bg-white p-0 sticky-nav">
                 <div class="container p-0">
-                    <a class="navbar-brand" href="{{ route('home.index') }}">
+                    <a class="navbar-brand" href="#">
                         <img src="/libaries/upload/images/logo/logo_index.png" class="object-fit-contain logo-index"
                             alt="">
                     </a>
