@@ -15,13 +15,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('short_desc')->nullable();
+            $table->string('image')->nullable();
+            $table->text('album')->nullable();
+            $table->string('info')->nullable();
             $table->text('description')->nullable();
-            $table->text('info')->nullable();
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');  // vừa tạo field vừa tạo Khóa ngoại đến bảng brands
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // vừa tạo field vừa tạo Khóa ngoại đến bảng brands
             $table->tinyInteger('is_hot')->default(0);
-            $table->float('price');
+            $table->double('price');
+            $table->double('del')->default(0);
+            $table->integer('instock')->default(0);
+            $table->integer('sold_count')->default(0);
+            $table->string('sku')->unique();
+            $table->text('attributeCatalogue')->nullable();
+            $table->text('attribute')->nullable();
+            $table->text('variant')->nullable();
             $table->tinyInteger('publish')->default(0);
             $table->timestamps();
             $table->softDeletes();

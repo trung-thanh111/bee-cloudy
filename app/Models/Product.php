@@ -17,21 +17,20 @@ class Product extends Model
     protected $fillable = [
         'id',
         'name',
+        'slug',
         'image',
         'album',
-        'instock',
-        'slug',
-        'short_desc',
-        'description',
         'info',
+        'description',
         'brand_id',
+        'is_hot',
+        'price',
+        'del',
+        'instock',
         'sku',
-        'user_id',
         'attributeCatalogue', // json
         'attribute', // json
         'variant',  // json
-        'price',
-        'del',
         'publish',
         'created_at',
 
@@ -51,11 +50,6 @@ class Product extends Model
     public function brands(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id');
-    }
-    // khia báo quan hệ với bảng user (n)
-    public function users(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
     //khia báo quan hệ với bảng product variant (1pro - nhiều phiên bản)
     public function productVariant(): HasMany

@@ -18,7 +18,6 @@ class PromotionController extends Controller
 {
     public function index()
     {
-
         $promotions = Promotion::all();
         $template = 'backend.promotion.catalogue.index';
         return view('backend.dashboard.layout', compact(
@@ -148,17 +147,9 @@ class PromotionController extends Controller
     {
         // Tìm khuyến mãi theo ID
         $promotion = Promotion::findOrFail($id);
-
-        // Xóa khuyến mãi
-        $promotion->delete();
-
-        // Chuyển hướng với thông báo thành công
-        return redirect()->route('promotions.index')->with('success', 'Voucher đã được xóa thành công!');
+        $result = $promotion->delete();
+        
     }
-
-
-
-
 
 
 

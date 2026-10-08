@@ -20,7 +20,6 @@ class AttributeCatalogue extends Model
         'image',
         'description',
         'slug',
-        'user_id',
         'publish',
         'created_at',
     ];
@@ -28,8 +27,5 @@ class AttributeCatalogue extends Model
     public function attributes():HasMany{
         return $this->hasMany(Attribute::class, 'attribute_catalogue_id', 'id');
     }
-    // khia báo quan hệ tham chiếu 
-    public function parentReference (): BelongsTo{
-        return $this->belongsTo(AttributeCatalogue::class, 'parent_id');
-    }
+    
 }
