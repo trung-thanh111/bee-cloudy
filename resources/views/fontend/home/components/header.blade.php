@@ -67,7 +67,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                     <div class="fw-medium d-none d-lg-block">
@@ -387,4 +386,5 @@
             </nav>
         </div>
     </header>
+    
 </section>

@@ -51,7 +51,6 @@
                     foreach ($product->productVariant as $variant) {
                         $totalReviewCount += $variant->rating_count;
                     }
-                    // -- //
                 @endphp
                 <!-- content detail -->
                 <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5 productVariantId">
@@ -188,7 +187,6 @@
                                         sản phẩm</span>
                                 </span>
                             </div>
-
                             <p class="fz-14">{!! $product->info !!}</p>
                             @if (!is_null($attrCatalogues) && !empty($attrCatalogues))
                                 <div class="product-attributes">

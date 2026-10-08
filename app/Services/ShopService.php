@@ -31,6 +31,7 @@ class ShopService implements ShopServiceInterface
         $this->productCatalogueRepository = $productCatalogueRepository;
         $this->brandService = $brandService;
         $this->attributeRepository = $attributeRepository;
+
     }
 
     public function all()

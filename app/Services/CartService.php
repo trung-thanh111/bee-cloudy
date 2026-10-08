@@ -142,7 +142,6 @@ class CartService implements CartServiceInterface
                     }
                 }
             }
-
             DB::commit();
             return true;
         } catch (\Exception $e) {
