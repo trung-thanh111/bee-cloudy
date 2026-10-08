@@ -1,3 +1,8 @@
+@extends('fontend.home.layout')
+@section('page_title')
+Đăng ký
+@endsection
+@section('content')
 <section>
     <div class="row justify-content-center">
         <div class="col-md-4 col-lg-4 col-xl-4">
@@ -97,3 +102,4 @@
         </div>
     </div>
 </section>
+@endsection

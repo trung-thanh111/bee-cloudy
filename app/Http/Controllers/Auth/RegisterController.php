@@ -18,8 +18,7 @@ class RegisterController extends Controller
         // if(Auth::check()){
         //     return redirect()->route('home.index');
         // }
-        $template = 'auth.register';
-        return view('fontend.home.layout', compact('template'));
+        return view('auth.register');
     }
     public function register(RegisterRequest $request){
         $user = User::create([

@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
         $products = $this->productService->paginate($request);
         $brands = $this->brandRepository->all();
-         // dd($products);
+        // dd($products);
         $template = 'backend.product.product.index';
         return view('backend.dashboard.layout', compact(
             'template',
@@ -77,9 +77,7 @@ class ProductController extends Controller
         $product = $this->productRepository->getProductBySlug($slug);
         // lấy ra tất cả vs điều kiện (không lấy ra bản ghi đàn được find)
         $productCatalogues = $this->productCatalogueRepository->all();
-        $attributeCatalogue = $this->attributeCatalogueRepository->allWhere([
-            ['slug', '!=' , $product->slug],
-        ]);
+        $attributeCatalogue = $this->attributeCatalogueRepository->all();
         $brands = $this->brandRepository->all();
 
         // dd($productCatalogues);
@@ -100,7 +98,7 @@ class ProductController extends Controller
             return redirect()->route('product.index');
         } else {
             flash()->error('Thất bại. Đã có lỗi xảy ra vui lòng thử lại!');
-            // return redirect()->back();
+            return redirect()->back();
         }
     }
     public function delete($id = 0)
@@ -115,12 +113,13 @@ class ProductController extends Controller
     public function destroy($id = 0)
     {
         if ($_POST['submit'] == 'cancel') {
-            flash()->warning('Thuộc tính chưa được xóa!');
+            flash()->warning('Sản phẩm chưa được xóa!');
             return redirect()->route('product.index');
         } else {
+
             $result = $this->productService->destroy($id);
             if ($result) {
-                flash()->success('Thuộc tính đã được xóa thành công!');
+                flash()->success('Sản phẩm đã được xóa thành công!');
                 return redirect()->route('product.index');
             } else {
                 flash()->error('Có lỗi khi xóa, vui lòng thử lại!');

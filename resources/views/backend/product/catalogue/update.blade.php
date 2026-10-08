@@ -93,7 +93,7 @@
                                     <select class="form-select setUpSelect2" name="parent_id">
                                         <option value="" selected>[ Root ]</option>
                                         @foreach ($productCatalogues as $key => $val)
-                                            <option value="{{ $val->id }}">
+                                            <option value="{{ $val->id }}" {{ $productCatalogue->parent_id == $val->id ? 'selected' : ''}}>
                                                 {{ $val->name }}
                                             </option>
                                         @endforeach

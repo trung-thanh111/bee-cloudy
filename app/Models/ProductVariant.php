@@ -28,7 +28,6 @@ class ProductVariant extends Model
         'album',
         'user_id',
         'publish',
-        '',
     ];
 
     // khai báo quan hệ với bảng product 

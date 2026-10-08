@@ -91,9 +91,9 @@
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input" class="form-label">Danh mục</label>
                                     <select class="form-select setUpSelect2" name="parent_id">
-                                        <option value="" selected>[ Root ]</option>
+                                        <option value="" >[ Root ]</option>
                                         @foreach ($attributeCatalogues as $key => $val)
-                                            <option value="{{ $val->id }}">
+                                            <option value="{{ $val->id }}" {{ $val->id == $attributeCatalogue->id ? 'selected' : '' }}>
                                                 {{ $val->name }}
                                             </option>
                                         @endforeach

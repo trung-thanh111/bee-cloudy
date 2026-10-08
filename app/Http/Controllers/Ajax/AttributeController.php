@@ -34,7 +34,8 @@ class AttributeController extends Controller
     public function loadAttribute(Request $request)
     {
         /*
-        thực hiện một loạt các thao tác để giải mã và chuyển đổi dữ liệu được nhận từ yêu cầu HTTP (request) thành một mảng PHP
+        thực hiện một loạt các thao tác để giải mã và chuyển đổi dữ liệu 
+        được nhận từ yêu cầu HTTP (request) thành một mảng PHP
         */
         $payload['attribute'] = json_decode(base64_decode($request->input('attribute')), true);
         $payload['attributeCatalogueId'] = $request->input('attributeCatalogueId');
@@ -53,6 +54,5 @@ class AttributeController extends Controller
             }
         }
         return response()->json(array('items' => $temp));
-        ;
     }
 }

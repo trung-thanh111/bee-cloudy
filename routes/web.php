@@ -8,15 +8,19 @@ use App\Http\Controllers\Backend\AttributeController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\PostCatalogueController;
+use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
+use App\Http\Controllers\Fontend\ShopController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('');
 // });
-Route::middleware(['auth','admin'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -79,9 +83,32 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::delete('destroy/{id}', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.destroy');
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
+
+    //post catalogues
+    Route::group(['prefix' => 'post/catalogue'], function () {
+        Route::get('index', [PostCatalogueController::class, 'index'])->name('post.catalogue.index');
+        Route::get('create', [PostCatalogueController::class, 'create'])->name('post.catalogue.create');
+        Route::post('store', [PostCatalogueController::class, 'store'])->name('post.catalogue.store');
+        Route::get('update/{slug}', [PostCatalogueController::class, 'update'])->name('post.catalogue.update');
+        Route::post('edit/{slug}', [PostCatalogueController::class, 'edit'])->name('post.catalogue.edit');
+        Route::get('delete/{id}', [PostCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.catalogue.delete');
+        Route::delete('destroy/{id}', [PostCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.catalogue.destroy');
+        Route::delete('bulk-delete', [PostCatalogueController::class, 'destroyMultiple'])->name('post.catalogue.bulkdelete');
+    });
     
+    //posts
+    Route::group(['prefix' => 'post'], function () {
+        Route::get('index', [PostController::class, 'index'])->name('post.index');
+        Route::get('create', [PostController::class, 'create'])->name('post.create');
+        Route::post('store', [PostController::class, 'store'])->name('post.store');
+        Route::get('update/{slug}', [PostController::class, 'update'])->name('post.update');
+        Route::post('edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
+        Route::get('delete/{id}', [PostController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.delete');
+        Route::delete('destroy/{id}', [PostController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.destroy');
+        Route::delete('bulk-delete', [PostController::class, 'destroyMultiple'])->name('post.bulkdelete');
+    });
 });
-Route::get('home', [HomeController::class, 'index'])->name('home.index');
+Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('store-login', [LoginController::class, 'login'])->name('store.login');
 Route::get('register', [RegisterController::class, 'index'])->name('auth.register');
@@ -91,6 +118,3 @@ Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 // get attribute & load
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
 Route::get('/ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
-
-
-

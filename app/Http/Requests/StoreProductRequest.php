@@ -28,7 +28,7 @@ class StoreProductRequest extends FormRequest
             'short_desc' => 'max:255',
             'product_catalogue_id' => 'required',
             'brand_id' => 'gt:0', // gia tri lớn hơn 0
-            'sku'=> 'required|string|max:255|unique:products,slug',
+            'sku'=> 'required|string|max:255|unique:products,sku',
             'price' => 'required|numeric|min:0'
 
         ];

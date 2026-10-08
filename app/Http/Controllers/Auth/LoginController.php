@@ -11,8 +11,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        $template = 'auth.login';
-        return view('fontend.home.layout', compact('template'));
+        return view('auth.login');
     }
     public function login(LoginRequest $request)
     {

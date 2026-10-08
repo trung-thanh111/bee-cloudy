@@ -21,11 +21,12 @@
             </div>
         </div>
         @php
-            $variantCatalogue = old('attributeCatalogue',
-                (isset($product->attributeCatalogue) ? json_decode($product->attributeCatalogue, TRUE) : [])
+            $variantCatalogue = old(
+                'attributeCatalogue',
+                isset($product->attributeCatalogue) ? json_decode($product->attributeCatalogue, true) : [],
             );
         @endphp
-        <div class="variant-wrapper {{ (count($variantCatalogue)) ? '' : 'd-none' }}">
+        <div class="variant-wrapper {{ isset($variantCatalogue) && count($variantCatalogue) ? '' : 'd-none' }}">
             <div class="row variant-container">
                 <div class="col-lg-3">
                     <div class="attribute-title">Chọn thuộc tính</div>
@@ -111,6 +112,8 @@
 
     // load giữ lại thông tin khi submit form
     //old() là một mảng nhuneg json-endcode chỉ nhận một chuỗi -> sd base64_endcode
-    var attribute = '{{ base64_encode(json_encode(old('attribute') ?? (isset($product->attribute) ? json_decode($product->attribute, TRUE) : []))) }}'
-    var variant = '{{ base64_encode(json_encode(old('variant') ?? (isset($product->variant) ? json_decode($product->variant, TRUE) : []))) }}'
+    var attribute =
+        '{{ base64_encode(json_encode(old('attribute') ?? (isset($product->attribute) ? json_decode($product->attribute, true) : []))) }}'
+    var variant =
+        '{{ base64_encode(json_encode(old('variant') ?? (isset($product->variant) ? json_decode($product->variant, true) : []))) }}'
 </script>

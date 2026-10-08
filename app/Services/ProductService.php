@@ -58,9 +58,16 @@ class ProductService implements ProductServiceInterface
         try {
             $product = $this->createProduct($request);
 
-            if ($product->id > 0) {
-                $this->createVariant($product, $request);
-            }
+            // Trường hợp không có phiên bản
+        if (!isset($request->variant['sku']) || count($request->variant['sku']) === 0) {
+            $product->sku = $request->sku; // Lưu SKU từ request
+            $product->save();
+        }
+
+        // Trường hợp có phiên bản
+        if (isset($request->variant['sku']) && count($request->variant['sku']) > 0) {
+            $this->createVariant($product, $request);
+        }
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -79,7 +86,10 @@ class ProductService implements ProductServiceInterface
             }
              $this->updateProduct($product, $request);
 
-             $product->productVariant()->delete();
+             if ($product->productVariant()->exists()) {
+                $product->productVariant()->delete();
+            }
+            
  
              $this->createVariant($product, $request);
             // Cập nhật mối quan hệ nhiều-nhiều
@@ -170,9 +180,8 @@ class ProductService implements ProductServiceInterface
         $payload = $request->only(['name', 'variant', 'productVariant', 'attribute']); // các input hidden của variant và productVariant 
         // dd($payload);
         $variant = $this->createVariantArray($payload);
-
         // sử dụng phương thức createmany()
-        $variants = $product->productVariant()->createmany($variant);
+        $variants = $product->productVariant()->createMany($variant);
         // lấy danh sách id của variants -> trc khi commit lần đầu empty bảng product_variant để inert đúng 
         $variantId = $variants->pluck('id');
         // dd($variantId);
