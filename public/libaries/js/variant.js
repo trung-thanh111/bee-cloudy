@@ -395,6 +395,39 @@
         };
         finder.popup();
     };
+    // 2. mở popup ck finder và hiển thị ảnh đc chọn
+    FS.browseServerAlbum = () => {
+        var type = "Images";
+        var finder = new CKFinder();
+        finder.resourceType = type;
+        finder.selectActionFunction = function (fileUrl, data, allFiles) {
+            var html = "";
+            for (var i = 0; i < allFiles.length; i++) {
+                var image = allFiles[i].url;
+                html += '<li class="album-item-seft list-unstyled m-2">';
+                html += '<div class="thumb position-relative">';
+                html += '<span class="span image img-scaledown">';
+                html +=
+                    '<img src="' +
+                    image +
+                    '" alt="' +
+                    image +
+                    '" class="object-fit-contain" width="130px" height="110px">';
+                html +=
+                    '<input type="hidden" name="album[]" value="' +
+                    image +
+                    '">';
+                html +=
+                    '<button class="delete-variant-image position-absolute top-0 start-0"><i class="fa-solid fa-trash"></i></button>';
+                html += "</div>";
+                html += "</li>";
+            }
+            $(".click-to-upload-album").addClass("d-none");
+            $("#sortable3").append(html);
+            $(".upload-album").removeClass("d-none");
+        };
+        finder.popup();
+    };
     FS.deleteVariantPicture = () => {
         $(document).on("click", ".delete-variant-image", function (e) {
             let _this = $(this);

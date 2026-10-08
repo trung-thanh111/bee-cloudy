@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
       type: "slide",
       autoplay: 3000,
       gap: 10,
-      perPage: 7, // hiển thị 4 item
+      perPage: 5, // hiển thị 4 item
       perMove: 1, // di chuyển 1 lần 1 item
       rewind: true,
       height: 240,
