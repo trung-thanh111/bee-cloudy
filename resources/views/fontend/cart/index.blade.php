@@ -82,14 +82,16 @@
                                                                         @endif
                                                                     </a>
                                                                 </p>
-                                                                <ul class="list-inline text-muted fz-14 mb-1">
+                                                                {{-- <ul class="list-inline text-muted fz-14 mb-1">
                                                                     @if ($cartItem->productVariants)
                                                                         @foreach ($cartItem->productVariants->attributes as $attribute)
-                                                                            <li class="list-inline-item ">
-                                                                                {{ $attribute->name }}</li>
+                                                                            <li class="list-inline-item">
+                                                                                
+                                                                                {{ $attribute->name }}
+                                                                            </li>
                                                                         @endforeach
                                                                     @endif
-                                                                </ul>
+                                                                </ul> --}}
                                                                 <a href="javascript:void(0)"
                                                                     class="d-block text-danger fz-14 destroyCart"
                                                                     data-id="{{ $cartItem->products->id ?? '' }}"

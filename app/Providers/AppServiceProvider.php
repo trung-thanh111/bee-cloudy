@@ -5,8 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Http\Controllers\Fontend\CartController;
 use App\Services\CartService;
+use App\Repositories\ProductRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\PostCatalogueServiceInterface' => 'App\Services\PostCatalogueService',
         'App\Services\Interfaces\PostServiceInterface' => 'App\Services\PostService',
         'App\Services\Interfaces\CartServiceInterface' => 'App\Services\CartService',
+        'App\Services\Interfaces\WishlistServiceInterface' => 'App\Services\WishlistService',
     ];
 
     public function register(): void
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(
         CartService $cartService,
+        ProductRepository $productRepository,
     ): void
     {
         {
@@ -53,8 +55,22 @@ class AppServiceProvider extends ServiceProvider
             View::composer('*', function ($view) use ($cartService) {
                 $productInCart = $cartService->countProductIncart();
 
-                $view
-                    ->with('productInCart', $productInCart);
+                $view->with('productInCart', $productInCart);
+            });
+            // keyword nổi bật product
+            View::composer('*', function ($view) use ($productRepository) {
+                $nameStand = $productRepository->getLimitOrder(
+                    [],
+                [
+                    ['publish', 1],
+                ],
+                [
+                    ['created_at', 'asc']
+                ],
+                3
+            );
+
+                $view->with('nameStand', $nameStand);
             });
         }
         // mặc định giá trị cho shcema 
