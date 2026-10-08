@@ -30,7 +30,7 @@
                                 'đ'
                             : number_format($product->price, '0', ',', '.') . 'đ';
                     $priceDiscount .= number_format($product->price - $product->del, '0', ',', '.') . 'đ';
-                    // -- // 
+                    // -- //
                     $attrCatalogues = $product->attributeCatalogue;
                     $albumVairiants = [];
                     foreach ($product->productVariant as $variant) {
@@ -206,7 +206,7 @@
                             </h4>
 
                             <div class="hstack gap-3 fz-14 mb-3">
-                                <h4 class="fs-4 fw-bold text-danger mb-1 product-variant-price">{{ $price }}</h4>
+                                <h4 class="fs-4 fw-bold text-danger mb-1 product-variant-price" data-price="{{ $price }}">{{ $price }}</h4>
                                 <span
                                     class="mb-1 ms-auto {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
 
@@ -235,7 +235,7 @@
                                                 <div class="attribute-value d-flex flex-wrap gap-3 ps-4 mb-3">
                                                     @foreach ($val->attributes as $keyAttr => $attribute)
                                                         <a href="#"
-                                                            class="choose-attribute  {{ ($keyAttr == 0) ? 'active' : '' }}  {{ $val->id == 1 ? 'color-item' : 'size-item' }} "
+                                                            class="choose-attribute  {{ $keyAttr == 0 ? 'active' : '' }}  {{ $val->id == 1 ? 'color-item' : 'size-item' }} "
                                                             data-attributeId="{{ $attribute->id }}"
                                                             title="{{ $attribute->name }}">
                                                             <div class="attribute-item">
@@ -261,7 +261,13 @@
                             @endif
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <input type="hidden" class="attributeCatalogue" value="{{ json_encode($attrCatalogues) }}">
-
+                            {{-- <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="product_variant_id" value="">
+                                <input type="hidden" name="quantity" value="">
+                                <input type="hidden" name="price" value="">
+                            </form> --}}
                             <div class="box-choose-size">
                                 <div class="title-choose-size mb-2">
                                     <div class="row d-flex justify-content-between align-items-center  flex-wrap">
@@ -303,7 +309,7 @@
                                             <input type="text" name="quantity-product-variant w-sm-25 "
                                                 class="form-control border-0 fz-20 text-center fw-600" value="1"
                                                 min="1" max="">
-                                            <input type="hidden" name="quantity" value="">
+                                            <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
                                             </button>
@@ -320,10 +326,10 @@
                                         </a>
                                         <div class="row w-100 mt-2 ms-0">
                                             <div class="col px-0 w-100 ">
-                                                <a href="#">
+                                                <a href="#" class="addToCart" data-id="{{ $product->id }}">
                                                     <!-- d-none d-md-inline-block: Ẩn trên màn hình nhỏ hơn md (< 768px), chỉ hiển thị từ kích thước màn hình md (>= 768px) trở lên. -->
                                                     <button
-                                                        class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block">Thêm
+                                                        class=" btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block">Thêm
                                                         vào giỏ hàng</button>
                                                     <!-- d-block d-md-none: Hiển thị trên các màn hình nhỏ hơn md (< 768px), bao gồm màn hình < 480px. -->
                                                     <button

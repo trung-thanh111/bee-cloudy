@@ -57,7 +57,7 @@
                                 <div>
                                     <a href="{{route('auth.google')}}" type="button"
                                         class="btn btn-danger btn-icon waves-effect waves-light"><i 
-                                            class="fa-brands fa-google"></i></a>
+                                            class="fa-brands fa-google-plus"></i></a>
                                     <a href="#" type="button"
                                         class="btn btn-dark btn-icon waves-effect waves-light"><i 
                                             class="fa-brands fa-facebook-f"></i></a>

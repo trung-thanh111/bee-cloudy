@@ -80,7 +80,7 @@
                                     <h5 class="fz-13 mb-4 title">Đăng ký với </h5>
                                 </div>
                                 <div>
-                                    <a href="#" type="button"
+                                    <a href="{{ route('auth.google') }}" type="button"
                                         class="btn btn-danger btn-icon waves-effect waves-light">
                                         <i class="fa-brands fa-google-plus fz-18"></i>
                                     </a>

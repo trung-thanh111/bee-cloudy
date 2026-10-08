@@ -20,6 +20,7 @@ class AppRepositoryProvider extends ServiceProvider
         '\App\Repositories\Interfaces\ShopRepositoryInterface' => 'App\Repositories\ShopRepository',
         '\App\Repositories\Interfaces\PostCatalogueRepositoryInterface' => 'App\Repositories\PostCatalogueRepository',
         '\App\Repositories\Interfaces\PostRepositoryInterface' => 'App\Repositories\PostRepository',
+        '\App\Repositories\Interfaces\CartRepositoryInterface' => 'App\Repositories\CartRepository',
     ];
     public function register(): void
     {

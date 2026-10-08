@@ -18,3 +18,8 @@
 <script src="/libaries/templates/bee-cloudy-user/libaries/js/jquey_custom.js"></script>
 {{-- choose variant  --}}
 <script src="/libaries/js/choose_variant.js"></script>
+{{-- cart  --}}
+<script src="/libaries/js/cart.js"></script>
+{{-- vue js  --}}
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+@vite(['resources/js/app.js'])
