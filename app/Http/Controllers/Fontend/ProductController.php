@@ -49,14 +49,12 @@ class ProductController extends Controller
             ->get();
 
         $attributeVariant = $this->productService->checkAttributeVariantQuantity($slug);
-        // $isColor = $this->productService->isColor();
         return view('fontend.product.detail', compact(
             'product',
             'brands',
             'categories',
             'productSimilars',
             'attributeVariant',
-            // 'isColor',
         ));
     }
     

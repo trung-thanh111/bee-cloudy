@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/acount.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/content.css"> --}}
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
+{{-- <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/comment.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/acount.css">
-<link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/content.css">
-<link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
+<link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/content.css"> --}}
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/custom_reponsive.css">
 <!-- icon  -->
 <!-- App favicon -->

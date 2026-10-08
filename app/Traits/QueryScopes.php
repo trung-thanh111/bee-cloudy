@@ -90,13 +90,12 @@ trait QueryScopes
     public function scopeCustomCreated($query, $condition)
     {
         if (!empty($condition)) {
-            $explode = explode(' - ', $condition); 
+            $explode = explode(' - ', $condition);
             $explode = array_map('trim', $explode); //loiaj bỏ khoảng trống
             $startDate = date('Y-m-d 00:00:00', strtotime($explode[0]));
             $endDate = date('Y-m-d 23:59:59', strtotime($explode[1]));
-            
+
             $query->whereBetween('created_at', [$startDate, $endDate]);
-            
         }
         return $query;
     }
