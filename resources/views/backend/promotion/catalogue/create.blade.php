@@ -73,19 +73,6 @@
                                         <span class="text-danger">{{ $errors->first('apply_for') }}</span>
                                     @endif
                                 </div>
-
-                                <!-- Phần chiết khấu -->
-                                <div id="discount-section" class="mb-3" style="display: none;">
-                                    <label class="form-label">Số tiền chiết khấu:<span class="text-danger fz-18">*</span></label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" name="discount" value="{{ old('discount') }}" placeholder="Số tiền chiết khấu">
-                                        <span class="input-group-text">VND</span>
-                                    </div>
-                                    @if ($errors->has('discount'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('discount') }}</span>
-                                    @endif
-                                </div>
-
                                 <!-- Phần sản phẩm khi chọn specific_products -->
                                 <div id="specific-products-section" class="mb-3" style="display: none;">
                                     <label class="form-label">Chọn sản phẩm áp dụng:</label>
@@ -99,6 +86,20 @@
                                         <span class="text-danger">{{ $errors->first('product_id') }}</span>
                                     @endif
                                 </div>
+
+                                <!-- Phần chiết khấu -->
+                                <div id="discount-section" class="mb-3" style="display: none;">
+                                    <label class="form-label">Số tiền chiết khấu:<span class="text-danger fz-18">*</span></label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="discount" value="{{ old('discount') }}" placeholder="Số tiền chiết khấu">
+                                        <span class="input-group-text">VND</span>
+                                    </div>
+                                    @if ($errors->has('discount'))
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('discount') }}</span>
+                                    @endif
+                                </div>
+
+                                
 
                                 <!-- Số tiền tối thiểu -->
                                 <div class="mb-3">
