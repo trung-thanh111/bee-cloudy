@@ -69,7 +69,7 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control " id="" name="description" rows="7">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" id="" name="description" rows="7">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
                             </div>

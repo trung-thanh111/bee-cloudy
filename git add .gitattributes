@@ -1,0 +1,17 @@
+[1mdiff --git a/.gitattributes b/.gitattributes[m
+[1mindex fcb21d39..d42a83a1 100644[m
+[1m--- a/.gitattributes[m
+[1m+++ b/.gitattributes[m
+[36m@@ -1,11 +1,10 @@[m
+ * text=auto eol=lf[m
+[31m-[m
+ *.blade.php diff=html[m
+ *.css diff=css[m
+ *.html diff=html[m
+ *.md diff=markdown[m
+ *.php diff=php[m
+[31m-[m
+ /.github export-ignore[m
+ CHANGELOG.md export-ignore[m
+ .styleci.yml export-ignore[m
+[32m+[m[32m*.pdf filter=lfs diff=lfs merge=lfs -text[m

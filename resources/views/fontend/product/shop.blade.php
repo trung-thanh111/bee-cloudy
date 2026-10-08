@@ -19,8 +19,9 @@
                 <!-- content detail -->
                 <div class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
-                        <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
-                            <h2 class="text-uppercase">Cửa hàng</h2>
+                        <div class="title-category  position-absolute top-50 w-75 translate-middle" style="left: 50%;">
+                            <h2 class="text-uppercase text-start">Cửa hàng</h2>
+
                             <p class="fz-14">Bạn có thể tham khảo các mẫu áo quần tại đây.</p>
                         </div>
                     </div>
@@ -344,6 +345,7 @@
                                                             data-id="{{ $product->id }}">
                                                             <i
                                                                 class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
                                                             <span class="product_id_wishlist d-none">
                                                                 {{ $product->id }}
                                                             </span>
@@ -909,6 +911,7 @@
                     </div>
                 </div>
             </div>
+            </div>
         </article>
     </section>
     <!-- back to top  -->
@@ -918,15 +921,14 @@
             <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
                 style="bottom: 60px; right: 30px;">
                 <div class=" border-2 rounded-circle">
-                    <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2">
-                    </i>
+                    <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                    <a href="zalo">
-                                                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                                                    </a>
-                                                                                                                </div> -->
+                                                                                                            <a href="zalo">
+                                                                                                                <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                                            </a>
+                                                                                                        </div> -->
 
         </div>
     </section>

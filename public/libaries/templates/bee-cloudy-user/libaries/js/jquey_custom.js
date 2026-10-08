@@ -35,6 +35,34 @@
     // menu aside acount
     FS.showSubMenu = () => {
         $(".nav-item-main").click(function (e) {
+            $(document).on("click", ".menu-item-a", function (e) {
+                // Không preventDefault() để cho phép chuyển trang
+                let $this = $(this);
+                let href = $this.attr("href");
+
+                // Lưu href của menu item vừa click vào localStorage
+                localStorage.setItem("activeMenuItem", href);
+
+                // Xóa class active khỏi tất cả items
+                $(".menu-item-a").removeClass("active");
+
+                // Thêm active và animation cho item được click
+                $this.addClass("active").animate(
+                    {
+                        left: "60px",
+                    },
+                    300,
+                    function () {
+                        // Sau khi animation hoàn thành thì chuyển trang
+                        window.location.href = href;
+                    }
+                );
+            });
+        });
+    };
+    // menu aside acount
+    FS.showSubMenu = () => {
+        $(".nav-item-main").click(function (e) {
             let $submenu = $(this).next(".sub-menu-lv2");
             let $iconRight = $(this).find(".fa-chevron-right");
             let $iconDown = $(this).find(".fa-chevron-down");
@@ -57,149 +85,7 @@
                 $iconDown.addClass("d-none");
             }
         });
-        $(this).removeClass("active");
-        $iconRightLv3.removeClass("d-none");
-        $iconDownLv3.addClass("d-none");
-      }
- 
-  // search key
-  FS.setUpSelect2 = () => {
-    $(".setUpSelect2").select2();
-  };
-
-  FS.clickShowPass = () => {
-    $(document).on("click", ".icon-eye-password", function () {
-      var inputTypePassword = $(this)
-        .closest(".input-group")
-        .find(".input-group-password");
-      if (inputTypePassword.attr("type") == "password") {
-        inputTypePassword.attr("type", "text");
-      } else {
-        inputTypePassword.attr("type", "password");
-      }
-
-      $(this).children().toggleClass("d-none");
-    });
-  };
-  FS.activeColorChoosed = () => {
-    $(document).on("click", ".color-item", function () {
-      let _this = $(this);
-      $(".color-item").removeClass("active");
-      _this.toggleClass("active");
-    });
-  };
-  FS.activeSizeChoosed = () => {
-    $(document).on("click", ".size-item", function () {
-      let _this = $(this);
-      $(".size-item").removeClass("active");
-      _this.toggleClass("active");
-    });
-  };
-  FS.showhideAds = () => {
-    $(document).on("click", ".delete-ads-aside", function () {
-      console.log(2312);
-      $(".image-ads-item").toggleClass("hidden-visibility");
-    });
-  };
-  FS.boxQuantity = () => {
-    $(".quantity-minus, .quantity-plus").click(function () {
-      var $inputVisible = $(this).siblings("input.form-control");
-      var $inputHidden = $(this).siblings('input[name="quantity"]');
-      var $quantityCart = $(this).siblings('input[name="quantity-product-cart"]')
-
-      var value = parseInt($inputVisible.val(), 10);
-      if ($(this).hasClass("quantity-minus") && value > 1) {
-        value--;
-      } else if ($(this).hasClass("quantity-plus")) {
-        value++;
-      }
-
-      $inputVisible.val(value);
-      $inputHidden.val(value);
-      $quantityCart.val(value);
-    });
-  };
-  // FS.boxQuantityCart = () => {
-  //   $(".quantity-minus, .quantity-plus").click(function () {
-  //     var $inputVisible = $(this).siblings("input.form-control");
-  //     var $inputHidden = $(this).siblings('input[name="quantity-product-cart"]');
-
-  //     var value = parseInt($inputVisible.val(), 10);
-  //     if ($(this).hasClass("quantity-minus") && value > 1) {
-  //       value--;
-  //     } else if ($(this).hasClass("quantity-plus")) {
-  //       value++;
-  //     }
-
-  //     $inputVisible.val(value);
-  //     $inputHidden.val(value);
-  //   });
-  // };
-  FS.backToTop = () => {
-    window.addEventListener("scroll", () => {
-      // bắt sự kiện cuộn mà hình theo chiều thẳng đứng hơn 300 ...
-      if (window.scrollY > 300) {
-        $(".back-to-top").removeClass("d-none");
-      } else {
-        $(".back-to-top").addClass("d-none");
-      }
-    });
-    $(document).on("click", ".back-to-top", () => {
-      // bắt sk click và scroll về top 0
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    });
-  };
-
-  // FS.chooseOneSize = () => {
-  //   $(document).on("click", ".choose-size-item input", function () {
-
-  //     if ($(this).is(":checked")) {
-  //       console.log("Selected size:", $(this).next('p').text());
-  //     }
-  //   });
-  // }
-
-  FS.chooseColorActive = () => {
-    $(document).on("click", ".img-choose-color", function () {
-      // chỉ một phàn tuer cùng class đc click đc active
-      $(".img-choose-color").removeClass("active");
-      $(this).addClass("active");
-    });
-  };
-  FS.chooseMoneyActive = () => {
-    $(document).on("click", ".box-item-choose-money", function () {
-      // chỉ một phàn tuer cùng class đc click đc active
-      $(".box-item-choose-money").removeClass("active");
-      $(this).addClass("active");
-    });
-  };
-  FS.nextTab = () => {
-    $('.btnNext').click(function() {
-        const nextTabLinkEl = $('.nav-tabs .active').closest('li').next('li').find('button')[0];
-        if (nextTabLinkEl) {
-            const nextTab = new bootstrap.Tab(nextTabLinkEl);
-            nextTab.show();
-        }
-    });
-    
-    $('.btnPrevious').click(function() {
-        const prevTabLinkEl = $('.nav-tabs .active').closest('li').prev('li').find('button')[0];
-        if (prevTabLinkEl) {
-            const prevTab = new bootstrap.Tab(prevTabLinkEl);
-            prevTab.show();
-        }
-    });
-}
-FS.CheckBox = () => {
-    // Xử lý khi checkbox "check-all" được click
-    $('#check-all').on('change', function () {
-        // Đặt thuộc tính 'checked' cho tất cả checkbox "checkbox-item" giống với trạng thái của checkbox "check-all"
-        $('.checkbox-item').prop('checked', this.checked);
-    });
-}
+    };
 
     FS.showSubMenuLv3 = () => {
         $(".sub-menu-li").click(function (e) {
@@ -269,35 +155,38 @@ FS.CheckBox = () => {
         });
     };
     FS.boxQuantity = () => {
-        $(".quantity-minus, .quantity-plus").off("click").click(function () {
-            var $inputVisible = $(this).siblings("input.form-control");
-            var $inputHidden = $(this).siblings('input[name="quantity"]');
-            var $quantityCart = $(this).siblings(
-                'input[name="quantity-product-cart"]'
-            );
+        $(".quantity-minus, .quantity-plus")
+            .off("click")
+            .click(function () {
+                var $inputVisible = $(this).siblings("input.form-control");
+                var $inputHidden = $(this).siblings('input[name="quantity"]');
+                var $quantityCart = $(this).siblings(
+                    'input[name="quantity-product-cart"]'
+                );
 
-            // Lấy giá trị hiện tại và giới hạn min/max
-            var value = parseInt($inputVisible.val(), 10);
-            var max = parseInt($inputVisible.attr("max"), 10);
-            var min = parseInt($inputVisible.attr("min"), 10) || 1;
+                // Lấy giá trị hiện tại và giới hạn min/max
+                var value = parseInt($inputVisible.val(), 10);
+                var max = parseInt($inputVisible.attr("max"), 10);
+                var min = parseInt($inputVisible.attr("min"), 10) || 1;
 
-            // Giảm giá trị nếu nhấn nút "minus" và lớn hơn min
-            if ($(this).hasClass("quantity-minus") && value > min) {
-                value--;
-            }
-            // Tăng giá trị nếu nhấn nút "plus" và nhỏ hơn max
-            else if (
-                $(this).hasClass("quantity-plus") &&
-                (!max || value < max)
-            ) {
-                value++;
-            }
+                // Giảm giá trị nếu nhấn nút "minus" và lớn hơn min
+                if ($(this).hasClass("quantity-minus") && value > min) {
+                    value--;
+                }
+                // Tăng giá trị nếu nhấn nút "plus" và nhỏ hơn max
+                else if (
+                    $(this).hasClass("quantity-plus") &&
+                    (!max || value < max)
+                ) {
+                    value++;
+                }
 
-            $inputVisible.val(value);
-            $inputHidden.val(value);
-            $quantityCart.val(value);
-        });
+                $inputVisible.val(value);
+                $inputHidden.val(value);
+                $quantityCart.val(value);
+            });
     };
+
     FS.backToTop = () => {
         window.addEventListener("scroll", () => {
             // bắt sự kiện cuộn mà hình theo chiều thẳng đứng hơn 300 ...
@@ -315,24 +204,81 @@ FS.CheckBox = () => {
             });
         });
     };
+    FS.chooseColorActive = () => {
+        $(document).on("click", ".img-choose-color", function () {
+            // chỉ một phàn tuer cùng class đc click đc active
+            $(".img-choose-color").removeClass("active");
+            $(this).addClass("active");
+        });
+    };
+    FS.chooseMoneyActive = () => {
+        $(document).on("click", ".box-item-choose-money", function () {
+            // chỉ một phàn tuer cùng class đc click đc active
+            $(".box-item-choose-money").removeClass("active");
+            $(this).addClass("active");
+        });
+    };
+    FS.nextTab = () => {
+        $(".btnNext").click(function () {
+            const nextTabLinkEl = $(".nav-tabs .active")
+                .closest("li")
+                .next("li")
+                .find("button")[0];
+            if (nextTabLinkEl) {
+                const nextTab = new bootstrap.Tab(nextTabLinkEl);
+                nextTab.show();
+            }
+        });
 
+        $(".btnPrevious").click(function () {
+            const prevTabLinkEl = $(".nav-tabs .active")
+                .closest("li")
+                .prev("li")
+                .find("button")[0];
+            if (prevTabLinkEl) {
+                const prevTab = new bootstrap.Tab(prevTabLinkEl);
+                prevTab.show();
+            }
+        });
+    };
+    FS.CheckBox = () => {
+        // Xử lý khi checkbox "check-all" được click
+        $("#check-all").on("change", function () {
+            // Đặt thuộc tính 'checked' cho tất cả checkbox "checkbox-item" giống với trạng thái của checkbox "check-all"
+            $(".checkbox-item").prop("checked", this.checked);
+        });
 
-  $(document).ready(function () {
-    FS.animateMenuLink();
-    FS.showSubMenu();
-    FS.showSubMenuLv3();
-    FS.setUpSelect2();
-    FS.clickShowPass();
-    FS.activeColorChoosed();
-    FS.activeSizeChoosed();
-    FS.boxQuantity();
-    FS.showhideAds();
-    FS.backToTop();
-    FS.chooseColorActive();
-    FS.chooseMoneyActive();
-    FS.nextTab()
-    FS.CheckBox()
-    // FS.boxQuantityCart()
-  });
+        // Xử lý khi từng checkbox "checkbox-item" được click
+        $(".checkbox-item").on("change", function () {
+            // Kiểm tra nếu tất cả các checkbox "checkbox-item" đều được chọn
+            if (
+                $(".checkbox-item:checked").length ===
+                $(".checkbox-item").length
+            ) {
+                // Đặt checkbox "check-all" thành checked
+                $("#check-all").prop("checked", true);
+            } else {
+                // Nếu có ít nhất một checkbox "checkbox-item" không được chọn, bỏ chọn checkbox "check-all"
+                $("#check-all").prop("checked", false);
+            }
+        });
+    };
 
-})(jQuery);
+    $(document).ready(function () {
+        FS.animateMenuLink();
+        FS.showSubMenu();
+        FS.showSubMenuLv3();
+        FS.setUpSelect2();
+        FS.clickShowPass();
+        FS.activeColorChoosed();
+        FS.activeSizeChoosed();
+        FS.boxQuantity();
+        FS.showhideAds();
+        FS.backToTop();
+        FS.chooseColorActive();
+        FS.chooseMoneyActive();
+        FS.nextTab();
+        FS.CheckBox();
+        // FS.boxQuantityCart()
+    })(jQuery);
+});

@@ -97,7 +97,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('info', [FontendUserController::class, 'info'])->name('account.info');
         Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
         Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
-
     });
     Route::group(['prefix' => 'cart'], function () {
         Route::get('index', [AjaxCartController::class, 'index'])->name('cart.index');
@@ -257,6 +256,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('destroy/{id}', [PostController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.destroy');
         Route::delete('bulk-delete', [PostController::class, 'destroyMultiple'])->name('post.bulkdelete');
     });
+
 
     // order //
     Route::group(['prefix' => 'order'], function () {

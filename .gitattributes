@@ -7,6 +7,3 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
-vendor/srmklive/paypal/tests/Mocks/samples/sample.pdf filter=lfs diff=lfs merge=lfs -text
-vendor/srmklive/paypal/tests/Mocks/samples/sample2.pdf filter=lfs diff=lfs merge=lfs -text
-vendor/srmklive/paypal/tests/Mocks/samples/*.pdf filter=lfs diff=lfs merge=lfs -text

@@ -18,12 +18,13 @@ trait QueryScopes
                 $query->where(function ($q) use ($keyword) {
                     $q->where('id', 'like', '%' . $keyword . '%')
                         ->orWhere('name', 'like', '%' . $keyword . '%');
-                    // nếu bảng nào k có slug thì kiểm tra như này 
-                    if (Schema::hasColumn('users', 'slug')) {
-                        $q->orWhere('slug', 'like', '%' . $keyword . '%');
-                    } else {
-                        $q->orWhere('id', 'like', '%' . $keyword . '%');
-                    }
+                        // nếu bảng nào k có slug thì kiểm tra như này 
+                        if (Schema::hasColumn('users', 'slug')) {
+                            $q->orWhere('slug', 'like', '%' . $keyword . '%');
+                        }else{
+                            $q->orWhere('id', 'like', '%' . $keyword . '%');
+
+                        }
                 });
             }
         }

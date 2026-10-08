@@ -151,7 +151,7 @@
                                             </li>
                                         @endforeach
                                     @endif
-                                    <li 
+                                    <li
                                         class="nav-item li-menu-header menu-item-v2 {{ $brandHeaders == null ? 'd-none' : '' }} position-relative">
                                         <a href=""
                                             class="d-flex justify-content-between align-items-center px-1 position-relative ">
@@ -162,7 +162,7 @@
                                         </a>
                                         <div
                                             class="menu-dropdown-v2 position-absolute start-100 top-0 p-0 shadow-sm w-100">
-                                            <ul class="menu-link p-0 list-unstyled"> 
+                                            <ul class="menu-link p-0 list-unstyled">
                                                 @if ($brandHeaders)
                                                     @foreach ($brandHeaders as $keyBrand => $valBrand)
                                                         <li
@@ -386,5 +386,4 @@
             </nav>
         </div>
     </header>
-    
 </section>
