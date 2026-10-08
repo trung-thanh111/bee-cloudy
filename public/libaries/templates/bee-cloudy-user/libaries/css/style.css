@@ -1217,11 +1217,11 @@ hr {
 }
 
 .img-choose-color.active {
-    border: 2px solid gray;
-    padding: 2px;
-    width: 30px;
-    height: 30px;
+    border: 2px solid rgb(18, 129, 209);
+    width: 33.5px;
+    height: 33.5px;
     border-radius: 50%;
+    z-index: 1;
 }
 
 /* forgot pass  */
@@ -1443,3 +1443,17 @@ footer {
     color: #fff !important;
     background-color: #14b6a0 !important;
 }
+<<<<<<< HEAD
+=======
+
+.categoryP-item{
+    max-height: 400px;
+}
+.brand-item{
+    max-height: 400px;
+}
+ /* filter  */
+.filter-category{
+    max-height: 270px;
+}
+>>>>>>> thanhtrung

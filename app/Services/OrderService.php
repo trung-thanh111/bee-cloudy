@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Mail\OrderMail;
+use App\Models\Attribute;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -40,7 +41,7 @@ class OrderService implements OrderServiceInterface
     public function all()
     {
         return $this->orderRepository->all(
-            ['orderItems', 'orderItems.productVariants', 'orderItems.productVariants.attributes', 'orderItems.products'],
+            ['orderItems', 'orderItems.productVariants', 'orderItems.products'],
             [
                 ['customer_id', Auth::id()],
             ]
@@ -311,6 +312,24 @@ class OrderService implements OrderServiceInterface
         return $orders;
     }
 
+
+    public function findAttributesByCode()
+    {
+        $orders = $this->all();
+        $attributesByOrderItem = [];
+        if(isset($orders->orderItems) && count($orders->orderItems ) > 0){
+            foreach ($orders->orderItems as $orderItem) {
+                if ($orderItem->productVariants) {
+                    $codeIds = explode(',', $orderItem->productVariants->code);
+                    $attributes = Attribute::whereIn('id', $codeIds)->get();
+    
+                    //lấy dúng attribut của cartitem đó
+                    $attributesByOrderItem[$orderItem->id] = $attributes;
+                }
+            }
+        }
+        return $attributesByOrderItem;
+    }
     private function paginateSelect()
     {
         return [

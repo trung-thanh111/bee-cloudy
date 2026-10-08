@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive bg-white shadow-sm p-2">
-                                <table class="table align-middle table-hover h-100">
+                                <table class="table align-middle table-hover h-100 cart">
                                     <thead>
                                         <tr>
                                             <th>Sản phẩm</th>
@@ -46,9 +46,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         @foreach ($carts->cartItems as $key => $cartItem)
-                                            <tr class="cart-item">
+                                            <tr class="cart-item" data-destroy-id="{{ $cartItem->id }}">
                                                 <td>
                                                     <div class="card-body">
                                                         <div class="row gy-3">
@@ -58,22 +57,23 @@
                                                                         <img src="{{ explode(',', $cartItem->productVariants->album)[0] }}"
                                                                             alt="image-product" width="90"
                                                                             height="90"
-                                                                            class="img-fluid d-block object-fit-cover rounded-2 text-break">
+                                                                            class="d-block object-fit-cover rounded-2 text-break">
                                                                     @elseif ($cartItem->products)
                                                                         <img src="{{ $cartItem->products->image }}"
                                                                             alt="image-product" width="90"
                                                                             height="90"
-                                                                            class="img-fluid d-block object-fit-cover rounded-2">
+                                                                            class="d-block object-fit-cover rounded-2">
                                                                     @else
                                                                         <img src="/libaries/upload/libaries/images/img-notfound.png"
                                                                             alt="Product Image" width="90"
                                                                             height="90"
-                                                                            class="img-fluid d-block object-fit-cover rounded-2">
+                                                                            class="d-block object-fit-cover rounded-2">
                                                                     @endif
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm" style="width: 250px;">
-                                                                <p class="fz-16 text-break lh-sm fw-500 mb-2">
+                                                            <div class="col-sm text-start" style="width: 250px;">
+                                                                <p class="fz-16 text-break lh-sm fw-500 mb-2 overflow-hidden"
+                                                                    style="max-height: 40px">
                                                                     <a href="#" class="text-muted">
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}
@@ -82,29 +82,30 @@
                                                                         @endif
                                                                     </a>
                                                                 </p>
-                                                                {{-- <ul class="list-inline text-muted fz-14 mb-1">
-                                                                    @if ($cartItem->productVariants)
-                                                                        @foreach ($cartItem->productVariants->attributes as $attribute)
+                                                                <ul class="list-inline text-muted fz-14 mb-1">
+                                                                    @if (isset($attributesByCartItem[$cartItem->id]))
+                                                                        @foreach ($attributesByCartItem[$cartItem->id] as $attribute)
                                                                             <li class="list-inline-item">
-                                                                                
                                                                                 {{ $attribute->name }}
                                                                             </li>
                                                                         @endforeach
                                                                     @endif
-                                                                </ul> --}}
+                                                                </ul>
+
                                                                 <a href="javascript:void(0)"
                                                                     class="d-block text-danger fz-14 destroyCart"
                                                                     data-id="{{ $cartItem->products->id ?? '' }}"
-                                                                    data-variant-id="{{ $cartItem->productVariants->id ?? '' }}">
+                                                                    data-variant-id="{{ $cartItem->productVariants->id ?? '' }}"
+                                                                    data-destroy-id="{{ $cartItem->id }}">
                                                                     <i
-                                                                        class="fa-solid fa-trash text-danger align-bottom me-1 mb-1 "></i>
+                                                                        class="fa-solid fa-trash text-danger align-bottom me-1 mb-1"></i>
                                                                     <span class="mt-1 align-middle"> xóa</span>
                                                                 </a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="text-center">
+                                                <td class="text-end">
                                                     <span class="product-price fw-medium text-muted"
                                                         data-price="{{ $cartItem->price }}">
                                                         {{ number_format($cartItem->price, 0, ',', '.') }}đ
@@ -120,7 +121,7 @@
                                                         <input type="text" name="quantity-input"
                                                             class="form-control border-0 fz-20 text-center fw-600"
                                                             value="{{ $cartItem->quantity }}" min="1"
-                                                            style="max-width: 60px;" readonly>
+                                                            style="max-width: 60px;" data-quantity-cart="{{ $cartItem->quantity }}" readonly>
                                                         @if ($cartItem->productVariants)
                                                             <input type="hidden" name="product_variant_id"
                                                                 class="product-variant-id"
@@ -145,6 +146,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+
                                     </tbody>
 
 
@@ -200,14 +202,14 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive table-card">
-                                        <table class="table table-borderless align-middle mb-0">
+                                        <table class="table table-borderless align-middle mb-0 order">
                                             <tbody>
                                                 @if (!is_null($carts) && !empty($carts))
                                                     @php
                                                         $total = 0;
                                                     @endphp
                                                     @foreach ($carts->cartItems as $cartItem)
-                                                        <tr class="cart-item">
+                                                        <tr class="cart-item" data-destroy-id="{{ $cartItem->id }}">
                                                             <td class="p-0">
                                                                 <div class="avatar-md bg-light rounded p-1">
                                                                     @if ($cartItem->productVariants)
@@ -227,7 +229,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <h5 class="fz-14 text-break">
+                                                                <h5 class="fz-14 text-start text-truncate mb-0"
+                                                                    style="width: 220px">
                                                                     <a href="#" class="text-body">
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}
@@ -235,14 +238,22 @@
                                                                             {{ $cartItem->products->name }}
                                                                         @endif
                                                                     </a>
+                                                                    <ul class="list-inline text-muted fz-12 my-1">
+                                                                        @if (isset($attributesByCartItem[$cartItem->id]))
+                                                                            @foreach ($attributesByCartItem[$cartItem->id] as $attribute)
+                                                                                <li class="list-inline-item">
+                                                                                    {{ $attribute->name }}
+                                                                                </li>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    </ul>
                                                                 </h5>
-                                                                <p class="text-muted mb-0 fz-14">
-                                                                    {{ number_format($cartItem->price, 0, ',', '.') }}đ
-                                                                    <strong
-                                                                        class="text-info orderQuantity">x{{ $cartItem->quantity }}</strong>
+                                                                <p class="text-muted text-start mb-0 fz-14">
+                                                                    <span class="orderPrice" >{{ number_format($cartItem->price, 0, ',', '.') }}đ</span>
+                                                                    <strong class="text-info orderQuantity">x{{ $cartItem->quantity }}</strong>
                                                                 </p>
                                                             </td>
-                                                            <td class="text-end fz-14 fw-medium orderPrice">
+                                                            <td class="text-end fz-14 fw-medium totalPriceOrder">
                                                                 {{ number_format($cartItem->price * $cartItem->quantity, 0, ',', '.') }}đ
                                                             </td>
                                                         </tr>
@@ -273,18 +284,18 @@
                                                     </td>
                                                 </tr>
                                                 <tr style="height: 50px;">
-                                                    <td class="fz-16" colspan="2">Thành tiền:</td>
-                                                    <td class="fw-semibold text-end">
+                                                    <td class=" text-start fz-16" colspan="2">Thành tiền:</td>
+                                                    <td class="fw-semibold text-end" id="cart-price">
                                                         {{ number_format($total, 0, ',', '.') }}đ
                                                     </td>
                                                 </tr>
                                                 <tr style="height: 50px;">
-                                                    <td class="fz-16" colspan="2">Giảm giá:
+                                                    <td class=" text-start fz-16" colspan="2">Giảm giá:
                                                     </td>
                                                     <td class="fw-semibold text-end">0</td>
                                                 </tr>
                                                 <tr style="height: 60px;">
-                                                    <td class="fz-16" colspan="2">Phí vận chuyển:</td>
+                                                    <td class=" text-start fz-16" colspan="2">Phí vận chuyển:</td>
                                                     <td class="fw-semibold text-end">25.000đ</td>
                                                 </tr>
 
@@ -366,12 +377,10 @@
                                                 class="img-fluid object-fit-cover rounded-top-2" style="height: 300px">
                                             <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                 <div class="hstack gap-3">
-                                                    <div class="p-2 overflow-x-hidden w-50">
+                                                    <div class="p-2 overflow-x-hidden">
                                                         <span
-                                                            class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            @foreach ($valProductSimilar->productCatalogues as $catalogue)
-                                                                {{ $catalogue->name }}
-                                                            @endforeach
+                                                            class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                            {{ $valProductSimilar->productCatalogues[0]->name }}
                                                         </span>
                                                     </div>
                                                     <div class="p-2 ms-auto">

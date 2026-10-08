@@ -8,6 +8,13 @@
         let ward = $("#ward");
         let url =
             "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json";
+<<<<<<< HEAD
+=======
+        // update load
+        let province_id = window.province_id;
+        let district_id = window.district_id;
+        let ward_id = window.ward_id;
+>>>>>>> thanhtrung
 
         province
             .empty()
@@ -23,9 +30,20 @@
 
         $.getJSON(url, function (data) {
             $.each(data, function (index, item) {
+<<<<<<< HEAD
                 let option = `<option value="${item.Id}">${item.Name}</option>`;
                 province.append(option);
             });
+=======
+                let isSelected = item.Id == province_id ? "selected" : "";
+                let option = `<option value="${item.Id}" ${isSelected}>${item.Name}</option>`;
+                province.append(option);
+            });
+            // tự động trgger khi có id
+            if (province_id) {
+                province.trigger("change");
+            }
+>>>>>>> thanhtrung
         });
 
         province.on("change", function () {
@@ -45,9 +63,13 @@
                         (p) => p.Id === provinceId
                     ).Districts;
                     $.each(districts, function (index, item) {
-                        let option = `<option value="${item.Id}" >${item.Name}</option>`;
+                        let isSelected = item.Id == district_id ? "selected" : "";
+                        let option = `<option value="${item.Id}" ${isSelected}>${item.Name}</option>`;
                         district.append(option);
                     });
+                    if (district_id) {
+                        district.trigger("change");
+                    }
                 });
             }
         });
@@ -68,9 +90,13 @@
                         (d) => d.Id === districtId
                     ).Wards;
                     $.each(wards, function (index, item) {
-                        let option = `<option value="${item.Id}">${item.Name}</option>`;
+                        let isSelected = item.Id == ward_id ? "selected" : "";
+                        let option = `<option value="${item.Id}" ${isSelected}>${item.Name}</option>`;
                         ward.append(option);
                     });
+                    if (ward_id) {
+                        ward.trigger("change");
+                    }
                 });
             }
         });

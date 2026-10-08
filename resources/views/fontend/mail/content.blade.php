@@ -165,6 +165,7 @@
                         <tr>
                             <td style="width: 60%">
                                 <div class="product-info">
+<<<<<<< HEAD
 
                                     {{-- @if ($val->productVariants && $val->productVariants->album != '0' && !empty($val->productVariants->album))
                                         @php
@@ -183,6 +184,11 @@
                                     @endif --}}
                                     <div class="product-details">
                                         <span class="product-name">{{ $val->product_name }}</span>
+=======
+                                    <div class="product-details">
+                                        <span class="product-name">{{ $val->product_name }}</span>
+
+>>>>>>> thanhtrung
                                     </div>
                                 </div>
                             </td>
@@ -193,7 +199,10 @@
                     @endforeach
                 @endif
             </tbody>
+<<<<<<< HEAD
 
+=======
+>>>>>>> thanhtrung
         </table>
 
         <h3>Thông tin nhận hàng</h3>

@@ -73,7 +73,7 @@
 
 }
 .select2-container .select2-selection--multiple {
-    height: 37px !important;
+    min-height: 37px !important;
     border-radius: 2px !important;
     line-height: 1.5rem !important;
     padding-left: 3px;
@@ -99,8 +99,8 @@
 }
 .variant-checkbox input{
     margin-top:0;
-    width:16px;
-    height:16px;
+    width:10px;
+    height:10px;
 }
 .variant-checkbox label{
     margin-bottom:0;
