@@ -22,7 +22,7 @@
                         <form action="#" method="get" class="app-search d-none d-md-block ">
                             <div class="input-group input-group-sm w-100 position-relative ">
                                 <input type="text" name="keyword" class="form-control search-header py-0"
-                                    placeholder="bạn đang cần gì?">
+                                    placeholder="Bạn đang cần gì?">
                                 <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
                                     <i class='bx bx-search-alt-2'></i>
                                 </button>
