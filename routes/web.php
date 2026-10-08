@@ -88,7 +88,7 @@ Route::get('product/category/{id}', [ShopController::class, 'productIncategory']
 Route::get('product/filter', [ShopController::class, 'productFilter'])->name('product.filter');
 Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
-Route::get('search/result', [AjaxSearchController::class, 'searchResult'])->name('search.result');
+Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
 
 
 
