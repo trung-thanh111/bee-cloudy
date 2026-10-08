@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive bg-white shadow-sm p-2">
-                                <table class="table align-middle table-hover h-100">
+                                <table class="table align-middle table-hover h-100 cart">
                                     <thead>
                                         <tr>
                                             <th>Sản phẩm</th>
@@ -46,9 +46,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         @foreach ($carts->cartItems as $key => $cartItem)
-                                            <tr class="cart-item">
+                                            <tr class="cart-item" data-destroy-id="{{ $cartItem->id }}">
                                                 <td>
                                                     <div class="card-body">
                                                         <div class="row gy-3">
@@ -73,7 +72,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm text-start" style="width: 250px;">
-                                                                <p class="fz-16 text-break lh-sm fw-500 mb-2 overflow-hidden" style="max-height: 40px">
+                                                                <p class="fz-16 text-break lh-sm fw-500 mb-2 overflow-hidden"
+                                                                    style="max-height: 40px">
                                                                     <a href="#" class="text-muted">
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}
@@ -95,7 +95,8 @@
                                                                 <a href="javascript:void(0)"
                                                                     class="d-block text-danger fz-14 destroyCart"
                                                                     data-id="{{ $cartItem->products->id ?? '' }}"
-                                                                    data-variant-id="{{ $cartItem->productVariants->id ?? '' }}">
+                                                                    data-variant-id="{{ $cartItem->productVariants->id ?? '' }}"
+                                                                    data-destroy-id="{{ $cartItem->id }}">
                                                                     <i
                                                                         class="fa-solid fa-trash text-danger align-bottom me-1 mb-1"></i>
                                                                     <span class="mt-1 align-middle"> xóa</span>
@@ -120,7 +121,7 @@
                                                         <input type="text" name="quantity-input"
                                                             class="form-control border-0 fz-20 text-center fw-600"
                                                             value="{{ $cartItem->quantity }}" min="1"
-                                                            style="max-width: 60px;" readonly>
+                                                            style="max-width: 60px;" data-quantity-cart="{{ $cartItem->quantity }}" readonly>
                                                         @if ($cartItem->productVariants)
                                                             <input type="hidden" name="product_variant_id"
                                                                 class="product-variant-id"
@@ -201,14 +202,14 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="table-responsive table-card">
-                                        <table class="table table-borderless align-middle mb-0">
+                                        <table class="table table-borderless align-middle mb-0 order">
                                             <tbody>
                                                 @if (!is_null($carts) && !empty($carts))
                                                     @php
                                                         $total = 0;
                                                     @endphp
                                                     @foreach ($carts->cartItems as $cartItem)
-                                                        <tr class="cart-item">
+                                                        <tr class="cart-item" data-destroy-id="{{ $cartItem->id }}">
                                                             <td class="p-0">
                                                                 <div class="avatar-md bg-light rounded p-1">
                                                                     @if ($cartItem->productVariants)
@@ -228,7 +229,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <h5 class="fz-14 text-start text-truncate mb-0" style="width: 220px">
+                                                                <h5 class="fz-14 text-start text-truncate mb-0"
+                                                                    style="width: 220px">
                                                                     <a href="#" class="text-body">
                                                                         @if ($cartItem->productVariants)
                                                                             {{ $cartItem->productVariants->name }}
@@ -247,12 +249,11 @@
                                                                     </ul>
                                                                 </h5>
                                                                 <p class="text-muted text-start mb-0 fz-14">
-                                                                    {{ number_format($cartItem->price, 0, ',', '.') }}đ
-                                                                    <strong
-                                                                        class="text-info orderQuantity">x{{ $cartItem->quantity }}</strong>
+                                                                    <span class="orderPrice" >{{ number_format($cartItem->price, 0, ',', '.') }}đ</span>
+                                                                    <strong class="text-info orderQuantity">x{{ $cartItem->quantity }}</strong>
                                                                 </p>
                                                             </td>
-                                                            <td class="text-end fz-14 fw-medium orderPrice">
+                                                            <td class="text-end fz-14 fw-medium totalPriceOrder">
                                                                 {{ number_format($cartItem->price * $cartItem->quantity, 0, ',', '.') }}đ
                                                             </td>
                                                         </tr>
@@ -284,7 +285,7 @@
                                                 </tr>
                                                 <tr style="height: 50px;">
                                                     <td class=" text-start fz-16" colspan="2">Thành tiền:</td>
-                                                    <td class="fw-semibold text-end">
+                                                    <td class="fw-semibold text-end" id="cart-price">
                                                         {{ number_format($total, 0, ',', '.') }}đ
                                                     </td>
                                                 </tr>
