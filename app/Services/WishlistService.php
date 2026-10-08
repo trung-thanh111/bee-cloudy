@@ -82,27 +82,30 @@ class WishlistService implements WishlistServiceInterface
             $productId = $productId ?: $request->input('product_id');
             $variantId = $variantId ?: $request->input('product_variant_id');
 
+            // Tìm kiếm bản ghi (giới hạn 1 bản ghi thay vì Collection)
             $wishlist = $this->wishlistRepository->findByUserProductVariant($userId, $productId, $variantId);
 
             if ($wishlist) {
-                $wishlist->delete();
-                flash()->success('Đã xóa yêu thích.');
+                // Nếu tồn tại -> Xóa
+                $wishlist->forceDelete();
+                DB::commit();  // Commit tại đây sau khi xóa
+                return ['code' => 10, 'message' => 'Đã xóa yêu thích.'];
             } else {
+                // Nếu không tồn tại -> Thêm mới
                 $this->wishlistRepository->create([
                     'user_id' => $userId,
                     'product_id' => $productId,
                     'product_variant_id' => $variantId,
                 ]);
-                flash()->success('Đã thêm vào yêu thích.');
+                DB::commit();  // Commit tại đây sau khi thêm
+                return ['code' => 10, 'message' => 'Đã thêm vào yêu thích.'];
             }
-
-            DB::commit();
-            return response()->json(['code' => 10, 'message' => 'Success']);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['code' => 0, 'message' => $e->getMessage()], 500);
+            return ['code' => 0, 'message' => 'Có lỗi xảy ra: ' . $e->getMessage()];
         }
     }
+
 
 
 

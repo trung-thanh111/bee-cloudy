@@ -67,4 +67,8 @@ class Product extends Model
     {
         return $this->hasMany(WishList::class, 'product_id', 'id');
     }
+    public function vouchers()
+    {
+        return $this->belongsToMany(Voucher::class, 'voucher_products');
+    }
 }
