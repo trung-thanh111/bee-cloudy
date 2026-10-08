@@ -203,3 +203,6 @@
     object-fit: contain;
 }
 /*  */
+.visibility-none {
+    visibility: hidden;
+}
