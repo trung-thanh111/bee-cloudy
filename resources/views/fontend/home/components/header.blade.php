@@ -110,11 +110,9 @@
                                         @foreach ($productCategories as $keyPCate => $productCate)
                                             <li
                                                 class="nav-item li-menu-header {{ $productCate->childrenReference->isNotEmpty() ? 'menu-item-v2' : '' }} position-relative">
-
                                                 <a href="{{ route('product.category', ['id' => $productCate->id]) }}"
-                                                    class="d-flex justify-content-between align-items-center p-1 position-relative ">
+                                                    class="d-flex justify-content-between align-items-center position-relative ">
                                                     <span class="nav-link menu-link p-0 text-muted">
-
                                                         <span>{{ $productCate->name }}</span>
                                                     </span>
                                                     <i

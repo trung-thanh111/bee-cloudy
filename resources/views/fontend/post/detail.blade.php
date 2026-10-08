@@ -227,7 +227,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-12 col-12">
+                        <div class="col-lg-3 col-md-12 col-12 mt-4">
                             <div class="card border-0 rounded-1 mb-4">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Tìm kiếm</h6>

@@ -21,7 +21,6 @@
                             <div class="row ps-lg-3 pe-lg-3 p-lg-5 p-md-5 p-sm-4 p-xs-3">
                                 @php
                                     $user = Auth::user();
-
                                 @endphp
                                 <div class="col-lg-4 col-md-4">
                                     <img src="{{ $user->image ?? '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
@@ -198,18 +197,14 @@
                                         <div class="row justify-content-end">
                                             <div class="col-md-6">
                                                 <form action="{{ route('account.order') }}" method="GET">
-                                                    <div class="d-flex shadow-sm rounded-pill py-1 my-3 overflow-hidden bg-white">
-                                                        <input 
-                                                            type="text" 
-                                                            name="keyword"
-                                                            class="form-control border-0 py-2 ps-3 pe-0" 
+                                                    <div
+                                                        class="d-flex shadow-sm rounded-pill py-1 my-3 overflow-hidden bg-white">
+                                                        <input type="text" name="keyword"
+                                                            class="form-control border-0 py-2 ps-3 pe-0"
                                                             placeholder="Tìm theo tên đơn, mã đơn hoặc tên sản phẩm"
                                                             value="{{ request('keyword') ?: old('keyword') }}"
-                                                            style="box-shadow: none;"
-                                                        >
-                                                        <button 
-                                                            type="submit" 
-                                                            class="btn px-4 border-0">
+                                                            style="box-shadow: none;">
+                                                        <button type="submit" class="btn px-4 border-0">
                                                             <i class="fas fa-search fz-18 text-muted"></i>
                                                         </button>
                                                     </div>
@@ -235,7 +230,6 @@
                                                             <button type="button"
                                                                 class=" nav-link fz-14 fw-medium px-2 py-3 rounded-0 text-bg-light"
                                                                 data-bs-toggle="tab" data-bs-target="#pending">
-
                                                                 Đang xử lý
                                                             </button>
                                                         </li>
@@ -293,7 +287,35 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-
+                                                                        // -- //
+                                                                        $statusPayment = '';
+                                                                        if ($valvOrder->payment == 'unpaid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button class="btn btn-warning text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fa-solid fa-circle-info"></i>
+                                                                            Chưa trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrder->payment == 'paid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-success text-white d-flex align-items-center  gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-check-circle"></i>
+                                                                            Đã trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrder->payment == 'failed') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-danger text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-times-circle"></i>
+                                                                            Thất bại 
+                                                                        </button>
+                                                                    </div>';
+                                                                        }
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -349,7 +371,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3">
+                                                                                        <div class="flex-grow-1 px-3"
+                                                                                            style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -380,13 +403,14 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-                                                                                <div class="">
+                                                                                <div class="d-flex">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
                                                                                     <span
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrder->total_amount, '0', ',', '.') }}đ</span>
+                                                                                        class="text-danger text-end fw-medium mb-0 me-4">{{ number_format($valvOrder->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span>
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrder->status != 'completed' ? 'd-none' : '' }}">
@@ -440,7 +464,7 @@
                                                     {{-- penđing  --}}
                                                     <div class="tab-pane fade" id="pending">
                                                         <div class="order">
-                                                            @if (count($order_pending) > 0)
+                                                            @if (count($order_pending) > 0 || count($order_confirmed) > 0)
                                                                 @foreach ($order_pending as $keyvOrderPend => $valvOrderPend)
                                                                     @php
                                                                         $statusMap = [
@@ -464,7 +488,35 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-
+                                                                        // -- //
+                                                                        $statusPayment = '';
+                                                                        if ($valvOrderPend->payment == 'unpaid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button class="btn btn-warning text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fa-solid fa-circle-info"></i>
+                                                                            Chưa trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderPend->payment == 'paid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-success text-white d-flex align-items-center  gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-check-circle"></i>
+                                                                            Đã trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderPend->payment == 'failed') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-danger text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-times-circle"></i>
+                                                                            Thất bại 
+                                                                        </button>
+                                                                    </div>';
+                                                                        }
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -520,7 +572,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3">
+                                                                                        <div class="flex-grow-1 px-3"
+                                                                                            style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -551,16 +604,186 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-                                                                                <div class="">
+                                                                                <div class="d-flex">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
                                                                                     <span
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderPend->total_amount, '0', ',', '.') }}đ</span>
+                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderPend->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span>
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderPend->status != 'completed' ? 'd-none' : '' }}">
+                                                                                    <a href="#"
+                                                                                        class="btn btn-outline-success btn-sm px-3"
+                                                                                        style="min-width: 120px;">
+                                                                                        <i
+                                                                                            class="bi bi-arrow-repeat me-1"></i>
+                                                                                        Mua lại
+                                                                                    </a>
+                                                                                    <a href="#"
+                                                                                        class="btn btn-success text-white btn-sm px-3"
+                                                                                        style="min-width: 120px;">
+                                                                                        <i class="bi bi-star me-1"></i>
+                                                                                        Đánh giá
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                    <hr class="border-3 pb-3 border-dark">
+                                                                @endforeach
+                                                                @foreach ($order_confirmed as $keyvOrderConF => $valvOrderConF)
+                                                                    @php
+                                                                        $statusMap = [
+                                                                            'pending' => ['Chờ xác nhận', 'secondary'],
+                                                                            'confirmed' => ['Đã xác nhận', 'primary'],
+                                                                            'shipping' => [
+                                                                                'Đang vận chuyển',
+                                                                                'warning',
+                                                                            ],
+                                                                            'canceled' => ['Đã hủy đơn', 'danger'],
+                                                                            'completed' => ['Thành công', 'success'],
+                                                                        ];
+                                                                        $statusInfo = $statusMap[
+                                                                            $valvOrderConF->status
+                                                                        ] ?? ['Không xác định', 'dark'];
+                                                                        $statusBadge =
+                                                                            '<span class="badge rounded-pill bg-' .
+                                                                            $statusInfo[1] .
+                                                                            '-subtle text-' .
+                                                                            $statusInfo[1] .
+                                                                            ' p-2">' .
+                                                                            $statusInfo[0] .
+                                                                            '</span>';
+                                                                        // -- //
+                                                                        $statusPayment = '';
+                                                                        if ($valvOrderConF->payment == 'unpaid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button class="btn btn-warning text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fa-solid fa-circle-info"></i>
+                                                                            Chưa trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderConF->payment == 'paid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-success text-white d-flex align-items-center  gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-check-circle"></i>
+                                                                            Đã trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderConF->payment == 'failed') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-danger text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-times-circle"></i>
+                                                                            Thất bại 
+                                                                        </button>
+                                                                    </div>';
+                                                                        }
+                                                                    @endphp
+                                                                    <div
+                                                                        class="order-item bg-white shadow-sm rounded mb-3">
+                                                                        <div
+                                                                            class="d-flex justify-content-between align-items-center bg-white p-3 border-bottom">
+                                                                            <h6 class="mb-0 d-flex align-items-center">
+                                                                                <i
+                                                                                    class="fa-solid fa-receipt fs-6 text-muted me-2"></i>
+                                                                                Mã đơn hàng: #{{ $valvOrderConF->code }}
+                                                                                <div
+                                                                                    class="ms-4 d-flex align-items-center">
+                                                                                    {!! $statusBadge !!}
+                                                                                </div>
+                                                                            </h6>
+                                                                            <div class="dropdown ms-auto ">
+                                                                                <a class=" dropdown-toggle" href="#"
+                                                                                    role="button"
+                                                                                    data-bs-toggle="dropdown">
+                                                                                    <i
+                                                                                        class="fa-solid fa-ellipsis-vertical fz-14 text-muted"></i>
+                                                                                </a>
+                                                                                <ul
+                                                                                    class="dropdown-menu dropdown-menu-end border-0 ul-menu p-0 mb-1">
+                                                                                    <li
+                                                                                        class="p-1 li-menu-header bg-light shadow-sm">
+                                                                                        <a href="{{ route('account.order.detail', ['id' => $valvOrderConF->id]) }}"
+                                                                                            class="text-decoration-none text-muted fz-14 ps-1">
+                                                                                            <i
+                                                                                                class="fa-solid fa-eye me-2"></i>
+                                                                                            Xem chi tiết
+                                                                                        </a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <a href="{{ route('account.order.detail', ['id' => $valvOrderConF->id]) }}"
+                                                                            class="product_inorder_item text-muted">
+                                                                            @if ($valvOrderConF->orderItems)
+                                                                                {{-- @dd($valvOrderConF->orderItems) --}}
+                                                                                @foreach ($valvOrderConF->orderItems as $orderItem)
+                                                                                    <div
+                                                                                        class="d-flex align-items-start bg-white p-3 border-bottom">
+                                                                                        @if ($orderItem->products)
+                                                                                            <img src="{{ $orderItem->products->image ? $orderItem->products->image : '/libaries/upload/images/img-notfound.png' }}"
+                                                                                                alt=""
+                                                                                                width="90"
+                                                                                                height="80"
+                                                                                                class="object-fit-contain rounded-3 bg-light">
+                                                                                        @elseif($orderItem->productVariants)
+                                                                                            <img src="{{ $orderItem->productVariants->album ? explode(',', $orderItem->productVariants->album)[0] : '/libaries/upload/images/img-notfound.png' }}"
+                                                                                                alt=""
+                                                                                                width="90"
+                                                                                                height="80"
+                                                                                                class="object-fit-contain rounded-3 bg-light">
+                                                                                        @endif
+                                                                                        <div class="flex-grow-1 px-3"
+                                                                                            style="max-width: 80%">
+                                                                                            @if ($orderItem->products)
+                                                                                                <p
+                                                                                                    class="mb-1 fw-medium text-truncate">
+                                                                                                    {{ $orderItem->products->name }}
+                                                                                                </p>
+                                                                                            @elseif($orderItem->productVariants)
+                                                                                                <p
+                                                                                                    class="mb-1 fw-medium text-truncate">
+                                                                                                    {{ $orderItem->productVariants->name }}
+                                                                                                </p>
+                                                                                            @endif
+                                                                                            <p class="mb-0">
+                                                                                                x{{ $orderItem->final_quantity }}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="text-end">
+                                                                                            @if ($orderItem->products)
+                                                                                                <del
+                                                                                                    class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
+                                                                                            @elseif($orderItem->productVariants)
+                                                                                                <span
+                                                                                                    class="text-danger fz-14">{{ number_format($orderItem->productVariants->price, '0', ',', '.') }}đ</span>
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            @endif
+                                                                            <!-- Footer đơn hàng -->
+                                                                            <div
+                                                                                class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
+                                                                                <div class="d-flex">
+                                                                                    <span class="me-2">
+                                                                                        <i class="bi bi-coin"></i>
+                                                                                        Tổng tiền:
+                                                                                    </span>
+                                                                                    <span
+                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderConF->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="d-flex justify-content-end gap-2 {{ $valvOrderConF->status != 'completed' ? 'd-none' : '' }}">
                                                                                     <a href="#"
                                                                                         class="btn btn-outline-success btn-sm px-3"
                                                                                         style="min-width: 120px;">
@@ -602,6 +825,7 @@
                                                                     </div>
                                                                 </div>
                                                             @endif
+
                                                         </div>
                                                         <div class="container-fluid">
                                                             {{ $order_pending->onEachSide(3)->links('pagination::bootstrap-5') }}
@@ -634,7 +858,35 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-
+                                                                        // -- //
+                                                                        $statusPayment = '';
+                                                                        if ($valvOrderShip->payment == 'unpaid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button class="btn btn-warning text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fa-solid fa-circle-info"></i>
+                                                                            Chưa trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderShip->payment == 'paid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-success text-white d-flex align-items-center  gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-check-circle"></i>
+                                                                            Đã trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderShip->payment == 'failed') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-danger text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-times-circle"></i>
+                                                                            Thất bại 
+                                                                        </button>
+                                                                    </div>';
+                                                                        }
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -690,7 +942,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3">
+                                                                                        <div class="flex-grow-1 px-3"
+                                                                                            style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -721,13 +974,14 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-                                                                                <div class="">
+                                                                                <div class="d-flex">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
                                                                                     <span
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderShip->total_amount, '0', ',', '.') }}đ</span>
+                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderShip->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span>
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderShip->status != 'completed' ? 'd-none' : '' }}">
@@ -804,7 +1058,35 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-
+                                                                        // -- //
+                                                                        $statusPayment = '';
+                                                                        if ($valvOrderComp->payment == 'unpaid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button class="btn btn-warning text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fa-solid fa-circle-info"></i>
+                                                                            Chưa trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderComp->payment == 'paid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-success text-white d-flex align-items-center  gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-check-circle"></i>
+                                                                            Đã trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderComp->payment == 'failed') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-danger text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-times-circle"></i>
+                                                                            Thất bại 
+                                                                        </button>
+                                                                    </div>';
+                                                                        }
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -860,7 +1142,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3">
+                                                                                        <div class="flex-grow-1 px-3"
+                                                                                            style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -891,13 +1174,14 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-                                                                                <div class="">
+                                                                                <div class="d-flex">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
                                                                                     <span
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderComp->total_amount, '0', ',', '.') }}đ</span>
+                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderComp->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span>
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderComp->status != 'completed' ? 'd-none' : '' }}">
@@ -975,7 +1259,37 @@
                                                                             ' p-2">' .
                                                                             $statusInfo[0] .
                                                                             '</span>';
-
+                                                                        // -- //
+                                                                        $statusPayment = '';
+                                                                        if ($valvOrderCancel->payment == 'unpaid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button class="btn btn-warning text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fa-solid fa-circle-info"></i>
+                                                                            Chưa trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif ($valvOrderCancel->payment == 'paid') {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-success text-white d-flex align-items-center  gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-check-circle"></i>
+                                                                            Đã trả
+                                                                        </button>
+                                                                    </div>';
+                                                                        } elseif (
+                                                                            $valvOrderCancel->payment == 'failed'
+                                                                        ) {
+                                                                            $statusPayment = '
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button
+                                                                            class="btn btn-danger text-white d-flex align-items-center gap-2 py-1 px-2 fz-9 fw-bold text-uppercase">
+                                                                            <i class="fas fa-times-circle"></i>
+                                                                            Thất bại 
+                                                                        </button>
+                                                                    </div>';
+                                                                        }
                                                                     @endphp
                                                                     <div
                                                                         class="order-item bg-white shadow-sm rounded mb-3">
@@ -1031,7 +1345,8 @@
                                                                                                 height="80"
                                                                                                 class="object-fit-contain rounded-3 bg-light">
                                                                                         @endif
-                                                                                        <div class="flex-grow-1 px-3">
+                                                                                        <div class="flex-grow-1 px-3"
+                                                                                            style="max-width: 80%">
                                                                                             @if ($orderItem->products)
                                                                                                 <p
                                                                                                     class="mb-1 fw-medium text-truncate">
@@ -1047,7 +1362,7 @@
                                                                                                 x{{ $orderItem->final_quantity }}
                                                                                             </p>
                                                                                         </div>
-                                                                                        <div class="text-end">
+                                                                                        <div class="text-end align-middle">
                                                                                             @if ($orderItem->products)
                                                                                                 <del
                                                                                                     class="text-secondary fz-14 {{ $orderItem->products->del == 0 && $orderItem->products->del == null ? 'hidden-visibility' : '' }}">{{ number_format($orderItem->products->price, '0', ',', '.') }}đ</del>
@@ -1062,13 +1377,14 @@
                                                                             <!-- Footer đơn hàng -->
                                                                             <div
                                                                                 class="bg-light d-flex justify-content-between align-items-center px-3 py-2">
-                                                                                <div class="">
+                                                                                <div class="d-flex">
                                                                                     <span class="me-2">
                                                                                         <i class="bi bi-coin"></i>
                                                                                         Tổng tiền:
                                                                                     </span>
                                                                                     <span
-                                                                                        class="text-danger fw-medium mb-0">{{ number_format($valvOrderCancel->total_amount, '0', ',', '.') }}đ</span>
+                                                                                        class="text-danger fw-medium mb-0 me-4">{{ number_format($valvOrderCancel->total_amount, '0', ',', '.') }}đ</span>
+                                                                                    <span>{!! $statusPayment !!}</span>
                                                                                 </div>
                                                                                 <div
                                                                                     class="d-flex justify-content-end gap-2 {{ $valvOrderCancel->status != 'completed' ? 'd-none' : '' }}">
@@ -1141,9 +1457,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                        <a href="zalo">
-                                                                                                                                            <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                        </a>
-                                                                                                                                    </div> -->
+                                                                                                                                                    <a href="zalo">
+                                                                                                                                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                                                                                    </a>
+                                                                                                                                                </div> -->
     </div>
 @endsection
