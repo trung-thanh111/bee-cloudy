@@ -18,6 +18,7 @@
     </div>
     <!-- footer  -->
     @include('backend.dashboard.components.script')
+    @yield('js')
 </body>
 
 </html>

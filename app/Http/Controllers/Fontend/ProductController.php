@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\BrandRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProductCatalogueRepository;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {

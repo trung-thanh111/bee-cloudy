@@ -13,13 +13,84 @@ class ContentController extends Controller
     {
         return view('fontend.Content.index');
     }
+
+
+    public function view()
+    {
+        $template = 'backend.comment.index';
+        return view('backend.dashboard.layout', compact(
+            'template',
+        ));
+    }
+
+    public function getdata()
+    {
+        $data = Content::join('users', 'users.id', 'contents.user_id')
+            ->select('users.name as ten_kh', 'contents.*',)
+            ->get();
+
+        return response()->json([
+            'data'    => $data,
+        ]);
+    }
+    public function updateadmin(Request $request)
+    {
+
+        if (!Auth::check()) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Vui lòng đăng nhập trước khi sử dụng chức năng.',
+                'redirect' => route('auth.login'),
+            ], 401);
+        }
+        try {
+            $data = Content::where('id', $request->id)->first();
+            if ($data) {
+                $data->content = $request->content;
+                $data->save();
+                return response()->json([
+                    'status'    => true,
+                    'message'   => 'Đã chỉnh sửa bài đánh giá .',
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Có lỗi xảy ra khi chỉnh sửa đánh giá.',
+            ], 500);
+        }
+    }
+    public function deleteadmin(Request $request)
+    {
+
+        if (!Auth::check()) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Vui lòng đăng nhập trước khi sử dụng chức năng.',
+                'redirect' => route('auth.login'),
+            ], 401);
+        }
+        try {
+            Content::find($request->id)->delete();
+            return response()->json([
+                'status'    => true,
+                'message'   => 'Đã Xóa bài đánh giá .',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'code' => 11,
+                'message' => 'Có lỗi xảy ra khi chỉnh sửa đánh giá.',
+            ], 500);
+        }
+    }
+
     public function data()
     {
         $data = Content::join('users', 'users.id', 'contents.user_id')
             ->select('users.name', 'contents.*')
             ->orderByDESC('contents.id')
             ->get();
-        
+
         $commentCount = Content::count();
 
         return response()->json([
@@ -27,8 +98,6 @@ class ContentController extends Controller
             'comment_count' => $commentCount,
         ]);
     }
-
-
     public function create(Request $request)
     {
         if (!Auth::check()) {
@@ -96,8 +165,7 @@ class ContentController extends Controller
                     'code' => false,
                     'message' => 'Bạn đã chỉnh sửa bình luận này',
                 ], 500);
-                
-            }else{
+            } else {
                 // $data->update([
                 //     // 'content'       => $request->content,
                 //     // 'img'           => $request->img,

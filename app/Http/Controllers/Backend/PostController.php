@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
-use App\Services\PostService;
 use App\Http\Controllers\Controller;
-use App\Repositories\PostRepository;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Post;
+use App\Repositories\PostRepository;
 use App\Repositories\PostCatalogueRepository;
+use App\Services\PostService;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -19,13 +20,30 @@ class PostController extends Controller
         PostService $postService,
         PostRepository $postRepository,
         PostCatalogueRepository $postCatalogueRepository,
-        
+
     ) {
         $this->postService = $postService;
         $this->postRepository = $postRepository;
         $this->postCatalogueRepository = $postCatalogueRepository;
-        
     }
+
+    public function datahome()
+    {
+        $data = Post::take(1)->get();
+        return response()->json([
+            'data'    => $data,
+        ]);
+    }
+
+    public function dataPOST()
+    {
+        $data = Post::orderBy('name')
+            ->take(2)->get();
+        return response()->json([
+            'data'    => $data,
+        ]);
+    }
+
 
     public function index(Request $request)
     {
@@ -50,7 +68,7 @@ class PostController extends Controller
     }
     public function store(StorePostRequest $request)
     {
-        // gọi tới service với phương thức create 
+        // gọi tới service với phương thức create
         $result = $this->postService->create($request);
         if ($result) {
             flash()->success('Thêm mới thành công');
@@ -126,6 +144,4 @@ class PostController extends Controller
         }
         return redirect()->route('post.index');
     }
-
-    
 }

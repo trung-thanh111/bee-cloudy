@@ -3,8 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use App\Traits\QueryScopes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, QueryScopes;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -23,20 +21,10 @@ class User extends Authenticatable
     
 
     protected $fillable = [
-        'id',
         'name',
-        'image',
-        'phone',
-        'description',
-        'birthday',
-        'province_id',
-        'district_id',
-        'ward_id',
-        'address',
         'email',
         'password',
         'google_id',
-        'created_at',
     ];
 
     /**
@@ -73,7 +61,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
-
+    public function wishLists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'user_id', 'id');
+    }
     public function userVouchers()
     {
         return $this->hasMany(UserVoucher::class);
