@@ -65,10 +65,11 @@ class LoginController extends Controller
                 ]);
 
                 Auth::login($user);
-                return redirect()->intended('home');
+                flash()->success('Đăng nhập thành công!');
+                return redirect()->route('home.index');
             }
         } catch (\Exception $e) {
-            return redirect()->route('login')->with('error', 'Đăng nhập Google thất bại, vui lòng thử lại.');
+            return redirect()->route('auth.login')->with('error', 'Đăng nhập Google thất bại, Vui lòng thử lại.');
         }
     }
 }

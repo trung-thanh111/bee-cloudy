@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\ShopServiceInterface' => 'App\Services\ShopService',
         'App\Services\Interfaces\PostCatalogueServiceInterface' => 'App\Services\PostCatalogueService',
         'App\Services\Interfaces\PostServiceInterface' => 'App\Services\PostService',
+        'App\Services\Interfaces\CartServiceInterface' => 'App\Services\CartService',
     ];
 
     public function register(): void

@@ -9,9 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "anayarojo/shoppingcart": "^4.2",
+        "darryldecode/cart": "^4.2",
         "laravel/framework": "^11.9",
+        "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.5",
         "php-flasher/flasher-laravel": "^2.0"
     },
     "require-dev": {

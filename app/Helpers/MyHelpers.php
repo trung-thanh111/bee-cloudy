@@ -9,3 +9,12 @@ if(!function_exists('sortString')){
         return $newArray;
     }
 }
+if(!function_exists('sortAttributeId')){
+    function sortAttributeId(array $attribute_id = []){
+        $attributeId = array_map('trim', $attribute_id);
+        sort($attributeId, SORT_NUMERIC);
+        $attributeId = implode(',', $attributeId);
+        return $attributeId;
+    }
+}
+

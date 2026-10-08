@@ -103,9 +103,8 @@ class ProductService implements ProductServiceInterface
             if ($product->productVariant()->exists()) {
                 $product->productVariant()->delete();
             }
-
-
             $this->createVariant($product, $request);
+
             // Cập nhật mối quan hệ nhiều-nhiều
             if (isset($request->product_catalogue_id)) {
                 $product->productCatalogues()->sync($request->product_catalogue_id);
@@ -196,6 +195,9 @@ class ProductService implements ProductServiceInterface
         $payload = $request->only(['name', 'variant', 'productVariant', 'attribute']); // các input hidden của variant và productVariant 
         // dd($payload);
         $variant = $this->createVariantArray($payload);
+        if (empty($variant)) {
+            return; // Không có variant nào được tạo, thoát khỏi hàm
+        }
         // sử dụng phương thức createmany()
         $variants = $product->productVariant()->createMany($variant);
         // lấy danh sách id của variants -> trc khi commit lần đầu empty bảng product_variant để inert đúng 
@@ -270,7 +272,12 @@ class ProductService implements ProductServiceInterface
         $payload = $request->only($this->payload());
         $payload['user_id'] = Auth::id();
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
-        $payload['attribute'] = $request->input('attribute');
+        if ($request->has('attribute')) {
+            $payload['attribute'] = $request->input('attribute');
+        } else {
+            // Nếu không có attribute trong request, gán giá trị null hoặc một mảng rỗng
+            $payload['attribute'] = null; // hoặc []
+        }
         $payload['variant'] = $this->formatJson($request, 'variant');
 
         $product->update($payload);

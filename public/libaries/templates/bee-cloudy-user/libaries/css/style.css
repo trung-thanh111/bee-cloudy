@@ -1182,6 +1182,14 @@ hr {
     padding-left: 30px !important;
 }
 
+.bg-cart{
+    border-radius: 5px;
+    margin-bottom: 10px;
+    height: 250px ;
+    background-color: #7793db;
+    box-shadow: 1px 1px 2px rgba(255, 255, 255);
+}
+
 /* // icon-mxh  */
 .fa-facebook {
     color: #4267B2 !important;
