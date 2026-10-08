@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\PostCatalogueService;
+use App\Repositories\PostCatalogueRepository;
 use App\Http\Requests\StorePostCatalogueRequest;
 use App\Http\Requests\UpdatePostCatalogueRequest;
-use App\Repositories\PostCatalogueRepository;
-use App\Services\PostCatalogueService;
-use Illuminate\Http\Request;
 
 class PostCatalogueController extends Controller
 {

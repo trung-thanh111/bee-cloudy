@@ -41,27 +41,6 @@ class WishlistService implements WishlistServiceInterface
         $relation = ['products', 'products.productCatalogues', 'productVariants'];
         $orderBy = ['id', 'asc'];
         $perPage = 12;
-        $sort = $request->query('sort');
-        switch ($sort) {
-            case 'price_high':
-                $orderBy = ['price', 'DESC'];
-                break;
-            case 'price_low':
-                $orderBy = ['price', 'ASC'];
-                break;
-            case 'newest':
-                $orderBy = ['created_at', 'DESC'];
-                break;
-            case 'oldest':
-                $orderBy = ['created_at', 'ASC'];
-                break;
-            case 'name_asc':
-                $orderBy = ['name', 'ASC'];
-                break;
-            case 'name_desc':
-                $orderBy = ['name', 'DESC'];
-                break;
-        }
         $wishlists = $this->wishlistRepository->pagination(
             ['*'],
             $condition,

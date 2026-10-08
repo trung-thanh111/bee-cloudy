@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\ProductCatalogueService;
+use App\Repositories\ProductCatalogueRepository;
 use App\Http\Requests\StoreProductCatalogueRequest;
 use App\Http\Requests\UpdateProductCatalogueRequest;
-use App\Repositories\ProductCatalogueRepository;
-use App\Services\ProductCatalogueService;
-use Illuminate\Http\Request;
 
 class ProductCatalogueController extends Controller
 {

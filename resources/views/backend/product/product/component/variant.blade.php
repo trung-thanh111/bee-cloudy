@@ -92,14 +92,26 @@
     </div>
 </div>
 
-
+@php
+    $variantQuantities = [];
+    if(isset($product) && $product) {
+    if($product->productVariant) {
+        foreach ($product->productVariant as $valVariant) {
+            $variantQuantities[] = [
+                'id' => $valVariant->id,
+                'quantity' => $valVariant->quantity,
+            ];
+        }
+    }
+}
+@endphp
 
 {{-- script chuyển dlieu về dạng json được compact từ controller lên blade --}}
 <script>
     //  ---------------------@_json convert dữ liệu thành dạng json  của blade -> map mảng mới
     var attributeCatalogue = @json(
         $attributeCatalogue->map(function ($item) {
-                //       $_item->name mảng chứa thông tin tên về loại thuộc tính
+                // $_item->name mảng chứa thông tin tên về loại thuộc tính
                 $name = $item->name;
                 // trả về id và name của
                 return [
@@ -109,10 +121,12 @@
                 // _values() chuyển thành mảng trong js bình thường
             })->values());
 
-
-    // load giữ lại thông tin khi submit form
+    // -- //
+    // lấy quan tity mới nhất ra update
+    window.variantQuantities = @json($variantQuantities);
+    
+    // load giữ lại thông tin khi submit form    
     //old() là một mảng nhuneg json-endcode chỉ nhận một chuỗi -> sd base64_endcode
-
     var attribute =
         '{{ base64_encode(json_encode(old('attribute') ?? (isset($product->attribute) ? $product->attribute : []))) }}';
     var variant =

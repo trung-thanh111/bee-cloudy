@@ -318,7 +318,7 @@
                                         <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                                     </div>
                                     <div class="card-body p-1">
-                                        <div class="categoryP-item mb-3 overflow-y-scroll">
+                                        <div class="categoryP-item mb-3 overflow-y-auto">
                                             <ul class="list-group list-group-flush">
                                                 @if (!is_null($postCategories) && !empty($postCategories))
                                                     @foreach ($postCategories as $categoryP)
@@ -342,7 +342,7 @@
                                         <h6 class="card-title fw-18 fw-500">Sản phẩm</h6>
                                     </div>
                                     <div class="card-body p-1">
-                                        <div class="categoryP-item mb-3 overflow-y-scroll">
+                                        <div class="categoryP-item mb-3 overflow-y-auto">
                                             <ul class="list-group list-group-flush">
                                                 @if (!is_null($productCategories) && !empty($productCategories))
                                                     @foreach ($productCategories as $categoryPro)

@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers\Fontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Illuminate\Http\Request;
+use App\Services\PostService;
+use App\Http\Controllers\Controller;
 use App\Repositories\PostRepository;
 use App\Repositories\PostCatalogueRepository;
 use App\Repositories\ProductCatalogueRepository;
-use App\Services\PostService;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    protected $postRepository;
     protected $postService;
+    protected $postRepository;
     protected $postCatalogueRepository;
     protected $productCatalogueRepository;
 
     public function __construct(
-        PostRepository $postRepository,
         PostService $postService,
+        PostRepository $postRepository,
         PostCatalogueRepository $postCatalogueRepository,
         ProductCatalogueRepository $productCatalogueRepository
     ) {
-        $this->postRepository = $postRepository;
         $this->postService = $postService;
-        $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->postRepository = $postRepository;
         $this->postCatalogueRepository = $postCatalogueRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
     }
     public function index(Request $request)
     {
@@ -83,13 +83,13 @@ class PostController extends Controller
         );
         $postNew = $this->postService->paginateFontend($request);
         return view('fontend.post.index', compact(
-            'postCategories',
-            'productCategories',
+            'postNew',
+            'postLikes',
             'postStandC1',
             'postStandC2',
             'postStandC3',
-            'postLikes',
-            'postNew',
+            'postCategories',
+            'productCategories',
         ));
     }
     public function detail($slug)
@@ -117,9 +117,9 @@ class PostController extends Controller
         );
         return view('fontend.post.detail', compact(
             'post',
-            'postCatalogueId',
             'postSimilar',
             'postCatalogues',
+            'postCatalogueId',
             'productCategories',
         ));
     }
@@ -147,8 +147,8 @@ class PostController extends Controller
             ->paginate(9);
         return view('fontend.post.category', compact(
             'postCatalogue',
-            'postInCatagories',
             'postCatalogues',
+            'postInCatagories',
             'productCategories',
         ));
     }
