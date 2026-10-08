@@ -207,8 +207,6 @@
                                             </div>
                                         </a>
                                     </li>
-
-                                    <!-- Thêm các card khác tương tự -->
                                 </ul>
                             </div>
                         </div>

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('google_id')->nullable();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->tinyInteger('outstanding')->default(0)->after('like');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('google_id');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('outstanding');
         });
     }
 };

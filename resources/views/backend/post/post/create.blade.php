@@ -58,8 +58,12 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="description" data-height="150" name="description">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" name="description" rows="3" placeholder="mô tả ngắn">{{ old('description') }}</textarea>
+                                        @if ($errors->has('description'))
+                                            <span class="text-danger fz-12 mt-1">{{ $errors->first('description') }}</span>
+                                        @endif
                                     </div>
+
                                 </div>
                                 <div class="mt-3 mb-2">
                                     <label>Nội dung</label>
@@ -147,7 +151,7 @@
                                             {{-- image-target dùng dể choose image hthi cho ngxem  --}}
                                             <span class="image-target">
                                                 <img src="/libaries/upload/images/img-notfound.png" alt=""
-                                                    class="render-image object-fit-contait rounded-1 mb-2 position-relative "
+                                                    class="render-image object-fit-contain rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}

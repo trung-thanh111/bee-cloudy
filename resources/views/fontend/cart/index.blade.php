@@ -47,7 +47,7 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach ($carts->orderItems as $key => $cartItem)
+                                        @foreach ($carts->cartItems as $key => $cartItem)
                                             <tr class="cart-item">
                                                 <td>
                                                     <div class="card-body">
@@ -155,7 +155,7 @@
                                     <a href="javascript:void(0)"
                                         class="back-to-product btn btn-outline-danger fz-14 rounded-1 clearCart"
                                         data-bs-toggle="modal" data-bs-target="#clearCartModal"
-                                        data-order-id="{{ $cartItem->order_id }}">
+                                        data-cart-id="{{ $cartItem->cart_id }}">
                                         <i class="fa-solid fa-trash-alt fz-3 me-2"></i>
                                         <span>Xóa giỏ hàng</span>
                                     </a>
@@ -204,7 +204,7 @@
                                                     @php
                                                         $total = 0;
                                                     @endphp
-                                                    @foreach ($carts->orderItems as $cartItem)
+                                                    @foreach ($carts->cartItems as $cartItem)
                                                         <tr class="cart-item">
                                                             <td class="p-0">
                                                                 <div class="avatar-md bg-light rounded p-1">
@@ -296,7 +296,7 @@
                                                 </tr>
                                                 <tr class="" style="height: 50px;">
                                                     <td colspan="3">
-                                                        <a href="#"
+                                                        <a href="{{ route('order.checkout') }}"
                                                             class="btn fw-semibold btn-success w-100 text-uppercase fz-14">Tiến
                                                             hành thanh toán</a>
                                                     </td>

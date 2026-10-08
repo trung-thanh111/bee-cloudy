@@ -7,6 +7,7 @@ use App\Repositories\PostRepository;
 use App\Services\Interfaces\PostServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * interface  UserService
@@ -28,13 +29,31 @@ class PostService implements PostServiceInterface
         return $this->postRepository->all();
     }
 
+    public function paginateFontend($request)
+    {
+        $condition = [
+            ['publish', 1]
+        ];
+        $relation = ['users'];
+        $perPage = 5;
+        $posts = $this->postRepository->pagination(
+            $this->paginateSelect(),
+            $condition,
+            $relation,
+            ['created_at', 'asc'],
+            $perPage,
+        );
+
+        return $posts;
+    }
+
     public function paginate($request)
     {
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
             'publish' => $request->input('publish') !== null ? $request->integer('publish') : null,
         ];
-        $relation = ['postCatalogues'];
+        $relation = ['postCatalogues','users'];
         $perPage = $request->integer('perpage') ?: 10;
         $posts = $this->postRepository->pagination(
             $this->paginateSelect(),
@@ -53,6 +72,7 @@ class PostService implements PostServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token', 'submit']);
+            $payload['slug'] = Str::slug($payload['slug']).rand(10000, 99999);
             $payload['order'] = Post::max('order') + 1;
             $payload['user_id'] = Auth::id();
             $post = $this->postRepository->create($payload);
