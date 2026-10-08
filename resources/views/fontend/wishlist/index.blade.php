@@ -214,7 +214,6 @@
                                 @else
                                     <h3 class="text-center p-5">Bạn chưa có yêu thích nào.</h3>
                                 @endif
-
                             </div>
                         </div>
                         <div class="d-flex justify-content-end ">
@@ -233,9 +232,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                        <a href="zalo">
-                                                                            <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                        </a>
-                                                                    </div> -->
+                                                                            <a href="zalo">
+                                                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                            </a>
+                                                                        </div> -->
     </div>
 @endsection

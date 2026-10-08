@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    
     protected $brandRepository;
     protected $attributeRepository;
     protected $shopRepository;
