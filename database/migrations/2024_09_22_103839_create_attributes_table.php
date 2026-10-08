@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id'); 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('attribute_catalogue_id'); 
-            $table->foreign('attribute_catalogue_id')->references('id')->on('attribute_catalogues')->onDelete('retrict');
+            $table->foreign('attribute_catalogue_id')->references('id')->on('attribute_catalogues')->onDelete('cascade');
             $table->tinyInteger('publish')->default(0);
             $table->timestamps();
             $table->softDeletes()->comment('se them truong deleted_at va su dung xoa mem cua laravel');
