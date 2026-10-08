@@ -29,6 +29,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.css">
 <!-- custom Css-->
 <link href="/libaries/templates/bee-cloudy-admin/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+{{-- daterangpicker  --}}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 {{-- khai báo base_url để conect ckfinder vs ckeditor  --}}
 <script>
     var BASE_URL = '{{ config('app.url') }}'

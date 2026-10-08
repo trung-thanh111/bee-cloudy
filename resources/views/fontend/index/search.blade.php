@@ -67,9 +67,9 @@
                                                     <div
                                                         class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                         <div class="hstack gap-3">
-                                                            <div class="p-2 overflow-x-hidden w-50">
+                                                            <div class="p-2 overflow-x-hidden">
                                                                 <span
-                                                                    class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                    class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
                                                                     @foreach ($product->productCatalogues as $catalogue)
                                                                         {{ $catalogue->name }}
                                                                     @endforeach
