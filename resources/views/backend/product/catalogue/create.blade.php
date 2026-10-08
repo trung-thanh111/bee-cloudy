@@ -69,7 +69,7 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="ck-editor" data-height="200" name="description">{{ old('description') }}</textarea>
+                                        <textarea class="form-control " id="" name="description" rows="7">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                                             <span class="image-target">
                                                 <img src="/libaries/upload/images/img-notfound.png"
                                                     alt=""
-                                                    class="render-image object-fit-contait rounded-1 mb-2 position-relative "
+                                                    class="render-image object-fit-contain rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}

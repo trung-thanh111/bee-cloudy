@@ -32,7 +32,7 @@ class WishlistRepository extends BaseRepository implements WishlistRepositoryInt
             }
         }
 
-        return $query->first();
+        return $query->get();
     }
     // tìm bản ghi đã tồn tại hay chưa
     public function findByUserProductVariant($userId, $productId = null, $variantId = null)
