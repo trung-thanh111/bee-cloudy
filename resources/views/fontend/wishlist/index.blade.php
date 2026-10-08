@@ -29,50 +29,6 @@
                         <div class="product-category p-2">
                             <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="fs-5 text-uppercase mt-2">Sản phẩm</h5>
-                                <p class="filter-sub">
-                                <div class="dropdown ms-auto" data-bs-spy="scroll" data-bs-target="#navbar-example3"
-                                    data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
-                                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <span class="text-muted fz-14 fw-medium me-2">Sắp xếp</span>
-                                        <i class="fa-solid fa-sort fz-14 text-muted"></i>
-                                    </a>
-
-                                    <ul class="dropdown-menu dropdown-menu-end ul-menu p-0 border-0 shadow-lg mb-1">
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=price_high" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-square-caret-down me-2"></i>Giá cao - thấp
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=price_low" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-square-caret-up me-2"></i>Giá thấp - cao
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=newest" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-clock-rotate-left me-2"></i>Mới nhất
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=oldest" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-clock me-2"></i>Cũ nhất
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=name_desc" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-sort-alpha-down me-2"></i>Ký tự Z - A
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=name_asc" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-sort-alpha-up me-2"></i>Ký tự A - Z
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                                </p>
                             </div>
                             <div class="content-product-cate row flex-wrap">
                                 @if ($wishlists->isNotEmpty())
@@ -103,7 +59,7 @@
                                             @endphp
 
                                             <div class="col-lg-3 col-md-6 col-12 mb-4">
-                                                <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                                <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                     <div class="position-absolute z-1 w-100">
                                                         <div class="head-card ps-0 d-flex justify-content-between">
                                                             <span
@@ -135,13 +91,14 @@
                                                                 <div class="p-2 overflow-x-hidden">
                                                                     <span
                                                                         class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                                        @if ($product)
-                                                                            @foreach ($product->productCatalogues as $catalogue)
-                                                                                {{ $catalogue->name }}
-                                                                            @endforeach
+                                                                        @if ($product && $product->productCatalogues->isNotEmpty())
+                                                                            {{ $product->productCatalogues->first()->name }}
+                                                                        @elseif ($productVariant && $productVariant->product->productCatalogues->isNotEmpty())
+                                                                            {{ $productVariant->product->productCatalogues->first()->name }}
                                                                         @else
-                                                                            {{ $productVariant->product->productCatalogues->first()->name ?? 'N/A' }}
+                                                                            {{ 'Chưa xác định' }}
                                                                         @endif
+
                                                                     </span>
                                                                 </div>
                                                                 <div class="p-2 ms-auto">
@@ -195,7 +152,7 @@
                                                                 class="action-cart-item-buy">
                                                                 <span>Xem chi tiết</span>
                                                             </a>
-                                                            <a href="#" class="action-cart-item-add addToCart"
+                                                            <a href="" class="action-cart-item-add addToCart"
                                                                 data-id="{{ $item->id }}">
                                                                 <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                                 <span>thêm giỏ hàng</span>
@@ -232,9 +189,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                                                            <a href="zalo">
-                                                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                            </a>
-                                                                        </div> -->
+                                                                                <a href="zalo">
+                                                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                </a>
+                                                                            </div> -->
     </div>
 @endsection

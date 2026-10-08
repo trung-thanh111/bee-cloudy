@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Repositories\AttributeRepository;
 use App\Repositories\ProductCatalogueRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\ShopRepository;
 use App\Services\Interfaces\ShopServiceInterface;
 use App\Services\BrandService;
@@ -20,15 +21,18 @@ class ShopService implements ShopServiceInterface
     protected $brandService;
     protected $attributeRepository;
     protected $productCatalogueRepository;
+    protected $productRepository;
     public function __construct(
         ShopRepository $shopRepository,
         ProductCatalogueRepository $productCatalogueRepository,
+        ProductRepository $productRepository,
         BrandService $brandService,
         AttributeRepository $attributeRepository,
 
     ) {
         $this->shopRepository = $shopRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->productRepository = $productRepository;
         $this->brandService = $brandService;
         $this->attributeRepository = $attributeRepository;
     }
@@ -90,7 +94,7 @@ class ShopService implements ShopServiceInterface
                 ['publish', '!=', 0],
             ],
             [
-                ['created_at', 'asc']
+                ['created_at', 'desc']
             ],
             8
         );
@@ -148,12 +152,8 @@ class ShopService implements ShopServiceInterface
             $maxPrice = $priceRange[1];
             $query->whereBetween('price', [$minPrice, $maxPrice]);
         }
-
-
-
         // Lấy kết quả
         $products = $query->get();
-
         return $products;
     }
 

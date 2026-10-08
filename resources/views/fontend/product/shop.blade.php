@@ -75,7 +75,7 @@
                                         </button>
                                         <div id="collapseOne" class="accordion-collapse collapse show"
                                             aria-labelledby="headingOne" data-bs-parent="#default-accordion-example">
-                                            <div class="accordion-body fz-14 pb-0 overflow-y-scroll filter-brand">
+                                            <div class="accordion-body fz-14 pb-0 overflow-y-auto filter-brand">
                                                 <ul class="ps-0">
                                                     <li class="list-unstyled mb-3 me-5 choose-size-item">
                                                         <input type="radio" name="brand" value="" checked
@@ -110,7 +110,7 @@
                                         </button>
                                         <div id="collapseTwo" class="accordion-collapse collapse show"
                                             aria-labelledby="headingTwo" data-bs-parent="#default-accordion-example">
-                                            <div class="accordion-body fz-14 pb-0 overflow-y-scroll filter-category">
+                                            <div class="accordion-body fz-14 pb-0 overflow-y-auto filter-category">
                                                 <ul class="ps-0">
                                                     <li class="list-unstyled mb-3 me-5 choose-size-item">
                                                         <input type="radio" name="category" value="" checked
@@ -332,7 +332,7 @@
                                                     : number_format($product->price, '0', ',', '.');
                                         @endphp
                                         <div class="col-lg-4 col-md-6 col-12 mb-4">
-                                            <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                            <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
                                                         <span
@@ -387,7 +387,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-2">
-                                                    <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                                    <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                         <a href="#"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
@@ -406,7 +406,8 @@
                                                             class="action-cart-item-buy">
                                                             <span>Xem chi tiết</span>
                                                         </a>
-                                                        <a href="#" class="action-cart-item-add addToCart"
+                                                        <a href="" role="button"
+                                                            class="action-cart-item-add addToCart"
                                                             data-id="{{ $product->id }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
@@ -460,7 +461,7 @@
                                             : number_format($productNew->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
-                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
@@ -470,9 +471,10 @@
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-title="{{ in_array($productNew->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
-                                                    data-id="{{ $product->id }}">
+                                                    data-id="{{ $productNew->id }}">
                                                     <i
                                                         class="fa-{{ in_array($productNew->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
                                                     <span class="product_id_wishlist d-none">
                                                         {{ $productNew->id }}
                                                     </span>
@@ -513,7 +515,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-2">
-                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                 <a href="#"
                                                     class="text-break w-100 text-muted">{{ $productNew->name }}</a>
                                             </h6>
@@ -531,7 +533,7 @@
                                                     class="action-cart-item-buy">
                                                     <span>Xem chi tiết</span>
                                                 </a>
-                                                <a href="#" class="action-cart-item-add addToCart"
+                                                <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productNew->id }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
@@ -575,7 +577,7 @@
                                             : number_format($productPriceMin->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
-                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
@@ -585,9 +587,8 @@
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-title="{{ in_array($productPriceMin->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
-                                                    data-id="{{ $product->id }}">
-                                                    <i
-                                                        class="fa-{{ in_array($productPriceMin->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+                                                    data-id="{{ $productPriceMin->id }}">
+                                                    <i class="fa-{{ in_array($productPriceMin->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
                                                     <span class="product_id_wishlist d-none">
                                                         {{ $productPriceMin->id }}
                                                     </span>
@@ -628,7 +629,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-2">
-                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                 <a href="#"
                                                     class="text-break w-100 text-muted">{{ $productPriceMin->name }}</a>
                                             </h6>
@@ -646,7 +647,7 @@
                                                     class="action-cart-item-buy">
                                                     <span>Xem chi tiết</span>
                                                 </a>
-                                                <a href="#" class="action-cart-item-add addToCart"
+                                                <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productPriceMin->id }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
@@ -821,15 +822,16 @@
                                 <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="categoryP-item mb-3 overflow-y-scroll">
+                                <div class="categoryP-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($productCatalogues) && !empty($productCatalogues))
                                             @foreach ($productCatalogues as $cataloguePro)
                                                 <li class="list-group-item item-category">
                                                     <a href="{{ route('post.category', ['id' => $cataloguePro->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
-                                                        <img src="{{ $cataloguePro->image }}" alt="{{ $cataloguePro->name }}"
-                                                            width="50" height="50"
+                                                        <img src="{{ $cataloguePro->image }}"
+                                                            alt="{{ $cataloguePro->name }}" width="50"
+                                                            height="50"
                                                             class="me-3 object-fit-contain bg-light rounded-3 ">
                                                         <span class="text-muted fw-500">{{ $cataloguePro->name }}</span>
                                                     </a>
@@ -845,12 +847,12 @@
                                 <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="brand-item mb-3 overflow-y-scroll">
+                                <div class="brand-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)
                                                 <li class="list-group-item item-category">
-                                                    <a href="#"
+                                                    <a href="{{ route('product.brand', ['id' => $brand->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
                                                         <img src="{{ $brand->image }}" alt="{{ $brand->name }}"
                                                             width="50" height="50"
@@ -869,7 +871,7 @@
                                 <h6 class="card-title fw-18 fw-500">Bài viết</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="categoryP-item mb-3 overflow-y-scroll">
+                                <div class="categoryP-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($postCategories) && !empty($postCategories))
                                             @foreach ($postCategories as $categoryP)
@@ -943,10 +945,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                            <a href="zalo">
-                                                                                                                <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                                            </a>
-                                                                                                        </div> -->
+                                                                                                                <a href="zalo">
+                                                                                                                    <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                                                </a>
+                                                                                                            </div> -->
 
         </div>
     </section>

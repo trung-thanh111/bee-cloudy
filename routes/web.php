@@ -85,8 +85,9 @@ Route::get('return/momo_ipn', [MomoController::class, 'momoIpn'])->name('momo.ip
 Route::get('home', [HomeController::class, 'index'])->name('home.index');
 Route::get('shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/category/{id}', [ShopController::class, 'productIncategory'])->where(['id' => '[0-9]+'])->name('product.category');
+Route::get('product/brand/{id}', [ShopController::class, 'productInBrand'])->where(['id' => '[0-9]+'])->name('product.brand');
 Route::get('product/filter', [ShopController::class, 'productFilter'])->name('product.filter');
-Route::get('/product', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
 Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
 

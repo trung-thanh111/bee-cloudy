@@ -84,10 +84,9 @@ class OrderService implements OrderServiceInterface
             if ($order->id > 0) {
                 $orderItem = $this->createOrderitems($request, $order);
                 // xóa cart sao khi thanh toán hành tất 
-                // $this->cartService->clear();
+                // $this->cartService->clear($request);
             }
             DB::commit();
-            // die();
             return $order;
         } catch (\Exception $e) {
             DB::rollBack();
@@ -176,7 +175,36 @@ class OrderService implements OrderServiceInterface
         }
     }
 
-
+    public function updateQuantitySoldProduct($order){
+        DB::beginTransaction();
+        try {
+            $order = $this->orderRepository->findById($order->id, ['orderItems','orderItems.products', 'orderItems.productVariants']);
+            foreach($order->orderItems as $val){
+                if(!empty($val->product_id) && is_numeric($val->product_id)){
+                    $product = $this->productRepository->findById((int) $val->product_id);
+                    if ($product) {
+                        $product->instock -= $val->final_quantity;
+                        $product->sold_count += $val->final_quantity;
+                        $product->save();
+                    }
+                }
+                if(!empty($val->product_variant_id) && is_numeric($val->product_variant_id)){
+                    $productVariant = $this->productVariantRepository->findById((int) $val->product_variant_id);
+                    if ($productVariant) {
+                        $productVariant->quantity -= $val->final_quantity;
+                        $productVariant->sold_count += $val->final_quantity;
+                        $productVariant->save();
+                    }
+                }
+            }
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
+    }
 
     // FONTEND
 

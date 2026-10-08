@@ -1453,30 +1453,30 @@ footer {
 .filter-category{
     max-height: 270px;
 }
-.overflow-y-scroll {
+.overflow-y-auto {
     overflow-y: scroll !important;
 }
 
 /* Điều chỉnh độ rộng tổng thể */
-.overflow-y-scroll::-webkit-scrollbar {
+.overflow-y-auto::-webkit-scrollbar {
     width: 6px !important;
 }
 
 /* Track (phần nền) */
-.overflow-y-scroll::-webkit-scrollbar-track {
+.overflow-y-auto::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.03);
     border-radius: 20px !important;
 }
 
 /* Thumb (thanh kéo) */
-.overflow-y-scroll::-webkit-scrollbar-thumb {
+.overflow-y-auto::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.15);
     border-radius: 20px !important; 
     max-height: 30px !important;
 }
 
 /* Hiệu ứng hover */
-.overflow-y-scroll::-webkit-scrollbar-thumb:hover {
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.25);
 }
 

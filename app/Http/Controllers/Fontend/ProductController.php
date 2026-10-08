@@ -2,31 +2,29 @@
 
 namespace App\Http\Controllers\Fontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductVariant;
-use App\Repositories\ProductRepository;
-use App\Repositories\BrandRepository;
-use App\Repositories\ProductCatalogueRepository;
 use App\Services\ProductService;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\BrandRepository;
+use App\Repositories\ProductRepository;
+use App\Repositories\ProductCatalogueRepository;
 
 class ProductController extends Controller
 {
-    protected $productRepository;
-    protected $brandRepository;
     protected $productService;
+    protected $brandRepository;
+    protected $productRepository;
     protected $productCatalogueRepository;
 
     public function __construct(
-        ProductRepository $productRepository,
-        BrandRepository $brandRepository,
         ProductService $productService,
+        BrandRepository $brandRepository,
+        ProductRepository $productRepository,
         ProductCatalogueRepository $productCatalogueRepository
     ) {
-        $this->productRepository = $productRepository;
-        $this->brandRepository = $brandRepository;
         $this->productService = $productService;
+        $this->brandRepository = $brandRepository;
+        $this->productRepository = $productRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
     }
     public function index() {}
@@ -50,8 +48,8 @@ class ProductController extends Controller
 
         $attributeVariant = $this->productService->checkAttributeVariantQuantity($slug);
         return view('fontend.product.detail', compact(
-            'product',
             'brands',
+            'product',
             'categories',
             'productSimilars',
             'attributeVariant',
