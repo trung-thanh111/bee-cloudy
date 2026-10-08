@@ -148,7 +148,7 @@ class ShopService implements ShopServiceInterface
             $maxPrice = $priceRange[1];
             $query->whereBetween('price', [$minPrice, $maxPrice]);
         }
-        
+
 
 
         // Lấy kết quả
@@ -162,16 +162,18 @@ class ShopService implements ShopServiceInterface
         return [
             'id',
             'name',
-            'image',
             'slug',
-            'short_desc',
-            'description',
+            'image',
+            'album',
             'info',
+            'description',
+            'brand_id',
+            'is_hot',
             'price',
             'del',
+            'instock',
             'sku',
             'publish',
-            'created_at'
         ];
     }
 }

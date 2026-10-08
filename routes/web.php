@@ -235,23 +235,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     //promotion_dashboar
     Route::group(['prefix' => 'promotion'], function () {
 
-        Route::get('/create', [PromotionController::class, 'create'])->name('promotions.catalogue.create');
-        Route::get('/index', [PromotionController::class, 'index'])->name('promotions.index');
-        Route::get('/edit/{id}', [PromotionController::class, 'edit'])->name('promotions.catalogue.edit');
-        Route::put('/update/{id}', [PromotionController::class, 'update'])->name('promotions.update');
-        Route::get('/show/{id}', [PromotionController::class, 'show'])->name('promotions.show');
-        Route::post('/index', [PromotionController::class, 'store'])->name('promotions.store');
-        Route::get('/confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->name('promotions.confirm_delete');
-        Route::delete('/delete/{id}', [PromotionController::class, 'destroy'])->name('promotions.destroy');
-        Route::delete('/bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
+        Route::get('index', [PromotionController::class, 'index'])->name('promotions.index');
+        Route::get('create', [PromotionController::class, 'create'])->name('promotions.create');
+        Route::get('edit/{id}', [PromotionController::class, 'edit'])->where(['id' => '[0-9]+'])->name('promotions.edit');
+        Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotions.update');
+        Route::get('show/{id}', [PromotionController::class, 'show'])->where(['id' => '[0-9]+'])->name('promotions.show'); // sửa lại thành detail
+        Route::post('store', [PromotionController::class, 'store'])->name('promotions.store');
+        Route::get('confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
+        Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
+        Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
 
-    });
-    Route::group(['prefix' => 'promotion'], function () {
-        Route::get('/create', [PromotionController::class, 'create'])->name('promotions.catalogue.create');
-        Route::get('/index', [PromotionController::class, 'index'])->name('promotions.index');
-        Route::get('/edit/{id}', [PromotionController::class, 'edit'])->name('promotions.catalogue.edit');
-        Route::put('/update/{id}', [PromotionController::class, 'update'])->name('promotions.update');
-        Route::post('/index', [PromotionController::class, 'store'])->name('promotions.catalogue.store');
     });
 
 
@@ -298,6 +291,11 @@ Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
+
+//Page 404
+Route::fallback(function () {
+    return view('fontend.error.404');
+});
 
 // <?php
 

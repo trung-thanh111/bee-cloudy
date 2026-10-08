@@ -104,24 +104,6 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Vị trí</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="choices-publish-status-input" class="form-label">vị trí</label>
-                                    <select class="form-select setUpSelect2" name="order">
-                                        <option value="">[ Root ]</option>
-                                        @foreach ($orders as $key => $order)
-                                            <option value="{{ $order->order }}" {{ $order->order == $postCatalogue->order ? 'selected' : ''}}>
-                                                {{ $order->order }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
                                 <h5 class="card-title mb-0">Xuất bản</h5>
                             </div>
                             <div class="card-body">
