@@ -17,8 +17,6 @@ class UserServices implements UserServiceinteface {
     public function __construct(UserRepository $userRepository) {
         $this->userRepository = $userRepository;
     }
-    public function paginate($request){
-        
-    }
+    
     
 }

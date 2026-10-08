@@ -24,7 +24,9 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'required|string|max:255|unique:products,slug',
-            'product_catalogue_id' => 'required|gt:0', // gia tri lớn hơn 0
+            'info' => 'max:255',
+            'short_desc' => 'max:255',
+            'product_catalogue_id' => 'required',
             'brand_id' => 'gt:0', // gia tri lớn hơn 0
             'sku'=> 'required|string|max:255|unique:products,slug',
             'price' => 'required|numeric|min:0'
@@ -45,11 +47,13 @@ class StoreProductRequest extends FormRequest
             'sku.max' => 'Sku không được vượt quá 255 ký tự.',
             'sku.unique' => 'Sku đã tồn tại. Vui lòng chon Sku khác',
             'product_catalogue_id.required' => 'Vui lòng chọn nhóm sản phẩm.',
-            'product_catalogue_id.gt' => 'Vui lòng chọn nhóm sản phẩm phải lớn hơn 0.',
             'brand_id.gt' => 'Vui lòng chọn thương hiệu.',
             'price.required' => 'Bạn chưa nhập giá sản phẩm.',
             'price.numeric' => 'Giá tiền phải là số.',
             'price.min' => 'Giá tiền phải lớn hơn 0.',
+            'short_desc.max' => 'Mô tả ngắn không được vượt quá 255 ký tự.',
+            'info.max' => 'Thông tin không được vượt quá 255 ký tự.',
+
         ];
     }
 }

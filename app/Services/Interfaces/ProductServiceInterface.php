@@ -11,4 +11,6 @@ interface ProductServiceInterface {
     public function create($request);
     public function update($slug, $request);
     public function destroy($id);
+    public function formatJson($request, $inputName);
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Services\Interfaces\BaseServiceinteface;
@@ -8,6 +9,8 @@ use App\Services\Interfaces\BaseServiceinteface;
  * @package App\Services
  */
 
- class BaseServices implements BaseServiceinteface{
+class BaseServices implements BaseServiceinteface
+{
 
- }
+    
+}

@@ -36,13 +36,13 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->productService->paginate($request);
-        $productCatalogues = $this->productCatalogueRepository->all();
+        $brands = $this->brandRepository->all();
          // dd($products);
         $template = 'backend.product.product.index';
         return view('backend.dashboard.layout', compact(
             'template',
             'products',
-            'productCatalogues',
+            'brands',
         ));
     }
     public function create()
@@ -74,14 +74,22 @@ class ProductController extends Controller
     }
     public function update($slug)
     {
-        $product = $this->productRepository->findBySlug($slug);
+        $product = $this->productRepository->getProductBySlug($slug);
         // lấy ra tất cả vs điều kiện (không lấy ra bản ghi đàn được find)
         $productCatalogues = $this->productCatalogueRepository->all();
+        $attributeCatalogue = $this->attributeCatalogueRepository->allWhere([
+            ['slug', '!=' , $product->slug],
+        ]);
+        $brands = $this->brandRepository->all();
+
+        // dd($productCatalogues);
         $template = 'backend.product.product.update';
         return view('backend.dashboard.layout', compact(
             'template',
             'product',
             'productCatalogues',
+            'attributeCatalogue',
+            'brands',
         ));
     }
     public function edit($slug, UpdateProductRequest $request)
@@ -92,7 +100,7 @@ class ProductController extends Controller
             return redirect()->route('product.index');
         } else {
             flash()->error('Thất bại. Đã có lỗi xảy ra vui lòng thử lại!');
-            return redirect()->back();
+            // return redirect()->back();
         }
     }
     public function delete($id = 0)

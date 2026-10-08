@@ -5,12 +5,12 @@
                 <div class="col-12">
                     <div
                         class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
-                        <h4 class="mb-sm-0">Thêm mới sản phẩm</h4>
+                        <h4 class="mb-sm-0">Chỉnh sửa sản phẩm</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('product.index') }}">Danh sách</a>
                                 </li>
-                                <li class="breadcrumb-item active">Thêm mới</li>
+                                <li class="breadcrumb-item active">Chỉnh sửa</li>
                             </ol>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.edit', ['slug' => $product->slug]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-lg-8">
@@ -42,7 +42,7 @@
                                     <label class="form-label">Tên sản phẩm:<span
                                             class="text-danger fz-18">*</span></label>
                                     <input type="text" class="form-control" name="name" id=""
-                                        value="{{ old('name') }}" placeholder="Tên sản phẩm">
+                                        value="{{ old('name', $product->name) }}" placeholder="Tên sản phẩm">
                                     @if ($errors->has('name'))
                                         <span class="text-danger fz-12 mt-1">{{ $errors->first('name') }}</span>
                                     @endif
@@ -55,7 +55,7 @@
                                                     <label class="form-label">Slug:<span
                                                             class="text-danger fz-18">*</span></label>
                                                     <input type="text" name="slug" class="form-control"
-                                                        id="" value="{{ old('slug') }}"
+                                                        id="" value="{{ old('slug', $product->slug) }}"
                                                         placeholder="Slug sản phẩm">
                                                     @if ($errors->has('slug'))
                                                         <span
@@ -68,74 +68,32 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label>Mô tả</label>
+                                    <label class="form-label" for="info">Thông tin</label>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="description" data-height="150" name="description">{{ old('description') }}</textarea>
+                                        <textarea class="form-control ck-editor" id="info" data-height="100" name="info">{{ old('info', $product->info) }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <label class="form-label" for="short_desc">Mô tả ngắn</label>
+                                    <div>
+                                        <textarea class="form-control ck-editor" id="short_desc" data-height="100" name="short_desc">{{ old('short_desc', $product->short_desc) }}</textarea>
                                     </div>
                                 </div>
                                 <div class="mt-3">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <label>Nội dung</label>
+                                        <label class="form-label" for="ckContent">Mô tả </label>
                                         {{-- data- đc gọi là thuộc tính dữ liệu tùy chỉnh  --}}
                                         <a href="#" class="multipleUploadImageCkeditor"
                                             data-target="ckContent">Upload nhiều hình ảnh</a>
                                     </div>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="ckContent" data-height="300" name="content">{{ old('description') }}</textarea>
+                                        <textarea class="form-control ck-editor" id="ckContent" data-height="300" name="description">{{ old('description',$product->description) }}</textarea>
                                     </div>
                                 </div>
 
                                 {{-- sản phẩm nhiều phiên bản  --}}
                                 @include('backend.product.product.component.variant')
                                 {{-- kết thúc nhiều phiên bản  --}}
-                                {{-- album ảnh từng phiên bản   --}}
-                                
-                                
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5 class="card-title mb-0 ms-0">Cấu hình SEO</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="tab-content">
-                                            <div class="" id="">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Tiêu đề SEO</label>
-                                                            <input type="text" class="form-control"
-                                                                name="meta_title" placeholder="Nhập tiêu đề SEO"
-                                                                value="{{ old('meta_title') }}">
-                                                            @if ($errors->has('meta_title'))
-                                                                <span
-                                                                    class="text-danger fz-12 mt-1">{{ $errors->first('meta_title') }}</span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Từ khóa SEO</label>
-                                                            <input type="text" class="form-control"
-                                                                name="meta_keyword" placeholder="Nhập từ khóa SEO"
-                                                                value="{{ old('meta_keyword') }}">
-                                                            @if ($errors->has('meta_keyword'))
-                                                                <span
-                                                                    class="text-danger fz-12 mt-1">{{ $errors->first('meta_keyword') }}</span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <label class="form-label">Mô tả SEO</label>
-                                                    <textarea class="form-control ck-editor" name="meta_description" id="meta_description " data-height="150">{{ old('description') }}</textarea>
-                                                    @if ($errors->has('meta_description'))
-                                                        <span
-                                                            class="text-danger fz-12 mt-1">{{ $errors->first('meta_description') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="text-end mb-3">
@@ -156,15 +114,34 @@
                                         <span class="mt-2"><a href="{{ route('product.catalogue.create') }}"
                                                 class="text-decoration-underline text-primary">thêm mới</a></span>
                                     </div>
-                                    <select class="form-select select2" name="product_catalogue_id">
+                                    <select class="form-select setUpSelect2" name="product_catalogue_id[]" multiple="multiple">
                                         <option value="0">[Chọn nhóm sản phẩm]</option>
-                                        @foreach ($productCatalogues as $key => $val)
-                                            <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                        @foreach ($productCatalogues as $key => $catalogue)
+                                            <option value="{{ $catalogue->id }}" {{ in_array($catalogue->id, $product->productCatalogues->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $catalogue->name }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('product_catalogue_id'))
                                         <span
                                             class="text-danger fz-12 mt-1">{{ $errors->first('product_catalogue_id') }}</span>
+                                    @endif
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <label for="choices-publish-status-input" class="form-label">Thương hiệu<span
+                                                class="text-danger fz-18 ">*</span>
+                                        </label>
+                                        <span class="mt-2"><a href="{{ route('brand.create') }}"
+                                                class="text-decoration-underline text-primary">Chỉnh sửa</a></span>
+                                    </div>
+                                    <select class="form-select setUpSelect2" name="brand_id">
+                                        <option value="0">[Chọn thương hiệu]</option>
+                                        @foreach ($brands as $key => $brand)
+                                            <option value="{{ $brand->id }}" {{ $brand->id == $product->brand_id ? "selected" : ''}}>{{ $brand->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('brand_id'))
+                                        <span
+                                            class="text-danger fz-12 mt-1">{{ $errors->first('brand_id') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -176,15 +153,19 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="product_sku" class="form-label">Mã sản phẩm</label>
-                                    <input type="text" name="sku" id="product_sku" class="form-control">
+                                    <input type="text" name="sku" id="product_sku" class="form-control" placeholder="Nhập mã sản phẩm" value="{{ old('sku', $product->sku) }}">
+                                    @if ($errors->has('sku'))
+                                        <span
+                                            class="text-danger fz-12 mt-1">{{ $errors->first('sku') }}</span>
+                                    @endif
                                 </div>
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Xuất sứ</label>
-                                    <input type="text" name="made_in" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Giá bán</label>
-                                    <input type="text" name="price" class="form-control">
+                                    <label for="" class="form-label">Giá</label>
+                                    <input type="text" name="price"  class="form-control" placeholder="Nhập giá cho sản phẩm" value="{{ old('price', $product->price) }}">
+                                    @if ($errors->has('price'))
+                                        <span
+                                            class="text-danger fz-12 mt-1">{{ $errors->first('price') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -196,13 +177,10 @@
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input " class="form-label">Trạng thái</label>
                                     <select class="form-select select2" name="publish">
-                                        <option value="">[ Chọn Trạng thái ]</option>
-                                        <option value="1"
-                                            {{ old('publish', request('publish')) == '1' ? 'selected' : '' }}>Hiển thị
+                                        <option value="">[Chọn trạng thái]</option>
+                                        <option value="1" {{ $product->publish == 1 ? 'selected' : '' }}>Hiển thị
                                         </option>
-                                        <option value="0"
-                                            {{ old('publish', request('publish')) == '0' ? 'selected' : '' }}>Ẩn
-                                        </option>
+                                        <option value="0" {{ $product->publish == 0 ? 'selected' : '' }}>Ẩn</option>
                                     </select>
                                 </div>
                             </div>
@@ -218,13 +196,13 @@
                                         <div class="position-relative d-inline-block">
                                             {{-- image-target dùng dể choose image hthi cho ngxem  --}}
                                             <span class="image-target">
-                                                <img src="/templates/flat-admin/html/master/assets/images/image-notfound.png"
+                                                <img src="{{ old('image', $product->image ?? '') ? ''. old('image', $product->image ?? '') : '/libaries/upload/images/img-notfound.png' }}"
                                                     alt=""
-                                                    class="render-image object-fit-cover rounded-1 mb-2 position-relative "
+                                                    class="render-image  object-fit-contain rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
                                             {{-- input ẩn gửi lên controller xử lý  --}}
-                                            <input type="hidden" name="image" value="">
+                                            <input type="hidden" name="image" value="{{ $product->image }}">
                                         </div>
                                     </div>
                                 </div>

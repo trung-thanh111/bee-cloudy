@@ -6,5 +6,4 @@ namespace App\Services\Interfaces;
  * @package App\Services\Interfaces
  */
 interface BaseServiceinteface {
-    
 }
