@@ -15,8 +15,6 @@ Homestead.yaml
 auth.json
 npm-debug.log
 yarn-error.log
-vendor/srmklive/paypal/tests/Mocks/samples/sample.pdf
-vendor/srmklive/paypal/tests/Mocks/samples/sample2.pdf
 /.fleet
 /.idea
 /.vscode
