@@ -55,13 +55,8 @@ class User extends Authenticatable
     }
 
     // Khai báo quan hệ hasMany với bảng carts
-    public function carts(): HasMany {
+    public function carts(): HasMany
+    {
         return $this->hasMany(Cart::class, 'user_id', 'id');
     }
-
-    public function wishLists():HasMany
-    {
-        return $this->hasMany(Wishlist::class, 'user_id', 'id');
-    }
 }
-
