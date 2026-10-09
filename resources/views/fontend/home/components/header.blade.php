@@ -269,7 +269,7 @@
                                 @php
                                     $user = Auth::user();
                                 @endphp
-                                <button type="button" class="btn border-0 gear-profile dropdown-toggle "
+                                <button type="button" class="btn border-0 dropdown-toggle "
                                     data-bs-toggle="dropdown">
                                     <span class="d-flex align-items-center">
                                         <img class="rounded-circle header-profile-user"
@@ -278,9 +278,9 @@
                                             height="40">
                                     </span>
                                 </button>
-                                <div class="rounded-1 shadow-sm dropdown-menu dropdown-menu-end border-0"
+                                <div class="rounded-1 shadow-sm dropdown-menu dropdown-menu-end border-0 "
                                     style="min-width: 180px;">
-                                    <ul class="ul-menu p-0 mb-1 text-muted">
+                                    <ul class="ul-menu p-0 mb-1 text-muted z-3">
                                         <li class="list-unstyled p-2">
                                             <span class="text-decoration-none fw-medium fz-14 ps-1">
                                                 Xin chào {{ $user->name }}!
