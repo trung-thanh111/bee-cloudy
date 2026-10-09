@@ -17,55 +17,7 @@
                 </nav>
                 <!-- end breadcrumb  -->
                 <div class="profile-main">
-                    <div class="header-profile mb-3">
-                        <div class="text-muted d-flex justify-content-between align-items ">
-                            <div class="row ps-lg-3 pe-lg-3 p-lg-5 p-md-5 p-sm-4 p-xs-3">
-                                @php
-                                    $user = Auth::user();
-
-                                @endphp
-                                <div class="col-lg-4 col-md-4">
-                                    <img src="{{ $user->image ?? '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
-                                        alt="image user acount" class="rounded-circle " width="90" height="90">
-                                </div>
-                                <div class="col-lg-8 col-md-8 align-items-center">
-                                    <div class="news-profile  mt-2">
-                                        <h6 class="fw-bold  fz-18">{{ $user->name }}</h6>
-                                        <p class="mb-0 fz-14">Thứ hạng thành viên: <strong></strong></p>
-                                        <p class="fz-13">Ngày tham gia: {{ date('d-m-Y', strtotime($user->created_at)) }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-1 col-md-1 text-end align-items-start position-relative">
-                                <a class="gear-profile text-muted" href="#">
-                                    <i class="fa-solid fa-gear fz-20 p-3" data-bs-toggle="tooltip"
-                                        data-bs-title="Cài đặt"></i>
-                                </a>
-                                <div class="dropdown-icon-profile rounded-2">
-                                    <ul class="ul-menu w-100 p-0 dropdown-content mb-1">
-                                        <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-pen me-2"></i>Cập nhật
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="{{ route('auth.login') }}"
-                                                class="text-decoration-none fz-12 ps-1 text-danger">
-                                                <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Đăng xuất
-                                            </a>
-                                        </li>
-                                        <hr>
-                                        <li class="li-menu-header p-1">
-                                            <a href="#" class="text-decoration-none fz-12 ps-1 text-muted">
-                                                <i class="fa-solid fa-circle-info me-2"></i>Hỗ trợ
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('fontend.account.components.header-profile')
                     <div class="body-profile">
                         <div class="row">
                             @include('fontend.account.components.aside')
@@ -391,14 +343,6 @@
             </div>
         </article>
     </section>
-    <div class="">
-        <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
-            style="bottom: 60px; right: 30px;">
-            <div class=" border-2 rounded-circle">
-                <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
-            </div>
-        </a>
-    </div>
 
 {{-- // update cancled order  --}}
 <div class="modal fade" id="confirmModal" tabindex="-1">

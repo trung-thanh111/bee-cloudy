@@ -23,32 +23,53 @@
                                             <div class="card-body">
                                                 <table class='table table-bordered'>
                                                     <thead>
-                                                        <tr class='align-middle text-center'>
-                                                            <th class='align-middle'>#</th>
-                                                            <th class='align-middle'>Kháng Hàng</th>
-                                                            <th class='align-middle'>Nội Dung</th>
-                                                            <th class='align-middle'>Số Like</th>
-                                                            <th class='align-middle'>Ngày Đánh giá</th>
-                                                            <th class='align-middle'>Action</th>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input checkbox-item" type="checkbox" name="checkbox-item[]" value="">
+                                                                </div>
+                                                            </th>
+                                                            <th class='text-start'>Kháng Hàng</th>
+                                                            <th class='text-start'>Nội Dung</th>
+                                                            <th class='text-center'>Số Like</th>
+                                                            <th class='text-center'>Ngày Đánh giá</th>
+                                                            <th class="text-end" style="width: 90px">Thao tác</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <template v-for="(v , k) in list">
                                                             <tr class='align-middle text-center'>
-                                                                <th class='align-middle'>@{{ k + 1 }}</th>
-                                                                <td class='align-middle'>@{{ v.ten_kh }}</td>
-                                                                <td class='align-middle'>@{{ v.content }}</td>
-                                                                <td class='align-middle'>@{{ v.edit_count }}</td>
-                                                                <td class='align-middle'>@{{ v.date }}</td>
+                                                                <th class='align-middle'>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" id="check-boxitem">
+                                                                    </div>
+                                                                </th>
+                                                                <td class='text-start'>@{{ v.ten_kh }}</td>
+                                                                <td class='text-start'>@{{ v.content }}</td>
+                                                                <td class='text-center'>@{{ v.edit_count }}</td>
+                                                                <td class='text-center'>@{{ v.date }}</td>
                                                                 <td class='align-middle'>
-                                                                    <i v-on:click="update = Object.assign({},v)"
-                                                                        class="fa-regular fa-pen-to-square me-3"
-                                                                        data-bs-toggle='modal'
-                                                                        data-bs-target='#edit'></i>
-                                                                    <i class="fa-solid fa-trash"
-                                                                        v-on:click="del = Object.assign({},v)"
-                                                                        data-bs-toggle='modal'
-                                                                        data-bs-target='#xoa'></i>
+                                                                    <div class="dropdown text-end">
+                                                                        <a  href="#" role="button" id="dropdownMenu@{{ v.id+1 }}"
+                                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                                            <i class="ri-more-2-fill fs-5"></i>
+                                                                        </a>
+                                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu@{{ v.id+1 }}">
+                                                                            <li>
+                                                                                <a v-on:click="update = Object.assign({},v)" data-bs-toggle='modal'
+                                                                                data-bs-target='#edit' class="dropdown-item text-primary" >
+                                                                                    <i class="fa-regular fa-pen-to-square me-2 align-middle"></i>Chỉnh sửa
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a v-on:click="del = Object.assign({},v)"
+                                                                                data-bs-toggle='modal'
+                                                                                data-bs-target='#xoa' class="dropdown-item text-danger" >
+                                                                                    <i class="fa-solid fa-trash align-middle me-2"></i>Xóa
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </template>

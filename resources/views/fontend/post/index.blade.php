@@ -36,7 +36,7 @@
                         <div class="col-lg-8 col-md-8 col-12">
                             <div id="thumbnail-carousel3" class="splide">
                                 <div class="splide__track">
-                                    <ul class="splide__list" data-aos="fade-up" data-aos-duration="800">
+                                    <ul class="splide__list">
                                         @if ($postCategories != null)
                                             @foreach ($postCategories as $key => $valPostCategory)
                                                 <li class="splide__slide mx-2">
@@ -80,7 +80,7 @@
                             <div class="col-lg-8 col-md-8 col-12">
                                 <div id="main-carousel2" class="splide">
                                     <div class="splide__track">
-                                        <ul class="splide__list" data-aos="fade-down-right" data-aos-duration="800" data-aos-once="false">
+                                        <ul class="splide__list">
                                             @if ($postStandC1 != null)
                                                 @foreach ($postStandC1 as $key => $valPostStand)
                                                     @php
@@ -390,17 +390,4 @@
             </div>
         </article>
     </section>
-    <div class="">
-        <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
-            style="bottom: 60px; right: 30px;">
-            <div class=" border-2 rounded-circle">
-                <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
-            </div>
-        </a>
-        <!-- <div class=" live-chat ms-lg-16">
-                                            <a href="zalo">
-                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                            </a>
-                                        </div> -->
-    </div>
 @endsection

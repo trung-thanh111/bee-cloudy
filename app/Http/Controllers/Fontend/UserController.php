@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Fontend;
 use Illuminate\Http\Request;
 use App\Services\CartService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserFERequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -12,14 +14,14 @@ use Illuminate\Support\Str;
 
 use App\Mail\changePassMail;
 use App\Models\User;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
-    protected $cartService;
-
-    public function __construct(CartService $cartService)
+    protected $userService;
+    public function __construct(UserService $userService)
     {
-        $this->cartService = $cartService;
+        $this->userService = $userService;
     }
 
     public function profile()
@@ -34,36 +36,24 @@ class UserController extends Controller
         return view('fontend.user_data.profile_edit', compact('user'));
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(UpdateUserFERequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
-            'birthday' => 'nullable|date',
-            'phone' => 'nullable|string|max:15',
-            'description' => 'nullable|string|max:500',
-            'image' => 'nullable|image|mimes:jpg,png,webp|max:2048',
-        ]);
-
-        $user = Auth::user();
-
-        $user->fill($request->only(['name', 'email', 'birthday', 'phone', 'description']));
-
-        if ($request->hasFile('image')) {
-
-            if ($user->image && \Storage::disk('public')->exists($user->image)) {
-                \Storage::disk('public')->delete($user->image);
-            }
-            $path = $request->file('image')->store('avatar_user', 'public');
-            $user->image = $path;
-        } elseif (!$user->image) {
-            // Gán ảnh mặc định nếu chưa có ảnh
-            $user->image = 'default/avatar-default.jpg'; // Đường dẫn đến ảnh mặc định trong thư mục storage/public
-        }
-
         try {
-            $user->save();
-            return redirect()->back()->with('success', 'Cập nhật thông tin thành công!');
+            $user = Auth::user();
+            $payload = $request->only('name', 'phone', 'description', 'birthday', 'province_id', 'district_id', 'ward_id', 'address');
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $filename = $file->getClientOriginalName();
+                $path = 'userfiles/image/user/';
+                $file->move($path, $filename);
+                $payload['image'] = $filename;
+            } else {
+                $payload['image'] = $user->image;
+            }
+            $user->update($payload);
+            
+            return redirect()->route('profile.user')->with('success', 'Cập nhật thông tin thành công!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Đã xảy ra lỗi. Vui lòng thử lại!');
         }

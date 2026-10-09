@@ -16,6 +16,21 @@ AOS.init();
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+// load page 
+window.addEventListener("load", function () {
+  const loader = document.getElementById('loader-overlay');
+
+  // Lắng nghe sự kiện "beforeunload" khi chuyển trang
+  window.addEventListener('beforeunload', function () {
+      loader.style.display = 'flex'; // Hiển thị loader
+  });
+
+  // Ẩn loader sau khi trang được load
+  setTimeout(() => {
+      loader.style.display = 'none';
+  }, 500);
+});
 // positon fixed menu
 window.addEventListener("scroll", function () {
   var navbar = document.querySelector("nav");
