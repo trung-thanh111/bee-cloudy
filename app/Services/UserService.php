@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -98,6 +99,30 @@ class UserService implements UserServiceInterface
             die();
             return false;
         }
+    }
+
+    // DASHBOARD
+    public function countUserNew(){
+        $count = $this->userRepository->allWhere([
+            [DB::raw('YEAR(created_at)'), '=', Carbon::now()->year],
+            ['publish', '1'],
+        ])->count();
+        return $count;
+    }
+    public function countUserAll(){
+
+        $count = $this->userRepository->allWhere([
+            [DB::raw('YEAR(created_at)'), '=', Carbon::now()->year],
+            ['publish', '1'],
+        ])->count();
+        return $count;
+    }
+    public function countUserNewMonth(){
+        $count = $this->userRepository->allWhere([
+            [DB::raw('MONTH(created_at)'), '=', Carbon::now()->month],
+            ['publish', '1'],
+        ])->count();
+        return $count;
     }
 
     // các trường lấy trong phân trang

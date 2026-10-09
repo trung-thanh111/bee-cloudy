@@ -49,14 +49,6 @@
                     foreach ($product->productVariant as $variant) {
                         $totalReviewCount += $variant->rating_count;
                     }
-
-                    // -- //
-                    $promotionDetail =
-                        $product->del != 0 && $product->del != null
-                            ? (($product->price - $variant->price) / $product->price) * 100
-                            : '0';
-                            // dd($promotionDetail);
-
                 @endphp
                 <!-- content detail -->
                 <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5 productVariantId">
@@ -76,7 +68,6 @@
                                     @endif
 
                                 </ul>
-
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
                                     data-bs-title="Thêm vào yêu thích">
                                     <div class="position-relative">
@@ -84,27 +75,11 @@
                                             style="top: 20px;">
                                             <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
                                         </button>
-
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <div class="mini-coupon z-3 {{ $promotionDetail == 0 ? 'hidden-visibility' : '' }}">-{{ round($promotionDetail, 1).'%' }}</div>
                                     </div>
-                                    <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
-                                        data-bs-title="{{ in_array($variantId, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}">
-                                        <div class="position-relative">
-                                            <a href="#" class="position-absolute start-50 translate-middle border-0"
-                                                style="top: 20px;">
-                                                <i
-                                                    class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
-                                            </a>
-
-                                        </div>
-                                        <span class="product_variant_id_wishlist d-none"></span>
-                                        <span class="product_id_wishlist d-none">
-                                            {{ $product->id }}
-                                        </span>
-
-                                    </div>
+                                    <span class="product_variant_id_wishlist d-none"></span>
+                                    <span class="product_id_wishlist d-none">
+                                        {{ $product->id }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -172,59 +147,40 @@
                                 <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">
                                     {{ $product->id }}
                                 </h4>
-                                {{-- @if (isset($product->productVariant) && $product->productVariant->isNotEmpty())
-                                        {{ $product->productVariant->first()->id ?? null }}
-                                    @endif --}}
                                 <div class="hstack gap-3 fz-14 flex-wrap">
-                                    <div class="py-2">Đánh giá ({{ $totalReviewCount }})</div>
-                                    {{-- <div class="py-2">
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                        <span><i class="fa-solid fa-star rated"></i></span>
-                                    </div> --}}
-                                    <div class="vr " style="width: 1px !important;"></div>
+                                    <div class="py-2">Đánh giá (<strong>@{{ comment }}</strong>)</div>
+                                    <div class="vr" style="width: 1px !important;"></div>
+                                    <div class="py-2">
+                                        <span class="fw-500">Số sao trung bình:</span>
+                                        <span class="product-variant-rate">@{{ avg_stars }}</span>
+                                    </div>
+                                    <div class="vr" style="width: 1px !important;"></div>
                                     <div class="py-2">
                                         <span class="fw-500">Đã bán:</span>
                                         <span class="product-variant-sold">{{ $totalSoldCount . ' ' }} sản phẩm</span>
-
-                                        <span
-                                            class="product-variant-sold">{{ $variantSold ? $variantSold : $product->sold_count }}
-                                            sản phẩm</span>
-
                                     </div>
                                 </div>
                             </div>
                             <h4 class="fs-5 py-3">
                                 @foreach ($product->productCatalogues as $productCatalogue)
-                                    <span class="me-3">{{ $productCatalogue->name }}</span>
+                                    {{ $productCatalogue->name }}
                                 @endforeach
                             </h4>
 
-                            <div class="hstack gap-3 fz-14 mb-3"> 
+                            <div class="hstack gap-3 fz-14 mb-3">
                                 <h4 class="fs-4 fw-bold text-danger mb-1 product-variant-price"
                                     data-price="{{ $price }}">{{ $price }}</h4>
-                                <del
-                                    class=" fw-normal text-secondary mb-1 {{ $promotionDetail == 0 ? 'hidden-visibility' : '' }}">{{ number_format($product->price, '0', ',', '.') }}đ</del>
                                 <span
-                                    class="mb-1 ms-auto {{ $promotionDetail == 0 ? 'hidden-visibility' : '' }}">
+                                    class="mb-1 ms-auto {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
 
-                                    <span class="text-truncate">giảm đến <span
-                                            class="text-info text-sm-start">{{ $priceDiscount }}</span> trên giá trị mỗi
+                                    <span class="text-truncate">giảm đến <del
+                                            class="text-warning text-sm-start">{{ $priceDiscount }}</del> trên giá trị mỗi
                                         sản phẩm</span>
                                 </span>
                             </div>
-
                             <p class="fz-14">{!! $product->info !!}</p>
-
-
-                            <p class="fz-14 {{ $product->info == null ? 'visibility-hidden' : '' }}">
-                                {!! $product->info !!}</p>
-
                             @if (!is_null($attrCatalogues) && !empty($attrCatalogues))
-                                <div
-                                    class="product-attributes {{ $attrCatalogues == null ? 'visibility-hidden' : '' }}">
+                                <div class="product-attributes">
                                     @foreach ($attrCatalogues as $key => $val)
                                         <div class="attribute attribute-{{ $val->id == 1 ? 'color' : 'size' }}">
                                             <div class="attribute-header d-flex justify-content-between mb-2">
@@ -312,16 +268,10 @@
                                                 id="button-addon1">
                                                 <i class='bx bx-minus fw-medium'></i>
                                             </button>
-
                                             <input type="text" name="quantity-product-variant w-sm-25 "
-                                                class="form-control border-0 fz-20 text-center fw-600" value="1"
-                                                min="1" max="">
-
-                                            <input type="text" name="quantity-product-variant w-sm-25"
                                                 class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
                                                 value="1" min="1"
                                                 max="{{ $product->instock ? $product->instock : 10 }}">
-
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -331,37 +281,26 @@
                                     </div>
                                 </div>
                                 <div class="btn-group-add ">
-                                    <div class="mb-3 w-100">
-                                        <a href="" data-id="{{ $product->id }}"
-                                            class=" addToCart btn w-100 btn-success fw-medium fz-18">
-                                            <i class="fa-solid fa-cart-plus me-2"></i>Thêm vào giỏ hàng
-                                            <p class="fz-14 fw-normal mb-0">Hãy thêm vào giỏ hàng có thể có những ưu đãi
-                                                hấp dẫn</p>
-                                        </a>
-                                        {{-- <div class="row w-100 mt-2 ms-0">
-                                            <div class="col px-0 w-100 ">
-
-                                                <a href="#" class="addToCart" data-id="{{ $product->id }}">
-                                                <a href="" >
-
-                                                    <!-- d-none d-md-inline-block: Ẩn trên màn hình nhỏ hơn md (< 768px), chỉ hiển thị từ kích thước màn hình md (>= 768px) trở lên. -->
-                                                    <button
-                                                        class=" btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block disabled" disabled >Mua ngay</button>
-                                                    <!-- d-block d-md-none: Hiển thị trên các màn hình nhỏ hơn md (< 768px), bao gồm màn hình < 480px. -->
-                                                    <button
-                                                        class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-block d-md-none "
-                                                        data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng"><i
-                                                            class="fa-solid fa-cart-plus "></i></button>
-                                                </a>
-                                            </div>
-                                            <div class="col pe-0">
-                                                <a href="#">
-                                                    <button
-                                                        class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm" disabled >Mua
-                                                        Trả Góp</button>
-                                                </a>
-                                            </div>
-                                        </div> --}}
+                                    <div class="hstack gap-2 my-3">
+                                        <div class="">
+                                            <a href="#" class="addToCart" data-id="{{ $product->id }}">
+                                                <button
+                                                    class=" btn btn-outline-danger p-3 fz-18 fw-medium shadow-sm d-none d-md-inline-block"
+                                                    data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng"
+                                                    data-id="{{ $product->id }}">
+                                                    <i class="fa-solid fa-cart-plus fz-20"></i>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="w-100 ms-auto">
+                                            <a href="{{ route('cart.index') }}"
+                                                class="btn btn-success fw-medium fz-18 w-100 addToCart buyNow"
+                                                data-id="{{ $product->id }}">
+                                                <i class="fa-solid fa-cart-shopping me-2"></i>Mua Ngay
+                                                <p class="fz-14 fw-normal mb-0">Giao hàng tận nơi hoặc nhận tại cửa hàng
+                                                </p>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -369,37 +308,68 @@
                     </div>
                 </div>
                 <div class="commit-quality mb-5">
-                    <div class="container text-start">
-                        <div class="row flex-wrap">
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class="fa-solid fa-truck-fast me-3 fs-2"></i>
-                                    <span class="fs-6 fw-medium text-truncate">Miễn phí vận chuyển</span>
+                    <div class="container policy mb-3">
+                        <div class="row g-4">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-medal fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Sản phẩm độc quyền</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class='fa-solid fa-barcode me-3 fs-2'></i>
-                                    <span class="fs-6 fw-medium text-truncate">Bảo hành 6 tháng</span>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-box fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Đóng gói chất lượng</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class='bx bx-archive me-3 fs-2'></i>
-                                    <span class="fs-6 fw-medium text-truncate">Đổi trả hàng trong 7 ngày</span>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-money-bill fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Thanh toán dễ dàng</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class="fa-solid fa-money-bill-wave me-3 fs-2"></i>
-                                    <span class="fs-6 fw-medium text-truncate">Đổi trả hàng hóa</span>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-truck-fast fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Miễn phí vận chuyển</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -420,7 +390,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion shadow-sm  text-muted mb-5 rounded-2 border-0"
+                        <div class="accordion shadow-sm text-muted mb-5 rounded-2 border-0"
                             id="default-accordion-example">
                             <div class="accordion-item border-secondary material-shadow ">
                                 <h2 class="accordion-header border-0" id="headingOne">
@@ -431,7 +401,7 @@
 
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                     data-bs-parent="#default-accordion-example">
                                     <div class="accordion-body bg-light fz-14">
                                         {!! $product->description !!}
@@ -439,6 +409,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if(Auth::check())
                         <hr style="padding: 2px ;" class="text-muted fw-bolder">
                         <div class="accordion shadow-sm text-muted mb-5 rounded-2 border-0">
                             <div class="accordion-item material-shadow ">
@@ -460,28 +431,36 @@
                                                         <label style="margin-right: 5px" for="rating-select">Chất lượng
                                                             sản phẩm: </label>
                                                         <select id="rating-select" v-model="create.publish">
-                                                            <option style="color: gold; font-size: 20px;" value="1">&#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="2">&#9733;&#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="3">&#9733;&#9733;&#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                                                            <option style="color: gold; font-size: 20px;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="1">
+                                                                &#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="2">
+                                                                &#9733;&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="3">
+                                                                &#9733;&#9733;&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="4">
+                                                                &#9733;&#9733;&#9733;&#9733;</option>
+                                                            <option style="color: gold; font-size: 20px;" value="5">
+                                                                &#9733;&#9733;&#9733;&#9733;&#9733;</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        @php 
+                                            $user = Auth::user();
+                                        @endphp
                                         <div class="product-comment ">
                                             <div class="row">
                                                 <div class="col-lg-2 col-md-2 col-12 d-block justify-content-center">
                                                     <button type="button" class="btn border-0 px-0">
                                                         <span class="d-block align-items-center">
                                                             <img class="rounded-circle header-profile-user"
-                                                                src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                src="{{ ($user->image) ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                                                                 alt="Avatar User" class="rounded-circle object-fit-cover"
                                                                 width="60" height="60">
                                                             <p class="text-center mt-2">
                                                                 <span
-                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ $user->name }}</span>
                                                             </p>
                                                         </span>
                                                     </button>
@@ -517,7 +496,7 @@
                                                         <button type="button" class="btn  border-0 px-0">
                                                             <span class="d-block justify-content-end align-items-center">
                                                                 <img class="rounded-circle header-profile-user"
-                                                                    src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                    src="{{ ($user->image) ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                                                                     alt="Avatar User"
                                                                     class="rounded-circle object-fit-cover" width="50"
                                                                     height="50">
@@ -535,11 +514,13 @@
                                                                     </div>
                                                                     <div class="pt-2 d-inline-block">
                                                                         <div :data-value="v.publish">
-                                                                            <span v-for="i in v.publish" :key="i" class="star-icon" style="color: gold;">
+                                                                            <span v-for="i in v.publish"
+                                                                                :key="i" class="star-icon"
+                                                                                style="color: gold;">
                                                                                 <i class="fa-solid fa-star"></i>
                                                                             </span>
                                                                         </div>
-                                                                    </div>                                                                                                                                       
+                                                                    </div>
                                                                     <div class="dropdown ms-auto ">
                                                                         <a class=" dropdown-toggle" href="#"
                                                                             role="button" data-bs-toggle="dropdown"
@@ -584,13 +565,17 @@
                                                                     </p>
                                                                 </div>
                                                                 <div id="app">
-                                                                    <div class="icon-reaction pb-2" v-for="(v, index) in list" :key="v.id">
-                                                                        <button class="like-button" v-on:click="Like(v)" style="border: none; background: none; padding: 0;">
+                                                                    <div class="icon-reaction pb-2"
+                                                                        v-for="(v, index) in list" :key="v.id">
+
+                                                                        <button class="like-button" v-on:click="Like(v)"
+                                                                            style="border: none; background: none; padding: 0;">
                                                                             <i class="fa-regular fa-heart me-2"></i>
                                                                         </button>
+
                                                                         <span>@{{ v.like_count }}</span>
                                                                     </div>
-                                                                </div>                                                                
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -599,7 +584,7 @@
                                             <!-- item review  -->
 
                                             <!-- phân trang bình luận  -->
-                                            <div class="d-flex justify-content-center align-items-center mt-3">
+                                            {{-- <div class="d-flex justify-content-center align-items-center mt-3">
                                                 <nav aria-label="Page navigation example">
                                                     <ul class="pagination pagination-sm">
                                                         <li class="page-item">
@@ -621,12 +606,13 @@
                                                         </li>
                                                     </ul>
                                                 </nav>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="aside-product-detail col-lg-4 col-md-12 col-12">
                         <div class="card border-0 rounded-1 shadow-sm mb-4">
@@ -713,7 +699,7 @@
                                 <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="ads-item mb-3">
+                                <div class="brand-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($categories) && !empty($categories))
                                             @foreach ($categories as $category)
@@ -737,7 +723,7 @@
                                 <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="ads-item mb-3">
+                                <div class="brand-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)
@@ -760,17 +746,8 @@
                 </div>
                 <!-- product similar  -->
                 <div class="product-similar mb-3 text-muted">
-                    <div class="title-product mb-4 col-3">
-                        <div class="price-banner">
-                            <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
-                                <div class="price-icon">
-                                    <i class="fa-solid fa-boxes text-white"></i>
-                                </div>
-                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
-                                    Sản phẩm tương tự
-                                </h4>
-                            </div>
-                        </div>
+                    <div class="title-product-similar mb-4">
+                        <h6 class="fs-3 fw-bold text-muted">Sản phẩm tương tự</h6>
                     </div>
                     <div class="row flex-wrap">
                         @if (count($productSimilars) != 0 && !empty($productSimilars))
@@ -779,13 +756,10 @@
                                     $shownColors = [];
                                     $promotion =
                                         $valProductSimilar->del != 0 && $valProductSimilar->del != null
-                                            ? (($valProductSimilar->price - $valProductSimilar->del) / $valProductSimilar->price) * 100
+                                            ? (($valProductSimilar->price - $valProductSimilar->del) /
+                                                    $valProductSimilar->price) *
+                                                100
                                             : '0';
-
-                                    $price =
-                                        $valProductSimilar->del != 0 && $valProductSimilar->del != null
-                                            ? number_format($valProductSimilar->del, '0', ',', '.')
-                                            : number_format($valProductSimilar->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 pt-0">
@@ -796,59 +770,64 @@
                                                     giảm {{ round($promotion, 1) . '%' }}
                                                 </span>
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-title="{{ in_array($valProductSimilar->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
-                                                    data-id="{{ $valProductSimilar->id }}">
-                                                    <i
-                                                        class="fa-{{ in_array($valProductSimilar->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
-
-                                                    <span class="product_id_wishlist d-none">
-                                                        {{ $valProductSimilar->id }}
-                                                    </span>
+                                                    data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích"
+                                                    data-id="{{ $product->id }}">
+                                                    <i class="fa-regular fa-bookmark fz-16"></i>
+                                                </span>
+                                                <span class="product_variant_id_wishlist d-none">
+                                                    @if (isset($product->productVariant) && $product->productVariant->isNotEmpty())
+                                                        {{ $product->productVariant->first()->id ?? null }}
+                                                    @endif
+                                                </span>
+                                                <span class="product_id_wishlist d-none">
+                                                    {{ $product->id }}
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
-                                            <img src="{{ $valProductSimilar->image }}" alt="product image" width="100%"
-                                                height="250" class="img-fluid object-fit-cover rounded-top-2"
-                                                style="height: 300px">
-                                            <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                                <div class="hstack gap-3">
-                                                    <div class="p-2 overflow-x-hidden">
-                                                        <span
-                                                            class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            {{ $valProductSimilar->productCatalogues[0]->name }}
-                                                        </span>
-                                                    </div>
-                                                    <div class="p-2 ms-auto">
-                                                        <div class="product-image-color">
-                                                            @foreach ($valProductSimilar->productVariant as $variant)
-                                                                @foreach ($variant->attributes as $attribute)
-                                                                    @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
-                                                                        <img src="{{ $attribute->image }}"
-                                                                            alt="{{ $attribute->name }}" width="14"
-                                                                            height="14"
-                                                                            class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
-                                                                        @php
-                                                                            // Đánh dấu màu này đã được hiển thị
-                                                                            $shownColors[] = $attribute->name;
-                                                                        @endphp
-                                                                    @endif
+                                            <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}">
+                                                <img src="{{ $valProductSimilar->image }}" alt="product image"
+                                                    width="100%" height="250"
+                                                    class="img-fluid object-fit-cover rounded-top-2"
+                                                    style="height: 300px">
+                                                <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                    <div class="hstack gap-3">
+                                                        <div class="p-2 overflow-x-hidden w-50">
+                                                            <span
+                                                                class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                {{ $valProductSimilar->productCatalogues[0]->name }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="p-2 ms-auto">
+                                                            <div class="product-image-color ">
+                                                                @foreach ($valProductSimilar->productVariant as $variant)
+                                                                    @foreach ($variant->attributes as $attribute)
+                                                                        @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                            <img src="{{ $attribute->image }}"
+                                                                                alt="{{ $attribute->name }}"
+                                                                                width="14" height="14"
+                                                                                class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                            @php
+                                                                                // Đánh dấu màu này đã được hiển thị
+                                                                                $shownColors[] = $attribute->name;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
                                                                 @endforeach
-                                                            @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 35px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $valProductSimilar->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
-                                                <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
-                                                    data-price="{{ $price }}">{{ $price }}đ
+                                                <span
+                                                    class="text-danger fz-20 fw-medium me-3">{{ $valProductSimilar->del != 0 && $valProductSimilar->del != null ? number_format($valProductSimilar->del, '0', ',', '.') : number_format($valProductSimilar->price, '0', ',', '.') }}đ
                                                 </span>
                                                 <span class="mt-1 ">
                                                     <del
@@ -856,9 +835,11 @@
                                                 </span>
                                             </div>
                                             <div class="box-action">
-                                                <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}"
-                                                    class="action-cart-item-buy">
-                                                    <span>Xem chi tiết</span>
+                                                <a href="{{ route('cart.index') }}"
+                                                    class="action-cart-item-buy addToCart buyNow"
+                                                    data-id="{{ $valProductSimilar->id }}">
+                                                    <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                    <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $valProductSimilar->id }}">
@@ -870,7 +851,8 @@
                                                 <span class="fz-14 ">
                                                     Mã sản phẩm
                                                 </span>
-                                                <span class="ms-auto text-dark fw-500 fz-14">{{ $valProductSimilar->sku }}</span>
+                                                <span
+                                                    class="ms-auto text-dark fw-500 fz-14">{{ $valProductSimilar->sku }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -888,29 +870,37 @@
                         <h1 class='modal-title fs-5' id='exampleModalLabel'>Chỉnh sửa đánh giá sản phẩm</h1>
                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>
-                    <div class='modal-body'>
-                        <div class="comment-item">
-                            <div class="item-two">
-                                <div class="rating">
-                                    <label style="margin-right: 5px" for="rating-select">Chất lượng sản phẩm: </label>
-                                    <select id="rating-select" v-model="edit.publish">
-                                        <option selected value="0" style="color: black">--Chọn số sao--</option>
+                    <div class='modal-body' style="padding: 20px; font-family: Arial, sans-serif;">
+                        <div class="comment-item"
+                            style="background-color: #f9f9f9; border-radius: 8px; padding: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                            <div class="item-two" style="margin-bottom: 15px;">
+                                <div class="rating" style="display: flex; align-items: center;">
+                                    <label for="rating-select"
+                                        style="margin-right: 10px; font-weight: bold; color: #333;">Chất lượng sản
+                                        phẩm:</label>
+                                    <select id="rating-select" v-model="edit.publish"
+                                        style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; font-size: 16px;">
+                                        <option selected value="0" style="color: #333;">--Chọn số sao--</option>
                                         <option style="color: gold;" value="1">&#9733;</option>
                                         <option style="color: gold;" value="2">&#9733;&#9733;</option>
                                         <option style="color: gold;" value="3">&#9733;&#9733;&#9733;</option>
                                         <option style="color: gold;" value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;
+                                        </option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="text-input">
-                                <input v-model="edit.content" style="width: 460px;outline: none;" type="text"
-                                    class="input-form" placeholder="Nhập nội dung bình luận của bạn!">
+                            <div class="text-input" style="margin-bottom: 15px;">
+                                <label for="" style="margin-bottom: 10px; font-weight: bold; color: #333;">Nhập
+                                    nội dung: </label>
+                                <input v-model="edit.content" type="text" class="input-form"
+                                    placeholder="Nhập nội dung bình luận của bạn!"
+                                    style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; outline: none; font-size: 16px; color: #333;">
                             </div>
-                            <div class="submit-btn">
+                            <div class="submit-btn" style="text-align: right;">
                                 <button v-on:click="Update()" class="btn-submit"
-                                    style="background-color: red;color: #fff" data-bs-dismiss='modal'>Gửi đánh
-                                    giá</button>
+                                    style="padding: 10px 20px; background-color: #14B6A0; color: #fff; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;"
+                                    data-bs-dismiss='modal'>Gửi đánh giá</button>
                             </div>
                         </div>
                     </div>
@@ -918,16 +908,12 @@
             </div>
         </div>
     </section>
-
-
     <script>
         // tuyền mảng id product và productvariant sang js đổ vào chuổi
-        let productInWishlist = @json($productInWishlist);
+        let productInWishlist = @json($productInWishlist); ///
         // truyền sản phẩm lên để lấy giá -> tính discount
         let product = @json($product);
-        
     </script>
-
 @endsection
 @section('js')
     <script>
@@ -940,8 +926,11 @@
                 image: null,
                 likes: [],
                 comment: 0,
+                total_stars: 0,
+                avg_stars: 0,
                 likeCount: [],
                 check: 0,
+                isLiked: false
             },
             created() {
                 this.LoadBinhLuan();
@@ -949,6 +938,10 @@
                 this.Chekc();
             },
             methods: {
+                toggleLike() {
+                    this.isLiked = !this.isLiked;
+
+                },
                 LoadBinhLuan() {
                     const url = new URL(window.location.href);
                     const pathname = url.pathname;
@@ -958,6 +951,8 @@
                         .then((res) => {
                             this.list = res.data.data;
                             this.comment = res.data.comment_count;
+                            this.total_stars = res.data.total_stars;
+                            this.avg_stars = res.data.average_stars;
                         });
                 },
 
@@ -970,8 +965,7 @@
                         .then((res) => {
                             this.list = res.data.like_count;
                         })
-                        .catch((res) => {
-                        })
+                        .catch((res) => {})
                 },
 
                 Chekc() {
@@ -1055,27 +1049,5 @@
                 },
             },
         });
-
-        //     document.addEventListener('DOMContentLoaded', () => {
-        //     const likeButtons = document.querySelectorAll('.like-button');
-
-        //     likeButtons.forEach(button => {
-        //         button.addEventListener('click', function() {
-        //             const heartIcon = this.querySelector('i');
-                    
-        //             // Kiểm tra xem trái tim có đang màu đỏ không
-        //             if (heartIcon.classList.contains('liked')) {
-        //                 heartIcon.classList.remove('fa-solid', 'liked'); // Bỏ màu đỏ và trở lại trái tim rỗng
-        //                 heartIcon.classList.add('fa-regular');
-        //                 heartIcon.style.color = 'black';
-        //             } else {
-        //                 heartIcon.classList.remove('fa-regular');
-        //                 heartIcon.classList.add('fa-solid', 'liked'); // Thêm màu đỏ khi "like"
-        //                 heartIcon.style.color = 'red';
-        //             }
-        //         });
-        //     });
-        // });
-
     </script>
 @endsection

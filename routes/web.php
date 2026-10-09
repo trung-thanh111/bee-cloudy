@@ -19,6 +19,8 @@ use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Fontend\FPromotionController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Fontend\UserController as FontendUserController;
 use App\Http\Controllers\Fontend\ProductController as FontendProductController;
 use App\Http\Controllers\Fontend\HomeController;
@@ -69,6 +71,11 @@ Route::get('/view-content-data', [ContentController::class, 'data']);
 Route::post('/view-content-create', [ContentController::class, 'create']);
 Route::post('/view-content-delete', [ContentController::class, 'delete']);
 Route::post('/view-content-update', [ContentController::class, 'update']);
+Route::post('/content/like', [ContentController::class, 'like']);
+Route::get('/content/like-data', [ContentController::class, 'likedata']);
+Route::get('/content/check', [ContentController::class, 'checkIfRated']);
+
+Route::get('/comments', [ContentController::class, 'loadCommentsPage']);
 
 // AJAX
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
@@ -87,6 +94,7 @@ Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])-
 // ORDER UPDATE AJAX
 Route::post('/ajax/order/editNote', [AjaxOrderController::class, 'edit'])->name('ajax.order.edit');
 Route::post('/ajax/order/updateStatus', [AjaxOrderController::class, 'updateStatus'])->name('ajax.order.updateStatus');
+Route::post('/ajax/order/updatePaidAt', [AjaxOrderController::class, 'updatePaidAt'])->name('ajax.order.updatePaidAt');
 
 //SEARCH SUGGESTION AJAX
 Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');
@@ -123,6 +131,9 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'account'], function () {
         Route::get('info', [FontendUserController::class, 'info'])->name('account.info');
         Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
+        Route::get('view_promotion', [FPromotionController::class, 'view_promotion'])->name('account.promotions');
+        Route::get('/view_promotion/{id}', [FPromotionController::class, 'show'])->name('account.promotion.show');
+
         Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
     });
     Route::group(['prefix' => 'cart'], function () {
@@ -130,11 +141,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/apply-discount', [AjaxCartController::class, 'applyPromotion'])->name('cart.applyDiscount');
         Route::post('/remove-voucher/{voucherId}', [AjaxCartController::class, 'removeVoucher'])->name('cart.removeVoucher');
     });
-});
 //promotion
 Route::middleware(['auth'])->group(function () {
-    Route::get('/promotion', [PromotionController::class, 'showAllPromotions'])->name('promotion.index');
-    Route::post('/promotion/receive/{promotion}', [PromotionController::class, 'receivePromotion'])->name('promotion.receive');
+    Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
+    Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
 });
 // order 
 Route::middleware(['auth'])->group(function () {
@@ -258,16 +268,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
     //promotion_dashboar
-    Route::group(['prefix' => 'promotion'], function () {
+    
+    Route::group(['prefix' => 'dashboard/promotion'], function () {
         Route::get('index', [PromotionController::class, 'index'])->name('promotions.index');
         Route::get('create', [PromotionController::class, 'create'])->name('promotions.create');
         Route::get('edit/{id}', [PromotionController::class, 'edit'])->where(['id' => '[0-9]+'])->name('promotions.edit');
-        Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotions.update');
+        Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotion.update');
         Route::get('show/{id}', [PromotionController::class, 'show'])->where(['id' => '[0-9]+'])->name('promotions.show'); // sửa lại thành detail
         Route::post('store', [PromotionController::class, 'store'])->name('promotions.store');
-        Route::get('confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
+        Route::get('confirm-delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
         Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
         Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
+        Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');
+
     });
 
 
@@ -301,7 +314,22 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('index', [OrderController::class, 'index'])->name('order.index');
         Route::get('detail/{id}', [OrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('order.detail');
     });
+
+    //Banner 
+    Route::group(['prefix' => 'banner'], function () {
+        Route::get('index', [BannerController::class, 'index'])->name('banner.index');
+        Route::get('create', [BannerController::class, 'create'])->name('banner.create');
+        Route::post('store', [BannerController::class, 'store'])->name('banner.store');
+        Route::get('update/{id}', [BannerController::class, 'update'])->name('banner.update');
+        Route::post('edit/{id}', [BannerController::class, 'edit'])->name('banner.edit');
+        Route::get('delete/{id}', [BannerController::class, 'delete'])->where(['id' => '[0-9]+'])->name('banner.delete');
+        Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('banner.destroy');
+        Route::get('permission', [BannerController::class, 'permission'])->name('banner.permission');
+        Route::post('updatePermission', [BannerController::class, 'updatePermission'])->name('banner.updatePermission');
+    });
 });
+});
+
 
 // AUTH
 
