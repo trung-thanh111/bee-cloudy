@@ -4,7 +4,7 @@
 <head>
     {{-- head  --}}
     @include('fontend.home.components.head')
-
+    <!-- @stack('styles') -->
 </head>
 
 <body>
@@ -23,6 +23,7 @@
 
 </body>
 {{-- script  --}}
+
 @include('fontend.home.components.script')
 
 </html>

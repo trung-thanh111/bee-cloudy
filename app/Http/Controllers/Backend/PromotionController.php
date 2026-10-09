@@ -1,12 +1,12 @@
 <?php
+
 namespace App\Http\Controllers\Backend;
 
+use Exception;
 use Illuminate\Http\Request;
-use App\Models\Promotion;
-use App\Models\Product;
-use App\Services\PromotionService;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Services\PromotionService;
+use Illuminate\Support\Facades\Log;
 
 class PromotionController extends Controller
 {
@@ -17,64 +17,84 @@ class PromotionController extends Controller
         $this->promotionService = $promotionService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $promotions = $this->promotionService->getAllPromotions();
-        $template = 'backend.promotion.catalogue.index';
-        return view('backend.dashboard.layout', compact('template', 'promotions'));
+        $filters = $request->only(['keyword', 'publish', 'perpage']);
+        $promotions = $this->promotionService->getFilteredPromotions($filters);
+        return view('backend.dashboard.layout', [
+            'template' => 'backend.promotion.catalogue.index',
+            'promotions' => $promotions
+        ]);
     }
 
     public function create()
     {
-        $products = Product::all();
-        $template = 'backend.promotion.catalogue.create';
-        return view('backend.dashboard.layout', compact('template', 'products'));
+        $products = $this->promotionService->getAllProducts();
+        return view('backend.dashboard.layout', [
+            'template' => 'backend.promotion.catalogue.create',
+            'products' => $products
+        ]);
     }
 
     public function store(Request $request)
     {
-        $this->promotionService->createPromotion($request);
-        return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được tạo thành công!');
-    }
-
-    public function receivePromotion(Promotion $promotion)
-    {
-        $message = $this->promotionService->receivePromotion($promotion);
-        return redirect()->back()->with('message', $message);
-    }
-
-    public function confirmDelete($id)
-    {
-        $promotion = $this->promotionService->getPromotionWithProducts($id);
-        $template = 'backend.promotion.catalogue.delete';
-        return view('backend.dashboard.layout', compact('template', 'promotion'));
-    }
-
-    public function destroy($id)
-    {
-        $this->promotionService->deletePromotion($id);
-        return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được xóa.');
-    }
-
-    public function myPromotions()
-    {
-        $userId = Auth::id();
-        $promotions = $this->promotionService->getUserPromotions($userId);
-        return view('fontend.promotion.my_vouchers', compact('promotions'));
+        try {
+            $promotion = $this->promotionService->createPromotion($request->all());
+            return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được tạo thành công!');
+        } catch (Exception $e) {
+            Log::error('Promotion creation failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Xảy ra lỗi khi tạo khuyến mãi.');
+        }
     }
 
     public function edit($id)
     {
-        $promotion = $this->promotionService->getPromotionWithProducts($id);
-        $template = 'backend.promotion.catalogue.edit';
-        return view('backend.dashboard.layout', compact('template', 'promotion'));
+        try {
+            $promotion = $this->promotionService->getPromotionWithProducts($id);
+            $products = $this->promotionService->getAllProducts();
+
+            return view('backend.dashboard.layout', [
+                'template' => 'backend.promotion.catalogue.edit',
+                'promotion' => $promotion,
+                'products' => $products
+            ]);
+        } catch (Exception $e) {
+            Log::error('Error loading promotion edit form: ' . $e->getMessage());
+            return redirect()->route('promotions.index')->with('error', 'Không thể tải thông tin khuyến mãi.');
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $promotion = Promotion::findOrFail($id);
-        $this->promotionService->updatePromotion($promotion, $request);
+        $this->promotionService->updatePromotion($id, $request->all());
         return redirect()->route('promotions.index')->with('success', 'Cập nhật khuyến mãi thành công!');
+    }
+
+
+    public function destroy($id)
+    {
+        try {
+            $this->promotionService->deletePromotion($id);
+            return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được xóa thành công.');
+        } catch (Exception $e) {
+            Log::error('Delete promotion error: ' . $e->getMessage());
+            return redirect()->route('promotions.index')->with('error', 'Xảy ra lỗi khi xóa khuyến mãi.');
+        }
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('id');
+        if ($ids) {
+            try {
+                $this->promotionService->bulkDeletePromotions(explode(',', $ids));
+                return redirect()->route('promotions.index')->with('success', 'Xóa thành công các bản ghi.');
+            } catch (Exception $e) {
+                Log::error('Bulk delete error: ' . $e->getMessage());
+                return redirect()->route('promotions.index')->with('error', 'Xảy ra lỗi khi xóa các bản ghi. Vui lòng thử lại.');
+            }
+        }
+        return redirect()->route('promotions.index')->with('warning', 'Không có bản ghi nào được chọn để xóa.');
     }
 
     public function show($id)
@@ -86,19 +106,26 @@ class PromotionController extends Controller
         ]);
     }
 
-    public function bulkDelete(Request $request)
+    public function showAllPromotions()
     {
-        $listId = $request->input('id');
-        if ($listId) {
-            try {
-                $arrayId = explode(',', $listId);
-                $this->promotionService->bulkDeletePromotions($arrayId);
-                return redirect()->route('promotions.index')->with('success', 'Xóa thành công các bản ghi.');
-            } catch (Exception $e) {
-                return redirect()->route('promotions.index')->with('error', 'Xảy ra lỗi khi xóa các bản ghi. Vui lòng thử lại.');
-            }
-        } else {
-            return redirect()->route('promotions.index')->with('warning', 'Không có bản ghi nào được chọn để xóa.');
+        $promotions = $this->promotionService->getAllPromotionsWithDates();
+        return view('fontend.promotion.index', compact('promotions'));
+    }
+
+    public function receivePromotion($id)
+    {
+        try {
+            $message = $this->promotionService->receivePromotion($id);
+            return redirect()->back()->with($message['type'], $message['text']);
+        } catch (Exception $e) {
+            Log::error('Receive promotion error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
         }
+    }
+
+    public function myPromotions()
+    {
+        $promotions = $this->promotionService->getUserPromotions();
+        return view('fontend.promotion.my_vouchers', compact('promotions'));
     }
 }

@@ -45,3 +45,67 @@
 @vite(['resources/js/app.js'])
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+
+<!-- gsap - fontend-promotion-index.blade.php -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.11.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.11.5/dist/ScrollTrigger.min.js"></script>
+<script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Parallax effect
+        gsap.to(".parallax", {
+            backgroundPosition: "50% 100%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".parallax",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Animate vouchers on scroll
+        gsap.utils.toArray(".promotion-card").forEach((card, i) => {
+            gsap.from(card, {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top bottom-=100",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // Countdown timer
+        function updateCountdown() {
+            const countdowns = document.querySelectorAll('.countdown div');
+            countdowns.forEach(countdown => {
+                const expires = new Date(countdown.dataset.expires);
+                const now = new Date();
+                const diff = expires - now;
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    countdown.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    countdown.textContent = "Đã hết hạn";
+                }
+            });
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Modal functions
+        function showModal(code) {
+            const modal = new bootstrap.Modal(document.getElementById('voucherModal'));
+            document.getElementById('modalVoucherCode').textContent = code;
+            modal.show();
+        }
+    </script>

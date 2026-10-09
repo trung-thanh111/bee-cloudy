@@ -56,6 +56,8 @@ class OrderController extends FontendController
             ));
         }
     }
+  
+
     public function checkout(Request $request)
     {
         $carts = $this->cartService->all();

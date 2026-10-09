@@ -20,8 +20,7 @@ class Promotion extends Model
         'usage_limit',
         'apply_for',
         'status',
-        'description',
-        'quantity',
+        'description'
     ];
 
     // Định dạng các cột ngày tháng
