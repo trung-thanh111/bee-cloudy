@@ -71,7 +71,7 @@
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
                                     data-bs-title="Thêm vào yêu thích">
                                     <div class="position-relative">
-                                        <button type="button" class="position-absolute start-50 translate-middle "
+                                         <button type="button" class="position-absolute start-50 translate-middle border-0 bg-white p-0"
                                             style="top: 20px;">
                                             <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
                                         </button>
