@@ -20,19 +20,19 @@
                     <div class="sub-menu-lv2 d-none">
                         <ul class="sub-menu-ul flex-column text-muted ps-0">
                             <li class="sub-menu-li list-unstyled ps-4 ">
-                                <a href="{{ route('account.info') }}" class="nav-link p-2">
+                                <a href="{{ route('profile.user') }}" class="nav-link p-2">
                                     <i class='bx bx-circle fz-8 me-2'></i>
                                     <span>Thông tin</span>
                                 </a>
                             </li>
                             <li class="sub-menu-li list-unstyled ps-4">
-                                <a href="#" class="nav-link p-2">
+                                <a href="{{ route('profile.edit') }}" class="nav-link p-2">
                                     <i class='bx bx-circle fz-8 me-2'></i>
                                     <span>Cập nhật</span>
                                 </a>
                             </li>
                             <li class="sub-menu-li list-unstyled ps-4">
-                                <a href="" class="nav-link p-2">
+                                <a href="{{ route('profile.change-view') }}" class="nav-link p-2">
                                     <i class='bx bx-circle fz-8 me-2'></i>
                                     <span>Đổi mật khẩu</span>
                                 </a>

@@ -27,7 +27,7 @@
             
             setTimeout(() => {
                 $(this).closest('form').submit();
-            }, 800);
+            }, 0);
         });
     
         $(document).on('click', '.submitFilter .box-item-choose-money', function() {
@@ -36,14 +36,14 @@
             
             setTimeout(() => {
                 $(this).closest('form').submit();
-            }, 2000);
+            }, 0);
         });
     
         // Vẫn giữ lại xử lý cho radio buttons (size) nếu có
         $('.submitFilter').on('change', function() {
             setTimeout(() => {
                 $(this).closest('form').submit();
-            }, 2000);
+            }, 0);
         });
     }
 
