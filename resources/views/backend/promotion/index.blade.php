@@ -8,7 +8,7 @@
                             <h4 class="card-title mb-0 text-uppercase">Danh sách nhóm</h4>
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('post.catalogue.index') }}">Dashboard</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item active">Danh sách nhóm</li>
                                 </ol>
@@ -17,8 +17,8 @@
                         
                         <div class="card-body">
                             <div class="listjs-table" id="customerList">
-                                @include('backend.promotion.catalogue.component.filter')
-                                @include('backend.promotion.catalogue.component.table')
+                                @include('backend.promotion.component.filter')
+                                @include('backend.promotion.component.table')
                             </div>
                         </div><!-- end card -->
                     </div>

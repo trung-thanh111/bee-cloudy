@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // Animation aos 
 AOS.init();
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 // positon fixed menu
 window.addEventListener("scroll", function () {
   var navbar = document.querySelector("nav");
