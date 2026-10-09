@@ -21,13 +21,13 @@
                         <h6 class="text-uppercase fw-bold fz-16">Cửa hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="{{ route('cart.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
+                                <a href="{{ route('home.about_us') }}" class="text-decoration-none text-dark fz-15 fw-normal">Về chúng tôi</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
                                 <a href="{{ route('shop.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Sản phẩm</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="" class="text-decoration-none text-dark fz-15 fw-normal">Thương hiệu</a>
+                                <a href="{{ route('cart.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Giỏ hàng</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
                                 <a href="{{ route('wishlist.index') }}" class="text-decoration-none text-dark fz-15 fw-normal">Yêu thích</a>
@@ -38,11 +38,11 @@
                         <h6 class="text-uppercase fw-bold fz-16">Chính sách cửa hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Chính sách</a>
+                                <a href="{{ route('home.return_and_warranty_policy') }}" class="text-decoration-none text-dark fz-15 fw-normal">Chính sách đổi trả, bảo hành</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Điều khoản &
-                                    Dịch vụ</a>
+                                <a href="{{ route('home.terms_and_conditions') }}" class="text-decoration-none text-dark fz-15 fw-normal">Điều khoản &
+                                    Điều kiện</a>
                             </li>
                         </ul>
                     </div>
@@ -50,13 +50,13 @@
                         <h6 class="text-uppercase fw-bold fz-16">Chăm sóc khách hàng</h6>
                         <ul class="p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Liên hệ</a>
+                                <a href="{{ route('home.contact') }}" class="text-decoration-none text-dark fz-15 fw-normal">Liên hệ</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
                                 <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Chat</a>
                             </li>
                             <li class="list-unstyled menu-footer-item pt-2 pb-2">
-                                <a href="#" class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
+                                <a href="{{ route('home.faq') }}" class="text-decoration-none text-dark fz-15 fw-normal">Câu hỏi thường
                                     gặp</a>
                             </li>
                         </ul>
@@ -106,13 +106,9 @@
                             diện</span>
                         <ul class="d-flex justify-content-start  align-items-center p-0">
                             <li class="list-unstyled menu-footer-item pt-2 pb-2 me-2">
-                                <a href="#" class="text-decoration-underline text-dark fz-15 fw-medium ">Trung tâm
+                                <a href="{{ route('home.security_center') }}" class="text-decoration-underline text-dark fz-15 fw-medium ">Trung tâm
                                     bảo
                                     mật</a>
-                            </li>
-                            <li class="list-unstyled menu-footer-item pt-2 pb-2 me-2">
-                                <a href="#" class="text-decoration-underline text-dark fz-15 fw-medium ">Chính
-                                    sách</a>
                             </li>
                         </ul>
                     </div>
