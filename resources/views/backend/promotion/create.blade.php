@@ -39,8 +39,8 @@
                                 <div class="mb-3">
                                     <label class="form-label">Tên khuyến mãi:<span
                                             class="text-danger fz-18">*</span></label>
-                                    <input type="text" class="form-control" name="name"
-                                        value="{{ old('name') }}" required>
+                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+
                                     @if ($errors->has('name'))
                                         <span class="text-danger">{{ $errors->first('name') }}</span>
                                     @endif
@@ -55,20 +55,24 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Hướng dẫn sử dụng:</label>
-                                    <textarea class="form-control ck-editor" name="description" id="ck-editor" data-height="250"> {{ old('description') }}</textarea>
+                                    <textarea class="form-control ck-editor" name="description" id="ck-editor"
+                                        data-height="250"> {{ old('description') }}</textarea>
                                 </div>
-                                 <!-- Áp dụng cho -->
-                                 <div class="mb-3">
+                                <!-- Áp dụng cho -->
+                                <div class="mb-3">
                                     <h5 class=" mb-0">
                                         Áp dụng cụ thể
                                     </h5>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Áp dụng cho:<span class="text-danger fz-18">*</span></label>
-                                    <select id="apply-for" name="apply_for" class="form-select" required>
-                                        <option value="all" {{ old('apply_for') == 'all' ? 'selected' : '' }}>Áp dụng cho tất cả sản phẩm</option>
+                                    <label class="form-label">Áp dụng cho:<span
+                                            class="text-danger fz-18">*</span></label>
+                                    <select id="apply-for" name="apply_for" class="form-select">
+                                        <option value="all" {{ old('apply_for') == 'all' ? 'selected' : '' }}>Áp dụng cho
+                                            tất cả sản phẩm</option>
                                         <option value="specific_products" {{ old('apply_for') == 'specific_products' ? 'selected' : '' }}>Áp dụng cho sản phẩm cụ thể</option>
-                                        <option value="freeship" {{ old('apply_for') == 'freeship' ? 'selected' : '' }}>Miễn phí vận chuyển</option>
+                                        <option value="freeship" {{ old('apply_for') == 'freeship' ? 'selected' : '' }}>
+                                            Miễn phí vận chuyển</option>
                                     </select>
                                     @if ($errors->has('apply_for'))
                                         <span class="text-danger">{{ $errors->first('apply_for') }}</span>
@@ -78,7 +82,8 @@
                                 <div class="">
                                     <div id="specific-products-section" class="mb-3" style="display: none;">
                                         <label class="form-label">Chọn sản phẩm áp dụng:</label>
-                                        <select id="product-dropdown" class="form-select setUpSelect2" name="product_id">
+                                        <select id="product-dropdown" class="form-select setUpSelect2"
+                                            name="product_id">
                                             <option value="">-- Chọn sản phẩm --</option>
                                             @foreach ($products as $product)
                                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
@@ -109,7 +114,7 @@
                                     <!-- Giá trị giảm và điều kiện -->
                                     <div class="mb-3" id="discount-section">
                                         <label class="form-label">Giá trị giảm: <span
-                                            class="text-danger fz-18">*</span></label>
+                                                class="text-danger fz-18">*</span></label>
                                         <div class="input-group">
                                             <input type="number" class="form-control" name="discount"
                                                 value="{{ old('discount') }}" placeholder="Số tiền chiết khấu">
@@ -119,10 +124,11 @@
                                             <span class="text-danger fz-12 mt-1">{{ $errors->first('discount') }}</span>
                                         @endif
                                     </div>
-                                    <div class="" >
+                                    <div class="">
                                         <label class="form-label">Đơn hàng tối thiểu</label>
                                         <div class="input-group">
-                                            <input type="number" name="minimum_amount" class="form-control" placeholder="100.000 VND">
+                                            <input type="number" name="minimum_amount" class="form-control"
+                                                placeholder="100.000 VND">
                                             <span class="input-group-text">VND</span>
                                         </div>
                                     </div>
@@ -142,21 +148,21 @@
                                         <label class="form-label">Bắt đầu</label>
                                         <div class="input-group">
                                             <input type="datetime-local" class="form-control" name="start_date"
-                                                value="{{ old('start_date') }}" required>
-                                            @if ($errors->has('start_date'))
-                                                <span class="text-danger">{{ $errors->first('start_date') }}</span>
-                                            @endif
+                                                value="{{ old('start_date') }}">
                                         </div>
+                                        @if ($errors->has('start_date'))
+                                            <span class="text-danger">{{ $errors->first('start_date') }}</span>
+                                        @endif
                                     </div>
                                     <div class=" mb-3">
                                         <label class="form-label">Kết thúc</label>
                                         <div class="input-group">
                                             <input type="datetime-local" class="form-control" name="end_date"
-                                                value="{{ old('end_date') }}" required>
-                                            @if ($errors->has('end_date'))
-                                                <span class="text-danger">{{ $errors->first('end_date') }}</span>
-                                            @endif
+                                                value="{{ old('end_date') }}">
                                         </div>
+                                        @if ($errors->has('end_date'))
+                                            <span class="text-danger">{{ $errors->first('end_date') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -168,15 +174,12 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label for="choices-publish-status-input " class="form-label">Trạng thái</label>
-                                    <select name="status" class="form-select setUpSelect2" required>
+                                    <select name="status" class="form-select setUpSelect2">
                                         <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Kích
                                             hoạt</option>
                                         <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Vô
                                             hiệu</option>
                                     </select>
-                                    @if ($errors->has('status'))
-                                        <span class="text-danger">{{ $errors->first('status') }}</span>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -187,15 +190,18 @@
                             <div class="card-body">
                                 <div class="mb-4">
                                     <p class="text-muted">Chọn ảnh đại diện.</p>
+                                    @if ($errors->has('image')) 
+                                        <span class="text-danger">{{ $errors->first('image') }}</span>
+                                    @endif
                                     <div class="text-center">
                                         <div class="position-relative d-inline-block">
-                                            {{-- image-target dùng dể choose image hthi cho ngxem  --}}
+                                            {{-- image-target dùng dể choose image hthi cho ngxem --}}
                                             <span class="image-target">
                                                 <img src="/libaries/upload/images/img-notfound.png" alt=""
                                                     class="render-image object-fit-contain rounded-1 mb-2 position-relative "
                                                     width="96" height="96">
                                             </span>
-                                            {{-- input ẩn gửi lên controller xử lý  --}}
+                                            {{-- input ẩn gửi lên controller xử lý --}}
                                             <input type="hidden" name="image" value="{{ old('image') }}">
                                         </div>
                                     </div>
@@ -205,14 +211,14 @@
                     </div>
                 </div>
             </form>
-           
+
         </div>
     </div>
 </div>
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const applyForField = document.getElementById('apply-for');
         const discountSection = document.getElementById('discount-section');
         const specificProductsSection = document.getElementById('specific-products-section');
@@ -235,6 +241,6 @@
         toggleFields();
         applyForField.addEventListener('change', toggleFields);
 
-        
+
     });
 </script>

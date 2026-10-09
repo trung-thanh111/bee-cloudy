@@ -3,7 +3,7 @@
     Chi tiết bài viết
 @endsection
 @section('content')
-    <section id="app">
+    <section id="app" data-aos="fade-up">
         <article>
             <div class="container p-0">
                 <!-- breadcrumb  -->

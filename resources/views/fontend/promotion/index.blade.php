@@ -129,6 +129,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             min-height: 100vh;
+            background-image: url("/libaries/templates/bee-cloudy-user/libaries/images/backgroundPromotion.avif") !important;
         }
 
         .promotion-card {
