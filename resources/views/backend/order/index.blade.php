@@ -19,7 +19,6 @@
                             <div class="listjs-table" id="customerList">
                                 @include('backend.order.component.filter')
                                 @include('backend.order.component.table')
-                                
                             </div>
                         </div>
                     </div>

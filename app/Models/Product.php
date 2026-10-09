@@ -53,11 +53,6 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
-    // khia báo quan hệ với bảng user (n)
-    public function users(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
     //khia báo quan hệ với bảng product variant (1pro - nhiều phiên bản)
     public function productVariant(): HasMany
     {
