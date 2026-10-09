@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    thiết kế và phát triển bỏi thewinners
+                    Thiết kế và phát triển bởi The Winners
                 </div>
             </div>
         </div>
