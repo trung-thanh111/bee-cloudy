@@ -245,7 +245,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::put('update/{id}', [PromotionController::class, 'update'])->where(['id' => '[0-9]+'])->name('promotion.update');
         Route::get('show/{id}', [PromotionController::class, 'show'])->where(['id' => '[0-9]+'])->name('promotions.show'); // sửa lại thành detail
         Route::post('store', [PromotionController::class, 'store'])->name('promotions.store');
-        Route::get('confirm-delete/{id}', [PromotionController::class, 'confirmDelete'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
+        Route::get('confirm-delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
         Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
         Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
         Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');

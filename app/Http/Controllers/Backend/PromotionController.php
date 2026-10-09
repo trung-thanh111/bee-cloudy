@@ -128,26 +128,4 @@ class PromotionController extends Controller
         ]);
     }
 
-    // public function showAllPromotions()
-    // {
-    //     $promotions = $this->promotionService->getAllPromotionsWithDates();
-    //     return view('fontend.promotion.index', compact('promotions'));
-    // }
-
-    // public function receivePromotion($id)
-    // {
-    //     try {
-    //         $message = $this->promotionService->receivePromotion($id);
-    //         return redirect()->back()->with($message['type'], $message['text']);
-    //     } catch (Exception $e) {
-    //         Log::error('Receive promotion error: ' . $e->getMessage());
-    //         return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
-    //     }
-    // }
-
-    // public function myPromotions()
-    // {
-    //     $promotions = $this->promotionService->getUserPromotions();
-    //     return view('fontend.promotion.my_vouchers', compact('promotions'));
-    // }
 }
