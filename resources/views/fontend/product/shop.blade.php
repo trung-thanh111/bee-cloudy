@@ -346,7 +346,7 @@
                                             //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                             $variantFirst = $product->productVariant->first();
                                         @endphp
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                        <div class="col-xl-4 col-md-6 col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
@@ -524,8 +524,8 @@
                         </button>
                     </div>
                 </div>
-                <div class="product-shop-new mt-4 mb-3 text-muted">
-                    <div class="title-product mb-4 col-3">
+                <div class="product-shop-new mt-4 mb-3 text-muted bg-white px-3 pt-3 rounded-2">
+                    <div class="title-product mb-4 col-xl-3 col-lg-3 col-8">
                         <div class="price-banner">
                             <div
                                 class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -555,7 +555,7 @@
                                     //-- // 
                                     $variantFirst = $productNew->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -651,8 +651,8 @@
                         @endif
                     </div>
                 </div>
-                <div class="product-shop-hot my-3 text-muted">
-                    <div class="title-product mb-4 col-2">
+                <div class="product-shop-hot my-3 text-muted bg-white px-3 pt-3 rounded-2">
+                    <div class="title-product mb-4 col-xl-2 col-lg-2 col-5">
                         <div class="price-banner">
                             <div
                                 class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -684,7 +684,7 @@
                                             //-- // 
                                     $variantFirst = $productPriceMin->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Mail\ConfirmEmail;
 use Illuminate\Support\Str;
-use App\Models\PendingUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,10 +15,6 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        // nếu đã đăng nhập rồi thì redirect về trang ch
-        // if(Auth::check()){
-        //     return redirect()->route('home.index');
-        // }
         return view('auth.register');
     }
 

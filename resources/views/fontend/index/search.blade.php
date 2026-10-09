@@ -48,7 +48,7 @@
                                             //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                             $variantFirst = $product->productVariant->first();
                                         @endphp
-                                        <div class="col-lg-3 col-md-6  col-12 mb-4">
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">

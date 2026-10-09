@@ -26,14 +26,6 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <!-- end breadcrumb  -->
-                @if ($countCart != 0)
-                    <div class="bg-cart position-relative z-2">
-                        <img src="/libaries/templates/bee-cloudy-user/libaries/images/cart_icon2.png" alt=""
-                            height="200"
-                            class="z-1 w-100 object-fit-contain position-absolute top-50 start-50 translate-middle">
-                    </div>
-                @endif
                 <!-- content -->
                 <div class="main-cart row flex-wrap text-muted pt-3 mx-0 mb-5">
                     @if ($countCart != 0)
@@ -136,7 +128,7 @@
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <div class="input-group componant-quantity justify-content-end shadow-sm flex-grow"
+                                                    <div class="input-group componant-quantity justify-content-end shadow-sm flex-sm-wrap flex-xs-wrap flex-grow"
                                                         style="max-width: 130px; margin: 0 auto;">
                                                         <button class="quantity-minus updateCart w-md-100 rounded-3"
                                                             type="button" data-id="{{ $cartItem->id }}">
@@ -225,7 +217,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-12 col-12 pe-0 ps-3">
+                        <div class="col-lg-4 col-md-12 col-12 pe-0 ps-lg-3 ps-md-3 ps-sm-0">
                             <div class="card border-0 rounded-2 shadow-sm">
                                 <div class="card-header border-0 py-3">
                                     <div class="d-flex">
@@ -263,7 +255,7 @@
                 <hr class="border-2 mb-3">
                 <!-- product similar  -->
                 <div class="product-similar mb-3 text-muted">
-                    <div class="title-product mb-4 col-3">
+                    <div class="title-product mb-4 col-lg-3 col-8">
                         <div class="price-banner">
                             <div
                                 class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -293,7 +285,7 @@
                                     //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                     $variantFirst = $productNew->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">

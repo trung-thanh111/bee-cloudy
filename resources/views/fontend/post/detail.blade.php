@@ -253,7 +253,7 @@
                                     <h6 class="card-title fw-18 fw-500">Tìm kiếm</h6>
                                 </div>
                                 <div class="card-body py-2">
-                                    <form action="{{ route('search') }}" method="get" class=" d-none d-md-block ">
+                                    <form action="{{ route('search') }}" method="get" class="">
                                         <div class="d-flex shadow-sm rounded-pill py-1 my-1 overflow-hidden bg-white">
                                             <input type="text" name="keyword"
                                                 class="form-control border-0 py-2 ps-3 pe-0"

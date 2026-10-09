@@ -6,7 +6,7 @@
         <div class="card-body p-0 mt-3">
             <ul class="p-0">
                 <li class="list-unstyled fz-16">
-                    <div class="nav-item-profile {{ request()->is('account/info') ? 'active' : '' }}">
+                    <div class="nav-item-profile {{ request()->is('profile') || request()->is('profile/edit') || request()->is('profile/change-pass') ? 'active' : '' }}">
                         <span
                             class="nav-link fw-400 d-flex justify-content-between align-items-center">
                             <span class="fz-16 fw-400">
@@ -42,7 +42,7 @@
                     </div>
                 </li>
                 <li class="list-unstyled fz-16">
-                    <div class="nav-item-profile {{ request()->is('account/view_order') ? 'active' : '' }}">
+                    <div class="nav-item-profile {{ request()->is('account/view_order') || request()->is('account/order/detail/*') ? 'active' : '' }}">
                         <span
                             class="nav-link fw-400 d-flex justify-content-between align-items-center">
                             <span class="fz-16 fw-400"> <i
@@ -65,7 +65,7 @@
                     </div>
                 </li>
                 <li class="list-unstyled fz-16">
-                    <div class="nav-item-profile {{ request()->is('account/voucher') ? 'active' : '' }}">
+                    <div class="nav-item-profile {{ request()->is('promotion') || request()->is('account/view_promotion') ? 'active' : '' }}">
                         <span
                             class="nav-link fw-400 d-flex justify-content-between align-items-center">
                             <span class="fz-16 fw-400"> <i

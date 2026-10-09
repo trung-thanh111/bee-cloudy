@@ -1,7 +1,7 @@
 @extends('fontend.home.layout')
-
-@section('title', 'Quên mật khẩu')
-
+@section('page_title')
+    Quên mật khẩu
+@endsection
 @section('content')
     <section>
         <article>
@@ -19,7 +19,7 @@
                 <div class="main-content-vertification justify-content-center row w-100 p-0 mt-3 rounded-2">
 
 
-                    <div class="col-lg-5 col col-md-auto bg-white shadow-sm p-4 text-muted ">
+                    <div class="col-xl-5 col-lg-6 col-md-8 col-12 bg-white shadow-sm p-4 text-muted ">
                         <div class="title-vertify-mail text-center">
                             <h6 class="fz-18 text-uppercase">Quên mật khẩu</h6>
                             <p class="fz-16 fw-600 text-info text-decoration-underline">Xác thực email</p>
@@ -57,7 +57,7 @@
                                 <button type="submit" class="accept btn btn-success rounded-1 px-4">Xác thực</button>
                             </div>
                             <div class="text-end mb-3">
-                                <span class="fz-14">Đã nhớ tài khoản. <a href="#">Đăng nhập</a></span>
+                                <span class="fz-14">Đã nhớ tài khoản. <a href="{{ route('auth.login') }}">Đăng nhập</a></span>
                             </div>
                         </form>
                     </div>

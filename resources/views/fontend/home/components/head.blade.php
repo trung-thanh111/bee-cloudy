@@ -19,9 +19,6 @@
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/style.css">
 <link rel="stylesheet" href="/libaries/templates/bee-cloudy-user/libaries/css/custom_reponsive.css">
 <!-- icon  -->
- <!-- animation  -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <!-- App favicon -->
 <link rel="shortcut icon" href="/libaries/upload/images/logo/logo_index.png">
 <!-- font-awesome -->
