@@ -488,7 +488,7 @@
                     <div class="title-product mb-4 col-xl-3 col-lg-3 col-8">
                         <div class="price-banner">
                             <div
-                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                 <div class="price-icon">
                                     <i class="fa-solid fa-fire text-white"></i>
                                 </div>
@@ -615,7 +615,7 @@
                     <div class="title-product mb-4 col-xl-2 col-lg-2 col-5">
                         <div class="price-banner">
                             <div
-                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 d-flex align-items-center">
                                 <div class="price-icon">
                                     <i class="fa-solid fa-tags text-white"></i>
                                 </div>

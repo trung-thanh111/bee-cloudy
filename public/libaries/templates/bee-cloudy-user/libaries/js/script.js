@@ -212,11 +212,10 @@ document.addEventListener("DOMContentLoaded", function () {
             perMove: 1,
             rewind: true,
             height: 580,
-            pagination: true,
             isNavigation: false,
             heightRatio: 1,
             pagination: true,
-            arrows: true,
+            arrows: false,
             cover: false,
             // reponsive image main
             breakpoints: {
@@ -247,6 +246,8 @@ document.addEventListener("DOMContentLoaded", function () {
             drag: "free",
             focus: "center",
             perPage: 7,
+            pagination: true,
+            arrows: false,
             autoScroll: {
                 speed: 2,
             },

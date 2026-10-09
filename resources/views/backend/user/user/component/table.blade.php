@@ -56,8 +56,8 @@
                                 <i class="ri-more-2-fill fs-5"></i>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink5" style="">
-                                {{-- <li><a class="dropdown-item text-primary" href="#"><i
-                                            class="ri-eye-line align-middle"></i> Xem</a></li> --}}
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.detail', ['id' => $item->id]) }}"><i
+                                            class="ri-eye-line align-middle"></i> Xem</a></li>
                                 <li><a class="dropdown-item text-info"
                                         href="{{ route('user.update', ['id' => $item->id]) }}"> <i
                                             class="ri-edit-box-line"></i>
