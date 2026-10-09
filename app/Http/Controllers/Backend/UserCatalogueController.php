@@ -39,7 +39,7 @@ class UserCatalogueController extends Controller
             return redirect()->route('user.catalogue.index');
         } else {
             flash()->error('Thêm mới không thành công!. Hãy thao tác lại.');
-            return back();
+            // return back();
         }
     }
 
