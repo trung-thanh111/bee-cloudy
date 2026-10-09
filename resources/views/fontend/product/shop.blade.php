@@ -81,27 +81,25 @@
                                                 <ul class="ps-0">
                                                     <li class="list-unstyled mb-3 me-5 choose-size-item form-check">
                                                         <input type="radio" name="brand" value="" checked
-                                                            class="form-check-input submitFilter me-2 fz-16"
-                                                            id="no-filter-brand">
+                                                            class="form-check-input submitFilter me-2 fz-16" id="no-filter-brand">
                                                         <label class="form-check-label label-filter-shop text-muted fz-14"
                                                             for="no-filter-brand">Không lọc</label>
-                                                        </input>
                                                     </li>
                                                     @if (count($brandFilters) > 0 && !empty($brandFilters))
                                                         @foreach ($brandFilters as $KeyBrandF => $valBrandF)
                                                             <li class="list-unstyled mb-3 form-check">
-                                                                <input type="radio" name="brand"
-                                                                    id="brand_filter{{ $KeyBrandF }}"
-                                                                    value="{{ $valBrandF->slug }}"
-                                                                    {{ request('brand') == $valBrandF->slug ? 'checked' : '' }}
-                                                                    class="form-check-input submitFilter me-2 fz-16">
-                                                                <label
-                                                                    class="form-check-label label-filter-shop text-muted fz-14"
-                                                                    for="brand_filter{{ $KeyBrandF }}">{{ $valBrandF->name }}</label>
+                                                                <a href="{{ route('shop.index', array_merge(request()->query(), ['brand' => $valBrandF->slug])) }}" class="text-decoration-none">
+                                                                    <input type="radio" name="brand" id="brand_filter{{ $KeyBrandF }}"
+                                                                        value="{{ $valBrandF->slug }}"
+                                                                        {{ request('brand') == $valBrandF->slug ? 'checked' : '' }}
+                                                                        class="form-check-input submitFilter me-2 fz-16">
+                                                                    <label class="form-check-label label-filter-shop text-muted fz-14"
+                                                                        for="brand_filter{{ $KeyBrandF }}">{{ $valBrandF->name }}</label>
+                                                                </a>
                                                             </li>
                                                         @endforeach
                                                     @endif
-                                                </ul>
+                                                </ul>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -120,27 +118,25 @@
                                                 <ul class="ps-0">
                                                     <li class="list-unstyled mb-3 me-5 choose-size-item form-check">
                                                         <input type="radio" name="category" value="" checked
-                                                            class="form-check-input submitFilter me-2 fz-16"
-                                                            id="no-filter-category">
+                                                            class="form-check-input submitFilter me-2 fz-16" id="no-filter-category">
                                                         <label class="form-check-label label-filter-shop text-muted fz-14"
                                                             for="no-filter-category">Không lọc</label>
-                                                        </input>
                                                     </li>
                                                     @if (count($productCatalogues) > 0 && !empty($productCatalogues))
                                                         @foreach ($productCatalogues as $KeyCatalogueF => $valCatalogueF)
                                                             <li class="list-unstyled mb-3 form-check">
-                                                                <input type="radio" name="category"
-                                                                    id="category_filter{{ $KeyCatalogueF }}"
-                                                                    value="{{ $valCatalogueF->slug }}"
-                                                                    {{ request('category') == $valCatalogueF->slug ? 'checked' : '' }}
-                                                                    class="form-check-input submitFilter me-2 fz-16">
-                                                                <label
-                                                                    class="form-check-label label-filter-shop text-muted fz-14"
-                                                                    for="category_filter{{ $KeyCatalogueF }}">{{ $valCatalogueF->name }}</label>
+                                                                <a href="{{ route('shop.index', array_merge(request()->query(), ['category' => $valCatalogueF->slug])) }}" class="text-decoration-none">
+                                                                    <input type="radio" name="category" id="category_filter{{ $KeyCatalogueF }}"
+                                                                        value="{{ $valCatalogueF->slug }}"
+                                                                        {{ request('category') == $valCatalogueF->slug ? 'checked' : '' }}
+                                                                        class="form-check-input submitFilter me-2 fz-16">
+                                                                    <label class="form-check-label label-filter-shop text-muted fz-14"
+                                                                        for="category_filter{{ $KeyCatalogueF }}">{{ $valCatalogueF->name }}</label>
+                                                                </a>
                                                             </li>
                                                         @endforeach
                                                     @endif
-                                                </ul>
+                                                </ul>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -159,26 +155,23 @@
                                                     <li class="list-unstyled mb-3 me-3 choose-size-item form-check">
                                                         <input type="radio" name="size" value="" checked
                                                             class="form-check-input submitFilter me-2 fz-16">
-                                                        <label
-                                                            class="form-check-label label-filter-shop text-muted fz-14">Không
-                                                            lọc</label>
-                                                        </input>
+                                                        <label class="form-check-label label-filter-shop text-muted fz-14">Không lọc</label>
                                                     </li>
                                                     @if (count($attributeSizes) > 0 && !empty($attributeSizes))
                                                         @foreach ($attributeSizes as $KeySizeF => $valSizeF)
                                                             <li class="list-unstyled mb-3 me-3 form-check">
-                                                                <input type="radio" name="size"
-                                                                    id="size_filter{{ $KeySizeF }}"
-                                                                    value="{{ $valSizeF->id }}"
-                                                                    {{ request('size') == $valSizeF->id ? 'checked' : '' }}
-                                                                    class="form-check-input submitFilter me-2 fz-16">
-                                                                <label
-                                                                    class="form-check-label label-filter-shop text-muted fz-14"
-                                                                    for="size_filter{{ $KeySizeF }}">{{ $valSizeF->name }}</label>
+                                                                <a href="{{ route('shop.index', array_merge(request()->query(), ['size' => $valSizeF->id])) }}" class="text-decoration-none">
+                                                                    <input type="radio" name="size" id="size_filter{{ $KeySizeF }}"
+                                                                        value="{{ $valSizeF->id }}"
+                                                                        {{ request('size') == $valSizeF->id ? 'checked' : '' }}
+                                                                        class="form-check-input submitFilter me-2 fz-16">
+                                                                    <label class="form-check-label label-filter-shop text-muted fz-14"
+                                                                        for="size_filter{{ $KeySizeF }}">{{ $valSizeF->name }}</label>
+                                                                </a>
                                                             </li>
                                                         @endforeach
                                                     @endif
-                                                </ul>
+                                                </ul>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +188,7 @@
                                             <div class="accordion-body fz-14 pb-0">
                                                 <ul class="ps-0 ">
                                                     <li
-                                                        class="list-unstyled submitFilter d-flex justify-content-between flex-wrap grid mb-2">
+                                                        class="list-unstyled submitFilter d-flex justify-content-between flex-wrap grid mb-3">
                                                         <div
                                                             class="img-choose-color {{ request('color') == '' ? 'active' : '' }} ">
                                                             <label class="color-selector">
@@ -209,14 +202,14 @@
                                                         class="list-unstyled submitFilter d-flex justify-content-between flex-wrap grid gap-2">
                                                         @if (count($attributeColors) > 0 && !empty($attributeColors))
                                                             @foreach ($attributeColors as $KeyColorF => $valColorF)
-                                                                <div class="img-choose-color  {{ request('color') == $valColorF->id ? 'active' : '' }}"
+                                                                <div class="img-choose-color {{ request('color') == $valColorF->id ? 'active' : '' }}"
                                                                     data-color="{{ $valColorF->id }}">
-                                                                    <label class="color-selector">
+                                                                    <a href="{{ route('shop.index', array_merge(request()->query(), ['color' => $valColorF->id])) }}"
+                                                                        class="color-selector text-decoration-none">
                                                                         <img src="{{ $valColorF->image ?? '/libaries/upload/images/img-notfound.png' }}"
                                                                             alt="" width="30" height="30"
                                                                             class="rounded-circle mb-md-1">
-
-                                                                    </label>
+                                                                    </a>
                                                                 </div>
                                                             @endforeach
                                                         @endif
@@ -240,35 +233,41 @@
                                             aria-labelledby="headingFive" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0">
                                                 <ul class="ps-0 d-flex flex-wrap gap-2 box-price-filter">
-                                                    <li class="list-unstyled submitFilter">
-                                                        <label
-                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '' ? 'active' : '' }}">Không
-                                                            lọc</label>
+                                                    <li class="list-unstyled mb-3 me-2">
+                                                        <a href="{{ route('shop.index', array_merge(request()->query(), ['price' => ''])) }}"
+                                                           class="box-item-choose-money fz-14 p-2 text-decoration-none {{ request('price') == '' ? 'active' : '' }}">
+                                                            Không lọc
+                                                        </a>
                                                     </li>
-                                                    <li class="list-unstyled submitFilter">
-                                                        <label
-                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '0-200000' ? 'active' : '' }} "
-                                                            data-price="0-200000">Dưới 200.000</label>
+                                                    <li class="list-unstyled mb-3 me-2">
+                                                        <a href="{{ route('shop.index', array_merge(request()->query(), ['price' => '0-200000'])) }}"
+                                                           class="box-item-choose-money fz-14 p-2 text-decoration-none {{ request('price') == '0-200000' ? 'active' : '' }}">
+                                                            Dưới 200.000
+                                                        </a>
                                                     </li>
-                                                    <li class="list-unstyled submitFilter">
-                                                        <label
-                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '200000-400000' ? 'active' : '' }} "
-                                                            data-price="200000-400000">200 - 400.000</label>
+                                                    <li class="list-unstyled mb-3 me-2">
+                                                        <a href="{{ route('shop.index', array_merge(request()->query(), ['price' => '200000-400000'])) }}"
+                                                           class="box-item-choose-money fz-14 p-2 text-decoration-none {{ request('price') == '200000-400000' ? 'active' : '' }}">
+                                                            200 - 400.000
+                                                        </a>
                                                     </li>
-                                                    <li class="list-unstyled submitFilter">
-                                                        <label
-                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '400000-800000' ? 'active' : '' }} "
-                                                            data-price="400000-800000">400 - 800.000</label>
+                                                    <li class="list-unstyled mb-3 me-2">
+                                                        <a href="{{ route('shop.index', array_merge(request()->query(), ['price' => '400000-800000'])) }}"
+                                                           class="box-item-choose-money fz-14 p-2 text-decoration-none {{ request('price') == '400000-800000' ? 'active' : '' }}">
+                                                            400 - 800.000
+                                                        </a>
                                                     </li>
-                                                    <li class="list-unstyled submitFilter">
-                                                        <label
-                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '800000-1200000' ? 'active' : '' }} "
-                                                            data-price="800000-1200000">800 - 1.200K</label>
+                                                    <li class="list-unstyled mb-3 me-2">
+                                                        <a href="{{ route('shop.index', array_merge(request()->query(), ['price' => '800000-1200000'])) }}"
+                                                           class="box-item-choose-money fz-14 p-2 text-decoration-none {{ request('price') == '800000-1200000' ? 'active' : '' }}">
+                                                            800 - 1.200K
+                                                        </a>
                                                     </li>
-                                                    <li class="list-unstyled submitFilter">
-                                                        <label
-                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '1200000-' ? 'active' : '' }} "
-                                                            data-price="1200000-">Trên 1.200K</label>
+                                                    <li class="list-unstyled mb-3 me-2">
+                                                        <a href="{{ route('shop.index', array_merge(request()->query(), ['price' => '1200000-'])) }}"
+                                                           class="box-item-choose-money fz-14 p-2 text-decoration-none {{ request('price') == '1200000-' ? 'active' : '' }}">
+                                                            Trên 1.200K
+                                                        </a>
                                                     </li>
                                                 </ul>
                                                 <input type="hidden" name="price" class="priceFilter"
@@ -292,40 +291,44 @@
                                         <span class="text-muted fz-14 fw-medium me-2">Sắp xếp</span>
                                         <i class="fa-solid fa-sort fz-14 text-muted"></i>
                                     </a>
-
                                     <ul class="dropdown-menu dropdown-menu-end ul-menu p-0 border-0 shadow-lg mb-1">
                                         <li class="li-menu-header p-1">
-                                            <a href="?sort=price_high" class="text-decoration-none fz-12 ps-1">
+                                            <a href="{{ route('shop.index', array_merge(request()->query(), ['sort' => 'price_high'])) }}"
+                                                class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-square-caret-down me-2"></i>Giá cao - thấp
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="?sort=price_low" class="text-decoration-none fz-12 ps-1">
+                                            <a href="{{ route('shop.index', array_merge(request()->query(), ['sort' => 'price_low'])) }}"
+                                                class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-square-caret-up me-2"></i>Giá thấp - cao
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="?sort=newest" class="text-decoration-none fz-12 ps-1">
+                                            <a href="{{ route('shop.index', array_merge(request()->query(), ['sort' => 'newest'])) }}"
+                                                class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-clock-rotate-left me-2"></i>Mới nhất
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="?sort=oldest" class="text-decoration-none fz-12 ps-1">
+                                            <a href="{{ route('shop.index', array_merge(request()->query(), ['sort' => 'oldest'])) }}"
+                                                class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-clock me-2"></i>Cũ nhất
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="?sort=name_desc" class="text-decoration-none fz-12 ps-1">
+                                            <a href="{{ route('shop.index', array_merge(request()->query(), ['sort' => 'name_desc'])) }}"
+                                                class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-sort-alpha-down me-2"></i>Ký tự Z - A
                                             </a>
                                         </li>
                                         <li class="li-menu-header p-1">
-                                            <a href="?sort=name_asc" class="text-decoration-none fz-12 ps-1">
+                                            <a href="{{ route('shop.index', array_merge(request()->query(), ['sort' => 'name_asc'])) }}"
+                                                class="text-decoration-none fz-12 ps-1">
                                                 <i class="fa-solid fa-sort-alpha-up me-2"></i>Ký tự A - Z
                                             </a>
                                         </li>
                                     </ul>
-
                                 </div>
                                 </p>
                             </div>
@@ -463,10 +466,9 @@
                                         </div>
                                     </div>
                                 @endif
-
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end pagination pagination-sm">
+                        <div class="container-fuild">
                             {{ $productShops->appends(request()->except('page'))->onEachSide(3)->links('pagination::bootstrap-5') }}
                         </div>
 
@@ -653,7 +655,8 @@
                                                 <span class="fz-14 ">
                                                     Mã sản phẩm
                                                 </span>
-                                                <span class="ms-auto text-dark fw-500 fz-14">{{ $productNew->sku }}</span>
+                                                <span
+                                                    class="ms-auto text-dark fw-500 fz-14">{{ $productNew->sku }}</span>
                                             </div>
                                         </div>
                                     </div>

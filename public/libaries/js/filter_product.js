@@ -39,7 +39,7 @@
             }, 0);
         });
     
-        // Vẫn giữ lại xử lý cho radio buttons (size) nếu có
+        // vẫn giữ lại xử lý cho radio buttons (size) nếu có
         $('.submitFilter').on('change', function() {
             setTimeout(() => {
                 $(this).closest('form').submit();

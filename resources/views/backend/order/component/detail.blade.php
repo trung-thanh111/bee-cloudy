@@ -14,16 +14,37 @@
                     <h4 class="modal-title">Xác nhận hủy đơn </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    <h6>
-                        Mã đơn hàng #{{ $order->code }}
-                    </h6>
-                    <p>Bạn có chắc chắn muốn hủy đơn hàng này?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-danger" id="confirmCancel">Xác nhận hủy</button>
-                </div>
+                <form action="{{ route('order.process_cancele', ['id' => $order->id]) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <h6 class="mb-3">
+                            Mã đơn hàng <strong>#{{ $order->code }}</strong>
+                        </h6>
+                        <div class="mb-3">
+                            <label class="form-label mb-2">Lý do hủy đơn hàng từ người bán.</label>
+                            <select class="form-select" id="lyDoHuy" name="cancellation_reason" required>
+                                <option value="" disabled selected>[ Chọn lý do hủy đơn ]</option>
+                                <option value="Hết hàng">Sản phẩm đã hết hàng</option>
+                                <option value="Lỗi giá">Nhầm giá hoặc chương trình khuyến mãi</option>
+                                <option value="Khách hàng không còn nhu cầu">Khách hàng không còn nhu cầu</option>
+                                <option class="optionlydokhac" value="">Lý do khác</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 d-none" id="lydokhac">
+                            <label for="lydokhac" class="form-label">
+                                <i class="fas fa-comment-dots me-2"></i>Nhập lý do khác
+                            </label>
+                            <textarea class="form-control content_lydokhac" id="lydokhac" rows="3" placeholder="Vui lòng nhập lý do cụ thể"></textarea>
+                        </div>
+                        {{-- hủy bởi admin  --}}
+                        <input type="hidden" name="canceled_by" value="admin">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-danger" id="confirmCancel">Xác nhận hủy</button>
+                        {{-- confirmCancel --}}
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -77,7 +98,7 @@
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-circle-xmark text-danger fs-2 me-3"></i>
                         <div>
-                            <h5>Đơn hàng đã bị hủy!</h5>
+                            <h5>Đơn hàng đã bị hủy bởi {{ $order->canceled_by == 'admin' ? 'người bán' : 'khách hàng' }}!</h5>
                             <p class=" mb-0">Đơn hàng sẽ không được vận chuyển.</p>
                         </div>
                     </div>
