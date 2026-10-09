@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Fontend;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Repositories\BannerRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\ProductCatalogueRepository;
 use App\Services\PostService;
 use App\Services\ShopService;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -74,14 +76,14 @@ class HomeController extends Controller
         );
         // dd($postHomes);
         return view('fontend.index.home_index', compact(
-            'postHomes', 
+            'postHomes',
             'productNew',
-            'bannerHome1', 
-            'bannerHome2', 
-            'postHomeNews', 
-            'productSales', 
-            'productCatalogues', 
-            'productShopPriceMins', 
+            'bannerHome1',
+            'bannerHome2',
+            'postHomeNews',
+            'productSales',
+            'productCatalogues',
+            'productShopPriceMins',
         ));
     }
 
@@ -93,6 +95,33 @@ class HomeController extends Controller
     public function contact()
     {
         return view('fontend.page_other.contact');
+    }
+
+    public function contactSubmit(Request $request)
+    {
+        // Validate input
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+
+        // Truyền dữ liệu vào mail dưới dạng chuỗi
+        $contactData = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'message' => $request->message,
+        ];
+
+        // Chuyển đổi dữ liệu thành chuỗi (nếu cần)
+        $contactDataString = json_encode($contactData);  // Biến các mảng thành chuỗi JSON
+
+        // Gửi mail
+        Mail::to('beecloudy2024@gmail.com')->send(new ContactMail($contactDataString));
+
+        // Hiển thị thông báo và quay lại
+        flash()->success('Cảm ơn bạn đã liên hệ');
+        return redirect()->back();
     }
 
     public function terms_and_conditions()
