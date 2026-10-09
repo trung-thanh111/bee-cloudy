@@ -74,9 +74,6 @@ class ProductReviewController extends Controller
         ]);
     }
 
-
-
-
     public function like(Request $request)
     {
         if (!Auth::check()) {
@@ -200,13 +197,6 @@ class ProductReviewController extends Controller
                 ]);
             }
 
-
-
-
-            // return response()->json([
-            //     'status'    => true,
-            //     'message'   => 'Đã thêm đánh giá mới.',
-            // ]);
         } catch (\Exception $e) {
             return response()->json([
                 'code' => false,
