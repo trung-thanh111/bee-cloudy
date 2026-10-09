@@ -74,6 +74,9 @@ class ProductReviewController extends Controller
             ->select('users.name', 'product_reviews.*')
             ->orderByDESC('content')
             ->get();
+        
+        
+
         return response()->json([
             'like_count' => $product,
         ]);
@@ -181,6 +184,7 @@ class ProductReviewController extends Controller
                         'content' => $request->content,
                         'user_id' => $user->id,
                         'publish' => $request->publish,
+                        'is_liked' =>1,
                         // 'check' => 1,
 
                     ]);
@@ -221,17 +225,27 @@ class ProductReviewController extends Controller
             ], 401);
         }
         try {
-            $data = ProductReview::where('id', $request->id)->first();
-            if ($data) { 
-                $data->publish = $request->publish;
-                $data->content = $request->input('content');
-                $data->edit_count += 1;
-                $data->save();
+            $user = Auth::user();
+            if($user){
+                $data = ProductReview::where('id', $request->id)
+                ->where('user_id',$user->id)->first();
+                if ($data) { 
+                    $data->publish = $request->publish;
+                    $data->content = $request->input('content');
+                    $data->edit_count += 1;
+                    $data->save();
+                    return response()->json([
+                        'status'    => true,
+                        'message'   => 'Đã chỉnh sửa bài đánh giá .',  
+                    ]);
+                }
+            }else{
                 return response()->json([
-                    'status'    => true,
-                    'message'   => 'Đã chỉnh sửa bài đánh giá .',  
+                    'status'    => false,
+                    'message'   => 'Có lỗi.',  
                 ]);
             }
+            
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 11,
