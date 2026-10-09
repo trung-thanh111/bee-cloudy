@@ -257,73 +257,31 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card border-0 rounded-1 mb-4">
+                            <div class="card border-0 rounded-1 shadow-sm mb-4">
                                 <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Danh mục</h6>
-                                </div>
-                                <div class="card-body py-2">
-                                    <ul class="p-2 mb-0 list-inline">
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#banchay</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#sale</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#newarrival</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#fashion</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#trending</a>
-                                        </li>
-                                        <li class="list-inline-item mb-2">
-                                            <a href="#" class="btn btn-secondary btn-sm">#summer</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {{-- <div class="card border-0 rounded-1 shadow-sm mb-4">
-                                <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Khuyến mãi</h6>
+                                    <h6 class="card-title fw-18 fw-500">Bài viết</h6>
                                 </div>
                                 <div class="card-body p-1">
-                                    <div class="event-item mb-3">
-                                        <ul class="ps-0 mb-0">
-                                            <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                                <div class="image-event-item position-relative">
-                                                    <img src="/libaries/images/banner_aside.jpg" alt=""
-                                                        width="100%" class="img-fuild  me-2">
-                                                    <i
-                                                        class="fa-solid fa-delete-left delete-banner-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                                </div>
-                                            </li>
+                                    <div class="categoryP-item mb-3 overflow-y-auto">
+                                        <ul class="list-group list-group-flush">
+                                            @if (!is_null($postCatalogues) && !empty($postCatalogues))
+                                                @foreach ($postCatalogues as $categoryP)
+                                                    <li class="list-group-item item-category">
+                                                        <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
+                                                            class="text-decoration-none d-flex align-items-center">
+                                                            <img src="{{ $categoryP->image }}"
+                                                                alt="{{ $categoryP->name }}" width="50" height="50"
+                                                                class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                            <span class="text-muted fw-500">{{ $categoryP->name }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="card border-0 rounded-1 shadow-sm mb-4">
-                                <div class="card-header">
-                                    <h6 class="card-title fw-18 fw-500">Quảng cáo</h6>
-                                </div>
-                                <div class="card-body p-1">
-                                    <div class="ads-item mb-3">
-                                        <ul class="ps-0 mb-0">
-                                            <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                                <div class=" position-relative">
-                                                    <img src="/libaries/images/banner_aside.jpg" alt=""
-                                                        width="100%" class="img-fuild  me-2 image-ads-item">
-                                                    <i
-                                                        class="fa-solid fa-delete-left delete-ads-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card border-0 rounded-1 shadow-sm mb-4 {{ (count($postSimilar) == 0) ? 'd-none' : '' }}">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Bài viết tương tự</h6>
                                 </div>
