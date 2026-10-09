@@ -308,37 +308,68 @@
                     </div>
                 </div>
                 <div class="commit-quality mb-5">
-                    <div class="container text-start">
-                        <div class="row flex-wrap">
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class="fa-solid fa-truck-fast me-3 fs-2"></i>
-                                    <span class="fs-6 fw-medium text-truncate">Miễn phí vận chuyển</span>
+                    <div class="container policy mb-3">
+                        <div class="row g-4">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-medal fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Sản phẩm độc quyền</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class='fa-solid fa-barcode me-3 fs-2'></i>
-                                    <span class="fs-6 fw-medium text-truncate">Bảo hành 6 tháng</span>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-box fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Đóng gói chất lượng</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class='bx bx-archive me-3 fs-2'></i>
-                                    <span class="fs-6 fw-medium text-truncate">Đổi trả hàng trong 7 ngày</span>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-money-bill fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Thanh toán dễ dàng</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 mb-2">
-                                <div
-                                    class="commit-quality-item shadow-sm bg-white d-flex justify-content-start align-items-center text-muted p-4 rounded-2">
-                                    <i class="fa-solid fa-money-bill-wave me-3 fs-2"></i>
-                                    <span class="fs-6 fw-medium text-truncate">Đổi trả hàng hóa</span>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card border-0 shadow-sm hover-shadow transition-all">
+                                    <div class="card-body p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                                <i class="fa-solid fa-truck-fast fs-3 text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="card-title mb-1 text-muted">Miễn phí vận chuyển</h5>
+                                                <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
