@@ -25,6 +25,7 @@ class AppRepositoryProvider extends ServiceProvider
         '\App\Repositories\Interfaces\OrderRepositoryInterface' => 'App\Repositories\OrderRepository',
         '\App\Repositories\Interfaces\UserCatalogueRepositoryInterface' => 'App\Repositories\UserCatalogueRepository',
         '\App\Repositories\Interfaces\BannerRepositoryInterface' => 'App\Repositories\BannerRepository',
+        '\App\Repositories\Interfaces\PromotionRepositoryInterface' => 'App\Repositories\PromotionRepository',
     ];
     public function register(): void
     {

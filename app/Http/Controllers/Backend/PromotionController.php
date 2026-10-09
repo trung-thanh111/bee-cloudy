@@ -19,10 +19,10 @@ class PromotionController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['keyword', 'publish', 'perpage']);
-        $promotions = $this->promotionService->getFilteredPromotions($filters);
+        $promotions = $this->promotionService->paginate($request);
+        // dd($promotions);
         return view('backend.dashboard.layout', [
-            'template' => 'backend.promotion.catalogue.index',
+            'template' => 'backend.promotion.index',
             'promotions' => $promotions
         ]);
     }
@@ -31,7 +31,7 @@ class PromotionController extends Controller
     {
         $products = $this->promotionService->getAllProducts();
         return view('backend.dashboard.layout', [
-            'template' => 'backend.promotion.catalogue.create',
+            'template' => 'backend.promotion.create',
             'products' => $products
         ]);
     }
@@ -43,11 +43,11 @@ class PromotionController extends Controller
         // Xác thực dữ liệu, bao gồm URL ảnh
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|string', 
+            'image' => 'required',
+            'description' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'description' => 'required|string|max:255',
-            'discount' => 'required_unless:apply_for,freeship|numeric|min:0',
+            'discount' => 'required_unless:apply_for,freeship|min:0',
             'minimum_amount' => 'nullable|numeric|min:0',
             'usage_limit' => 'nullable|integer|min:1',
             'apply_for' => 'required|in:specific_products,freeship,all',
@@ -76,7 +76,7 @@ class PromotionController extends Controller
             $products = $this->promotionService->getAllProducts();
 
             return view('backend.dashboard.layout', [
-                'template' => 'backend.promotion.catalogue.edit',
+                'template' => 'backend.promotion.edit',
                 'promotion' => $promotion,
                 'products' => $products
             ]);
@@ -88,6 +88,7 @@ class PromotionController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $this->promotionService->updatePromotion($id, $request->all());
         return redirect()->route('promotions.index')->with('success', 'Cập nhật khuyến mãi thành công!');
     }
@@ -99,7 +100,6 @@ class PromotionController extends Controller
             $this->promotionService->deletePromotion($id);
             return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được xóa thành công.');
         } catch (Exception $e) {
-            Log::error('Delete promotion error: ' . $e->getMessage());
             return redirect()->route('promotions.index')->with('error', 'Xảy ra lỗi khi xóa khuyến mãi.');
         }
     }
@@ -123,7 +123,7 @@ class PromotionController extends Controller
     {
         $promotion = $this->promotionService->getPromotionWithProducts($id);
         return view('backend.dashboard.layout', [
-            'template' => 'backend.promotion.catalogue.show',
+            'template' => 'backend.promotion.show',
             'promotion' => $promotion,
         ]);
     }
