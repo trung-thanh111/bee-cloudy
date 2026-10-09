@@ -17,24 +17,24 @@ use App\Services\BrandService;
 
 class ShopService implements ShopServiceInterface
 {
-    protected $shopRepository;
     protected $brandService;
+    protected $shopRepository;
+    protected $productRepository;
     protected $attributeRepository;
     protected $productCatalogueRepository;
-    protected $productRepository;
     public function __construct(
-        ShopRepository $shopRepository,
-        ProductCatalogueRepository $productCatalogueRepository,
-        ProductRepository $productRepository,
         BrandService $brandService,
+        ShopRepository $shopRepository,
+        ProductRepository $productRepository,
         AttributeRepository $attributeRepository,
+        ProductCatalogueRepository $productCatalogueRepository,
 
     ) {
-        $this->shopRepository = $shopRepository;
-        $this->productCatalogueRepository = $productCatalogueRepository;
-        $this->productRepository = $productRepository;
         $this->brandService = $brandService;
+        $this->shopRepository = $shopRepository;
+        $this->productRepository = $productRepository;
         $this->attributeRepository = $attributeRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
     }
 
     public function all()

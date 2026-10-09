@@ -125,6 +125,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }).mount();
   }
 });
+// home 
+document.addEventListener("DOMContentLoaded", function () {
+  let thumbnail_carousel2 = document.querySelector("#thumbnail-carouselHome");
+  if (thumbnail_carousel2) {
+    new Splide(thumbnail_carousel2, {
+      type: "slide",
+      autoplay: 3000,
+      gap: 10,
+      perPage: 8, // hiển thị 4 item
+      perMove: 1, // di chuyển 1 lần 1 item
+      rewind: true,
+      pagination: true,
+      isNavigation: false,
+      breakpoints: {
+        600: {
+          perPage: 2,
+          gap: 5,
+        },
+        1024: {
+          perPage: 3,
+        },
+      },
+    }).mount();
+  }
+});
 // post
 document.addEventListener("DOMContentLoaded", function () {
   let thumbnail_carousel2 = document.querySelector("#thumbnail-carousel3");
