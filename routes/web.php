@@ -68,6 +68,11 @@ Route::get('/view-content-data', [ContentController::class, 'data']);
 Route::post('/view-content-create', [ContentController::class, 'create']);
 Route::post('/view-content-delete', [ContentController::class, 'delete']);
 Route::post('/view-content-update', [ContentController::class, 'update']);
+Route::post('/content/like', [ContentController::class, 'like']);
+Route::get('/content/like-data', [ContentController::class, 'likedata']);
+Route::get('/content/check', [ContentController::class, 'checkIfRated']);
+
+Route::get('/comments', [ContentController::class, 'loadCommentsPage']);
 
 // AJAX
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');

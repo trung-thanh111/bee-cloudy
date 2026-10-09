@@ -148,7 +148,12 @@
                                     {{ $product->id }}
                                 </h4>
                                 <div class="hstack gap-3 fz-14 flex-wrap">
-                                    <div class="py-2">Đánh giá ({{ $totalReviewCount }})</div>
+                                    <div class="py-2">Đánh giá (<strong>@{{ comment }}</strong>)</div>
+                                    <div class="vr" style="width: 1px !important;"></div>
+                                    <div class="py-2">
+                                        <span class="fw-500">Số sao trung bình:</span>
+                                        <span class="product-variant-rate">@{{ avg_stars }}</span>
+                                    </div>
                                     <div class="vr" style="width: 1px !important;"></div>
                                     <div class="py-2">
                                         <span class="fw-500">Đã bán:</span>
@@ -548,7 +553,7 @@
                                             <!-- item review  -->
 
                                             <!-- phân trang bình luận  -->
-                                            <div class="d-flex justify-content-center align-items-center mt-3">
+                                            {{-- <div class="d-flex justify-content-center align-items-center mt-3">
                                                 <nav aria-label="Page navigation example">
                                                     <ul class="pagination pagination-sm">
                                                         <li class="page-item">
@@ -570,7 +575,7 @@
                                                         </li>
                                                     </ul>
                                                 </nav>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -890,9 +895,10 @@
                 image: null,
                 likes: [],
                 comment: 0,
+                total_stars: 0,
+                avg_stars: 0,
                 likeCount: [],
                 check: 0,
-
                 isLiked: false
             },
             created() {
@@ -914,6 +920,8 @@
                         .then((res) => {
                             this.list = res.data.data;
                             this.comment = res.data.comment_count;
+                            this.total_stars = res.data.total_stars;
+                            this.avg_stars = res.data.average_stars;
                         });
                 },
 
