@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->createMany(
             [
-                [
-                    'name' => 'thanh trung',
-                    'email' => 'admin@gmail.com',
-                    'password' => Hash::make('thanhtrung'),
-                    'user_catalogue_id' => 2
-                ],
+                // [
+                //     'name' => 'thanh trung',
+                //     'email' => 'admin@gmail.com',
+                //     'password' => Hash::make('thanhtrung'),
+                //     'user_catalogue_id' => 2
+                // ],
                 [
                     'name' => 'bao trung',
                     'email' => 'baotrung@gmail.com',

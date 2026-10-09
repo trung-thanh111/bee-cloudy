@@ -88,6 +88,7 @@
                 </div>
             @elseif($order->status == 'shipping')
                 {{-- shipping  --}}
+                
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <i class="fa-solid fa-truck-fast text-secondary  fs-2 me-3"></i>
@@ -96,8 +97,21 @@
                             <p class="mb-0">Đơn hàng sẽ được vận chuyển đến khách hàng sớm nhất.</p>
                         </div>
                     </div>
-                    <div>
-                        <span class="disabled text-secondary">Đơn hàng đang vận chuyển</span>
+                    <div class="dropdown">
+                        <button class="btn btn-primary py-2 px-4 rounded-2 fz-12 fw-medium dropdown-toggle"
+                            type="button" data-bs-toggle="dropdown">
+                            Chuyển trạng thái
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button type="submit" class="dropdown-item updateStatus btn btn-info"
+                                    data-status="completed">Đã nhận và thanh toán</button>
+                            </li>
+                            <li>
+                                <button type="submit" class="dropdown-item updateStatus btn btn-danger"
+                                    data-status="canceled">Không nhận hàng</button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             @elseif($order->status == 'completed')

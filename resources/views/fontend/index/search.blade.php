@@ -68,47 +68,49 @@
                                                     </div>
                                                 </div>
                                                 <div class="image-main-product position-relative">
-                                                    <img src="{{ $product->image }}" alt="product image" width="100%"
-                                                        height="250" class="img-fluid object-fit-cover rounded-top-2"
-                                                        style="height: 300px">
-                                                    <div
-                                                        class="news-product-detail position-absolute bottom-0 start-0 w-100">
-                                                        <div class="hstack gap-3">
-                                                            <div class="p-2 overflow-x-hidden">
-                                                                <span
-                                                                    class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                                    {{ $product->productCatalogues[0]->name }}
-                                                                </span>
-                                                            </div>
-                                                            <div class="p-2 ms-auto">
-                                                                <div class="product-image-color">
-                                                                    @foreach ($product->productVariant as $variant)
-                                                                        @foreach ($variant->attributes as $attribute)
-                                                                            @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
-                                                                                <img src="{{ $attribute->image }}"
-                                                                                    alt="{{ $attribute->name }}"
-                                                                                    width="14" height="14"
-                                                                                    class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
-                                                                                @php
-                                                                                    // Đánh dấu màu này đã được hiển thị
-                                                                                    $shownColors[] = $attribute->name;
-                                                                                @endphp
-                                                                            @endif
+                                                    <a href="{{ route('product.detail', ['slug' => $product->slug]) }}">
+                                                        <img src="{{ $product->image }}" alt="product image" width="100%"
+                                                            height="250" class="img-fluid object-fit-cover rounded-top-2"
+                                                            style="height: 300px">
+                                                        <div
+                                                            class="news-product-detail position-absolute bottom-0 start-0 w-100">
+                                                            <div class="hstack gap-3">
+                                                                <div class="p-2 overflow-x-hidden">
+                                                                    <span
+                                                                        class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                        {{ $product->productCatalogues[0]->name }}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="p-2 ms-auto">
+                                                                    <div class="product-image-color">
+                                                                        @foreach ($product->productVariant as $variant)
+                                                                            @foreach ($variant->attributes as $attribute)
+                                                                                @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
+                                                                                    <img src="{{ $attribute->image }}"
+                                                                                        alt="{{ $attribute->name }}"
+                                                                                        width="14" height="14"
+                                                                                        class="rounded-circle border border-2 border-info object-fit-cover me-1 ">
+                                                                                    @php
+                                                                                        // Đánh dấu màu này đã được hiển thị
+                                                                                        $shownColors[] =
+                                                                                            $attribute->name;
+                                                                                    @endphp
+                                                                                @endif
+                                                                            @endforeach
                                                                         @endforeach
-                                                                    @endforeach
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                                 <div class="card-body p-2">
                                                     <h6 class="fw-medium overflow-hidden " style="height: 39px">
-                                                        <a href="#"
+                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
-                                                        <span
-                                                            class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                        <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
                                                             data-price="{{ $price }}">{{ $price }}đ
                                                         </span>
                                                         <span class="mt-1 ">
@@ -117,11 +119,13 @@
                                                         </span>
                                                     </div>
                                                     <div class="box-action">
-                                                        <a href="{{ route('product.detail', ['slug' => $product->slug]) }}"
-                                                            class="action-cart-item-buy">
-                                                            <span>Xem chi tiết</span>
+                                                        <a href="{{ route('cart.index') }}"
+                                                            class="action-cart-item-buy addToCart buyNow"
+                                                            data-id="{{ $product->id }}">
+                                                            <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
+                                                            <span>Mua ngay</span>
                                                         </a>
-                                                        <a href="#" class="action-cart-item-add addToCart"
+                                                        <a href="" class="action-cart-item-add addToCart"
                                                             data-id="{{ $product->id }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
@@ -207,13 +211,12 @@
                                 Hãy khám phá những những gì có trong website nhé!
                             </p>
                             @if ($type === 'post')
-                            <a href="{{ route('post.page') }}"
-                                class="btn btn-info text-white rounded-pill mt-3">Khám
-                                phá ngay </a>
+                                <a href="{{ route('post.page') }}" class="btn btn-info text-white rounded-pill mt-3">Khám
+                                    phá ngay </a>
                             @elseif($type === 'product')
-                            <a href="{{ route('shop.index') }}"
-                                class="btn btn-info text-white rounded-pill mt-3">Khám
-                                phá ngay </a>
+                                <a href="{{ route('shop.index') }}"
+                                    class="btn btn-info text-white rounded-pill mt-3">Khám
+                                    phá ngay </a>
                             @endif
                         </div>
                     </div>
@@ -229,9 +232,9 @@
             </div>
         </a>
         <!-- <div class=" live-chat ms-lg-16">
-                                <a href="zalo">
-                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                </a>
-                            </div> -->
+                                    <a href="zalo">
+                                        <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                    </a>
+                                </div> -->
     </div>
 @endsection
