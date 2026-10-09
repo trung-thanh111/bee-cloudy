@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ajax;
 use App\Models\Cart;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
+use App\Models\UserVoucher;
 use App\Services\CartService;
 use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
@@ -247,6 +248,24 @@ class CartController extends FontendController
     {
         $promotionCode = $request->input('promotion_code');
         $promotions = session()->get('promotions', []);
+
+       
+        $userPromotion = Promotion::where('code', $promotionCode)->first();
+
+        if (!$userPromotion) {
+            flash()->error('Mã không tồn tại!');
+            return redirect()->back()->with('error', '');
+        }
+    
+        $userVoucher = UserVoucher::where('promotion_id', $userPromotion->id)
+            ->where('user_id', Auth::id())
+            ->first();
+    
+        if ($userVoucher && $userVoucher->isUsed == 0) {
+            flash()->error('Mã khuyến mãi này đã được sử dụng.');
+            return redirect()->back()->with('error', 'Mã khuyến mãi này đã được sử dụng.');
+        }
+        //
 
         if (in_array($promotionCode, array_column($promotions, 'code'))) {
             flash()->error('Mã khuyến mãi này đã được áp dụng trước đó.');

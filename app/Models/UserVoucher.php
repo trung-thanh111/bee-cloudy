@@ -12,6 +12,7 @@ class UserVoucher extends Model
     protected $fillable = [
         'user_id',
         'promotion_id',
+        'isUsed',
     ];
     public $timestamps = false;
     // Define relationships if needed

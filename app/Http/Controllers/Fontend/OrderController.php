@@ -7,11 +7,14 @@ use App\Classes\Vnpay;
 use App\Classes\Paypal;
 use Illuminate\Http\Request;
 use App\Services\CartService;
+use App\Models\UserVoucher;
+use App\Models\Promotion;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\OrderRepository;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Controllers\FontendController;
+
 use App\Repositories\ProductRepository;
 
 class OrderController extends FontendController
@@ -69,14 +72,34 @@ class OrderController extends FontendController
         $carts = $this->cartService->all();
         $arrayIdChecked = session('array_id', []);
         $order = $this->cartService->getOrderByCartId($request);
-        // dd($order);
         $attributesByCartItem = $this->cartService->findAttributesByCode();
+        $promotions = session('promotions', []); // Danh sách mã khuyến mãi
 
+        foreach ($promotions as $promotion) {
+            $promotionCode = $promotion['code']; // Lấy code từ session
+            $userId = auth()->id(); // Lấy ID người dùng hiện tại
+    
+            // Lấy promotion_id từ bảng Promotion
+            $promotionId = Promotion::where('code', $promotionCode)->value('id');
+    
+            if ($promotionId) {
+                // Gọi hàm updateIsUsed để cập nhật trạng thái mã khuyến mãi
+                $this->updateIsUsed($promotionId, $userId);
+            }
+        }
+        
         // Truyền dữ liệu vào view
         return view('fontend.order.checkout', compact(
             'order',
             'attributesByCartItem'
         ));
+    }
+    public function updateIsUsed($promotionId, $userId)
+    {
+        // Tìm UserVoucher và cập nhật isUsed thành 0
+        $updated = UserVoucher::where('promotion_id', $promotionId)
+            ->where('user_id', $userId)
+            ->update(['isUsed' => 0]);
     }
 
     public function store(StoreOrderRequest $request)
