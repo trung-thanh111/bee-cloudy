@@ -172,7 +172,7 @@
                                         <div>
                                             <button type="button"
                                                 class="btn btn-soft-primary material-shadow-none btn-sm">
-                                                Tất cả/năm
+                                                năm
                                             </button>
                                         </div>
                                     </div>

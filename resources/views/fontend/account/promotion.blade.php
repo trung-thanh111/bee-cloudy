@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="card border-0 rounded-2 mt-3 p-3">
                                             @forelse($userVouchers as $userVoucher)
-                                                <div class="voucher-item mb-3 py-0 text-muted border-0 rounded shadow-sm">
+                                                <div class="voucher-item mb-3 py-0 text-muted border-0 rounded shadow-sm {{ ($userVoucher->isUsed === 0) ? "d-none" : ''}}">
                                                     <div class="row">
                                                         <div class="row g-0">
                                                             <div class="col-auto position-relative">
@@ -41,7 +41,7 @@
                                                                     <i class="fas fa-gift text-white fa-2x"></i>
                                                                 </div>
                                                             </div>
-                                                            <div class="col">
+                                                            <div class="col ">
                                                                 <div class="p-2">
                                                                     <div class="row">
                                                                         <div class="col-md-8">
@@ -194,14 +194,14 @@
                                                         <p class="text-center mb-2">
                                                             Hãy khám phá những những gì có trong website nhé!
                                                         </p>
-                                                        <a href="{{ route('account.promotions') }}"
+                                                        <a href="{{ route('promotion.home_index') }}"
                                                             class="btn btn-info text-white rounded-pill mt-3">Khám
                                                             phá ngay </a>
                                                     </div>
                                                 </div>
                                             @endforelse
                                             <div class="d-flex justify-content-center mt-4">
-                                                {{ $userVouchers->links('pagination::bootstrap-4') }}
+                                                {{ $userVouchers->onEachSide(3)->links('pagination::bootstrap-4') }}
                                             </div>
                                         </div>
                                     </div>

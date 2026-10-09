@@ -20,24 +20,34 @@ class RevenueController extends Controller
 
     public function Thongke(Request $request)
     {
-        $data = Order::where('status','completed')
-                ->whereDate('created_at', '>=', $request->tu_ngay)
-                ->whereDate('created_at', '<=', $request->den_ngay)
-                ->get();
+        $data = Order::where('status', 'completed')
+            ->where('payment', 'paid')
+            ->where('status', 'completed')
+            ->where('paid_at', '!=', null)
+            ->whereDate('created_at', '>=', $request->tu_ngay)
+            ->whereDate('created_at', '<=', $request->den_ngay)
+            ->get();
 
-        $tong_tien  = Order::where('status','completed')
-                ->whereDate('created_at', '>=', $request->tu_ngay)
-                ->whereDate('created_at', '<=', $request->den_ngay)
-                ->sum('total_amount');
-        $Don_hang  = Order::where('status','completed')
-                ->whereDate('created_at', '>=', $request->tu_ngay)
-                ->whereDate('created_at', '<=', $request->den_ngay)
-                ->count('code');
+        $tong_tien  = Order::where('status', 'completed')
+            ->where('payment', 'paid')
+            ->where('status', 'completed')
+            ->where('paid_at', '!=', null)
+            ->whereDate('created_at', '>=', $request->tu_ngay)
+            ->whereDate('created_at', '<=', $request->den_ngay)
+            ->sum('total_amount');
+            
+        $Don_hang  = Order::where('status', 'completed')
+            ->where('payment', 'paid')
+            ->where('status', 'completed')
+            ->where('paid_at', '!=', null)
+            ->whereDate('created_at', '>=', $request->tu_ngay)
+            ->whereDate('created_at', '<=', $request->den_ngay)
+            ->count('code');
         return response()->json([
             'data' => $data,
             'tong_tien' => $tong_tien,
             'Don_hang' => $Don_hang,
-            
+
         ]);
     }
 }

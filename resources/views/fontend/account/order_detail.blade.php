@@ -87,8 +87,8 @@
                                                 <div class="d-flex align-items-center">
                                                     <i class="fa-solid fa-circle-xmark fs-3 me-3 text-danger"></i>
                                                     <div>
-                                                        <h6 class="mb-1 fz-18">Đơn hàng đã bị hủy!</h6>
-                                                        <p class="mb-0 small">Đơn hàng của bạn đã bị hủy bởi {{ $order->canceled_by == 'admin' ? 'người bán.' : 'chính bạn.' }}</p>
+                                                        <h6 class="mb-1 fz-18">Đơn hàng đã bị hủy bởi {{ $order->canceled_by == 'admin' ? 'người bán' : 'chính bạn' }}!</h6>
+                                                        <p class="mb-0 small">Lý do: {{ $order->cancellation_reason }}</p>
                                                     </div>
                                                 </div>
                                                 <div>
