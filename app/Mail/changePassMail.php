@@ -9,47 +9,45 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OtpMail extends Mailable
+class changePassMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $otp; // Thêm thuộc tính để lưu mã OTP
+    public $url;
 
     /**
-     * Tạo một instance mới.
-     *
-     * @param int $otp
+     * Tạo một instance mới của thông điệp
      */
-    public function __construct($otp)
+    public function __construct($url)
     {
-        $this->otp = $otp; // Gán mã OTP vào thuộc tính
+        $this->url = $url;
     }
 
     /**
-     * Lấy envelope của message.
+     * Lấy envelope của thông điệp
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mã OTP xác nhận',
+            subject: 'Xác nhận thay đổi mật khẩu',
         );
     }
 
     /**
-     * Lấy định nghĩa nội dung của message.
+     * Lấy định nghĩa nội dung thông điệp
      */
     public function content(): Content
     {
         return new Content(
-            view: 'auth.mail.otp',
+            view: 'fontend.mail.changePass',
             with: [
-                'otp' => $this->otp,
-            ],
+                'url' => $this->url,
+            ]
         );
     }
 
     /**
-     * Lấy các file đính kèm cho message.
+     * Lấy các tệp đính kèm cho thông điệp
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */

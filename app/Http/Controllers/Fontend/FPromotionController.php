@@ -11,7 +11,6 @@ use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\UserVoucher;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class FPromotionController extends Controller
 {
