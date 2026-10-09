@@ -466,10 +466,10 @@
         </section>
 
         <section>
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner mb-5">
-                    @if ($bannerHome1)
-                        @foreach ($bannerHome1 as $key => $valBannerHead)
+                    @if ($bannerHome2)
+                        @foreach ($bannerHome2 as $key => $valBannerHead)
                             @php
                                 $image = json_decode($valBannerHead->album);
                                 $totalImages = count($image);
@@ -487,14 +487,14 @@
                     @endif
                 </div>
                 <div class="carousel-indicators">
-                    @if ($bannerHome1)
-                        @foreach ($bannerHome1 as $valBannerHead)
+                    @if ($bannerHome2)
+                        @foreach ($bannerHome2 as $valBannerHead)
                             @php
                                 $image = json_decode($valBannerHead->album);
                             @endphp
                             @if (count($image) > 0)
                                 @foreach ($image as $index => $valImgHead)
-                                    <button type="button" data-bs-target="#carouselExampleIndicators"
+                                    <button type="button" data-bs-target="#carouselExampleIndicators2"
                                         data-bs-slide-to="{{ $index }}"
                                         class="{{ $index === 0 ? 'active' : '' }}"
                                         aria-current="{{ $index === 0 ? 'true' : 'false' }}"
@@ -509,12 +509,12 @@
 
                 <!-- Navigation Buttons -->
                 <button class="carousel-control-prev opacity-75 hover:opacity-100 transition-opacity duration-300"
-                    type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
                 <button class="carousel-control-next opacity-75 hover:opacity-100 transition-opacity duration-300"
-                    type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    type="button" data-bs-target="#carouselExampleIndicators2" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
