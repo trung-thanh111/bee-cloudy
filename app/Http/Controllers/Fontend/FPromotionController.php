@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\UserVoucher;
+use Illuminate\Support\Facades\Auth;
 
 class FPromotionController extends Controller
 {
@@ -50,7 +51,7 @@ class FPromotionController extends Controller
     public function view_promotion(Request $request)
     { {
         $userVouchers = UserVoucher::with('promotion')
-        ->where('user_id', auth()->id())
+        ->where('user_id', Auth::id())
         ->whereHas('promotion')
         ->paginate(4);
         
