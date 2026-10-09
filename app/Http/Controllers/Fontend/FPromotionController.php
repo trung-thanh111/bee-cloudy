@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\UserVoucher;
+use Illuminate\Support\Facades\Auth;
 
 class FPromotionController extends Controller
 {
@@ -31,41 +32,29 @@ class FPromotionController extends Controller
     }
 
     public function receivePromotion(Promotion $promotion, Request $request)
-    {
-        try {
-            $message = $this->promotionService->receivePromotion($promotion);
-            if ($message === 'Voucher nhận thành công') {
-                return redirect()->back()->with('success', $message);
-            } else {
-                return redirect()->back()->with('error', $message);
-            }
-        } catch (Exception $e) {
-            Log::error('Receive promotion error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
+{
+    try {
+        $result = $this->promotionService->receivePromotion($promotion);
+
+        if ($result['type'] === 'success') {
+            return redirect()->back()->with('success', $result['text']);
+        } else {
+            return redirect()->back()->with('error', $result['text']);
         }
+    } catch (Exception $e) {
+        return redirect()->back()->with('error', 'Xảy ra lỗi khi nhận voucher.');
     }
+}
+
 
     
-    public function myPromotions()
-    {
-        $userId = Auth::id();
-
-        $promotions = $this->promotionService->getUserPromotions($userId);
-        return view('fontend.promotion.my_vouchers', compact('promotions'));
-    }
     public function view_promotion(Request $request)
     { {
         $userVouchers = UserVoucher::with('promotion')
-        ->where('user_id', auth()->id())
+        ->where('user_id', Auth::id())
+        ->whereHas('promotion')
         ->paginate(4);
-        foreach ($userVouchers as $voucher) {
-            if ($voucher->promotion->start_date) {
-                $voucher->promotion->start_date = Carbon::parse($voucher->promotion->start_date);
-            }
-            if ($voucher->promotion->end_date) {
-                $voucher->promotion->end_date = Carbon::parse($voucher->promotion->end_date);
-            }
-        }
+        
             return view('fontend.account.promotion',compact('userVouchers'));
         }
     }

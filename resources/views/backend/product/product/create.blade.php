@@ -44,7 +44,7 @@
                                     <input type="text" class="form-control" name="name" id=""
                                         value="{{ old('name') }}" placeholder="Tên sản phẩm">
                                     @if ($errors->has('name'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('name') }}</span>
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('name') }} </span>
                                     @endif
                                 </div>
                                 <div class="tab-content">

@@ -31,7 +31,7 @@
                                 <ul class="splide__list">
                                     @if ($productCatalogues)
                                         @foreach ($productCatalogues as $keyPCate => $valPCate)
-                                            <li class="splide__slide">
+                                            <li class="splide__slide" data-aos="fade-left" data-aos-duration="1000">
                                                 <a href="{{ route('product.category', ['id' => $valPCate->id]) }}">
                                                     <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
                                                         <img src="{{ $valPCate->image }}" alt="product image" width="100%"
@@ -57,7 +57,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="row mb-3 flex-wrap bg-white text-muted mx-0">
                     <div class="col-lg-3 col-md-3 col-12 shadow-sm p-2 h-100">
@@ -345,7 +344,8 @@
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
                                         @endphp
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4" data-aos="fade-down"
+                                            data-aos-duration="800">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
@@ -466,9 +466,11 @@
 
                     </div>
                 </div>
-                <div class="banner-shop my-3">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-                        <div class="carousel-inner">
+                <div class="banner-shop my-3 w-100">
+                    <div id="carouselExampleIndicators"
+                        class="carousel slide w-100" data-bs-ride="carousel"
+                        data-bs-interval="5000">
+                        <div class="carousel-inner ">
                             @if ($bannerShop)
                                 @foreach ($bannerShop as $key => $valBannerHead)
                                     @php
@@ -477,7 +479,8 @@
                                     @endphp
                                     @if ($totalImages > 0)
                                         @foreach ($image as $index => $valImgHead)
-                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
+                                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }} "
+                                                data-bs-interval="5000">
                                                 <img src="{{ $valImgHead }}"
                                                     class="d-block w-100 object-fit-cover transition-opacity duration-500 ease-in-out"
                                                     alt="Slide Image {{ $index + 1 }}" height="635" loading="lazy">
@@ -496,7 +499,8 @@
                                     @if (count($image) > 0)
                                         @foreach ($image as $index => $valImgHead)
                                             <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"
+                                                data-bs-slide-to="{{ $index }}"
+                                                class="{{ $index === 0 ? 'active' : '' }}"
                                                 aria-current="{{ $index === 0 ? 'true' : 'false' }}"
                                                 aria-label="Slide {{ $index + 1 }}"
                                                 style="width: 12px; height: 12px; border-radius: 50%; margin: 0 6px;">
@@ -506,7 +510,7 @@
                                 @endforeach
                             @endif
                         </div>
-        
+
                         <!-- Navigation Buttons -->
                         <button class="carousel-control-prev opacity-75 hover:opacity-100 transition-opacity duration-300"
                             type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -549,7 +553,7 @@
                                             ? number_format($productNew->del, '0', ',', '.')
                                             : number_format($productNew->price, '0', ',', '.');
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-lg-3 col-md-6 col-12 mb-3" data-aos="fade-up" data-aos-duration="800">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -676,7 +680,7 @@
                                             ? number_format($productPriceMin->del, '0', ',', '.')
                                             : number_format($productPriceMin->price, '0', ',', '.');
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-lg-3 col-md-6 col-12 mb-3" data-aos="flip-up" data-aos-duration="800">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -774,7 +778,7 @@
                     </div>
                 </div>
                 <hr class="pb-3 pt-3 " class="border-3">
-                <div class="row flex-wrap">
+                <div class="row flex-wrap" data-aos="fade-up">
                     <div class="col-lg-9 col-md-12 col-12">
                         <!-- Base Example -->
                         <div class="accordion shadow-sm text-muted mb-3 rounded-2 border-0">
@@ -1051,10 +1055,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                <a href="zalo">
-                                                                                                                                    <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                                                                </a>
-                                                                                                                            </div> -->
+                                                                                                                                    <a href="zalo">
+                                                                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                                                                    </a>
+                                                                                                                                </div> -->
 
         </div>
     </section>
