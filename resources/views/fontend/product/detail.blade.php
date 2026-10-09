@@ -147,9 +147,6 @@
                                 <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">
                                     {{ $product->id }}
                                 </h4>
-                                {{-- @if (isset($product->productVariant) && $product->productVariant->isNotEmpty())
-                                        {{ $product->productVariant->first()->id ?? null }}
-                                    @endif --}}
                                 <div class="hstack gap-3 fz-14 flex-wrap">
                                     <div class="py-2">Đánh giá ({{ $totalReviewCount }})</div>
                                     <div class="vr" style="width: 1px !important;"></div>
@@ -357,7 +354,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion shadow-sm  text-muted mb-5 rounded-2 border-0"
+                        <div class="accordion shadow-sm text-muted mb-5 rounded-2 border-0"
                             id="default-accordion-example">
                             <div class="accordion-item border-secondary material-shadow ">
                                 <h2 class="accordion-header border-0" id="headingOne">
@@ -368,7 +365,7 @@
 
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                     data-bs-parent="#default-accordion-example">
                                     <div class="accordion-body bg-light fz-14">
                                         {!! $product->description !!}
@@ -376,6 +373,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if(Auth::check())
                         <hr style="padding: 2px ;" class="text-muted fw-bolder">
                         <div class="accordion shadow-sm text-muted mb-5 rounded-2 border-0">
                             <div class="accordion-item material-shadow ">
@@ -412,18 +410,21 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @php 
+                                            $user = Auth::user();
+                                        @endphp
                                         <div class="product-comment ">
                                             <div class="row">
                                                 <div class="col-lg-2 col-md-2 col-12 d-block justify-content-center">
                                                     <button type="button" class="btn border-0 px-0">
                                                         <span class="d-block align-items-center">
                                                             <img class="rounded-circle header-profile-user"
-                                                                src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                src="{{ ($user->image) ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                                                                 alt="Avatar User" class="rounded-circle object-fit-cover"
                                                                 width="60" height="60">
                                                             <p class="text-center mt-2">
                                                                 <span
-                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ Auth::user()->name }}</span>
+                                                                    class="d-none d-xl-inline-block ms-1 fw-medium text-muted">{{ $user->name }}</span>
                                                             </p>
                                                         </span>
                                                     </button>
@@ -459,7 +460,7 @@
                                                         <button type="button" class="btn  border-0 px-0">
                                                             <span class="d-block justify-content-end align-items-center">
                                                                 <img class="rounded-circle header-profile-user"
-                                                                    src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                    src="{{ ($user->image) ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                                                                     alt="Avatar User"
                                                                     class="rounded-circle object-fit-cover" width="50"
                                                                     height="50">
@@ -575,6 +576,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                     <div class="aside-product-detail col-lg-4 col-md-12 col-12">
                         <div class="card border-0 rounded-1 shadow-sm mb-4">

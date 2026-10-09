@@ -36,7 +36,7 @@ class Order extends Model
 
     // Khai báo quan hệ belongsTo với bảng users
     public function user(): BelongsTo {
-        return $this->belongsTo(User::class, 'custtomer_id', 'id');
+        return $this->belongsTo(User::class, 'customer_id', 'id');
     }
 
     //khai báo quan hệ với bảng cart_items
