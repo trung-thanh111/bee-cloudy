@@ -1482,14 +1482,12 @@ footer {
     border-radius: 20px !important;
 }
 
-/* Thumb (thanh kéo) */
 .overflow-y-auto::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.15);
     border-radius: 20px !important;
     max-height: 30px !important;
 }
 
-/* Hiệu ứng hover */
 .overflow-y-auto::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.25);
 }
