@@ -72,6 +72,8 @@ class BannerService implements BannerServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token', 'submit']);
+            $payload['album'] = json_encode($payload['variantAlbum']);
+            unset($payload['variantAlbum']);
             $banner = $this->bannerRepository->create($payload);
             DB::commit();
             return true;
@@ -91,6 +93,10 @@ class BannerService implements BannerServiceInterface
                 flash()->error('Không tìm thấy bản ghi.');
             }
             $payload = $request->except(['_token', 'submit']);
+            if(isset($payload['variantAlbum']) && $banner->album != $payload['variantAlbum']){
+                $payload['album'] = json_encode($payload['variantAlbum']);
+                unset($payload['variantAlbum']);
+            }
             $this->bannerRepository->update($banner->id, $payload);
             DB::commit();
             return true;

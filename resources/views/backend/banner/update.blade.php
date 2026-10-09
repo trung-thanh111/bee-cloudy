@@ -58,24 +58,42 @@
                                     <span class="text-danger fz-12 mt-1">{{ $errors->first('location') }}</span>
                                     @endif
                                 </div>
-
-                                <div class="mt-3 mb-2">
-                                    <label>Ngày bắt đầu</label>
-                                    <div>
-                                        <input type="date" value="{{ old('date_start', $banner->date_start) }}" class="form-control" id="date" name="date_start">
-                                        @if ($errors->has('date_start'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('date_start') }}</span>
-                                        @endif
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Hình ảnh</h5>
                                     </div>
-                                </div>
-
-                                <div class="mt-3 mb-2">
-                                    <label>Ngày kết thúc</label>
-                                    <div>
-                                        <input type="date" value="{{ old('date_end', $banner->date_end) }}" class="form-control" id="date" name="date_end">
-                                        @if ($errors->has('date_end'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('date_end') }}</span>
-                                        @endif
+                                    <div class="card-body">
+                                        <div class="mb-4">
+                                            <p class="text-muted">Chọn ảnh đại diện.</p>
+                                            <div class="col-lg-12">
+                                                <div class="click-to-upload-variant text-center ">
+                                                    <div class="icon"> <a type="button" class="upload-variant-picture"> <img
+                                                                src="/libaries/upload/images/img-notfound.png" alt=""
+                                                                class="render-image object-fit-cover rounded-1 mb-2 position-relative "
+                                                                width="96" height="96"> </a> </div>
+                                                    <div class="small-text"> <span>Sử dụng nút chọn hình hoặc click vào đây để
+                                                            thêm hình ảnh.</span> </div>
+                                                </div>
+                                                <div class="upload-variant-list">
+                                                    <div class="row">
+                                                        <ul id="sortable2"
+                                                            class="clearfix data-album sortui ui-sortable d-lg-flex justify-content-start flex-wrap">
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row flex-wrap gap-2">
+                                                @foreach(json_decode($banner->album) as $key => $val)
+                                                <div class="col-2">
+                                                    <img src="{{ $val }}" alt="" width="100%" height="120" class="object-fit-cover p-2">
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            <input type="hidden" name="album" value="{{ $banner->album }}">
+                                            @if ($errors->has('album'))
+                                            <span class="text-danger fz-12 mt-1">{{ $errors->first('album') }}</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -106,23 +124,25 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Hình ảnh</h5>
+                                <h5 class="card-title mb-0">Thời gian</h5>
                             </div>
                             <div class="card-body">
-                                <div class="mb-4">
-                                    <p class="text-muted">Chọn ảnh đại diện.</p>
-                                    <div class="text-center">
-                                        <div class="position-relative d-inline-block">
-                                            {{-- image-target dùng dể choose image hthi cho ngxem  --}}
-                                            <span class="image-target">
-                                                <img src="{{ old('album', $banner->album ?? '') ? ''. old('album', $banner->album ?? '') : '/libaries/upload/images/img-notfound.png' }}"
-                                                    alt=""
-                                                    class="render-image  object-fit-contain rounded-1 mb-2 position-relative "
-                                                    width="96" height="96">
-                                            </span>
-                                            {{-- input ẩn gửi lên controller xử lý  --}}
-                                            <input type="hidden" name="album" value="{{ $banner->album }}">
-                                        </div>
+                                <div class="mt-3 mb-2">
+                                    <label>Ngày bắt đầu</label>
+                                    <div>
+                                        <input type="date" value="{{ old('date_start', $banner->date_start) }}" class="form-control" id="date" name="date_start">
+                                        @if ($errors->has('date_start'))
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('date_start') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="mt-3 mb-2">
+                                    <label>Ngày kết thúc</label>
+                                    <div>
+                                        <input type="date" value="{{ old('date_end', $banner->date_end) }}" class="form-control" id="date" name="date_end">
+                                        @if ($errors->has('date_end'))
+                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('date_end') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
