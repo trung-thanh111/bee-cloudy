@@ -192,34 +192,41 @@ class PromotionService
         });
     }
 
-    public function receivePromotion($id)
+    public function receivePromotion(Promotion $promotion)
     {
-        $promotion = $this->getPromotionById($id);
         $user = Auth::user();
-
+    
+        if (!$user) {
+            return ['type' => 'error', 'text' => 'Bạn cần đăng nhập để nhận voucher.'];
+        }
+    
+        // Kiểm tra giới hạn sử dụng của voucher
         if ($promotion->usage_limit <= 0) {
             return ['type' => 'error', 'text' => 'Voucher đã hết.'];
         }
-
+    
+        // Kiểm tra nếu người dùng đã nhận voucher này
         $existingVoucher = UserVoucher::where('user_id', $user->id)
-            ->where('promotion_id', $promotion->id)
-            ->first();
-
+                                      ->where('promotion_id', $promotion->id)
+                                      ->first();
+    
         if ($existingVoucher) {
             return ['type' => 'error', 'text' => 'Bạn đã nhận voucher này rồi.'];
         }
-
+    
+        // Giảm số lượng voucher và tạo bản ghi mới cho người dùng
         $promotion->decrement('usage_limit');
-
+    
         UserVoucher::create([
             'user_id' => $user->id,
             'promotion_id' => $promotion->id,
             'code' => $promotion->code,
             'received_at' => now(),
         ]);
-
+    
         return ['type' => 'success', 'text' => 'Voucher nhận thành công'];
     }
+    
 
     public function getUserPromotions()
     {
