@@ -2,13 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\PostCatalogue;
 use App\Repositories\PostCatalogueRepository;
-use App\Repositories\UserRepository;
 use App\Services\Interfaces\PostCatalogueServiceInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * interface  UserService
@@ -51,15 +49,14 @@ class PostCatalogueService implements PostCatalogueServiceInterface
         // dùng try-catch để bắt lỗi 
         try {
             $payload = $request->except(['_token', '_submit']);
-            $payload['user_id'] = Auth::id();
-            $payload['order'] = PostCatalogue::max('order') + 1;
-            // thực hiện thêm mới -> gọi tới repository nhận vào một payload
+            $payload['slug'] = Str::slug($payload['slug'], '-').'-'.rand(10000, 99999);
+
             $this->postCatalogueRepository->create($payload);
             DB::commit(); // nếu k có lỗi -> commit lên đb
             return true;
         } catch (\Exception $e) {
             DB::rollBack(); // có lỗi -> rollback lại k commit 
-            echo $e->getMessage(); // hiển thị lỗi 
+            echo $e->getMessage();
             return false;
         }
     }
@@ -69,24 +66,10 @@ class PostCatalogueService implements PostCatalogueServiceInterface
         try {
             $postCatalogue = $this->postCatalogueRepository->findBySlug($slug);
             if (!$postCatalogue) {
-                throw new \Exception("Không tìm thấy bản ghi!");
-            }
-            // Lấy giá trị order từ request
-            $orderSelected = $request->input('order');
-            // Tìm bản ghi có cùng vị trí order được chọn
-            $orderSameSelected = $this->postCatalogueRepository->findByCondition([
-                ['order', '=',  $orderSelected]
-            ])->first();
-            // Hoán đổi vị trí order
-            if ($orderSameSelected) {
-                $originalOrder = $postCatalogue->order;
-                $postCatalogue->order = $orderSelected;
-                $postCatalogue->save();
-
-                $orderSameSelected->order = $originalOrder;
-                $orderSameSelected->save();
+                flash()->error('Không tìm thấy bản ghi.');
             }
             $payload = $request->except(['_token', 'submit']);
+            $payload['slug'] = Str::slug($payload['slug'],'-');
             $this->postCatalogueRepository->update($slug, $payload);
             DB::commit();
             return true;
@@ -163,7 +146,6 @@ class PostCatalogueService implements PostCatalogueServiceInterface
             'name',
             'parent_id',
             'image',
-            'order',
             'description',
             'slug',
             'publish',

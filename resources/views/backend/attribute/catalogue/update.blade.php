@@ -73,7 +73,7 @@
                                 <div>
                                     <label>Mô tả</label>
                                     <div>
-                                        <textarea class="form-control ck-editor" id="ck-editor" data-height="200" name="description">{{ old('description', $attributeCatalogue->description) }}</textarea>
+                                        <textarea class="form-control " id=""  name="description" rows="7">{{ old('description', $attributeCatalogue->description) }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -83,25 +83,6 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Danh mục cha</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="choices-publish-status-input" class="form-label">Danh mục</label>
-                                    <select class="form-select setUpSelect2" name="parent_id">
-                                        <option value="" >[ Root ]</option>
-                                        @foreach ($attributeCatalogues as $key => $val)
-                                            <option value="{{ $val->id }}" {{ $val->id == $attributeCatalogue->id ? 'selected' : '' }}>
-                                                {{ $val->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <span class="text-danger fz-12 mt-2">Chọn Root nếu không có danh mục cha</span>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Xuất bản</h5>

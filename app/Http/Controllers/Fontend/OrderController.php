@@ -2,42 +2,40 @@
 
 namespace App\Http\Controllers\Fontend;
 
-use App\Http\Controllers\FontendController;
-use App\Http\Requests\StoreOrderRequest;
-use App\Models\Order;
-use App\Repositories\OrderRepository;
-use App\Repositories\ProductRepository;
+use App\Classes\Momo;
+use App\Classes\Vnpay;
+use App\Classes\Paypal;
+use Illuminate\Http\Request;
 use App\Services\CartService;
 use App\Services\OrderService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Classes\Vnpay;
-use App\Classes\Momo;
-use App\Classes\Paypal;
+use App\Repositories\OrderRepository;
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Controllers\FontendController;
 
 class OrderController extends FontendController
 {
-    protected $orderRepository;
-    protected $orderService;
-    protected $cartService;
-    protected $vnpay;
     protected $momo;
+    protected $vnpay;
     protected $paypal;
+    protected $cartService;
+    protected $orderService;
+    protected $orderRepository;
 
     public function __construct(
-        OrderRepository $orderRepository,
-        OrderService $orderService,
-        CartService $cartService,
-        Vnpay $vnpay,
         Momo $momo,
+        Vnpay $vnpay,
         Paypal $paypal,
+        CartService $cartService,
+        OrderService $orderService,
+        OrderRepository $orderRepository,
     ) {
-        $this->orderRepository = $orderRepository;
+        $this->momo = $momo;
+        $this->vnpay = $vnpay;
+        $this->paypal = $paypal;
         $this->cartService = $cartService;
         $this->orderService = $orderService;
-        $this->vnpay = $vnpay;
-        $this->momo = $momo;
-        $this->paypal = $paypal;
+        $this->orderRepository = $orderRepository;
     }
 
     public function view_order(Request $request)
@@ -76,13 +74,19 @@ class OrderController extends FontendController
                 if ($response['resultCode'] == 0) {
                     return redirect()->away($response['url']);
                 }
+                $this->orderService->updateQuantitySoldProduct($order);
+                $this->cartService->clear($request);
                 flash()->success('Đặt hàng thành công');
                 return redirect()->route('order.success');
             }
             flash()->error('Thất bại. Đã có lỗi xảy ra vui lòng thử lại!');
             return redirect()->back();
         } else {
+            $this->orderService->updateQuantitySoldProduct($order);
             $this->orderService->sendMail($order);
+            // xóa cart sao khi thanh toán hành tất 
+            $this->cartService->clear($request);
+            //update số lượng và đã bán
             flash()->success('Đặt hàng thành công');
             return redirect()->route('order.success');
         }

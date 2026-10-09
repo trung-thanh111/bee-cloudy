@@ -72,8 +72,7 @@ class PostService implements PostServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token', 'submit']);
-            $payload['slug'] = Str::slug($payload['slug']).rand(10000, 99999);
-            $payload['order'] = Post::max('order') + 1;
+            $payload['slug'] = Str::slug($payload['slug'],'-').'-'.rand(10000, 99999);
             $payload['user_id'] = Auth::id();
             $post = $this->postRepository->create($payload);
             DB::commit();
@@ -92,9 +91,10 @@ class PostService implements PostServiceInterface
             // Lấy bài viết
             $post = $this->postRepository->findBySlug($slug);
             if (!$post) {
-                throw new \Exception('Bài viết không tồn tại');
+                flash()->error('Không tìm thấy bản ghi.');
             }
             $payload = $request->except(['_token', 'submit']);
+            $payload['slug'] = Str::slug($payload['slug'],'-');
             $this->postRepository->update($post->slug, $payload);
             // Cập nhật mối quan hệ nhiều-nhiều
             if (isset($request->post_catalogue_id)) {
@@ -174,8 +174,8 @@ class PostService implements PostServiceInterface
             'name',
             'content',
             'image',
-            'album',
-            'description',
+            'description',            
+            'outstanding',
             'like',
             'slug',
             'user_id',

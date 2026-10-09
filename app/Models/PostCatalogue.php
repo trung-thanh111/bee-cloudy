@@ -20,7 +20,6 @@ class PostCatalogue extends Model
         'name',
         'parent_id',
         'image',
-        'order',
         'description',
         'slug',
         'publish',

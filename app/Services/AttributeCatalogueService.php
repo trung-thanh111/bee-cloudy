@@ -38,7 +38,7 @@ class AttributeCatalogueService implements AttributeCatalogueServiceInterface
         $attributeCatalogues = $this->attributeCatalogueRepository->pagination(
             $this->selectColumn(),
             $condition,
-            ['parentReference'],
+            [],
             ['id', 'DESC'],
             $perPage,
         );
@@ -51,7 +51,6 @@ class AttributeCatalogueService implements AttributeCatalogueServiceInterface
         // dùng try-catch để bắt lỗi 
         try {
             $payload = $request->except(['_submit']);
-            $payload['user_id'] = Auth::id();
             // thực hiện thêm mới -> gọi tới repository nhận vào một payload
             $attributeCatalogue = $this->attributeCatalogueRepository->create($payload);
             DB::commit(); // nếu k có lỗi -> commit lên đb

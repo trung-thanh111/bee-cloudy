@@ -1,6 +1,6 @@
 @extends('fontend.home.layout')
 @section('page_title')
-    Cửa hàng
+    Thương hiệu
 @endsection
 @section('content')
     <section>
@@ -12,39 +12,42 @@
                         <li class="breadcrumb-item "><a href="{{ route('home.index') }}"
                                 class="text-decoration-none text-muted">Trang Chủ</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Cửa hàng</li>
+                        <li class="breadcrumb-item "><a href="{{ route('shop.index') }}"
+                                class="text-decoration-none text-muted">Cửa hàng</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Thương hiệu</li>
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->
                 <!-- content detail -->
-                <div class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
+                <div
+                    class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
-                        <div class="title-category  position-absolute top-50 w-75 translate-middle" style="left: 50%;">
-                            <h2 class="text-uppercase text-start">Cửa hàng</h2>
-
-                            <p class="fz-14">Bạn có thể tham khảo các mẫu áo quần tại đây.</p>
+                        <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
+                            <h3 class="text-uppercase">{{ $brand->name }}</h3>
+                            <p class="fz-14">{!! $brand->description !!}</p>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-8 col-12">
                         <div id="thumbnail-carousel2" class="splide category-slide">
                             <div class="splide__track">
                                 <ul class="splide__list">
-                                    @if ($productCatalogues)
-                                        @foreach ($productCatalogues as $keyPCate => $valPCate)
+                                    @if ($brandAll)
+                                        @foreach ($brandAll as $keyB => $valB)
                                             <li class="splide__slide">
-                                                <a href="{{ route('product.category', ['id' => $valPCate->id]) }}">
+                                                <a href="{{ route('product.category', ['id' => $valB->id]) }}">
                                                     <div class="card card-cate shadow-sm border-0 carh-height-100 mb-3">
-                                                        <img src="{{ $valPCate->image }}" alt="product image" width="100%"
+                                                        <img src="{{ $valB->image }}" alt="product image" width="100%"
                                                             height="160" class=" rounded-top-3 object-fit-cover">
                                                         <div class="card-body bg-light p-2 rounded-bottom-3">
                                                             <h5 class="fw-medium">
-                                                                <a href="{{ route('product.category', ['id' => $valPCate->id]) }}"
-                                                                    class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">{{ $valPCate->name }}</a>
+                                                                <a href="{{ route('product.category', ['id' => $valB->id]) }}"
+                                                                    class="text-break w-100 text-muted text-uppercase fz-16 fw-bold">{{ $valB->name }}</a>
                                                             </h5>
                                                             <div class="catagory-item-text">
                                                                 <span
                                                                     class="d-inline-block text-muted fz-14 truncate-custom">
-                                                                    {!! $valPCate->description !!}
+                                                                    {!! $valB->description !!}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -66,7 +69,7 @@
                                 <h6 class="text-uppercase fz-16 p-2">
                                     Lọc sản phẩm
                                 </h6>
-                                <a href="{{ route('shop.index') }}" class="fz-14 text-danger">Bỏ lọc</a>
+                                <a href="{{ route('product.brand', ['id' => request('id')]) }}" class="fz-14 text-danger">Bỏ lọc</a>
                             </div>
                             <form>
                                 <div class="accordion text-muted mb-1 rounded-2" id="default-accordion-example">
@@ -285,54 +288,10 @@
                         <div class="product-category p-2">
                             <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="fs-5 text-uppercase mt-2">Sản phẩm</h5>
-                                <p class="filter-sub">
-                                <div class="dropdown ms-auto" data-bs-spy="scroll" data-bs-target="#navbar-example3"
-                                    data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
-                                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <span class="text-muted fz-14 fw-medium me-2">Sắp xếp</span>
-                                        <i class="fa-solid fa-sort fz-14 text-muted"></i>
-                                    </a>
-
-                                    <ul class="dropdown-menu dropdown-menu-end ul-menu p-0 border-0 shadow-lg mb-1">
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=price_high" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-square-caret-down me-2"></i>Giá cao - thấp
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=price_low" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-square-caret-up me-2"></i>Giá thấp - cao
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=newest" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-clock-rotate-left me-2"></i>Mới nhất
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=oldest" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-clock me-2"></i>Cũ nhất
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=name_desc" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-sort-alpha-down me-2"></i>Ký tự Z - A
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=name_asc" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-sort-alpha-up me-2"></i>Ký tự A - Z
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                                </p>
                             </div>
                             <div class="content-product-cate row flex-wrap">
-                                @if (count($productShops) != 0 && !empty($productShops))
-                                    @foreach ($productShops as $key => $product)
+                                @if (count($productInBrands) != 0 && !empty($productInBrands))
+                                    @foreach ($productInBrands as $key => $product)
                                         @php
                                             $shownColors = []; // Mảng để theo dõi các màu đã được hiển thị
 
@@ -420,8 +379,7 @@
                                                             class="action-cart-item-buy">
                                                             <span>Xem chi tiết</span>
                                                         </a>
-                                                        <a href="" role="button"
-                                                            class="action-cart-item-add addToCart"
+                                                        <a href="" class="action-cart-item-add addToCart"
                                                             data-id="{{ $product->id }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
@@ -447,16 +405,15 @@
                                         <div class="flex flex-col text-center align-items-center">
                                             <h5 class="mb-2 fw-semibold">không có sản phẩm phù hợp với yêu cầu!
                                             </h5>
-                                            <a href="{{ route('shop.index') }}"
+                                            <a href="{{ route('product.brand', ['id' => request('id')]) }}"
                                                 class="btn btn-info text-white rounded-pill mt-3 pz-3">Quay lại</a>
                                         </div>
                                     </div>
                                 @endif
-
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pagination pagination-sm">
-                            {{ $productShops->appends(request()->except('page'))->onEachSide(3)->links('pagination::bootstrap-5') }}
+                            {{ $productInBrands->appends(request()->except('page'))->onEachSide(3)->links('pagination::bootstrap-5') }}
                         </div>
 
                     </div>
@@ -629,6 +586,7 @@
                                                     data-id="{{ $productPriceMin->id }}">
                                                     <i
                                                         class="fa-{{ in_array($productPriceMin->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
                                                     <span class="product_id_wishlist d-none">
                                                         {{ $productPriceMin->id }}
                                                     </span>
@@ -889,15 +847,15 @@
                             <div class="card-body p-1">
                                 <div class="brand-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
-                                        @if (!is_null($brands) && !empty($brands))
-                                            @foreach ($brands as $brand)
+                                        @if (!is_null($brandAll) && !empty($brandAll))
+                                            @foreach ($brandAll as $brandPage)
                                                 <li class="list-group-item item-category">
-                                                    <a href="{{ route('product.brand', ['id' => $brand->id]) }}"
+                                                    <a href="{{ route('product.brand', ['id' => $brandPage->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
-                                                        <img src="{{ $brand->image }}" alt="{{ $brand->name }}"
+                                                        <img src="{{ $brandPage->image }}" alt="{{ $brandPage->name }}"
                                                             width="50" height="50"
                                                             class="me-3 object-fit-contain bg-light rounded-3">
-                                                        <span class="text-muted fw-500">{{ $brand->name }}</span>
+                                                        <span class="text-muted fw-500">{{ $brandPage->name }}</span>
                                                     </a>
                                                 </li>
                                             @endforeach
@@ -918,33 +876,14 @@
                                                 <li class="list-group-item item-category">
                                                     <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
                                                         class="text-decoration-none d-flex align-items-center">
-                                                        <img src="{{ $categoryP->image }}" alt="{{ $categoryP->name }}"
-                                                            width="50" height="50"
+                                                        <img src="{{ $categoryP->image }}"
+                                                            alt="{{ $categoryP->name }}" width="50" height="50"
                                                             class="me-3 object-fit-contain bg-light rounded-3 ">
                                                         <span class="text-muted fw-500">{{ $categoryP->name }}</span>
                                                     </a>
                                                 </li>
                                             @endforeach
                                         @endif
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 rounded-1 shadow-sm mb-4">
-                            <div class="card-header">
-                                <h6 class="card-title fw-18 fw-500">Khuyến mãi</h6>
-                            </div>
-                            <div class="card-body p-1">
-                                <div class="event-item mb-3">
-                                    <ul class="ps-0 mb-0">
-                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                            <div class="image-event-item position-relative">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner_aside.jpg"
-                                                    alt="" width="100%" class="img-fuild  me-2">
-                                                <i
-                                                    class="fa-solid fa-delete-left delete-banner-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -985,11 +924,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                    <a href="zalo">
-                                                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                                                    </a>
-                                                                                                                </div> -->
-
+                                                                                    <a href="zalo">
+                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                    </a>
+                                                                                </div> -->
         </div>
     </section>
     <!-- end footer  -->

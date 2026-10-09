@@ -1,10 +1,10 @@
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
+                    <div
+                        class="page-title-box d-sm-flex align-items-center justify-content-between bg-galaxy-transparent">
                         <h4 class="mb-sm-0">Thêm Mới Khuyến Mãi</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -22,7 +22,8 @@
                         <div class="card-body">
                             <h5>Thông tin Khuyến Mãi</h5>
                             <span>Lưu ý: Điền đầy đủ và chính xác thông tin giúp hệ thống dễ dàng quản lý hơn.</span>
-                            <p class="fst-italic">Những trường có (<span class="text-danger fz-18">*</span>) là bắt buộc!</p>
+                            <p class="fst-italic">Những trường có (<span class="text-danger fz-18">*</span>) là bắt
+                                buộc!</p>
                         </div>
                     </div>
                 </div>
@@ -36,99 +37,62 @@
                             <div class="card-body">
                                 <!-- Tên khuyến mãi -->
                                 <div class="mb-3">
-                                    <label class="form-label">Tên khuyến mãi:<span class="text-danger fz-18">*</span></label>
-                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+                                    <label class="form-label">Tên khuyến mãi:<span
+                                            class="text-danger fz-18">*</span></label>
+                                    <input type="text" class="form-control" name="name"
+                                        value="{{ old('name') }}" required>
                                     @if ($errors->has('name'))
                                         <span class="text-danger">{{ $errors->first('name') }}</span>
                                     @endif
                                 </div>
-
-                                <!-- Ngày bắt đầu -->
                                 <div class="mb-3">
-                                    <label class="form-label">Ngày bắt đầu:<span class="text-danger fz-18">*</span></label>
-                                    <input type="datetime-local" class="form-control" name="start_date" value="{{ old('start_date') }}" required>
-                                    @if ($errors->has('start_date'))
-                                        <span class="text-danger">{{ $errors->first('start_date') }}</span>
+                                    <label class="form-label">Số lượng:</label>
+                                    <input type="number" class="form-control" name="usage_limit"
+                                        value="{{ old('usage_limit') }}">
+                                    @if ($errors->has('usage_limit'))
+                                        <span class="text-danger">{{ $errors->first('usage_limit') }}</span>
                                     @endif
                                 </div>
-
-                                <!-- Ngày kết thúc -->
                                 <div class="mb-3">
-                                    <label class="form-label">Ngày kết thúc:<span class="text-danger fz-18">*</span></label>
-                                    <input type="datetime-local" class="form-control" name="end_date" value="{{ old('end_date') }}" required>
-                                    @if ($errors->has('end_date'))
-                                        <span class="text-danger">{{ $errors->first('end_date') }}</span>
-                                    @endif
+                                    <label class="form-label">Hướng dẫn sử dụng:</label>
+                                    <textarea class="form-control ck-editor" name="description" id="ck-editor" data-height="250"> {{ old('description') }}</textarea>
                                 </div>
-
-                                <!-- Áp dụng cho -->
-                                <div class="mb-3">
-                                    <label class="form-label">Áp dụng cho:<span class="text-danger fz-18">*</span></label>
-                                    <select id="apply-for" name="apply_for" class="form-select" required>
-                                        <option value="all" {{ old('apply_for') == 'all' ? 'selected' : '' }}>Áp dụng cho tất cả sản phẩm</option>
-                                        <option value="specific_products" {{ old('apply_for') == 'specific_products' ? 'selected' : '' }}>Áp dụng cho sản phẩm cụ thể</option>
-                                        <option value="freeship" {{ old('apply_for') == 'freeship' ? 'selected' : '' }}>Miễn phí vận chuyển</option>
+                                 <!-- Áp dụng cho -->
+                                 <div class="mb-3">
+                                    <h5 class=" mb-0">
+                                        Áp dụng cụ thể
+                                    </h5>
+                                </div>
+                                 <div class="mb-3">
+                                    <label class="form-label">Áp dụng cho:<span
+                                            class="text-danger fz-18">*</span></label>
+                                    <select id="apply-for" name="apply_for" class="form-select setUpSelect2" required>
+                                        <option value="all" {{ old('apply_for') == 'all' ? 'selected' : '' }}>Áp dụng
+                                            cho tất cả sản phẩm</option>
+                                        <option value="specific_products"
+                                            {{ old('apply_for') == 'specific_products' ? 'selected' : '' }}>Áp dụng cho
+                                            sản phẩm cụ thể</option>
+                                        <option value="freeship" {{ old('apply_for') == 'freeship' ? 'selected' : '' }}>
+                                            Miễn phí vận chuyển</option>
                                     </select>
                                     @if ($errors->has('apply_for'))
                                         <span class="text-danger">{{ $errors->first('apply_for') }}</span>
                                     @endif
                                 </div>
                                 <!-- Phần sản phẩm khi chọn specific_products -->
-                                <div id="specific-products-section" class="mb-3" style="display: none;">
-                                    <label class="form-label">Chọn sản phẩm áp dụng:</label>
-                                    <select id="product-dropdown" class="form-select" name="product_id">
-                                        <option value="">-- Chọn sản phẩm --</option>
-                                        @foreach($products as $product)
-                                            <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @if ($errors->has('product_id'))
-                                        <span class="text-danger">{{ $errors->first('product_id') }}</span>
-                                    @endif
-                                </div>
-
-                                <!-- Phần chiết khấu -->
-                                <div id="discount-section" class="mb-3" style="display: none;">
-                                    <label class="form-label">Số tiền chiết khấu:<span class="text-danger fz-18">*</span></label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" name="discount" value="{{ old('discount') }}" placeholder="Số tiền chiết khấu">
-                                        <span class="input-group-text">VND</span>
+                                <div class="">
+                                    <div id="specific-products-section" class="mb-3" style="display: none;">
+                                        <label class="form-label">Chọn sản phẩm áp dụng:</label>
+                                        <select id="product-dropdown" class="form-select" name="product_id">
+                                            <option value="">-- Chọn sản phẩm --</option>
+                                            @foreach ($products as $product)
+                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @if ($errors->has('product_id'))
+                                            <span class="text-danger">{{ $errors->first('product_id') }}</span>
+                                        @endif
                                     </div>
-                                    @if ($errors->has('discount'))
-                                        <span class="text-danger fz-12 mt-1">{{ $errors->first('discount') }}</span>
-                                    @endif
-                                </div>
-
-                                
-
-                                <!-- Số tiền tối thiểu -->
-                                <div class="mb-3">
-                                    <label class="form-label">Số tiền tối thiểu:</label>
-                                    <input type="number" class="form-control" name="minimum_amount" value="{{ old('minimum_amount') }}">
-                                    @if ($errors->has('minimum_amount'))
-                                        <span class="text-danger">{{ $errors->first('minimum_amount') }}</span>
-                                    @endif
-                                </div>
-
-                                <!-- Giới hạn sử dụng -->
-                                <div class="mb-3">
-                                    <label class="form-label">Giới hạn sử dụng:</label>
-                                    <input type="number" class="form-control" name="usage_limit" value="{{ old('usage_limit') }}">
-                                    @if ($errors->has('usage_limit'))
-                                        <span class="text-danger">{{ $errors->first('usage_limit') }}</span>
-                                    @endif
-                                </div>
-
-                                <!-- Trạng thái -->
-                                <div class="mb-3">
-                                    <label class="form-label">Trạng thái:</label>
-                                    <select name="status" class="form-select" required>
-                                        <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Kích hoạt</option>
-                                        <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Vô hiệu</option>
-                                    </select>
-                                    @if ($errors->has('status'))
-                                        <span class="text-danger">{{ $errors->first('status') }}</span>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -138,33 +102,192 @@
                             <button type="submit" class="btn btn-success w-sm">Tạo Khuyến Mãi</button>
                         </div>
                     </div>
-
-                    <!-- Live Preview Section -->
                     <div class="col-lg-4">
-                        <div class="card">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="card-title mb-0">
+                                    <i class="fa fa-gear me-2"></i>Tùy chỉnh
+                                </h6>
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title">Xem trước Khuyến Mãi</h5>
-                                <div id="promotion-preview">
-                                    <p><strong>Tên Khuyến Mãi:</strong> <span id="preview-name"></span></p>
-                                    <p><strong>Ngày bắt đầu:</strong> <span id="preview-start-date"></span></p>
-                                    <p><strong>Ngày kết thúc:</strong> <span id="preview-end-date"></span></p>
-                                    <p><strong>Áp dụng cho:</strong> <span id="preview-apply-for"></span></p>
-                                    <p><strong>Số tiền chiết khấu:</strong> <span id="preview-discount"></span></p>
-                                    <p><strong>Số tiền tối thiểu:</strong> <span id="preview-minimum-amount"></span></p>
-                                    <p><strong>Giới hạn sử dụng:</strong> <span id="preview-usage-limit"></span></p>
-                                    <p><strong>Trạng thái:</strong> <span id="preview-status"></span></p>
+                                <div class="row g-1">
+                                    <!-- Giá trị giảm và điều kiện -->
+                                    <div class="mb-3" id="discount-section">
+                                        <label class="form-label">Giá trị giảm: <span
+                                            class="text-danger fz-18">*</span></label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" name="discount"
+                                                value="{{ old('discount') }}" placeholder="Số tiền chiết khấu">
+                                            <span class="input-group-text">VND</span>
+                                        </div>
+                                        @if ($errors->has('discount'))
+                                            <span class="text-danger fz-12 mt-1">{{ $errors->first('discount') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="" >
+                                        <label class="form-label">Đơn hàng tối thiểu</label>
+                                        <div class="input-group">
+                                            <input type="number" name="minimum_amount" class="form-control" placeholder="100.000 VND">
+                                            <span class="input-group-text">VND</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- thời gian áp dụng -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                    <i class="fa fa-clock me-2"></i>Thời Gian Áp Dụng
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="g-3">
+                                    <div class=" mb-3">
+                                        <label class="form-label">Bắt đầu</label>
+                                        <div class="input-group">
+                                            <input type="datetime-local" class="form-control" name="start_date"
+                                                value="{{ old('start_date') }}" required>
+                                            @if ($errors->has('start_date'))
+                                                <span class="text-danger">{{ $errors->first('start_date') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class=" mb-3">
+                                        <label class="form-label">Kết thúc</label>
+                                        <div class="input-group">
+                                            <input type="datetime-local" class="form-control" name="end_date"
+                                                value="{{ old('end_date') }}" required>
+                                            @if ($errors->has('end_date'))
+                                                <span class="text-danger">{{ $errors->first('end_date') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Xuất bản</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="choices-publish-status-input " class="form-label">Trạng thái</label>
+                                    <select name="status" class="form-select setUpSelect2" required>
+                                        <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Kích
+                                            hoạt</option>
+                                        <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Vô
+                                            hiệu</option>
+                                    </select>
+                                    @if ($errors->has('status'))
+                                        <span class="text-danger">{{ $errors->first('status') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Hình ảnh</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <p class="text-muted">Chọn ảnh đại diện.</p>
+                                    <div class="text-center">
+                                        <div class="position-relative d-inline-block">
+                                            {{-- image-target dùng dể choose image hthi cho ngxem  --}}
+                                            <span class="image-target">
+                                                <img src="/libaries/upload/images/img-notfound.png" alt=""
+                                                    class="render-image object-fit-contain rounded-1 mb-2 position-relative "
+                                                    width="96" height="96">
+                                            </span>
+                                            {{-- input ẩn gửi lên controller xử lý  --}}
+                                            <input type="hidden" name="image" value="{{ old('image') }}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+            {{-- <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-primary mb-4">Xem trước Khuyến Mãi</h5>
+                    <div id="promotion-preview">
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Tên Khuyến Mãi:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-name" class="text-muted"></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Ngày bắt đầu:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-start-date" class="text-muted"></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Ngày kết thúc:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-end-date" class="text-muted"></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Áp dụng cho:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-apply-for" class="text-muted"></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Số tiền chiết khấu:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-discount" class="text-muted"></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Số tiền tối thiểu:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-minimum-amount" class="text-muted"></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Giới hạn sử dụng:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-usage-limit" class="text-muted"></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <p><strong>Trạng thái:</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p id="preview-status" class="text-muted"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
         </div>
     </div>
 </div>
 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const applyForField = document.getElementById('apply-for');
         const discountSection = document.getElementById('discount-section');
         const specificProductsSection = document.getElementById('specific-products-section');
@@ -189,14 +312,22 @@
 
         // Cập nhật xem trước
         function updatePreview() {
-            document.getElementById('preview-name').textContent = document.querySelector('input[name="name"]').value;
-            document.getElementById('preview-start-date').textContent = document.querySelector('input[name="start_date"]').value;
-            document.getElementById('preview-end-date').textContent = document.querySelector('input[name="end_date"]').value;
-            document.getElementById('preview-apply-for').textContent = document.querySelector('select[name="apply_for"]').value;
-            document.getElementById('preview-discount').textContent = document.querySelector('input[name="discount"]').value;
-            document.getElementById('preview-minimum-amount').textContent = document.querySelector('input[name="minimum_amount"]').value;
-            document.getElementById('preview-usage-limit').textContent = document.querySelector('input[name="usage_limit"]').value;
-            document.getElementById('preview-status').textContent = document.querySelector('select[name="status"]').value;
+            document.getElementById('preview-name').textContent = document.querySelector('input[name="name"]')
+                .value;
+            document.getElementById('preview-start-date').textContent = document.querySelector(
+                'input[name="start_date"]').value;
+            document.getElementById('preview-end-date').textContent = document.querySelector(
+                'input[name="end_date"]').value;
+            document.getElementById('preview-apply-for').textContent = document.querySelector(
+                'select[name="apply_for"]').value;
+            document.getElementById('preview-discount').textContent = document.querySelector(
+                'input[name="discount"]').value;
+            document.getElementById('preview-minimum-amount').textContent = document.querySelector(
+                'input[name="minimum_amount"]').value;
+            document.getElementById('preview-usage-limit').textContent = document.querySelector(
+                'input[name="usage_limit"]').value;
+            document.getElementById('preview-status').textContent = document.querySelector(
+                'select[name="status"]').value;
         }
 
         // Cập nhật xem trước khi load trang và khi có thay đổi

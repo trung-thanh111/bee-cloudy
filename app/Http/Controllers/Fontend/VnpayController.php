@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Fontend;
 
-use App\Http\Controllers\FontendController;
-use App\Classes\Vnpay;
-use App\Repositories\OrderRepository;
-use App\Services\OrderService;
 use Exception;
+use App\Classes\Vnpay;
 use Illuminate\Http\Request;
+use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\OrderRepository;
+use App\Http\Controllers\FontendController;
 
 class VnpayController extends FontendController
 {

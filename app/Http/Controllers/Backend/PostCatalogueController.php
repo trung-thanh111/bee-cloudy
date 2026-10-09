@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\PostCatalogueService;
+use App\Repositories\PostCatalogueRepository;
 use App\Http\Requests\StorePostCatalogueRequest;
 use App\Http\Requests\UpdatePostCatalogueRequest;
-use App\Repositories\PostCatalogueRepository;
-use App\Services\PostCatalogueService;
-use Illuminate\Http\Request;
 
 class PostCatalogueController extends Controller
 {
@@ -54,7 +54,6 @@ class PostCatalogueController extends Controller
     public function update($slug)
     {
         $postCatalogue = $this->postCatalogueRepository->findBySlug($slug);
-        $orders = $this->postCatalogueRepository->all();
         // lấy ra tất cả vs điều kiện (không lấy ra bản ghi đàn được find)
         $postCatalogues = $this->postCatalogueRepository->allWhere([
             ['slug', '!=', $postCatalogue->slug]
@@ -65,7 +64,6 @@ class PostCatalogueController extends Controller
             'template',
             'postCatalogue',
             'postCatalogues',
-            'orders',
         ));
     }
     public function edit($slug, UpdatePostCatalogueRequest $request)

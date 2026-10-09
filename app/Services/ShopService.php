@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Repositories\AttributeRepository;
 use App\Repositories\ProductCatalogueRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\ShopRepository;
 use App\Services\Interfaces\ShopServiceInterface;
 use App\Services\BrandService;
@@ -20,15 +21,18 @@ class ShopService implements ShopServiceInterface
     protected $brandService;
     protected $attributeRepository;
     protected $productCatalogueRepository;
+    protected $productRepository;
     public function __construct(
         ShopRepository $shopRepository,
         ProductCatalogueRepository $productCatalogueRepository,
+        ProductRepository $productRepository,
         BrandService $brandService,
         AttributeRepository $attributeRepository,
 
     ) {
         $this->shopRepository = $shopRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->productRepository = $productRepository;
         $this->brandService = $brandService;
         $this->attributeRepository = $attributeRepository;
     }
@@ -90,7 +94,7 @@ class ShopService implements ShopServiceInterface
                 ['publish', '!=', 0],
             ],
             [
-                ['created_at', 'asc']
+                ['created_at', 'desc']
             ],
             8
         );
@@ -112,48 +116,41 @@ class ShopService implements ShopServiceInterface
     public function productFilter($request)
     {
         $payload = $request->only('brand', 'category', 'size', 'color', 'price');
-        $query = Product::query();
-        // Filter theo thương hiệu
-        if (!empty($payload['brand'])) {
+        $query = Product::with('productVariant', 'productCatalogues', 'productVariant.attributes');
+
+        if (isset($payload['brand']) && !empty($payload['brand'])) {
             $query->whereHas('brands', function ($q) use ($payload) {
                 $q->where('slug', $payload['brand']);
             });
         }
-
-        // Filter theo danh mục
-        if (!empty($payload['category'])) {
+        if (isset($payload['category']) && !empty($payload['category'])) {
             $query->whereHas('productCatalogues', function ($q) use ($payload) {
                 $q->where('slug', $payload['category']);
             });
         }
 
-        // Filter theo size
-        // if (!empty($payload['size'])) {
-        //     $query->whereHas('sizes', function($q) use ($payload) {
-        //         $q->where('slug', $payload['size']);
-        //     });
-        // }
-
-        // // Filter theo màu sắc  
-        // if (!empty($payload['color'])) {
-        //     $query->whereHas('colors', function($q) use ($payload) {
-        //         $q->where('slug', $payload['color']);
-        //     });
-        // }
-
-        // Filter theo khoảng giá
-        if (!empty($payload['price'])) {
-            $priceRange = explode('-', $payload['price']);
-            $minPrice = $priceRange[0];
-            $maxPrice = $priceRange[1];
+        if (isset($payload['price']) && !empty($payload['price'])) {
+            $price = explode('-', $payload['price']);
+            $minPrice = $price[0];
+            $maxPrice = $price[1];
             $query->whereBetween('price', [$minPrice, $maxPrice]);
         }
+        $query->whereHas('productVariant', function ($variantQuery) use ($payload) {
+            if (!empty($payload['size'])) {
+                // SUBSTRING_INDEX là hàm trong sql để cắt chuỗi dựa trên ký tự phân cách 
+                $variantQuery->whereRaw('SUBSTRING_INDEX(code, ",", 1) = ?', [$payload['size']]);
+            }
         
+            if (!empty($payload['color'])) {
+                $variantQuery->where(function ($query) use ($payload) {
+                    // Kiểm tra xem code có chứa dấu phẩy hay không
+                    $query->whereRaw('code LIKE "%,%"')
+                          ->whereRaw('SUBSTRING_INDEX(code, ",", -1) = ?', [$payload['color']]);
+                });
+            }
+        });
 
-
-        // Lấy kết quả
-        $products = $query->get();
-
+        $products = $query->paginate(9);
         return $products;
     }
 
@@ -162,16 +159,18 @@ class ShopService implements ShopServiceInterface
         return [
             'id',
             'name',
-            'image',
             'slug',
-            'short_desc',
-            'description',
+            'image',
+            'album',
             'info',
+            'description',
+            'brand_id',
+            'is_hot',
             'price',
             'del',
+            'instock',
             'sku',
             'publish',
-            'created_at'
         ];
     }
 }

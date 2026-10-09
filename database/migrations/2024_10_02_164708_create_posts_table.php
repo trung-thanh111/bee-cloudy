@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('image', 255)->nullable();
             $table->text('description')->nullable();
             $table->longText('content');
-            $table->text('album')->nullable();
             $table->string('slug', 255);
+            $table->tinyInteger('oustanding')->default(0);
             $table->integer('like')->default(0);
-            $table->integer('order')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('cre', 100)->nullable();

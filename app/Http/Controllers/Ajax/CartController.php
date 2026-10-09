@@ -2,33 +2,30 @@
 
 namespace App\Http\Controllers\Ajax;
 
-use App\Http\Controllers\FontendController;
-use App\Models\PromotionProductVariant;
+use App\Models\Cart;
+use App\Models\Promotion;
 use Illuminate\Http\Request;
+use App\Services\CartService;
 use App\Repositories\CartRepository;
 use App\Repositories\ProductRepository;
-use App\Services\CartService;
-use App\Models\Cart;
-use App\Models\CartItem;
-use App\Models\Promotion;
-use App\Models\UserVoucher;
-use Illuminate\Support\Facades\DB;
+use App\Models\PromotionProductVariant;
+use App\Http\Controllers\FontendController;
 
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends FontendController
 {
-    protected $productRepository;
-    protected $cartRepository;
     protected $cartService;
+    protected $cartRepository;
+    protected $productRepository;
 
     public function __construct(
+        CartService $cartService,
         CartRepository $cartRepository,
         ProductRepository $productRepository,
-        CartService $cartService,
     ) {
-        $this->cartRepository = $cartRepository;
         $this->cartService = $cartService;
+        $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
     }
 

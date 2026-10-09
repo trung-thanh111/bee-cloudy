@@ -185,13 +185,13 @@ class ProductService implements ProductServiceInterface
     private function createProduct($request)
     {
         $payload = $request->only($this->payload());
-        $payload['user_id'] = Auth::id();
         $payload['del'] = (isset($payload['del'])) ? $payload['del'] : '0';
-        $payload['slug'] = Str::slug($payload['slug'], '-');
+        $payload['slug'] = Str::slug($payload['slug'], '-').'-'.rand(10000, 99999);
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
         $payload['attribute'] = $request->input('attribute');
         $payload['variant'] = $this->formatJson($request, 'variant');
         $product = $this->productRepository->create($payload);
+        // dd($product);
         return $product;
     }
     private function createVariant($product, $request)
@@ -264,7 +264,6 @@ class ProductService implements ProductServiceInterface
                     'file_name' => ($payload['variant']['file_name'][$key]) ?? '',
                     'file_url' => ($payload['variant']['file_url'][$key]) ?? '',
                     'album' => ($payload['variant']['album'][$key]) ?? '',
-                    'user_id' => Auth::id(),
                 ];
             }
         }
@@ -274,7 +273,7 @@ class ProductService implements ProductServiceInterface
     private function updateProduct($product, $request)
     {
         $payload = $request->only($this->payload());
-        $payload['user_id'] = Auth::id();
+        $payload['slug'] = Str::slug($payload['slug'], '-');
         $payload['attributeCatalogue'] = $this->formatJson($request, 'attributeCatalogue');
         if ($request->has('attribute')) {
             $payload['attribute'] = $request->input('attribute');
@@ -398,21 +397,22 @@ class ProductService implements ProductServiceInterface
         return [
             'name',
             'slug',
-            'price',
-            'album',
-            'instock',
-            'del',
-            'info',
-            'sku',
-            'short_desc',
             'image',
-            'brand_id',
+            'album',
+            'info',
             'description',
+            'brand_id',
+            'is_hot',
+            'price',
+            'del',
+            'instock',
+            'sku',
+            'attributeCatalogue', // json
+            'attribute', // json
+            'variant',  // json
             'publish',
             'product_catalogue_id',
-            'attributeCatalogue',
-            'attribute',
-            'variant',
+            'created_at',
         ];
     }
     private function paginateSelect()
@@ -420,23 +420,21 @@ class ProductService implements ProductServiceInterface
         return [
             'id',
             'name',
+            'slug',
             'image',
             'album',
-            'instock',
-            'slug',
-            'short_desc',
-            'description',
             'info',
+            'description',
+            'brand_id',
+            'is_hot',
             'price',
             'del',
+            'instock',
             'sku',
-            'brand_id',
-            'user_id',
-            'attributeCatalogue',
-            'attribute',
-            'variant',
+            'attributeCatalogue', // json
+            'attribute', // json
+            'variant',  // json
             'publish',
-            'created_at'
         ];
     }
 }

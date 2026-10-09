@@ -12,12 +12,16 @@
                         <li class="breadcrumb-item "><a href="{{ route('home.index') }}"
                                 class="text-decoration-none text-muted">Trang Chủ</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Sản phẩm danh mục</li>
+                        <li class="breadcrumb-item "><a href="{{ route('shop.index') }}"
+                                class="text-decoration-none text-muted">Cửa hàng</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh mục</li>
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->
                 <!-- content detail -->
-                <div class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
+                <div
+                    class="main-product-category row flex-wrap text-muted pt-3 mx-0 bg-main-color shadow-sm rounded-1 mb-5">
                     <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 300px">
                         <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
                             <h3 class="text-uppercase">{{ $category->name }}</h3>
@@ -61,47 +65,46 @@
                 <div class="row mb-3 flex-wrap bg-white text-muted mx-0">
                     <div class="col-lg-3 col-md-3 col-12 shadow-sm p-2 h-100">
                         <div class="filter-product-item">
-                            <h6 class="text-uppercase fz-16 p-2">
-                                Lọc sản phẩm
-                            </h6>
-                            <form action="#" method="#">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-uppercase fz-16 p-2">
+                                    Lọc sản phẩm
+                                </h6>
+                                <a href="{{ route('product.category', ['id' => request('id')]) }}" class="fz-14 text-danger">Bỏ lọc</a>
+                            </div>
+                            <form>
                                 <div class="accordion text-muted mb-1 rounded-2" id="default-accordion-example">
                                     <div class="accordion-item material-shadow border-0">
                                         <button class="accordion-button px-2 py-2 fz-14 fw-500 " id="headingOne"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
                                             aria-expanded="true" aria-controls="collapseOne">
-                                            <span class="fz-16">Danh mục</span>
-
+                                            <span class="fz-16">Thương hiệu</span>
                                         </button>
                                         <div id="collapseOne" class="accordion-collapse collapse show"
                                             aria-labelledby="headingOne" data-bs-parent="#default-accordion-example">
-                                            <div class="accordion-body fz-14 pb-0">
+                                            <div class="accordion-body fz-14 pb-0 overflow-y-auto filter-brand">
                                                 <ul class="ps-0">
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
+                                                    <li class="list-unstyled mb-3 me-5 choose-size-item form-check">
+                                                        <input type="radio" name="brand" value="" checked
+                                                            class="form-check-input submitFilter me-2 fz-16"
+                                                            id="no-filter-brand">
+                                                        <label class="form-check-label label-filter-shop text-muted fz-14"
+                                                            for="no-filter-brand">Không lọc</label>
+                                                        </input>
                                                     </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
+                                                    @if (count($brandFilters) > 0 && !empty($brandFilters))
+                                                        @foreach ($brandFilters as $KeyBrandF => $valBrandF)
+                                                            <li class="list-unstyled mb-3 form-check">
+                                                                <input type="radio" name="brand"
+                                                                    id="brand_filter{{ $KeyBrandF }}"
+                                                                    value="{{ $valBrandF->slug }}"
+                                                                    {{ request('brand') == $valBrandF->slug ? 'checked' : '' }}
+                                                                    class="form-check-input submitFilter me-2 fz-16">
+                                                                <label
+                                                                    class="form-check-label label-filter-shop text-muted fz-14"
+                                                                    for="brand_filter{{ $KeyBrandF }}">{{ $valBrandF->name }}</label>
+                                                            </li>
+                                                        @endforeach
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
@@ -112,38 +115,35 @@
                                         <button class="accordion-button px-2 py-2 fz-14 fw-500 " id="headingTwo"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
                                             aria-expanded="true" aria-controls="collapseTwo">
-                                            <span class="fz-16">Thương hiệu</span>
+                                            <span class="fz-16">Danh mục</span>
 
                                         </button>
                                         <div id="collapseTwo" class="accordion-collapse collapse show"
                                             aria-labelledby="headingTwo" data-bs-parent="#default-accordion-example">
-                                            <div class="accordion-body fz-14 pb-0">
+                                            <div class="accordion-body fz-14 pb-0 overflow-y-auto filter-category">
                                                 <ul class="ps-0">
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
+                                                    <li class="list-unstyled mb-3 me-5 choose-size-item form-check">
+                                                        <input type="radio" name="category" value="" checked
+                                                            class="form-check-input submitFilter me-2 fz-16"
+                                                            id="no-filter-category">
+                                                        <label class="form-check-label label-filter-shop text-muted fz-14"
+                                                            for="no-filter-category">Không lọc</label>
+                                                        </input>
                                                     </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3">
-                                                        <input type="checkbox" class="form-check-input me-2 mt-1 fz-16">
-                                                        <a href="#" class=" text-muted fz-14 mt-1">Áo thun
-                                                            nam</a>
-                                                    </li>
+                                                    @if (count($productCatalogues) > 0 && !empty($productCatalogues))
+                                                        @foreach ($productCatalogues as $KeyCatalogueF => $valCatalogueF)
+                                                            <li class="list-unstyled mb-3 form-check">
+                                                                <input type="radio" name="category"
+                                                                    id="category_filter{{ $KeyCatalogueF }}"
+                                                                    value="{{ $valCatalogueF->slug }}"
+                                                                    {{ request('category') == $valCatalogueF->slug ? 'checked' : '' }}
+                                                                    class="form-check-input submitFilter me-2 fz-16">
+                                                                <label
+                                                                    class="form-check-label label-filter-shop text-muted fz-14"
+                                                                    for="category_filter{{ $KeyCatalogueF }}">{{ $valCatalogueF->name }}</label>
+                                                            </li>
+                                                        @endforeach
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
@@ -155,42 +155,33 @@
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                             aria-expanded="true" aria-controls="collapseThree">
                                             <span class="fz-16">Kích thước</span>
-
                                         </button>
                                         <div id="collapseThree" class="accordion-collapse collapse show"
                                             aria-labelledby="headingThree" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0">
-                                                <ul class="ps-0 d-flex flex-wrap choose-size">
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
-                                                        <input type="radio" class="form-check-input me-2 mt-1 fz-16"
-                                                            name="size">
-                                                        <a href="#"
-                                                            class="text-uppercase text-muted fz-14 mt-1">s</a>
+                                                <ul class="ps-0 d-flex flex-wrap choose-size gap-3">
+                                                    <li class="list-unstyled mb-3 me-3 choose-size-item form-check">
+                                                        <input type="radio" name="size" value="" checked
+                                                            class="form-check-input submitFilter me-2 fz-16">
+                                                        <label
+                                                            class="form-check-label label-filter-shop text-muted fz-14">Không
+                                                            lọc</label>
+                                                        </input>
                                                     </li>
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
-                                                        <input type="radio" class="form-check-input me-2 mt-1 fz-16"
-                                                            name="size">
-                                                        <a href="#"
-                                                            class="text-uppercase text-muted fz-14 mt-1">m</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
-                                                        <input type="radio" class="form-check-input me-2 mt-1 fz-16"
-                                                            name="size">
-                                                        <a href="#"
-                                                            class="text-uppercase text-muted fz-14 mt-1">l</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
-                                                        <input type="radio" class="form-check-input me-2 mt-1 fz-16"
-                                                            name="size" checked>
-                                                        <a href="#"
-                                                            class="text-uppercase text-muted fz-14 mt-1">xl</a>
-                                                    </li>
-                                                    <li class="list-unstyled mb-3 me-5 choose-size-item">
-                                                        <input type="radio" class="form-check-input me-2 mt-1 fz-16"
-                                                            name="size">
-                                                        <a href="#"
-                                                            class="text-uppercase text-muted fz-14 mt-1">2xl</a>
-                                                    </li>
+                                                    @if (count($attributeSizes) > 0 && !empty($attributeSizes))
+                                                        @foreach ($attributeSizes as $KeySizeF => $valSizeF)
+                                                            <li class="list-unstyled mb-3 me-3 form-check">
+                                                                <input type="radio" name="size"
+                                                                    id="size_filter{{ $KeySizeF }}"
+                                                                    value="{{ $valSizeF->id }}"
+                                                                    {{ request('size') == $valSizeF->id ? 'checked' : '' }}
+                                                                    class="form-check-input submitFilter me-2 fz-16">
+                                                                <label
+                                                                    class="form-check-label label-filter-shop text-muted fz-14"
+                                                                    for="size_filter{{ $KeySizeF }}">{{ $valSizeF->name }}</label>
+                                                            </li>
+                                                        @endforeach
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
@@ -202,46 +193,47 @@
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseFor"
                                             aria-expanded="true" aria-controls="collapseFor">
                                             <span class="fz-16">Màu sắc</span>
-
                                         </button>
                                         <div id="collapseFor" class="accordion-collapse collapse show"
                                             aria-labelledby="headingFor" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0">
                                                 <ul class="ps-0 ">
                                                     <li
-                                                        class="list-unstyled d-flex justify-content-between flex-wrap  mb-lg-3 me-lg-4">
-                                                        <div class="img-choose-color">
-                                                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png"
-                                                                alt="" width="30" height="30"
-                                                                class="img-fluid rounded-circle mb-md-1">
-                                                        </div>
-                                                        <div class="img-choose-color">
-                                                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png"
-                                                                alt="" width="30" height="30"
-                                                                class="img-fluid rounded-circle mb-md-1">
-                                                        </div>
-                                                        <div class="img-choose-color">
-                                                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png"
-                                                                alt="" width="30" height="30"
-                                                                class="img-fluid rounded-circle mb-md-1">
-                                                        </div>
-                                                        <div class="img-choose-color">
-                                                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png"
-                                                                alt="" width="30" height="30"
-                                                                class="img-fluid rounded-circle mb-md-1">
-                                                        </div>
-                                                        <div class="img-choose-color">
-                                                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/green.png"
-                                                                alt="" width="30" height="30"
-                                                                class="img-fluid rounded-circle mb-md-1">
+                                                        class="list-unstyled submitFilter d-flex justify-content-between flex-wrap grid mb-2">
+                                                        <div
+                                                            class="img-choose-color {{ request('color') == '' ? 'active' : '' }} ">
+                                                            <label class="color-selector">
+                                                                <img src="/libaries/upload/images/img-notfound.png"
+                                                                    alt="" width="30" height="30"
+                                                                    data-color="" class="rounded-circle ">
+                                                            </label>
                                                         </div>
                                                     </li>
+                                                    <li
+                                                        class="list-unstyled submitFilter d-flex justify-content-between flex-wrap grid gap-2">
+                                                        @if (count($attributeColors) > 0 && !empty($attributeColors))
+                                                            @foreach ($attributeColors as $KeyColorF => $valColorF)
+                                                                <div class="img-choose-color  {{ request('color') == $valColorF->id ? 'active' : '' }}"
+                                                                    data-color="{{ $valColorF->id }}">
+                                                                    <label class="color-selector">
+                                                                        <img src="{{ $valColorF->image ?? '/libaries/upload/images/img-notfound.png' }}"
+                                                                            alt="" width="30" height="30"
+                                                                            class="rounded-circle mb-md-1">
+
+                                                                    </label>
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+                                                    </li>
+                                                    <input type="hidden" name="color" class="colorFilter"
+                                                        value="{{ request('color') }}">
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion text-muted mb-1 rounded-2" id="default-accordion-example">
+                                <div class="accordion text-muted mb-1 rounded-2" id="default-accordion-example"
+                                    style="height: 100%">
                                     <div class="accordion-item material-shadow border-0">
                                         <button class="accordion-button px-2 py-2 fz-14 fw-500 " id="headingFive"
                                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive"
@@ -251,39 +243,40 @@
                                         <div id="collapseFive" class="accordion-collapse collapse show"
                                             aria-labelledby="headingFive" data-bs-parent="#default-accordion-example">
                                             <div class="accordion-body fz-14 pb-0">
-                                                <ul class="ps-0 d-flex flex-wrap">
-                                                    <li class="list-unstyled me-2 mb-4">
-                                                        <a href="#" class=" box-item-choose-money fz-14 p-2">
-                                                            0 - 200.000
-                                                        </a>
+                                                <ul class="ps-0 d-flex flex-wrap gap-2 box-price-filter">
+                                                    <li class="list-unstyled submitFilter">
+                                                        <label
+                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '' ? 'active' : '' }}">Không
+                                                            lọc</label>
                                                     </li>
-                                                    <li class="list-unstyled me-2 mb-4">
-                                                        <a href="#" class=" box-item-choose-money fz-14 p-2">
-                                                            200 - 400.000
-                                                        </a>
+                                                    <li class="list-unstyled submitFilter">
+                                                        <label
+                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '0-200000' ? 'active' : '' }} "
+                                                            data-price="0-200000">Dưới 200.000</label>
                                                     </li>
-                                                    <li class="list-unstyled me-2 mb-4">
-                                                        <a href="#" class=" box-item-choose-money fz-14 p-2">
-                                                            200 - 400.000
-                                                        </a>
+                                                    <li class="list-unstyled submitFilter">
+                                                        <label
+                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '200000-400000' ? 'active' : '' }} "
+                                                            data-price="200000-400000">200 - 400.000</label>
                                                     </li>
-                                                    <li class="list-unstyled me-2 mb-4">
-                                                        <a href="#" class=" box-item-choose-money fz-14 p-2">
-                                                            1M - 1.4M
-                                                        </a>
+                                                    <li class="list-unstyled submitFilter">
+                                                        <label
+                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '400000-800000' ? 'active' : '' }} "
+                                                            data-price="400000-800000">400 - 800.000</label>
                                                     </li>
-                                                    <li class="list-unstyled me-2 mb-4">
-                                                        <a href="#" class=" box-item-choose-money fz-14 p-2">
-                                                            200 - 400.000
-                                                        </a>
+                                                    <li class="list-unstyled submitFilter">
+                                                        <label
+                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '800000-1200000' ? 'active' : '' }} "
+                                                            data-price="800000-1200000">800 - 1.200K</label>
                                                     </li>
-                                                    <li class="list-unstyled me-2 mb-4">
-                                                        <a href="#" class=" box-item-choose-money fz-14 p-2">
-                                                            200 - 400.000
-                                                        </a>
+                                                    <li class="list-unstyled submitFilter">
+                                                        <label
+                                                            class="box-item-choose-money fz-14 p-2 {{ request('price') == '1200000-' ? 'active' : '' }} "
+                                                            data-price="1200000-">Trên 1.200K</label>
                                                     </li>
-
                                                 </ul>
+                                                <input type="hidden" name="price" class="priceFilter"
+                                                    value="{{ request('price') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -295,50 +288,6 @@
                         <div class="product-category p-2">
                             <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
                                 <h5 class="fs-5 text-uppercase mt-2">Sản phẩm</h5>
-                                <p class="filter-sub">
-                                <div class="dropdown ms-auto" data-bs-spy="scroll" data-bs-target="#navbar-example3"
-                                    data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
-                                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <span class="text-muted fz-14 fw-medium me-2">Sắp xếp</span>
-                                        <i class="fa-solid fa-sort fz-14 text-muted"></i>
-                                    </a>
-
-                                    <ul class="dropdown-menu dropdown-menu-end ul-menu p-0 border-0 shadow-lg mb-1">
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=price_high" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-square-caret-down me-2"></i>Giá cao - thấp
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=price_low" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-square-caret-up me-2"></i>Giá thấp - cao
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=newest" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-clock-rotate-left me-2"></i>Mới nhất
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=oldest" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-clock me-2"></i>Cũ nhất
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=name_desc" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-sort-alpha-down me-2"></i>Ký tự Z - A
-                                            </a>
-                                        </li>
-                                        <li class="li-menu-header p-1">
-                                            <a href="?sort=name_asc" class="text-decoration-none fz-12 ps-1">
-                                                <i class="fa-solid fa-sort-alpha-up me-2"></i>Ký tự A - Z
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                                </p>
                             </div>
                             <div class="content-product-cate row flex-wrap">
                                 @if (count($productInCategories) != 0 && !empty($productInCategories))
@@ -350,14 +299,13 @@
                                                 $product->del != 0 && $product->del != null
                                                     ? (($product->price - $product->del) / $product->price) * 100
                                                     : '0';
-
                                             $price =
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
                                         @endphp
                                         <div class="col-lg-4 col-md-6 col-12 mb-4">
-                                            <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                            <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
                                                         <span
@@ -370,6 +318,7 @@
                                                             data-id="{{ $product->id }}">
                                                             <i
                                                                 class="fa-{{ in_array($product->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
                                                             <span class="product_id_wishlist d-none">
                                                                 {{ $product->id }}
                                                             </span>
@@ -411,7 +360,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body p-2">
-                                                    <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                                    <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                         <a href="#"
                                                             class="text-break w-100 text-muted">{{ $product->name }}</a>
                                                     </h6>
@@ -430,7 +379,7 @@
                                                             class="action-cart-item-buy">
                                                             <span>Xem chi tiết</span>
                                                         </a>
-                                                        <a href="#" class="action-cart-item-add addToCart"
+                                                        <a href="" class="action-cart-item-add addToCart"
                                                             data-id="{{ $product->id }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
@@ -447,8 +396,20 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                @else
+                                    <div class="order-null p-3">
+                                        <div class="img-null text-center">
+                                            <img src="/libaries/upload/images/order-null.png" alt=""
+                                                class="" width="300" height="200">
+                                        </div>
+                                        <div class="flex flex-col text-center align-items-center">
+                                            <h5 class="mb-2 fw-semibold">không có sản phẩm phù hợp với yêu cầu!
+                                            </h5>
+                                            <a href="{{ route('product.category', ['id' => request('id')]) }}"
+                                                class="btn btn-info text-white rounded-pill mt-3 pz-3">Quay lại</a>
+                                        </div>
+                                    </div>
                                 @endif
-
                             </div>
                         </div>
                         <div class="d-flex justify-content-end pagination pagination-sm">
@@ -462,14 +423,20 @@
                         width="100%" height="" class="img-fluid rounded-2">
                 </div>
                 <div class="product-shop-new mt-4 mb-3 text-muted">
-                    <div class="title-product mb-4">
-                        <h4 class="fs-4 fw-500 mb-3 text-uppercase">
-                            hàng mới
-                            <hr class=" border-4 border-info mb-2" style="width: 100px;">
-                        </h4>
+                    <div class="title-product mb-4 col-3">
+                        <div class="price-banner">
+                            <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-fire text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    sản phẩm mới
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="row flex-wrap">
-                        {{-- @if (count($productShopNews) != 0 && !empty($productShopNews))
+                        @if (count($productShopNews) != 0 && !empty($productShopNews))
                             @foreach ($productShopNews as $key => $productNew)
                                 @php
                                     $shownColors = [];
@@ -484,7 +451,7 @@
                                             : number_format($productNew->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
-                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
@@ -494,9 +461,10 @@
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-title="{{ in_array($productNew->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
-                                                    data-id="{{ $product->id }}">
+                                                    data-id="{{ $productNew->id }}">
                                                     <i
                                                         class="fa-{{ in_array($productNew->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
                                                     <span class="product_id_wishlist d-none">
                                                         {{ $productNew->id }}
                                                     </span>
@@ -537,7 +505,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-2">
-                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                 <a href="#"
                                                     class="text-break w-100 text-muted">{{ $productNew->name }}</a>
                                             </h6>
@@ -555,7 +523,7 @@
                                                     class="action-cart-item-buy">
                                                     <span>Xem chi tiết</span>
                                                 </a>
-                                                <a href="#" class="action-cart-item-add addToCart"
+                                                <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productNew->id }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
@@ -571,18 +539,24 @@
                                     </div>
                                 </div>
                             @endforeach
-                        @endif --}}
+                        @endif
                     </div>
                 </div>
                 <div class="product-shop-hot my-3 text-muted">
-                    <div class="title-product mb-4">
-                        <h4 class="fs-4 fw-500 mb-3 text-uppercase">
-                            Giá tốt
-                            <hr class=" border-4 border-info mb-2" style="width: 90px;">
-                        </h4>
+                    <div class="title-product mb-4 col-2">
+                        <div class="price-banner">
+                            <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-tags text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    Giá tốt
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="row flex-wrap">
-                        {{-- @if (count($productShopPriceMins) != 0 && !empty($productShopPriceMins))
+                        @if (count($productShopPriceMins) != 0 && !empty($productShopPriceMins))
                             @foreach ($productShopPriceMins as $key => $productPriceMin)
                                 @php
                                     $shownColors = [];
@@ -599,7 +573,7 @@
                                             : number_format($productPriceMin->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
-                                    <div class="card card-product shadow-sm border-0 mb-2 pt-0">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
@@ -609,9 +583,10 @@
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-title="{{ in_array($productPriceMin->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
-                                                    data-id="{{ $product->id }}">
+                                                    data-id="{{ $productPriceMin->id }}">
                                                     <i
                                                         class="fa-{{ in_array($productPriceMin->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
                                                     <span class="product_id_wishlist d-none">
                                                         {{ $productPriceMin->id }}
                                                     </span>
@@ -652,7 +627,7 @@
                                             </div>
                                         </div>
                                         <div class="card-body p-2">
-                                            <h6 class="fw-medium overflow-hidden " style="height: 35px">
+                                            <h6 class="fw-medium overflow-hidden " style="height: 39px">
                                                 <a href="#"
                                                     class="text-break w-100 text-muted">{{ $productPriceMin->name }}</a>
                                             </h6>
@@ -670,7 +645,7 @@
                                                     class="action-cart-item-buy">
                                                     <span>Xem chi tiết</span>
                                                 </a>
-                                                <a href="#" class="action-cart-item-add addToCart"
+                                                <a href="" class="action-cart-item-add addToCart"
                                                     data-id="{{ $productPriceMin->id }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
@@ -687,7 +662,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        @endif --}}
+                        @endif
                     </div>
                 </div>
                 <hr class="pb-3 pt-3 " class="border-3">
@@ -839,98 +814,97 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="aside-product col-lg-3 col-md-12 col-12">
-                    <div class="card border-0 rounded-1 mb-4">
-                        <div class="card-header">
-                            <h6 class="card-title fw-18 fw-500">Sản phẩm</h6>
-                        </div>
-                        <div class="card-body py-2">
-                            <ul class="p-2 mb-0 list-inline">
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#banchay</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#sale</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#newarrival</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#fashion</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#trending</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#summer</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card border-0 rounded-1 mb-4">
-                        <div class="card-header">
-                            <h6 class="card-title fw-18 fw-500">Bài viết</h6>
-                        </div>
-                        <div class="card-body py-2">
-                            <ul class="p-2 mb-0 list-inline">
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#banchay</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#sale</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#newarrival</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#fashion</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#trending</a>
-                                </li>
-                                <li class="list-inline-item mb-2">
-                                    <a href="#" class="btn btn-secondary btn-sm">#summer</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card border-0 rounded-1 shadow-sm mb-4">
-                        <div class="card-header">
-                            <h6 class="card-title fw-18 fw-500">Khuyến mãi</h6>
-                        </div>
-                        <div class="card-body p-1">
-                            <div class="event-item mb-3">
-                                <ul class="ps-0 mb-0">
-                                    <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                        <div class="image-event-item position-relative">
-                                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner_aside.jpg"
-                                                alt="" width="100%" class="img-fuild  me-2">
-                                            <i
-                                                class="fa-solid fa-delete-left delete-banner-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                        </div>
-                                    </li>
-                                </ul>
+                    <div class="aside-product col-lg-3 col-md-12 col-12">
+                        <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card-header">
+                                <h6 class="card-title fw-18 fw-500">Danh mục</h6>
+                            </div>
+                            <div class="card-body p-1">
+                                <div class="categoryP-item mb-3 overflow-y-auto">
+                                    <ul class="list-group list-group-flush">
+                                        @if (!is_null($productCatalogues) && !empty($productCatalogues))
+                                            @foreach ($productCatalogues as $cataloguePro)
+                                                <li class="list-group-item item-category">
+                                                    <a href="{{ route('post.category', ['id' => $cataloguePro->id]) }}"
+                                                        class="text-decoration-none d-flex align-items-center">
+                                                        <img src="{{ $cataloguePro->image }}"
+                                                            alt="{{ $cataloguePro->name }}" width="50"
+                                                            height="50"
+                                                            class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                        <span class="text-muted fw-500">{{ $cataloguePro->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card border-0 rounded-1 shadow-sm mb-4">
-                        <div class="card-header">
-                            <h6 class="card-title fw-18 fw-500">Quảng cáo</h6>
+                        <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card-header">
+                                <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
+                            </div>
+                            <div class="card-body p-1">
+                                <div class="brand-item mb-3 overflow-y-auto">
+                                    <ul class="list-group list-group-flush">
+                                        @if (!is_null($brandAll) && !empty($brandAll))
+                                            @foreach ($brandAll as $brandPage)
+                                                <li class="list-group-item item-category">
+                                                    <a href="{{ route('product.brand', ['id' => $brandPage->id]) }}"
+                                                        class="text-decoration-none d-flex align-items-center">
+                                                        <img src="{{ $brandPage->image }}" alt="{{ $brandPage->name }}"
+                                                            width="50" height="50"
+                                                            class="me-3 object-fit-contain bg-light rounded-3">
+                                                        <span class="text-muted fw-500">{{ $brandPage->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body p-1">
-                            <div class="ads-item mb-3">
-                                <ul class="ps-0 mb-0">
-                                    <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                        <div class=" position-relative">
-                                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner_aside.jpg"
-                                                alt="" width="100%" class="img-fuild  me-2 image-ads-item">
-                                            <i
-                                                class="fa-solid fa-delete-left delete-ads-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                        </div>
-                                    </li>
-                                </ul>
+                        <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card-header">
+                                <h6 class="card-title fw-18 fw-500">Bài viết</h6>
+                            </div>
+                            <div class="card-body p-1">
+                                <div class="categoryP-item mb-3 overflow-y-auto">
+                                    <ul class="list-group list-group-flush">
+                                        @if (!is_null($postCategories) && !empty($postCategories))
+                                            @foreach ($postCategories as $categoryP)
+                                                <li class="list-group-item item-category">
+                                                    <a href="{{ route('post.category', ['id' => $categoryP->id]) }}"
+                                                        class="text-decoration-none d-flex align-items-center">
+                                                        <img src="{{ $categoryP->image }}"
+                                                            alt="{{ $categoryP->name }}" width="50" height="50"
+                                                            class="me-3 object-fit-contain bg-light rounded-3 ">
+                                                        <span class="text-muted fw-500">{{ $categoryP->name }}</span>
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card-header">
+                                <h6 class="card-title fw-18 fw-500">Quảng cáo</h6>
+                            </div>
+                            <div class="card-body p-1">
+                                <div class="ads-item mb-3">
+                                    <ul class="ps-0 mb-0">
+                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
+                                            <div class=" position-relative">
+                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner_aside.jpg"
+                                                    alt="" width="100%" class="img-fuild  me-2 image-ads-item">
+                                                <i
+                                                    class="fa-solid fa-delete-left delete-ads-aside fz-14 text-muted position-absolute top-0 end-0"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -950,10 +924,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                <a href="zalo">
-                                                                                    <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                </a>
-                                                                            </div> -->
+                                                                                    <a href="zalo">
+                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                    </a>
+                                                                                </div> -->
         </div>
     </section>
     <!-- end footer  -->

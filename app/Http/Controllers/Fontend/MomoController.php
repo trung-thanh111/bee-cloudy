@@ -2,35 +2,38 @@
 
 namespace App\Http\Controllers\Fontend;
 
-use App\Http\Controllers\FontendController;
-use App\Classes\Momo;
-use App\Repositories\OrderRepository;
-use App\Services\OrderService;
 use Exception;
+use App\Classes\Momo;
 use Illuminate\Http\Request;
+use App\Services\CartService;
+use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\OrderRepository;
+use App\Http\Controllers\FontendController;
 
 class MomoController extends FontendController
 {
 
     protected $momo;
+    protected $cartService;
     protected $orderService;
     protected $orderRepository;
 
+
     public function __construct(
         Momo $momo,
+        CartService $cartService,
         OrderService $orderService,
         OrderRepository $orderRepository,
     ) {
-
         $this->momo = $momo;
+        $this->cartService = $cartService;
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
     }
 
     public function momoReturn(Request $request)
     {
-
         $configMomo = momoConfig();
         $secretKey = $configMomo['secretKey'];
 
@@ -79,6 +82,7 @@ class MomoController extends FontendController
                 ];
                 $this->orderService->updateStatusPayment($payload, $order);
                 $this->orderService->sendMail($order);
+                $this->cartService->clear($request);
                 flash()->success('Giao dịch thành công.');
                 return view('fontend.order.success', compact('order'));
             } else { // Thanh toán thất bại
@@ -93,9 +97,9 @@ class MomoController extends FontendController
 
         }
     }
-    public function momoIpn()
+    public function momoIpn(Request $request)
     {
-        http_response_code(200); //200 - Everything will be 200 Oke
+        http_response_code(200); 
         if (!empty($_POST)) {
             $response = array();
             try {
@@ -114,7 +118,7 @@ class MomoController extends FontendController
                 $payType = $_GET["payType"];
                 $orderType = $_GET["orderType"];
                 $extraData = $_GET["extraData"];
-                $m2signature = $_GET["signature"]; //MoMo signature
+                $m2signature = $_GET["signature"]; 
                 //Checksum
                 $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo .
                     "&orderType=" . $orderType . "&transId=" . $transId . "&message=" . $message . "&localMessage=" . $localMessage . "&responseTime=" . $responseTime . "&resultCode=" . $resultCode .
@@ -140,6 +144,7 @@ class MomoController extends FontendController
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
                         $this->orderService->sendMail($order);
+                        $this->cartService->clear($request);
                         flash()->success('Giao dịch thành công.');
                         return view('fontend.order.success', compact('order'));
                     } else { // Thanh toán thất bại
@@ -148,6 +153,7 @@ class MomoController extends FontendController
                             'status' => 'pending' // Hoặc trạng thái khác
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
+                        $this->cartService->clear($request);
                         flash()->error('Giao dịch thất bại!.');
                         return view('fontend.order.failed', compact('order'));
                     }
