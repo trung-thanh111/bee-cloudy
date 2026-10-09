@@ -55,7 +55,7 @@
                     </div>
                     <hr class="border-5 border-secondary rounded-pill my-4">
                     <div class="main-post">
-                        <div class="title-product mb-4 col-3">
+                        <div class="title-product mb-4 col-xl-3 col-lg-3 col-8">
                             <div class="price-banner">
                                 <div
                                     class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -147,7 +147,7 @@
                                         <h6 class="card-title fw-18 fw-500">Tìm kiếm</h6>
                                     </div>
                                     <div class="card-body py-2">
-                                        <form action="{{ route('search') }}" method="get" class=" d-none d-md-block ">
+                                        <form action="{{ route('search') }}" method="get" class="">
                                             <div class="d-flex shadow-sm rounded-pill py-1 my-1 overflow-hidden bg-white">
                                                 <input type="text" name="keyword"
                                                     class="form-control border-0 py-2 ps-3 pe-0"

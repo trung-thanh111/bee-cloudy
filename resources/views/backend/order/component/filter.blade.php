@@ -6,11 +6,6 @@
         @php
             $perpage = request('perpage') ?: old('perpage');
         @endphp
-        {{-- <div class="col-sm">
-            <div class="d-flex justify-content-sm-start">
-                <input type="text" name="created_at" value="{{ old('created_at') }}" class="rangepicker">
-            </div>
-        </div> --}}
         <div class="col-sm">
             <div class="d-flex justify-content-sm-end">
                 <div class="search-box ms-2">

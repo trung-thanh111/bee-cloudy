@@ -307,7 +307,7 @@
                                             //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                             $variantFirst = $product->productVariant->first();
                                         @endphp
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                        <div class="col-xl-4 col-md-6 col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
@@ -438,7 +438,7 @@
                         width="100%" height="" class="img-fluid rounded-2">
                 </div>
                 <div class="product-shop-new mt-4 mb-3 text-muted">
-                    <div class="title-product mb-4 col-3">
+                    <div class="title-product mb-4 col-xl-3 col-lg-3 col-8">
                         <div class="price-banner">
                             <div
                                 class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -446,7 +446,7 @@
                                     <i class="fa-solid fa-fire text-white"></i>
                                 </div>
                                 <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
-                                    Sản phẩm mới
+                                    sản phẩm mới
                                 </h4>
                             </div>
                         </div>
@@ -468,7 +468,7 @@
                                     //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                     $variantFirst = $productNew->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -571,7 +571,7 @@
                     </div>
                 </div>
                 <div class="product-shop-hot my-3 text-muted">
-                    <div class="title-product mb-4 col-2">
+                    <div class="title-product mb-4 col-xl-2 col-lg-2 col-5">
                         <div class="price-banner">
                             <div
                                 class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -603,7 +603,7 @@
                                     //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
                                     $variantFirst = $productPriceMin->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -930,28 +930,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card border-0 rounded-1 shadow-sm mb-4">
-                            <div class="card-header">
-                                <h6 class="card-title fw-18 fw-500">Quảng cáo</h6>
-                            </div>
-                            <div class="card-body p-1">
-                                <div class="ads-item mb-3">
-                                    <ul class="ps-0 mb-0">
-                                        <li class="list-unstyled d-flex justify-content-start text-muted mb-3">
-                                            <div class=" position-relative">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner_aside.jpg"
-                                                    alt="" width="100%" class="img-fuild  me-2 image-ads-item">
-                                                <i
-                                                    class="fa-solid fa-delete-left delete-ads-aside fz-14 text-muted position-absolute top-0 end-0"></i>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </article>
     </section>

@@ -360,16 +360,16 @@
                                                                     @if ($cartItem->productVariants)
                                                                         <img src="{{ explode(',', $cartItem->productVariants->album)[0] }}"
                                                                             alt="" width="60" height="60"
-                                                                            class="img-fluid object-fit-cover">
+                                                                            class="object-fit-cover">
                                                                     @elseif ($cartItem->products)
                                                                         <img src="{{ $cartItem->products->image }}"
                                                                             alt="" width="60" height="60"
-                                                                            class="img-fluid object-fit-cover">
+                                                                            class="object-fit-cover">
                                                                     @else
                                                                         <img src="/libaries/upload/libaries/images/img-notfound.png"
                                                                             alt="Product Image" width="60"
                                                                             height="60"
-                                                                            class="img-fluid object-fit-cover rounded-2">
+                                                                            class="object-fit-cover rounded-2">
                                                                     @endif
                                                                 </div>
                                                             </td>

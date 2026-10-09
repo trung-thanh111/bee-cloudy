@@ -34,7 +34,8 @@
                         <form action="{{ route('search') }}" method="get" class="app-search d-none d-md-block ">
                             <div class="input-group input-group-sm w-100 position-relative">
                                 <input type="text" id="keyword" name="keyword"
-                                    class="form-control search-header py-0" placeholder="Bạn đang cần gì?">
+                                    class="form-control search-header py-0" placeholder="Bạn đang cần gì?"
+                                    value="{{ old('keyword') }}">
                                 <input type="hidden" name="type" value="product">
                                 <button type="submit" class="input-group-text" id="inputGroup-sizing-sm">
                                     <i class='bx bx-search-alt-2'></i>
@@ -56,7 +57,7 @@
                                                         <span
                                                             class="search-recent-item search-item m-1 fz-14 text-truncate"
                                                             style="max-width: 200px">
-                                                            <a href="javascipt:void(0)"
+                                                            <a href="javascript:void(0)"
                                                                 class="text-decoration-none text-muted">
                                                                 <i class='bx bx-search-alt-2 fz-16 me-2'></i>
                                                                 <span
@@ -112,12 +113,12 @@
                             class="nav fw-bold justify-content-lg-center justify-content-md-center justify-content-sm-start align-items-center text-color">
                             <li class=" px-2 py-3">
                                 <a href="{{ route('home.index') }}"
-                                    class=" menu-item-a text-uppercase text-decoration-none fz-16">Trang
+                                    class=" menu-item-a text-uppercase text-decoration-none fz-16 {{ request()->routeIs('home.index') ? 'active' : '' }}">Trang
                                     chủ</a>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">
                                 <a href="{{ route('shop.index') }}"
-                                    class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Cửa
+                                    class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a {{ request()->segment(1) === 'product' || request()->segment(1) === 'shop' ? 'active' : '' }}">Cửa
                                     hàng <i class="fas fa-minus fz-12 fw-bold"></i></a>
                                 <ul class="ul-menu-header p-0 dropdown-content list-unstyled">
                                     @if ($productCategories)
@@ -199,7 +200,8 @@
                             </li>
                             <li class="menu-li-item px-2 py-3 align-items-center position-relative">
                                 <a href="{{ route('post.page') }}"
-                                    class="menu-item-a text-uppercase text-decoration-none fz-16">Bài viết
+                                    class="menu-item-a text-uppercase text-decoration-none fz-16 {{ request()->segment(1) === 'post' ? 'active' : '' }}">Bài
+                                    viết
                                     <i class="fa-solid fa-minus fz-12 fw-bold"></i>
                                 </a>
                                 <ul class="ul-menu-header p-0 dropdown-content list-unstyled">
@@ -220,12 +222,12 @@
 
                             <li class="menu-li-item px-2 py-3">
                                 <a href="{{ route('home.contact') }}"
-                                    class="menu-item-a text-uppercase text-decoration-none fz-16">Liên
+                                    class="menu-item-a text-uppercase text-decoration-none fz-16 {{ request()->is('contact') ? 'active' : '' }}">Liên
                                     hệ</a>
                             </li>
                             <li class="menu-li-item px-2 py-3 dropdown align-items-center">
                                 <a href="#"
-                                    class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a">Trang
+                                    class="menu-item-a text-uppercase text-decoration-none fz-16 dropdown-a {{ request()->is('about_us') || request()->is('promotion') || request()->is('faq') || request()->is('terms_and_conditions') || request()->is('return_and_warranty_policy') || request()->is('security_center') || request()->is('profile') || request()->is('cart/index') || request()->is('wishlist/index') ? 'active' : '' }}">Trang
                                     khác <i class="fas fa-minus fz-12 fw-bold"></i></a>
                                 <ul class="ul-menu-header p-0 dropdown-content">
                                     <li class="li-menu-header">
@@ -233,10 +235,12 @@
                                             class="text-decoration-none fz-16 text-color">Giới thiệu</a>
                                     </li>
                                     <li class="li-menu-header">
-                                        <a href="{{ route('promotion.home_index') }}" class="text-decoration-none fz-16 text-color">Khuyến mãi</a>
+                                        <a href="{{ route('promotion.home_index') }}"
+                                            class="text-decoration-none fz-16 text-color">Khuyến mãi</a>
                                     </li>
                                     <li class="li-menu-header">
-                                        <a href="{{ route('home.faq') }}" class="text-decoration-none fz-16 text-color">Câu hỏi thường gặp</a>
+                                        <a href="{{ route('home.faq') }}"
+                                            class="text-decoration-none fz-16 text-color">Câu hỏi thường gặp</a>
                                     </li>
                                     <li class="li-menu-header">
                                         <a href="{{ route('home.terms_and_conditions') }}"
@@ -280,7 +284,7 @@
                                     data-bs-toggle="dropdown">
                                     <span class="d-flex align-items-center">
                                         <img class="rounded-circle header-profile-user"
-                                            src="{{ $user->image != null  ? $user->image : '/libaries/upload/images/user-default.avif' }}"
+                                            src="{{ $user->image != null ? $user->image : '/libaries/upload/images/user-default.avif' }}"
                                             alt="Avatar User" class="rounded-circle object-fit-cover" width="40"
                                             height="40">
                                     </span>

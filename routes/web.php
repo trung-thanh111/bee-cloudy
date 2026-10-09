@@ -49,26 +49,34 @@ Route::get('product/filter', [ShopController::class, 'productFilter'])->name('pr
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('product/detail/{slug}', [FontendProductController::class, 'detail'])->name('product.detail');
 Route::get('search', [AjaxSearchController::class, 'search'])->name('search');
-
 //Page orther
 Route::get('faq', [HomeController::class, 'faq'])->name('home.faq');
-
 Route::get('/contact', [HomeController::class, 'showForm'])->name('home.contact');
 Route::post('/contact/send', [HomeController::class, 'send'])->name('contact.send');
-
 Route::get('terms_and_conditions', [HomeController::class, 'terms_and_conditions'])->name('home.terms_and_conditions');
 Route::get('return_and_warranty_policy', [HomeController::class, 'return_and_warranty_policy'])->name('home.return_and_warranty_policy');
 Route::get('about_us', [HomeController::class, 'about_us'])->name('home.about_us');
 Route::get('security_center', [HomeController::class, 'security_center'])->name('home.security_center');
 
-//SEARCH SUGGESTION AJAX
+// AJAX
+//SEARCH SUGGESTION
 Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');
 // ATTRIBUTE 
-// AJAX
 Route::get('/ajax/attribute/getAttribute', [AjaxAttributeController::class, 'getAttribute'])->name('ajax.attribute.getAttribute');
 Route::get('/ajax/attribute/loadAttribute', [AjaxAttributeController::class, 'loadAttribute'])->name('ajax.attribute.loadAttribute');
 Route::get('ajax/product/loadVariant', [AjaxProductController::class, 'loadVariant'])->name('ajax.loadVariant');
+// CART AJAX
+Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->name('ajax.cart.addToCart');
+Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])->name('ajax.cart.updateCart');
+Route::get('/ajax/cart/LoadOrderByCartId', [AjaxCartController::class, 'LoadOrderByCartId'])->name('ajax.cart.LoadOrderByCartId');
+Route::post('/ajax/cart/sessionOrderByCartId', [AjaxCartController::class, 'sessionOrderByCartId'])->name('ajax.cart.sessionOrderByCartId');
+Route::get('/ajax/cart/getOrderByCartId', [AjaxCartController::class, 'getOrderByCartId'])->name('ajax.cart.getOrderByCartId');
+Route::post('/ajax/cart/clearSessionId', [AjaxCartController::class, 'clearSessionId'])->name('ajax.cart. ');
+Route::delete('/ajax/cart/destroyCart', [AjaxCartController::class, 'destroyCart'])->name('ajax.cart.destroyCart');
+Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])->name('ajax.cart.clearCart');
 
+// WISHLIST AJAX
+Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])->name('ajax.wishlist.toggle');
 // POST
 Route::group(['prefix' => 'post'], function () {
     Route::get('page', [FontendPostController::class, 'index'])->name('post.page');
@@ -78,19 +86,6 @@ Route::group(['prefix' => 'post'], function () {
 
 // FONTEND REQUIRED LOGIN
 Route::middleware(['auth'])->group(function () {
-
-    // CART AJAX
-    Route::post('/ajax/cart/addToCart', [AjaxCartController::class, 'addToCart'])->name('ajax.cart.addToCart');
-    Route::post('/ajax/cart/updateCart', [AjaxCartController::class, 'updateCart'])->name('ajax.cart.updateCart');
-    Route::get('/ajax/cart/LoadOrderByCartId', [AjaxCartController::class, 'LoadOrderByCartId'])->name('ajax.cart.LoadOrderByCartId');
-    Route::post('/ajax/cart/sessionOrderByCartId', [AjaxCartController::class, 'sessionOrderByCartId'])->name('ajax.cart.sessionOrderByCartId');
-    Route::get('/ajax/cart/getOrderByCartId', [AjaxCartController::class, 'getOrderByCartId'])->name('ajax.cart.getOrderByCartId');
-    Route::post('/ajax/cart/clearSessionId', [AjaxCartController::class, 'clearSessionId'])->name('ajax.cart. ');
-    Route::delete('/ajax/cart/destroyCart', [AjaxCartController::class, 'destroyCart'])->name('ajax.cart.destroyCart');
-    Route::delete('/ajax/cart/clearCart', [AjaxCartController::class, 'clearCart'])->name('ajax.cart.clearCart');
-
-    // WISHLIST AJAX
-    Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])->name('ajax.wishlist.toggle');
 
     // PROFILE USER
     Route::get('/profile', [FontendUserController::class, 'profile'])->name('profile.user');
@@ -106,7 +101,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('view_order', [FontendOrderController::class, 'view_order'])->name('account.order');
         Route::get('view_promotion', [FPromotionController::class, 'view_promotion'])->name('account.promotions');
         Route::get('/view_promotion/{id}', [FPromotionController::class, 'show'])->name('account.promotion.show');
-
         Route::get('order/detail/{id}', [FontendOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('account.order.detail');
     });
 
@@ -151,10 +145,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/producreview-delete', [ProductReviewController::class, 'delete']);
     Route::post('/producreview-update', [ProductReviewController::class, 'update']);
 
-    // view post data
-    Route::get('/post-home/data', [PostController::class, 'datahome']);
-    Route::get('/post-home/data-2', [PostController::class, 'dataPOST']);
-
     // BÌNH LUẬN BÀI VIẾT
     Route::get('/view-content', [ContentController::class, 'view_content']);
     Route::get('/view-content-data', [ContentController::class, 'data']);
@@ -180,8 +170,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [UserCatalogueController::class, 'edit'])->name('user.catalogue.edit');
         Route::get('delete/{id}', [UserCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.catalogue.delete');
         Route::delete('destroy/{id}', [UserCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.catalogue.destroy');
-        Route::get('permission', [UserCatalogueController::class, 'permission'])->name('user.catalogue.permission');
-        Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission');
     });
 
     // users 
@@ -193,8 +181,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{id}', [UserController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.edit');
         Route::get('delete/{id}', [UserController::class, 'delete'])->where(['id' => '[0-9]+'])->name('user.delete');
         Route::delete('destroy/{id}', [UserController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('user.destroy');
-        Route::get('permission', [UserController::class, 'permission'])->name('user.permission');
-        Route::post('updatePermission', [UserController::class, 'updatePermission'])->name('user.updatePermission');
     });
 
     // attribute catalogue
@@ -206,7 +192,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [AttributeCatalogueController::class, 'edit'])->name('attribute.catalogue.edit');
         Route::get('delete/{id}', [AttributeCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('attribute.catalogue.delete');
         Route::delete('destroy/{id}', [AttributeCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('attribute.catalogue.destroy');
-        Route::delete('bulk-delete', [AttributeCatalogueController::class, 'destroyMultiple'])->name('attribute.catalogue.bulkdelete');
     });
 
     // attribute
@@ -218,7 +203,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [AttributeController::class, 'edit'])->name('attribute.edit');
         Route::get('delete/{id}', [AttributeController::class, 'delete'])->where(['id' => '[0-9]+'])->name('attribute.delete');
         Route::delete('destroy/{id}', [AttributeController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('attribute.destroy');
-        Route::delete('bulk-delete', [AttributeController::class, 'destroyMultiple'])->name('attribute.bulkdelete');
     });
 
     // product catalogue
@@ -230,7 +214,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [ProductCatalogueController::class, 'edit'])->name('product.catalogue.edit');
         Route::get('delete/{id}', [ProductCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.catalogue.delete');
         Route::delete('destroy/{id}', [ProductCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.catalogue.destroy');
-        Route::delete('bulk-delete', [ProductCatalogueController::class, 'destroyMultiple'])->name('product.catalogue.bulkdelete');
     });
 
     //brand
@@ -242,7 +225,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [BrandController::class, 'edit'])->name('brand.edit');
         Route::get('delete/{id}', [BrandController::class, 'delete'])->where(['id' => '[0-9]+'])->name('brand.delete');
         Route::delete('destroy/{id}', [BrandController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('brand.destroy');
-        Route::delete('bulk-delete', [BrandController::class, 'destroyMultiple'])->name('brand.bulkdelete');
     });
 
     //product
@@ -254,7 +236,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [ProductController::class, 'edit'])->name('product.edit');
         Route::get('delete/{id}', [ProductController::class, 'delete'])->where(['id' => '[0-9]+'])->name('product.delete');
         Route::delete('destroy/{id}', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('product.destroy');
-        Route::delete('bulk-delete', [ProductController::class, 'destroyMultiple'])->name('product.bulkdelete');
     });
 
     //promotion_dashboar
@@ -267,7 +248,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('store', [PromotionController::class, 'store'])->name('promotions.store');
         Route::get('confirm-delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.confirm_delete');
         Route::delete('delete/{id}', [PromotionController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('promotions.destroy');
-        Route::delete('bulkdelete', [PromotionController::class, 'bulkDelete'])->name('promotions.bulkdelete');
         Route::delete('bulkdeleteAll', [PromotionController::class, 'bulkDeleteAll'])->name('promotions.bulkdeleteAll');
     });
 
@@ -280,7 +260,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [PostCatalogueController::class, 'edit'])->name('post.catalogue.edit');
         Route::get('delete/{id}', [PostCatalogueController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.catalogue.delete');
         Route::delete('destroy/{id}', [PostCatalogueController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.catalogue.destroy');
-        Route::delete('bulk-delete', [PostCatalogueController::class, 'destroyMultiple'])->name('post.catalogue.bulkdelete');
     });
 
     //posts
@@ -292,7 +271,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
         Route::get('delete/{id}', [PostController::class, 'delete'])->where(['id' => '[0-9]+'])->name('post.delete');
         Route::delete('destroy/{id}', [PostController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('post.destroy');
-        Route::delete('bulk-delete', [PostController::class, 'destroyMultiple'])->name('post.bulkdelete');
     });
 
 
@@ -311,8 +289,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('edit/{id}', [BannerController::class, 'edit'])->name('banner.edit');
         Route::get('delete/{id}', [BannerController::class, 'delete'])->where(['id' => '[0-9]+'])->name('banner.delete');
         Route::delete('destroy/{id}', [BannerController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('banner.destroy');
-        Route::get('permission', [BannerController::class, 'permission'])->name('banner.permission');
-        Route::post('updatePermission', [BannerController::class, 'updatePermission'])->name('banner.updatePermission');
     });
 
     // ORDER UPDATE AJAX
