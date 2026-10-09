@@ -14,9 +14,7 @@
                 .find(".product_variant_id_wishlist")
                 .text()
                 .trim();
-                console.log(product_variant_id);
                 
-
             let options = {
                 product_variant_id: product_variant_id ?? null,
                 product_id: product_variant_id ? null : product_id,

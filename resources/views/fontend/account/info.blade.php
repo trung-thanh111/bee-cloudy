@@ -89,24 +89,28 @@
                                                         <tr class="">
                                                             <td>Hình ảnh</td>
                                                             <th>
-                                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                <img src="{{ Auth::user()->image !== null ? Auth::user()->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif'}}"
                                                                     alt=""
                                                                     class="user-account object-fit-cover rounded-circle"
-                                                                    width="60px" height="60px">
+                                                                    width="60" height="60">
                                                             </th>
 
                                                         </tr>
                                                         <tr>
                                                             <td>Họ tên</td>
-                                                            <th>phạm thanh trung</th>
+                                                            <th>{{ Auth::user()->name }}</th>
                                                         </tr>
                                                         <tr>
                                                             <td>Email</td>
-                                                            <th>thanhtrungw0wer9wetwetw</th>
+                                                            <th>{{ Auth::user()->email }}</th>
                                                         </tr>
                                                         <tr>
                                                             <td>Ngày sinh</td>
-                                                            <th>24/54/2492</th>
+                                                            <th>{{ date('d-m-Y', Auth::user()->birth_day) }}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Địa chỉ: </td>
+                                                            <th>{{ Auth::user()->address }}</th>
                                                         </tr>
                                                     </thead>
                                                 </table>
