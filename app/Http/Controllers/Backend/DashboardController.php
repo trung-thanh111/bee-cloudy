@@ -45,9 +45,9 @@ class DashboardController extends Controller
         $orderGraph = $this->orderService->countOrderFul12Month();
         $moneyGraph = $this->orderService->countMoneyFul12Month();
         
-        $orderRecents = $this->orderService->orderRecent();
+        $orderRecents = $this->orderService->orderRecent()->setPageName('order_page');
         // -- // 
-        $productSalers = $this->productServices->productSaler();
+        $productSalers = $this->productServices->productSaler()->setPageName('product_page');
         $template = 'backend.dashboard.home.index';
         return view('backend.dashboard.layout', compact(
             'template',

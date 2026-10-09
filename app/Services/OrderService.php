@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Mail\OrderMail;
+use App\Mail\OrderMailFail;
 use App\Models\Attribute;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -101,6 +102,14 @@ class OrderService implements OrderServiceInterface
         $cc = 'beecloudy2024@gmail.com'; // gửi về mail của hệ thống 
         $content = ['order' => $order];
         Mail::to($to)->cc($cc)->send(new OrderMail($content));
+    }
+    public function sendMailFail($order)
+    {
+        $order = $this->all();
+        $to = $order->email;
+        $cc = 'beecloudy2024@gmail.com'; // gửi về mail của hệ thống 
+        $content_fail = ['order' => $order];
+        Mail::to($to)->cc($cc)->send(new OrderMailFail($content_fail));
     }
 
 

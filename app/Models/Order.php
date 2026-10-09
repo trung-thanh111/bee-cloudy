@@ -31,6 +31,8 @@ class Order extends Model
         'payment_method',
         'payment',
         'paid_at',
+        'cancellation_reason',
+        'canceled_by',
         'created_at',
     ];
 

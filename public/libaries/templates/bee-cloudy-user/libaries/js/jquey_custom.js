@@ -191,7 +191,7 @@
                     'input[name="quantity-product-cart"]'
                 );
 
-                // Lấy giá trị hiện tại và giới hạn min/max
+                // lấy giá trị hiện tại và giới hạn min/max
                 var value = parseInt($inputVisible.val(), 10);
                 var max = parseInt($inputVisible.attr("max"), 10);
                 var min = parseInt($inputVisible.attr("min"), 10) || 1;
@@ -200,7 +200,7 @@
                 if ($(this).hasClass("quantity-minus") && value > min) {
                     value--;
                 }
-                // Tăng giá trị nếu nhấn nút "plus" và nhỏ hơn max
+                // tăng giá trị nếu nhấn nút "plus" và nhỏ hơn max
                 else if (
                     $(this).hasClass("quantity-plus") &&
                     (!max || value < max)
