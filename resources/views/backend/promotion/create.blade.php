@@ -190,7 +190,7 @@
                             <div class="card-body">
                                 <div class="mb-4">
                                     <p class="text-muted">Chọn ảnh đại diện.</p>
-                                    @if ($errors->has('image'))
+                                    @if ($errors->has('image')) 
                                         <span class="text-danger">{{ $errors->first('image') }}</span>
                                     @endif
                                     <div class="text-center">
