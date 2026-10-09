@@ -1,4 +1,4 @@
-# Fe_Vue_Beecloudy
+# frontend_beecloudy
 
 This template should help get you started developing with Vue 3 in Vite.
 
