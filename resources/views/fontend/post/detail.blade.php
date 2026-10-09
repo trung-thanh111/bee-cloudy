@@ -106,7 +106,7 @@
                                                                     rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
                                                                 <button type="button"
                                                                     class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                    style="bottom: 70px ; right: 20px;"
+                                                                    style="bottom: 5px;right: 0px;"
                                                                     v-on:click="createContent()">Gửi</button>
                                                             </div>
                                                         </form>
@@ -365,7 +365,7 @@
         <div class='modal-dialog modal-lg'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h1 class='modal-title fs-5' id='cập-nhật-bài-đăng'>Cập nhật bài đăng</h1>
+                    <h1 class='modal-title fs-5' id='cập-nhật-bài-đăng'>Cập nhật bình luận</h1>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Đóng'></button>
                 </div>
                 <div class="container my-4">
@@ -404,11 +404,6 @@
                 <i class="fa-solid fa-chevron-up fs-5 border-1 border-danger text-bg-secondary rounded-circle p-2"></i>
             </div>
         </a>
-        <!-- <div class=" live-chat ms-lg-16">
-                                                        <a href="zalo">
-                                                            <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                        </a>
-                                                    </div> -->
     </div>
 @endsection
 @section('js')
@@ -433,7 +428,6 @@
                         .then((res) => {
                             this.list = res.data.data;
                             this.comment = res.data.comment_count;
-                            // console.log(this.comment);
                         });
                 },
                 createContent() {
@@ -441,7 +435,7 @@
                         .post('/view-content-create', this.create)
                         .then((res) => {
                             if (res.data.status) {
-                                // alert(res.data.message);
+                                alert(res.data.message);
                                 this.create = {};
                                 this.loadContent();
                             } else {
