@@ -18,7 +18,7 @@ Thanh toán thất bại
             <div class=" z-1 text-center p-5 position-relative bg-white rounded-2">
                 <div class="z-3 contact-item-content position-relative text-muted">
                     <h2 class="text-uppercase fw-bold pd-4 ">liên hệ</h2>
-                    <p class="fz-16 ">Nếu bạn cần hỗ trợ hãy liên hệ với chúng tôi!</p>
+                    <p class="fz-16 ">Mọi thắc mắc hay gặp vấn đề hãy gửi tin nhắn cho chúng tôi!</p>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@ Thanh toán thất bại
                                 <div class="contact-item-text mb-5">
                                     <i class="fa-regular fa-envelope fs-2 mb-1"></i>
                                     <div>
-                                        <p class="text-dark mb-0">Mail: beecloudy2024@gmail.com</p>
+                                        <p class="text-dark mb-0">beecloud2024@gmail.com</p>
                                     </div>
                                 </div>
                                 <div class="contact-item-text">
@@ -65,18 +65,18 @@ Thanh toán thất bại
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email">
                             </div>
-                            <div class="form-group position-relative ">
+                            <div class="form-group position-relative py-0">
                                 <label for="content" class="form-label">Nội dung</label>
                                 <textarea class=" textarea-content form-control rounded-2  shadow-sm" id="content"
                                     rows="5" placeholder="Viết cho chúng tôi ngay!"></textarea>
                                 <button type="submit" class="btn btn-success position-absolute z-3 py-1 px-4"
-                                    style="bottom: 20px ; right: 20px;">Gửi</button>
+                                    style="bottom: 40px ; right: 20px;">Gửi</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class=" text-center ">
-                    <h4 class="pt-3">Địa điểm </h4>
+                    <h4 class="pt-3">Vị trí </h4>
                     <p class="fz-16">Bạn cũng có thể liên hệ với chúng tôi thông qua địa chỉ bên dưới!</p>
                     <iframe class="shadow rounded-2" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.462
                         3221806924!2d106.62452997405464!3d10.852397889300988!2m3!1f0!2f0!3f0!3m2!1i1024!2i7

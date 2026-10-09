@@ -696,9 +696,15 @@ hr {
 .nav-item-main.active {
     color: #14b6a0;
 }
+.nav-item-profile:hover {
+    color: #14b6a0;
+}
+
+.nav-item-profile.active {
+    color: #14b6a0;
+}
 
 .sub-menu-li a:hover {
-    background-color: #ced4da;
     color: #14b6a0;
 }
 
