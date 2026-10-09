@@ -56,8 +56,7 @@
                                                                                         class="text-danger px-2 fw-500 py-2 ms-2">{{ optional($userVoucher->promotion)->code ?? '' }}</span>
                                                                                 </div>
                                                                                 <div class="mb-1">
-                                                                                    <span class="text-muted fz-14">Giá
-                                                                                        trị:</span>
+                                                                                    <span class="text-muted fz-14">Giá trị:</span>
                                                                                     <span
                                                                                         class="fw-bold ms-2">{{ number_format(optional($userVoucher->promotion)->discount, '0', ',', '.') . ' đ' ?? '' }}</span>
                                                                                 </div>
