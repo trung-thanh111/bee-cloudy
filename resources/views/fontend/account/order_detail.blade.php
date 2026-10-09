@@ -174,7 +174,7 @@
                                             <li class="list-unstyled fz-16">
                                                 <div class="nav-item-main">
                                                     <a class="nav-link fw-400 d-flex justify-content-between align-items-center"
-                                                        href="#" role="button">
+                                                        href="{{ route('account.promotions') }}" role="button">
                                                         <span class="fz-16 fw-400"> <i
                                                                 class="fa-solid fa-ticket fz-18 me-2"></i>
                                                             Voucher</span>
