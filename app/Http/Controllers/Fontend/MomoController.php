@@ -84,7 +84,7 @@ class MomoController extends FontendController
                 $this->orderService->updateStatusPayment($payload, $order);
                 $this->orderService->updatePaidAt($order->id, $payload);
                 $this->orderService->sendMail($order);
-                $this->cartService->clear($request);
+                $this->cartService->destroyCartItem($request);
                 flash()->success('Giao dịch thành công.');
                 return view('fontend.order.success', compact('order'));
             } else { // Thanh toán thất bại
@@ -148,7 +148,7 @@ class MomoController extends FontendController
                         $this->orderService->updateStatusPayment($payload, $order);
                         $this->orderService->updatePaidAt($order->id, $payload);
                         $this->orderService->sendMail($order);
-                        $this->cartService->clear($request);
+                        $this->cartService->destroyCartItem($request);
                         flash()->success('Giao dịch thành công.');
                         return view('fontend.order.success', compact('order'));
                     } else { // Thanh toán thất bại
@@ -157,7 +157,7 @@ class MomoController extends FontendController
                             'status' => 'pending' // Hoặc trạng thái khác
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
-                        $this->cartService->clear($request);
+                        $this->cartService->destroyCartItem($request);
                         flash()->error('Giao dịch thất bại!.');
                         return view('fontend.order.failed', compact('order'));
                     }

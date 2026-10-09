@@ -3,7 +3,7 @@
     Bài viết
 @endsection
 @section('content')
-    <section data-aos="fade-up">
+    <section>
         <article>
             <div class="container p-0">
                 <!-- breadcrumb  -->
@@ -36,7 +36,7 @@
                         <div class="col-lg-8 col-md-8 col-12">
                             <div id="thumbnail-carousel3" class="splide">
                                 <div class="splide__track">
-                                    <ul class="splide__list ">
+                                    <ul class="splide__list" data-aos="fade-up" data-aos-duration="800">
                                         @if ($postCategories != null)
                                             @foreach ($postCategories as $key => $valPostCategory)
                                                 <li class="splide__slide mx-2">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <hr class="border-5 border-secondary rounded-pill my-4">
-                    <div class="main-post" data-aos="fade-right">
+                    <div class="main-post">
                         <div class="title-product mb-4 col-2">
                             <div class="price-banner">
                                 <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
@@ -80,7 +80,7 @@
                             <div class="col-lg-8 col-md-8 col-12">
                                 <div id="main-carousel2" class="splide">
                                     <div class="splide__track">
-                                        <ul class="splide__list">
+                                        <ul class="splide__list" data-aos="fade-down-right" data-aos-duration="800" data-aos-once="false">
                                             @if ($postStandC1 != null)
                                                 @foreach ($postStandC1 as $key => $valPostStand)
                                                     @php
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-12">
+                            <div class="col-lg-4 col-md-4 col-12 ">
                                 @if ($postStandC2 != null)
                                     @foreach ($postStandC2 as $key => $valPostStand2)
                                         @php

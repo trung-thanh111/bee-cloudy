@@ -3,7 +3,7 @@
     Chi tiết bài viết
 @endsection
 @section('content')
-    <section id="app" data-aos="fade-up">
+    <section id="app" >
         <article>
             <div class="container p-0">
                 <!-- breadcrumb  -->
@@ -17,7 +17,7 @@
                 </nav>
                 <!-- end breadcrumb  -->
 
-                <div class="main-post">
+                <div class="main-post" data-aos="fade-up" data-aos-duration="800">
                     <div class="row">
                         <div class="col-lg-9 col-md-9 col-12 ">
                             <div class="post-item-detail text-muted">
@@ -81,13 +81,13 @@
                                     <div id="collapseTow" class="accordion-collapse collapse show"
                                         aria-labelledby="headingTow" data-bs-parent="#default-accordion-example">
                                         <div class="accordion-body bg-white fz-14">
-                                            <div class="post-comment">
+                                            <div class="post-comment" data-aos="fade-up" data-aos-duration="800">
                                                 <div class="row">
                                                     <div class="col-lg-2 col-md-2 col-12 d-block justify-content-center">
                                                         <button type="button" class="btn border-0 px-0">
                                                             <span class="d-block align-items-center">
                                                                 <img class="rounded-circle header-profile-user"
-                                                                    src="/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif"
+                                                                    src="{{ Auth::user()->image !== null ? Auth::user()->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif'}}"
                                                                     alt="Avatar User"
                                                                     class="rounded-circle object-fit-cover" width="60"
                                                                     height="60">
@@ -118,9 +118,9 @@
                                                     <span class="fw-500 fz-16 ">Xem đánh giá (@{{ comment }})</span>
                                                 </div>
                                                 <template v-for="(v,k) in list">
-                                                    <div class="row mx-2">
+                                                    <div class="row mx-2" data-aos="fade-up" data-aos-duration="800">
                                                         <div
-                                                            class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start">
+                                                            class="col-lg-2 col-md-2 col-12 d-flex justify-content-end align-items-start" >
                                                             <button type="button" class="btn  border-0 px-0">
                                                                 <span
                                                                     class="d-block justify-content-end align-items-center">
@@ -246,7 +246,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-12 col-12">
-                            <div class="card border-0 rounded-1 mb-4">
+                            <div class="card border-0 rounded-1 my-4" data-aos="fade-left" data-aos-duration="800">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Tìm kiếm</h6>
                                 </div>
@@ -267,7 +267,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card border-0 rounded-1 shadow-sm mb-4">
+                            <div class="card border-0 rounded-1 shadow-sm mb-4" data-aos="fade-up" data-aos-duration="800">
                                 <div class="card-header">
                                     <h6 class="card-title fw-18 fw-500">Bài viết</h6>
                                 </div>

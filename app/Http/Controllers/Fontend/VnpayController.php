@@ -9,21 +9,25 @@ use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\OrderRepository;
 use App\Http\Controllers\FontendController;
+use App\Services\CartService;
 
 class VnpayController extends FontendController
 {
 
     protected $vnpay;
+    protected $cartService;
     protected $orderService;
     protected $orderRepository;
 
     public function __construct(
         Vnpay $vnpay,
+        CartService $cartService,
         OrderService $orderService,
         OrderRepository $orderRepository,
     ) {
 
         $this->vnpay = $vnpay;
+        $this->cartService = $cartService;
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
     }
@@ -98,11 +102,13 @@ class VnpayController extends FontendController
             $this->orderService->updateStatusPayment($payload, $order);
             $this->orderService->updatePaidAt($order->id, $payload);
             $this->orderService->sendMail($order);
+            $this->cartService->destroyCartItem($request);
+
         } else {
             flash()->error('Chữ ký không hợp lệ.');
         }
     }
-    public function vnpayIpn()
+    public function vnpayIpn(Request $request)
     {
         /* Payment Notify
      * IPN URL: Ghi nhận kết quả thanh toán từ VNPAY
@@ -199,6 +205,7 @@ class VnpayController extends FontendController
                             $this->orderService->updateStatusPayment($payload, $order);
                             $this->orderService->updatePaidAt($order->id, $payload);
                             $this->orderService->sendMail($order);
+                            $this->cartService->destroyCartItem($request);
 
                             // bên dưới trả lại kq cho vn pay
 
