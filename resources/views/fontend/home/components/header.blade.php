@@ -263,6 +263,7 @@
                                 </a>
                             </span>
                         </div>
+                        
                         <div class="icon-item">
                             <span class="box-icon-profile">
                                 <a href="{{ route('cart.index') }}" type="button"
