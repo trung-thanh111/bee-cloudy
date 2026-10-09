@@ -59,6 +59,7 @@
                     dataType: "json",
                     success: function (res) {
                         if (res.code === 10) {
+                            flasher.success(res.message);
                             let cartItems = res.cartItem;
                             if (cartItems && cartItems.length > 0) {
                                 // lấy id vừa được chọn

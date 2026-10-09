@@ -1,6 +1,6 @@
     <div class="col-sm-4">
         <div>
-            <button class="btn btn-soft-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+            <button class="btn btn-soft-danger hidden-visibility" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
                     class="ri-delete-bin-2-line fz-14"></i></button>
         </div>
         <!-- Modal -->

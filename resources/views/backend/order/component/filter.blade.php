@@ -1,6 +1,3 @@
-<div class="col">
-
-</div>
 <form id="searchForm" action="{{ route('order.index') }}" method="GET">
     <div class="row g-4 mb-3 fz-12 text-muted">
         @php

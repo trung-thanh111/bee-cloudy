@@ -51,7 +51,8 @@
                                                     <span class="counter-value"
                                                         data-target="{{ $totalE }}"></span>đ
                                                 </h4>
-                                                <span class="text-decoration-underline text-primary ">Năm 2024</span>
+                                                <span class="text-decoration-underline text-primary ">Năm {{ \Carbon\Carbon::now()->format('Y') }}
+                                                </span>
                                             </div>
                                             <div class="avatar-sm flex-shrink-0">
                                                 <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -146,11 +147,11 @@
                                             <div>
                                                 <h4 class="fs-22 fw-semibold ff-secondary mb-4">
                                                     <span class="counter-value"
-                                                        data-target="{{ $conversionRate > 0 ? $conversionRate : '0' }}"></span>
+                                                        data-target="{{ round($conversionRateYear > 0 ? $conversionRateYear : '0', 1, PHP_ROUND_HALF_EVEN) }}"></span>
                                                     %
                                                 </h4>
                                                 <span class="text-decoration-underline text-primary">Tỉ lệ chuyển
-                                                    đổi/tháng</span>
+                                                    đổi/năm</span>
                                             </div>
                                             {{-- <div class="avatar-sm flex-shrink-0">
                                                 <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -171,39 +172,40 @@
                                         <div>
                                             <button type="button"
                                                 class="btn btn-soft-primary material-shadow-none btn-sm">
-                                                Năm
+                                                Tất cả/năm
                                             </button>
                                         </div>
                                     </div>
 
+                                    <h6 class="text-center"></h6>
                                     <div class="card-header p-0 border-0 bg-light-subtle">
                                         <div class="row g-0 text-center">
                                             <div class="col-6 col-sm-3">
                                                 <div class="p-3 border border-dashed border-start-0">
                                                     <h5 class="mb-1"><span class="counter-value"
-                                                            data-target="{{ $totalE }}"></span></h5>
-                                                    <p class="text-muted mb-0">Doanh thu</p>
+                                                            data-target="{{ $totalEMonth }}"></span></h5>
+                                                    <p class="text-muted mb-0">Doanh thu <span class="fz-12">/Tháng {{ \Carbon\Carbon::now()->format('m') }}</span></p>
                                                 </div>
                                             </div>
                                             <div class="col-6 col-sm-3">
                                                 <div class="p-3 border border-dashed border-start-0">
                                                     <h5 class="mb-1"><span class="counter-value"
-                                                            data-target="{{ $countTotalOrder }}"></span></h5>
-                                                    <p class="text-muted mb-0">Đơn hàng</p>
+                                                            data-target="{{ $countTotalOrderMonth }}"></span></h5>
+                                                    <p class="text-muted mb-0">Đơn hàng <span class="fz-12">/Tháng {{ \Carbon\Carbon::now()->format('m') }}</span></p>
                                                 </div>
                                             </div>
                                             <div class="col-6 col-sm-3">
                                                 <div class="p-3 border border-dashed border-start-0">
                                                     <h5 class="mb-1"><span class="counter-value"
-                                                            data-target="{{ $countUserAll }}"></span></h5>
-                                                    <p class="text-muted mb-0">Khách hàng</p>
+                                                            data-target="{{ $countUserMonth }}"></span></h5>
+                                                    <p class="text-muted mb-0">Khách hàng <span class="fz-12">/Tháng {{ \Carbon\Carbon::now()->format('m') }}</span></p>
                                                 </div>
                                             </div>
                                             <div class="col-6 col-sm-3">
                                                 <div class="p-3 border border-dashed border-start-0 border-end-0">
                                                     <h5 class="mb-1 text-success"><span class="counter-value"
-                                                            data-target="{{ $conversionRateYear }}"></span> %</h5>
-                                                    <p class="text-muted mb-0">Chuyển đổi</p>
+                                                            data-target="{{ round($conversionRate > 0 ? $conversionRate : '0', 1, PHP_ROUND_HALF_EVEN) }}"></span> %</h5>
+                                                    <p class="text-muted mb-0">Chuyển đổi <span class="fz-12">/Tháng {{ \Carbon\Carbon::now()->format('m') }}</span></p>
                                                 </div>
                                             </div>
 

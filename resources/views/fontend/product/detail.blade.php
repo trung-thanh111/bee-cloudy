@@ -49,6 +49,7 @@
                     foreach ($product->productVariant as $variant) {
                         $totalReviewCount += $variant->rating_count;
                     }
+                    $numericPrice = (int) preg_replace('/\D/', '', $price);
                 @endphp
                 <!-- content detail -->
                 <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5 productVariantId">
@@ -71,7 +72,8 @@
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
                                     data-bs-title="Thêm vào yêu thích">
                                     <div class="position-relative">
-                                         <button type="button" class="position-absolute start-50 translate-middle border-0 bg-white p-0"
+                                        <button type="button"
+                                            class="position-absolute start-50 translate-middle border-0 bg-white p-0"
                                             style="top: 20px;">
                                             <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
                                         </button>
@@ -148,7 +150,11 @@
                                     {{ $product->id }}
                                 </h4>
                                 <div class="hstack gap-3 fz-14 flex-wrap">
-                                    <div class="py-2">Đánh giá (<strong>@{{ comment }}</strong>)</div>
+                                    <div class="brands-detail">
+                                        <span>Thương hiệu: </span> <span class="fw-medium text-info">{{ $product->brands->name }}</span>
+                                    </div>
+                                    <div class="vr" style="width: 0.5px !important;"></div>
+                                    <div class="py-2">Đánh giá (<strong>@{{ comment ? comment : 0 }}</strong>)</div>
                                     <div class="py-2" v-if="avg_stars > 0">
                                         <span class="product-variant-rate">
                                             <i v-for="index in 5" :key="index"
@@ -249,17 +255,18 @@
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <span class="fz-14 text-warning text-center mx-2">Đây chỉ là bảng
+                                                                <span class="fz-14 text-warning text-center mx-2">Đây chỉ
+                                                                    là bảng
                                                                     size
                                                                     mô phỏng, độ chính xác tương đối.</span>
-                                                                    <p class="text-start">Size áo</p>
-                                                                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-ao.jpg"
+                                                                <p class="text-start">Size áo</p>
+                                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/bang-size-ao.jpg"
                                                                     alt="" class="img-fluid object-fit-cover">
-                                                                    <p class="text-start">Size quần</p>
-                                                                    <img src="/libaries/upload/images/size-quan.png"
+                                                                <p class="text-start">Size quần</p>
+                                                                <img src="/libaries/upload/images/size-quan.png"
                                                                     alt="" class="img-fluid object-fit-cover">
-                                                                    <p class="text-start">Size Giày</p>
-                                                                    <img src="/libaries/upload/images/bang-size-giay.webp"
+                                                                <p class="text-start">Size Giày</p>
+                                                                <img src="/libaries/upload/images/bang-size-giay.webp"
                                                                     alt="" class="img-fluid object-fit-cover">
                                                             </div>
                                                         </div>
@@ -271,7 +278,8 @@
                                 </div>
                                 <div class="box-quantity">
                                     <div class="title-quantity mb-2">
-                                        <span class="fw-medium fz-18">Số lượng</span>
+                                        <span class="fw-medium fz-18 me-3">Số lượng</span>
+                                        <span class="fz-14 text-success quantity-instock fw-medium"></span>
                                     </div>
                                     <div class=" hstack gap-3 ps-5 flex-sm-wrap flex-xs-wrap mb-3">
                                         <div class="input-group componant-quantity shadow-sm flex-grow mb-3 w-25">
@@ -291,18 +299,20 @@
                                     </div>
                                 </div>
                                 <div class="btn-group-add ">
-                                    <div class="hstack gap-2 my-3">
-                                        <div class="">
-                                            <a href="#" class="addToCart" data-id="{{ $product->id }}">
+                                    <div class="hstack gap-3 my-3">
+                                        <div class="w-50">
+                                            <a href="" class="addToCart" data-id="{{ $product->id }}">
                                                 <button
-                                                    class=" btn btn-outline-danger p-3 fz-18 fw-medium shadow-sm d-none d-md-inline-block"
+                                                    class="animated-button fz-18 rounded-2 fw-medium shadow-sm w-100 d-none d-md-inline-block"
                                                     data-bs-toggle="tooltip" data-bs-title="Thêm vào giỏ hàng"
                                                     data-id="{{ $product->id }}">
-                                                    <i class="fa-solid fa-cart-plus fz-20"></i>
+                                                    <span> <i class="fa-solid fa-cart-plus fz-20 me-2"></i> Thêm vào giỏ
+                                                        hàng</span>
+                                                    <span></span>
                                                 </button>
                                             </a>
                                         </div>
-                                        <div class="w-100 ms-auto">
+                                        <div class="w-50 ms-auto">
                                             <a href="{{ route('cart.index') }}"
                                                 class="btn btn-success fw-medium fz-18 w-100 addToCart buyNow"
                                                 data-id="{{ $product->id }}">
@@ -324,11 +334,12 @@
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center flex-xl-row flex-column">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
+                                            <div
+                                                class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-medal fs-3 text-info"></i>
                                             </div>
                                             <div class="d-none d-xl-block">
-                                                <h5 class="card-title mb-1">Sản phẩm độc quyền</h5>
+                                                <h5 class="card-title mb-1 text-muted">Sản phẩm độc quyền</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Chất lượng đảm bảo</p>
                                             </div>
                                         </div>
@@ -339,11 +350,12 @@
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center flex-xl-row flex-column">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
+                                            <div
+                                                class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-box fs-3 text-info"></i>
                                             </div>
                                             <div class="d-none d-xl-block">
-                                                <h5 class="card-title mb-1">Đóng gói chất lượng</h5>
+                                                <h5 class="card-title mb-1 text-muted">Đóng gói chất lượng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">An toàn & bảo vệ</p>
                                             </div>
                                         </div>
@@ -354,11 +366,12 @@
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center flex-xl-row flex-column">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
+                                            <div
+                                                class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-money-bill fs-3 text-info"></i>
                                             </div>
                                             <div class="d-none d-xl-block">
-                                                <h5 class="card-title mb-1">Thanh toán dễ dàng</h5>
+                                                <h5 class="card-title mb-1 text-muted">Thanh toán dễ dàng</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Nhiều phương thức</p>
                                             </div>
                                         </div>
@@ -369,11 +382,12 @@
                                 <div class="card border-0 shadow-sm hover-shadow transition-all">
                                     <div class="card-body p-2">
                                         <div class="d-flex align-items-center flex-xl-row flex-column">
-                                            <div class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
+                                            <div
+                                                class="feature-icon bg-light rounded-circle p-3 me-3 text-center text-xl-start">
                                                 <i class="fa-solid fa-truck-fast fs-3 text-info"></i>
                                             </div>
                                             <div class="d-none d-xl-block">
-                                                <h5 class="card-title mb-1">Miễn phí vận chuyển</h5>
+                                                <h5 class="card-title mb-1 text-muted">Miễn phí vận chuyển</h5>
                                                 <p class="card-text text-muted mb-0 fz-14 ">Toàn quốc</p>
                                             </div>
                                         </div>
@@ -660,7 +674,8 @@
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <span class="fz-12">Sử dụng đến:
                                                                 <strong>{{ date('d-m-Y', strtotime($promotion->end_date)) }}</strong></span>
-                                                            <a href="{{ route('promotion.home_index') }}" class="text-end">
+                                                            <a href="{{ route('promotion.home_index') }}"
+                                                                class="text-end">
                                                                 <button
                                                                     class="btn rounded-2 btn-info fz-12 fw-medium text-white">Xem</button>
                                                             </a>
@@ -758,7 +773,7 @@
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
                                                     class="text-bg-danger mt-2 rounded-end ps-2 pe-2 pt-1 fz-10 {{ $valProductSimilar->del == 0 || $valProductSimilar->del == null ? 'hidden-visibility' : '' }}">
-                                                    giảm {{ round($promotion, 1) . '%' }}
+                                                    - {{ round($promotion, 0) . '%' }}
                                                 </span>
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
                                                     data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích"
@@ -911,6 +926,8 @@
         // truyền sản phẩm lên để lấy giá -> tính discount
         let product = @json($product);
     </script>
+    
+    
 @endsection
 @section('js')
     <script>

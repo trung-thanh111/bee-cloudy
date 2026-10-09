@@ -29,7 +29,7 @@
                                             <h6 class="card-title mb-0 flex-grow-1 fz-18 pt-2 pb-2">Đơn hàng chi tiết</h6>
                                         </div>
                                     </div>
-                                    <div class="card border-0 rounded-2 mt-3 p-3">
+                                    <div class="card border-0 rounded-2 mt-3 mb-5 p-3">
                                         @if ($order->status == 'pending')
                                             <div
                                                 class="d-flex align-items-center justify-content-between bg-light shadow-sm mb-4 p-2">
@@ -42,9 +42,8 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <button type="submit"
-                                                        class="updateStatus btn btn-danger fz-14"
-                                                        data-status="canceled">Hủy đơn</button>
+                                                    <button class="updateStatus btn btn-danger fz-14 updatePaidAt"
+                                                        data-status="canceled" data-payment="failed">Hủy đơn</button>
                                                 </div>
                                             </div>
                                         @elseif($order->status == 'confirmed')
@@ -104,7 +103,7 @@
                                                     <img src="/libaries/upload/images/poper-icon.png" alt=""
                                                         width="40" class="me-2">
                                                     <div>
-                                                        <h6 class="mb-1 fz-18">Đơn hàng đâ giao thành công!</h6>
+                                                        <h6 class="mb-1 fz-18">Đơn hàng đã giao thành công!</h6>
                                                         <p class="mb-0 small">Hãy để lại đánh giá về sản phẩm của chúng
                                                             tôi.</p>
                                                     </div>
@@ -117,8 +116,7 @@
                                         <div class="order-info mb-4">
                                             <div class="row g-4 mb-2">
                                                 <div class="col-md-6">
-                                                    <div
-                                                        class="d-flex align-items-center p-3 bg-light shadow-sm rounded-3">
+                                                    <div class="d-flex align-items-center p-3 bg-light shadow-sm rounded-3">
                                                         <i class=" text-muted fa-solid fa-clipboard h4 mb-0 me-3 "></i>
                                                         <div>
                                                             <div class="text-muted small">Mã đơn hàng</div>
@@ -127,8 +125,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div
-                                                        class="d-flex align-items-center p-3 bg-light shadow-sm rounded-3">
+                                                    <div class="d-flex align-items-center p-3 bg-light shadow-sm rounded-3">
                                                         <i class=" text-muted far fa-calendar-alt h4 mb-0 me-3 "></i>
                                                         <div>
                                                             <div class="text-muted small">Thời gian đặt hàng</div>
@@ -158,8 +155,7 @@
                                                     <div class="col-md-6">
                                                         <p class="mb-1 d-flex justify-content-between">
                                                             <span class="text-muted">Người nhận:</span>
-                                                            <span
-                                                                class="fw-medium text-end">{{ $order->full_name }}</span>
+                                                            <span class="fw-medium text-end">{{ $order->full_name }}</span>
                                                         </p>
                                                         <p class="mb-1 d-flex justify-content-between">
                                                             <span class="text-muted">Số điện thoại:</span>
@@ -191,6 +187,14 @@
                                                 @if (!is_null($order))
                                                     @foreach ($order->orderItems as $key => $val)
                                                         @php
+                                                            $slugProduct = '';
+
+                                                            if ($val->products != null) {
+                                                                $slugProduct = $val->products->slug;
+                                                            } else{
+                                                                $slugProduct = $val->productVariants->product->slug;
+                                                            }
+                                                            // -- //
                                                             $moneyCheckout = $val->final_quantity * $val->final_price;
                                                             $total += $moneyCheckout;
                                                             //--//
@@ -243,7 +247,7 @@
                                                                             class="rounded-2 me-2 bg-light">
                                                                     @endif
                                                                     <div>
-                                                                        <a href="#"
+                                                                        <a href="{{ route('product.detail', ['slug' => $slugProduct]) }}"
                                                                             class="text-break text-muted fw-medium">{{ $val->product_name }}</a>
                                                                         <ul class="list-inline text-muted fz-12 my-1">
                                                                             @if (isset($attributesByOderItem[$val->id]))
@@ -265,22 +269,23 @@
                                                                     {{ number_format($moneyCheckout, '0', ',', '.') }}đ
                                                                 </div>
                                                             </div>
-                                                            <div
-                                                                class="row p-3 {{ $order->status != 'completed' ? 'd-none' : '' }}">
-                                                                <div class="col text-end">
-                                                                    <div class="d-flex justify-content-end gap-2 ">
-                                                                        <a href="#"
-                                                                            class="btn btn-outline-success btn-sm px-3"
-                                                                            style="min-width: 120px;">
-                                                                            <i class=" fas fa-sync-alt me-2"></i>
-                                                                            Mua lại
-                                                                        </a>
-                                                                        <a href="#"
-                                                                            class="btn btn-success text-white btn-sm px-3"
-                                                                            style="min-width: 120px;">
-                                                                            <i class=" fas fa-star me-2"></i> Đánh giá
-                                                                        </a>
-                                                                    </div>
+
+                                                        </div>
+                                                        <div
+                                                            class="row p-3 {{ $order->status != 'completed' ? 'd-none' : '' }}">
+                                                            <div class="col text-end">
+                                                                <div class="d-flex justify-content-end gap-2 ">
+                                                                    <a href="{{ route('product.detail', ['slug' => $slugProduct]) }}"
+                                                                        class="btn btn-outline-success btn-sm px-3"
+                                                                        style="min-width: 120px;">
+                                                                        <i class=" fas fa-sync-alt me-2"></i>
+                                                                        Mua lại
+                                                                    </a>
+                                                                    <a href="{{ route('product.detail', ['slug' => $slugProduct]) }}"
+                                                                        class="btn btn-success text-white btn-sm px-3"
+                                                                        style="min-width: 120px;">
+                                                                        <i class=" fas fa-star me-2"></i> Đánh giá
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -344,30 +349,30 @@
         </article>
     </section>
 
-{{-- // update cancled order  --}}
-<div class="modal fade" id="confirmModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Xác nhận hủy đơn </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <h6>
-                    Mã đơn hàng #{{ $order->code }}
-                </h6>
-                <p>Bạn có chắc chắn muốn hủy đơn hàng này?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-primary fz-14" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-danger fz-14" id="confirmCancel">Xác nhận hủy</button>
+    {{-- // update cancled order  --}}
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Xác nhận hủy đơn hàng</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>
+                        Mã đơn hàng #{{ $order->code }}
+                    </h6>
+                    <p>Bạn có chắc chắn muốn hủy đơn hàng này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary fz-14" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger fz-14" id="confirmCancel">Xác nhận hủy</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<input type="hidden" name="order_id" class="orderId" value="{{ $order->id }}">
-<script>
-    let orderUpdatePaiAt = @json($order);
-</script>
+    <input type="hidden" name="order_id" class="orderId" value="{{ $order->id }}">
+    <script>
+        let orderUpdatePaiAt = @json($order);
+    </script>
 
 @endsection

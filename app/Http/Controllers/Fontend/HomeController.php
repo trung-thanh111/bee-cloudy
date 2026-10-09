@@ -7,6 +7,7 @@ use App\Services\ProductService;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMail;
 use App\Repositories\BannerRepository;
+use App\Repositories\BrandRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\ProductCatalogueRepository;
 use App\Services\PostService;
@@ -19,6 +20,7 @@ class HomeController extends Controller
     protected $shopService;
     protected $productService;
     protected $postRepository;
+    protected $brandRepository;
     protected $bannerRepository;
     protected $productCatalogueRepository;
 
@@ -26,6 +28,7 @@ class HomeController extends Controller
         ShopService $shopService,
         ProductService $productService,
         PostRepository $postRepository,
+        BrandRepository $brandRepository,
         BannerRepository $bannerRepository,
         ProductCatalogueRepository $productCatalogueRepository,
     ) {
@@ -33,11 +36,15 @@ class HomeController extends Controller
         $this->shopService = $shopService;
         $this->productService = $productService;
         $this->bannerRepository = $bannerRepository;
+        $this->brandRepository = $brandRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
     }
     public function index(Request $request)
     {
         $productCatalogues = $this->productCatalogueRepository->allWhere([
+            ['publish', 1]
+        ]);
+        $brands = $this->brandRepository->allWhere([
             ['publish', 1]
         ]);
         $bannerHome1 = $this->bannerRepository->allWhere([
@@ -50,6 +57,7 @@ class HomeController extends Controller
         ]);
         $productNew = $this->productService->productNews();
         $productSales = $this->productService->productSales();
+        $productSupperSales = $this->productService->productSupperSales();
         $productShopPriceMins = $this->shopService->productShopPriceMins();
         $postHomes = $this->postRepository->getLimitOrder(
             ['users'],
@@ -76,6 +84,7 @@ class HomeController extends Controller
         );
         // dd($postHomes);
         return view('fontend.index.home_index', compact(
+            'brands',
             'postHomes',
             'productNew',
             'bannerHome1',
@@ -83,6 +92,7 @@ class HomeController extends Controller
             'postHomeNews',
             'productSales',
             'productCatalogues',
+            'productSupperSales',
             'productShopPriceMins',
         ));
     }

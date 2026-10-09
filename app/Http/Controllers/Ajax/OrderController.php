@@ -51,7 +51,7 @@ class OrderController extends FontendController
             if ($updated) {
                 return response()->json([
                     'code' => 10,
-                    // 'redirect' => 'back',
+                    'redirect' => 'back',
                 ]);
             } else {
                 return response()->json([

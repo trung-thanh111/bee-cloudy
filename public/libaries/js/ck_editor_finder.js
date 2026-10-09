@@ -82,7 +82,7 @@
             console.error("Element with ID " + elementId + " does not exist.");
         }
     };
-    // upload hình ảnh từ input (1 ảnh )
+    // upload hình ảnh từ input (1 ảnh)
     FS.uploadImageToinput = () => {
         $(".upload-image").click(function () {
             let input = $(this);

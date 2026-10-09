@@ -35,10 +35,12 @@ class OrderController extends Controller
     }
     public function detail($id){
         $order = $this->orderRepository->findById($id);
+        $attributesByOderItem = $this->orderService->findAttributesByCode();
         $template = 'backend.order.detail';
         return view('backend.dashboard.layout', compact(
             'template',
             'order',
+            'attributesByOderItem',
         ));
     }
     
