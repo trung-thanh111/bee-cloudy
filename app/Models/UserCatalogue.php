@@ -17,7 +17,7 @@ class UserCatalogue extends Model
         'name',
         'image',
         'description',
-        'slug',
+        'keyword',
         'acronym',
         'publish',
         'created_at',
@@ -25,7 +25,8 @@ class UserCatalogue extends Model
     ];
 
     //khai bao quan he vs bang users (1)
-    public function users():HasMany{
-        return $this->hasMany(User::class, 'user_catalogue_id', 'id');
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'user_catalogue_id');
     }
 }

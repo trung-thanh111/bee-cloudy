@@ -31,6 +31,12 @@
 <link href="/libaries/templates/bee-cloudy-admin/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
 {{-- daterangpicker  --}}
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.12/vue.cjs.js"
+    integrity="sha512-iytOXrJii6S43MWPla8yHP4Jt1CTor4HyilK2OOpKthWYBMZdce/L4izaniMAzZD7JVJrNr9tWc9w/spDJJ8Yw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {{-- khai báo base_url để conect ckfinder vs ckeditor  --}}
 <script>
     var BASE_URL = '{{ config('app.url') }}'

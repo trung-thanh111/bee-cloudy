@@ -1,6 +1,6 @@
 <div class="app-menu navbar-menu bg-main-aside ">
     <div class="navbar-brand-box">
-        <a href="#" class="logo logo-dark">
+        <a href="{{ route('dashboard.index') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="/libaries/upload/images/logo/bee-cloudy-logo.png" alt="" width="180px" height="auto">
             </span>
@@ -20,7 +20,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span class="text-light">Thống kê</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{ route('dashboard.index') }}">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
@@ -196,31 +196,8 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarLanding">
-                        <i class="ri-rocket-line"></i>
-                        <span data-key="t-landing">Landing</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarLanding">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="landing.html" class="nav-link" data-key="t-one-page"> One Page </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="nft-landing.html" class="nav-link" data-key="t-nft-landing"> NFT
-                                    Landing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="job-landing.html" class="nav-link" data-key="t-job">Job</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
                 <li class="menu-title"><i class="ri-more-fill"></i> <span class="text-light">Cấu Hình</span>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarUI">

@@ -696,9 +696,15 @@ hr {
 .nav-item-main.active {
     color: #14b6a0;
 }
+.nav-item-profile:hover {
+    color: #14b6a0;
+}
+
+.nav-item-profile.active {
+    color: #14b6a0;
+}
 
 .sub-menu-li a:hover {
-    background-color: #ced4da;
     color: #14b6a0;
 }
 
@@ -1483,6 +1489,112 @@ footer {
 .item-category:hover{
     background-color: #f8f8f8;
 }
+.FULL_news {
+    width: 1284px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f3f1f1ef;
+}
+
+.all_contents {
+    width: 100%;
+    height: 600px;
+    display: flex;
+}
+
+.form-title {
+    width: 675px;
+    height: 500px;
+    padding: 20px 0;
+
+}
+
+.card_news {
+    width: 100%;
+    margin-top: 15px;
+    position: relative;
+
+}
+
+.img_news {
+    width: 625px;
+    height: 500px;
+    border-radius: 5px;
+}
+
+.text-news {
+    width: 525px;
+    position: absolute;
+    bottom: 53px;
+
+    padding: 0 25px;
+}
+
+.first a {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.form-group {
+    width: 625px;
+    height: 180px;
+    padding: 20px 0;
+    margin-top: 10px;
+}
+
+.cart_all {
+    display: flex;
+    margin-top: 37px;
+}
+
+.cart_one {
+    width: 295px;
+    height: 500px;
+    margin-right: 25px;
+}
+
+.card_img_one {
+    width: 100%;
+    height: 385px;
+}
+
+.cart_two {
+    width: 295px;
+    height: 500px;
+}
+
+.card_img_two {
+    width: 100%;
+    height: 385px;
+}
+
+.form-end {
+    margin-top: 25px;
+
+}
+
+.text {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.author {
+    text-decoration: none;
+    color: #b8b1b1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.end {
+    margin-top: 25px;
+}
 /* -- */
 .label-filter-shop{
     margin-top: 1px;
@@ -1530,4 +1642,21 @@ footer {
     justify-content: center;
     border-radius: 50%;
     margin-right: 12px;
+}
+/* home  */
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.transition-all {
+    transition: all 0.3s ease;
 }
