@@ -14,7 +14,7 @@
             </ol>
         </nav>
         <!-- end breadcrumb  -->
-        <div class="card" data-aos="zoom-in">
+        <div class="card">
             <div class="card-body m-2">
                 <h2 class="pb-4 text-center underline-text">Điều Khoản Và Điều Kiện</h2>
                 <br>
