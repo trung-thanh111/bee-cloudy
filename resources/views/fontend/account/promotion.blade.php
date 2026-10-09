@@ -191,6 +191,8 @@ Thông tin cá nhân
                                         <div class="voucher-item mb-3 p-3 border rounded shadow-sm">
                                             <div class="row">
                                                 <div class="col-md-9">
+                                                <img src="{{  $userVoucher->promotion->image != null ?   $userVoucher->promotion->image : '/libaries/upload/images/img-notfound.png' }}" alt=""
+                                                width="100%" height="" class="img-fluid rounded me-2">
                                                     <h5 class="fz-16 fw-bold text-primary mb-2">
                                                         {{ $userVoucher->promotion->name }}</h5>
                                                     <p class="fz-14 mb-1">Mã: <strong
