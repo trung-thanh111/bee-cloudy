@@ -149,7 +149,7 @@
         `;
 
         if (albumVariant.length) {
-            // Cập nhật lại HTML
+            // cập nhật lại html
             $(".galleryVariant").html(html);
             // gọi lại slipde hoạt động
             FS.splideCarousel();
@@ -192,6 +192,7 @@
                     FS.setUpVariantPrice(res);
                     FS.productVariantSold(res);
                     FS.quantityProductVariantMax(res);
+                    FS.quantityInsockVariant(res);
                 },
             });
         }
@@ -206,13 +207,18 @@
     };
     FS.setUpVariantPrice = (res) => {
         let productVariantPrice = res.productVariant.price;
+        let productPrice = product.price
         let productVariantPriceFormat =
-            productVariantPrice.toLocaleString("de-DE");
-        $(".product-variant-price").html(productVariantPriceFormat + "đ");
+        productVariantPrice.toLocaleString("de-DE");
+        let productPriceFormat =
+        productPrice.toLocaleString("de-DE");
+            let html = `<del class="product-price fw-normal text-muted fz-16 ${(productPrice == productVariantPrice) ? 'd-none' : ''}">${'           - ' + productPriceFormat+"đ"}</del>`
+        
+        $(".product-variant-price").html(productVariantPriceFormat + "đ"+ html);
     };
     FS.productVariantSold = (res) => {
         let productVariantSold = res.productVariant.sold_count;
-        $(".product-variant-sold").html(productVariantSold);
+        $(".product-variant-sold").html(productVariantSold+ ' ' + 'Sản phẩm');
     };
     FS.activeVariantFirst = () => {
         if ($(".attributeCatalogue").length) {
@@ -228,6 +234,13 @@
     FS.quantityProductVariantMax = (res) => {
         let productVariantQuantiyMax = res.productVariant.quantity;
         $(".quantity-product-variant").attr("max", productVariantQuantiyMax);
+    };
+    FS.quantityInsockVariant = (res) => {
+        let quantityInsockVariant = res.productVariant.quantity;
+        if(quantityInsockVariant !== 0 || quantityInsockVariant !== null){
+
+            $(".quantity-instock").html('( '+quantityInsockVariant+' '+' sản phẩm sẵn có '+')');
+        }
     };
     // gọi hàm
     $(document).ready(function () {

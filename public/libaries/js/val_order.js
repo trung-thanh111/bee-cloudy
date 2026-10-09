@@ -102,6 +102,7 @@
         $(document).on("click", ".updatePaidAt", function () {
             let _this = $(this);
             let orderId = parseInt($(".orderId").val());
+            console.log("Button được click!");
             let newDate = new Date().toISOString(); // lấy thời gian hiện tại 
             let payment = _this.attr('data-payment');
             let paidAt = new Date(newDate).toLocaleString("en-CA", {

@@ -314,7 +314,7 @@ a {
     content: "";
     margin-top: 3px;
     border-bottom: 4px solid #14b6a0;
-    transition: ease-in-out 0.2s;
+    transition: ease-in-out 0.4s;
     color: #14b6a0;
 }
 
@@ -341,6 +341,7 @@ a {
     top: 100%;
     left: 0;
     z-index: 1000;
+    transition: all 0.3s ease-in-out;
 }
 
 .li-menu-header:hover {
@@ -367,6 +368,8 @@ a {
 
 .menu-li-item:hover>.ul-menu-header {
     display: block;
+    transition: all 0.3s ease-in-out;
+
 }
 
 .dropdown-sub {
@@ -1632,7 +1635,7 @@ footer {
 }
 
 .price-content {
-    background: linear-gradient(to right, rgba(var(--bs-info-rgb), 0.1), rgba(var(--bs-info-rgb), 0.2));
+    /* background: linear-gradient(to right, rgba(var(--bs-info-rgb), 0.1), rgba(var(--bs-info-rgb), 0.2)); */
     transition: all 0.3s ease;
 }
 
@@ -1717,3 +1720,7 @@ footer {
       transform: rotate(360deg);
     }
   } 
+
+  .flash-sale{
+    background: linear-gradient(to left, #fcf0eb, #f43f5e);
+  }
