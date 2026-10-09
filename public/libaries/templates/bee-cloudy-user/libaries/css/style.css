@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 :root {
+    --bs-pagination-color: #405189 !important;
+    --bs-pagination-active-border-color: #405189 !important;
+    --bs-pagination-active-bg: #405189 !important;
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
@@ -88,7 +93,7 @@
     --bs-tertiary-bg: #f8f9fa;
     --bs-tertiary-bg-rgb: 248, 249, 250;
     --bs-heading-color: inherit;
-    --bs-link-color: #0d6efd;
+    --bs-link-color: #405189;
     --bs-link-color-rgb: 13, 110, 253;
     --bs-link-decoration: underline;
     --bs-link-hover-color: #0a58ca;
@@ -165,8 +170,6 @@
     --bs-gradient: none;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 body {
     padding: 0;
@@ -175,6 +178,9 @@ body {
     scroll-behavior: smooth;
     background-color: #f3f3f9 !important;
     font-family: 'Sans-serif', Arial, Helvetica, sans-serif;
+}
+.cursor-pointer {
+    cursor: pointer ;
 }
 
 /* html,
@@ -1728,4 +1734,12 @@ footer {
 
 .keyword-recent{
     cursor: pointer;
+}
+.payment-status-checkout.active{
+    font-weight: 600;
+    background-color: #eff6ff !important;
+    border-color: #00c1a2 !important;
+}
+.text-payment{
+    padding-left: 6px !important;
 }

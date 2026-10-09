@@ -1,8 +1,8 @@
 <div class="main-content" id="app">
     <div class="page-content">
-        <div class="container-fluid">
-            <div class="card-header d-flex justify-content-between">
-                <h4 class="card-title mb-0 text-uppercase">Thống kê doanh thu</h4>
+        <div class="container-fluid bg-white">
+            <div class="card-header d-flex py-3 justify-content-between">
+                <h4 class="card-title mb-0  text-uppercase">Thống kê doanh thu</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a>

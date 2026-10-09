@@ -158,7 +158,7 @@
                                             <div class="mb-3">
                                                 <label for="billinginfo-address" class="form-label">Lưu ý </label>
                                                 <textarea class="form-control" id="billinginfo-address" name="note" placeholder="Lưu ý về đơn hàng"
-                                                    rows="3">{{ old('address', $user->address) }}</textarea>
+                                                    rows="3">{{ old('address') }}</textarea>
                                             </div>
                                             <div class="hstack mt-3">
                                                 <div class="p-2 ms-auto ms-3">
@@ -192,21 +192,17 @@
                                                 <div data-bs-toggle="collapse"
                                                     data-bs-target="#paymentmethodCollapse.show" aria-expanded="true"
                                                     aria-controls="paymentmethodCollapse">
-                                                    <div class="form-check card-radio rounded-2 pb-1">
+                                                    <div class="form-check card-radio bg-white shadow-sm border-0 rounded-2 pb-1">
                                                         <input id="paymentMethod03" name="payment_method" type="radio"
-                                                            class="form-check-input mt-4" checked value="cod">
+                                                            class="payment-status-checkout form-check-input mt-4" checked value="cod">
                                                         <label
                                                             class="form-check-label d-flex justify-content-start align-items-center"
                                                             for="paymentMethod03">
                                                             <div style="height: 60px;">
-                                                                <i
-                                                                    class="fa-solid fa-hand-holding-dollar text-muted fs-1 mt-2"></i>
+                                                                <i class="fa-solid fa-dollar-sign text-muted fs-2 px-3 mt-3"></i>
                                                             </div>
                                                             <div>
-                                                                <span class="fs-16 text-muted me-2"><i
-                                                                        class="ri-bank-card-fill align-bottom"></i></span>
-                                                                <span class="fs-14 text-wrap">Thanh toán khi nhận
-                                                                    hàng</span>
+                                                                <span class="fs-14 fw-medium text-payment">Thanh toán khi nhận hàng</span>
                                                             </div>
                                                         </label>
                                                     </div>
@@ -214,7 +210,7 @@
                                             </div>
                                             <div class="col-lg-12 col-sm-12">
                                                 <div>
-                                                    <div class="form-check card-radio rounded-2 pb-1">
+                                                    <div class="form-check card-radio bg-white shadow-sm border-0 rounded-2 pb-1">
                                                         <input id="paymentMethod01" name="payment_method" type="radio"
                                                             class="form-check-input mt-4" value="vnpay">
                                                         <label
@@ -226,10 +222,7 @@
                                                                     class="img-fuild object-fit-cover">
                                                             </div>
                                                             <div>
-                                                                <span class="fs-16 text-muted me-2"><i
-                                                                        class="ri-bank-card-fill align-bottom"></i></span>
-                                                                <span class="fs-14 text-wrap">Thanh toán qua ví
-                                                                    VnPay</span>
+                                                                <span class="fs-14 text-wrap fw-medium">Thanh toán qua ví VnPay</span>
                                                             </div>
                                                         </label>
                                                     </div>
@@ -237,7 +230,7 @@
                                             </div>
                                             <div class="col-lg-12 col-sm-12">
                                                 <div>
-                                                    <div class="form-check card-radio rounded-2 pb-1">
+                                                    <div class="form-check card-radio bg-white shadow-sm border-0 rounded-2 pb-1">
                                                         <input id="paymentMethod02" name="payment_method" type="radio"
                                                             class="form-check-input mt-4" value="momo">
                                                         <label
@@ -249,80 +242,13 @@
                                                                     class="img-fuild px-1 py-2 object-fit-contain">
                                                             </div>
                                                             <div>
-                                                                <span class="fs-16 text-muted me-2"><i
-                                                                        class="ri-bank-card-fill align-bottom"></i></span>
-                                                                <span class="fs-14 text-wrap">Thanh toán qua ví MoMo</span>
+                                                                <span class="fs-14 text-wrap fw-medium">Thanh toán qua ví MoMo</span>
                                                             </div>
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- <div class="col-lg-12 col-sm-12">
-                                                <div data-bs-toggle="collapse" data-bs-target="#paymentmethodCollapse"
-                                                    aria-expanded="false" aria-controls="paymentmethodCollapse"
-                                                    class="collapsed">
-                                                    <div class="form-check card-radio rounded-2 pb-1">
-                                                        <input id="paymentMethod04" name="payment_method" type="radio"
-                                                            class="form-check-input mt-4" value="paypal">
-                                                        <label
-                                                            class="form-check-label d-flex justify-content-start align-items-center"
-                                                            for="paymentMethod04">
-                                                            <div>
-                                                                <img src="/libaries/upload/images/paypal-icon.jpg"
-                                                                    alt="" width="60" height="60"
-                                                                    class="img-fuild px-1 py-2 object-fit-contain">
-                                                            </div>
-                                                            <div>
-                                                                <span class="fs-16 text-muted me-2"><i
-                                                                        class="ri-bank-card-fill align-bottom"></i></span>
-                                                                <span class="fs-14 text-wrap">Thanh toán qua ví
-                                                                    Paypal</span>
-                                                            </div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
                                         </div>
-                                        {{-- <div class="collapse" id="paymentmethodCollapse">
-                                            <div class="card p-4 border shadow-none mb-0 mt-4">
-                                                <div class="row gy-3">
-                                                    <div class="col-md-12">
-                                                        <label for="cc-name" class="form-label">Tên chủ thẻ</label>
-                                                        <input type="text" class="form-control" id="cc-name"
-                                                            placeholder="Nhập họ vè tên chủ thẻ">
-                                                        <small class="text-warning">Vui lòng nhập đầy đủ họ và
-                                                            tên.</small>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="cc-number" class="form-label">Số thẻ</label>
-                                                        <input type="text" class="form-control" id="cc-number"
-                                                            placeholder="xxxx xxxx xxxx xxxx">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="cc-expiration" class="form-label">Ngày hết
-                                                            hạn</label>
-                                                        <input type="text" class="form-control" id="cc-expiration"
-                                                            placeholder="DD/MM/YY">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="cc-cvv" class="form-label">CVV</label>
-                                                        <input type="text" class="form-control" id="cc-cvv"
-                                                            placeholder="xxx">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-muted mt-2 fst-italic">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-lock text-muted icon-xs">
-                                                    <rect x="3" y="11" width="18" height="11" rx="2"
-                                                        ry="2"></rect>
-                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                                </svg> Giao dịch sẽ được bảo mật thông tin tuyệt đối
-                                            </div>
-
-                                        </div> --}}
                                         <div class="hstack mt-3">
                                             <div class="p-2 ms-auto ms-3">
                                                 <button type="button"
@@ -515,3 +441,8 @@
         </article>
     </section>
 @endsection
+<script>
+    window.province_id = @json($user->province_id);
+    window.district_id = @json($user->district_id);
+    window.ward_id = @json($user->ward_id);
+</script>
