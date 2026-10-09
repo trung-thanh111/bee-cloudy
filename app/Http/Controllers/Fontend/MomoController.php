@@ -143,10 +143,10 @@ class MomoController extends FontendController
                         $payload = [
                             'payment' =>'paid',
                             'status' => 'confirmed',
-                            'paid_at' => now(),
+                            'paid_at' => now()->format('Y-m-d H:i:s'),
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
-                        $this->orderService->updatePaidAt($order->id, $payload['paid_at']);
+                        $this->orderService->updatePaidAt($order->id, $payload);
                         $this->orderService->sendMail($order);
                         $this->cartService->clear($request);
                         flash()->success('Giao dịch thành công.');

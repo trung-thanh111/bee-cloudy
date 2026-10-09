@@ -123,7 +123,7 @@
                                                 <div>
                                                     <button
                                                         class="btn btn-success py-2 px-4 rounded-2 fz-13 fw-medium dropdown-toggle updateStatus updatePaidAt"
-                                                        type="button" data-bs-toggle="dropdown" data-status="completed">
+                                                        type="button" data-status="completed" data-payment="paid">
                                                         Đã nhận được hàng
                                                     </button>
                                                     <input type="hidden" name="order_id" class="orderId"

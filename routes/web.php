@@ -143,7 +143,7 @@ Route::middleware(['auth'])->group(function () {
     });
     //promotion
     Route::middleware(['auth'])->group(function () {
-        Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.index');
+        Route::get('/promotion', [FPromotionController::class, 'index'])->name('promotion.home_index');
         Route::post('/receive/{promotion}', [FPromotionController::class, 'receivePromotion'])->name('promotion.receive');
     });
     // order 

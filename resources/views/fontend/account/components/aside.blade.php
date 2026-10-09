@@ -70,7 +70,7 @@
                             class="nav-link fw-400 d-flex justify-content-between align-items-center">
                             <span class="fz-16 fw-400"> <i
                                     class='fa-solid fa-ticket fz-18 me-2'></i>
-                                Voucher</span>
+                                Khuyến mãi</span>
                             <i class="fa-solid fa-chevron-down fz-12 d-none"></i>
                             <i class="fa-solid fa-chevron-right fw-bolder fz-12"></i>
                         </span>
@@ -78,10 +78,17 @@
                     <div class="sub-menu-lv2 d-none">
                         <ul class="sub-menu-ul flex-column text-muted ps-0">
                             <li class="sub-menu-li list-unstyled ps-4">
+                                <a href="{{ route('promotion.home_index') }}" type="submit"
+                                    class="nav-link p-2">
+                                    <i class='bx bx-circle fz-8 me-2'></i>
+                                    <span>Cửa hàng</span>
+                                </a>
+                            </li>
+                            <li class="sub-menu-li list-unstyled ps-4">
                                 <a href="{{ route('account.promotions') }}" type="submit"
                                     class="nav-link p-2">
                                     <i class='bx bx-circle fz-8 me-2'></i>
-                                    <span>Voucher của tôi</span>
+                                    <span>Của tôi</span>
                                 </a>
                             </li>
                         </ul>
