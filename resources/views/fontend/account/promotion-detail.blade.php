@@ -8,6 +8,7 @@
         <div class="col-lg-10">
             <div class="voucher-card position-relative overflow-hidden">
                 <div class="voucher-background"></div>
+                @if($userVoucher->promotion != null)
                 <div class="voucher-content p-5">
                     <div class="row">
                         <div class="col-md-6 mb-4 mb-md-0">
@@ -46,6 +47,24 @@
                         </div>
                     </div>
                 </div>
+                @else
+                <div class="order-null p-3">
+                    <div class="img-null text-center">
+                        <img src="/libaries/upload/images/order-null.png" alt="" class="" width="300"
+                            height="200">
+                    </div>
+                    <div class="flex flex-col text-center align-items-center">
+                        <h5 class="mb-2  fw-semibold">Tạm thời không có bản ghi phù hợp!
+                        </h5>
+                        <p class="text-center mb-2">
+                            Hãy khám phá những những gì có trong website nhé!
+                        </p>
+                            <a href="{{ route('account.promotions') }}"
+                                class="btn btn-info text-white rounded-pill mt-3">Khám
+                                phá ngay </a>
+                    </div>
+                </div>
+                @endif
                 <div class="voucher-actions mt-4 p-2 d-flex justify-content-between align-items-center">
                     <a href="{{ route('account.promotions') }}" class="btn btn-outline-primary btn-lg">
                         Quay lại
