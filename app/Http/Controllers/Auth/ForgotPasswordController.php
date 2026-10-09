@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreChangePassRequest;
+use App\Http\Requests\StoreResetPassRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
@@ -18,24 +20,23 @@ class ForgotPasswordController extends Controller
     }
 
     // Gửi email chứa mã OTP
-    public function sendEmail(Request $request)
+    public function sendEmail(StoreChangePassRequest $request)
     {
-        $request->validate(['email' => 'required|email']);
-
-        $user = User::where('email', $request->email)->first();
-
+        $email = $request->only('email');
+        // dd($email);
+        $user = User::where('email', $email)->first();
         if ($user) {
             $otp = rand(100000, 999999);
-
-            $request->session()->put('otp', $otp);
-            $request->session()->put('email', $request->email);
+            $sessionOtp = $request->session()->put('otp', $otp);
+            $sessionOtp = $request->session()->put('email', $email);
 
             Mail::to($user->email)->send(new OtpMail($otp));
 
-            return redirect()->route('password.otp')->with('status', 'Mã OTP đã được gửi tới email của bạn.');
+            flash()->success('Email đã được gửi về gmail'); // ở đây mới có error ssuccess war đủ loại
+            return redirect()->route('password.otp');
         }
-
-        return back()->withErrors(['email' => 'Không tìm thấy email này.']);
+        flash()->error('Email của bạn chưa đăng ký');
+        return back();
     }
 
 
@@ -50,18 +51,22 @@ class ForgotPasswordController extends Controller
     {
         $request->validate(['otp' => 'required|digits:6']);
 
+        // Lấy email đã lưu trong session
         $email = $request->session()->get('email');
+        $stringEmail = implode(',',  $email);
+        // dd($stringEmail);
 
         if ($request->otp == $request->session()->get('otp')) {
-            $request->session()->forget('otp');
+            $request->session()->forget(['otp']);
 
-            return redirect()->route('password.reset', ['email' => $email]);
+            flash()->success('Đổi Mật khẩu mới');
+            return redirect()->route('password.reset');
         }
 
-        return back()->withErrors(['otp' => 'Mã OTP không chính xác.']);
+        flash()->error('Mã OTP không đúng');
+        return back();
     }
 
-    // gửi lại email otp
     public function resendOtp(Request $request)
     {
         // Lấy email từ session
@@ -71,51 +76,43 @@ class ForgotPasswordController extends Controller
         if ($email) {
             $user = User::where('email', $email)->first();
 
-            // Kiểm tra nếu tìm thấy người dùng với email này
             if ($user) {
-                // Xóa OTP cũ, tạo OTP mới và lưu vào session
                 $otp = rand(100000, 999999);
                 $request->session()->put('otp', $otp);
 
-                // Gửi OTP qua email
                 Mail::to($user->email)->send(new OtpMail($otp));
 
-                // Chuyển hướng với thông báo thành công
-                return redirect()->route('password.otp')->with('status', 'Mã OTP mới đã được gửi tới email của bạn.');
+                flash()->success('Mã OTP mới đã được gửi lại');
+                return redirect()->route('password.otp');
             }
         }
 
-        // Nếu không có email hoặc người dùng, chuyển hướng với thông báo lỗi
-        return redirect()->route('password.request')->withErrors(['email' => 'Email không hợp lệ. Vui lòng thử lại.']);
+        flash()->error('Gửi lại OTP lỗi');
+        return redirect()->route('password.reset');
     }
 
 
-    // Hiển thị form đổi mật khẩu
     public function resetForm(Request $request)
     {
         $email = $request->email ?? $request->session()->get('email');
         return view('auth.reset-password', compact('email'));
     }
 
-    // Đổi mật khẩu
-    public function reset(Request $request)
+    public function reset(StoreResetPassRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:8',
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
+        $email = $request->session()->get('email');
+        $user = User::where('email', $email)->first();
         if ($user) {
             $user->password = Hash::make($request->password);
             $user->save();
 
             $request->session()->forget('email');
 
-            return redirect()->route('auth.login')->with('status', 'Mật khẩu đã được thay đổi thành công.');
+            flash()->success('Mật khẩu được đổi');
+            return redirect()->route('auth.login');
         }
 
-        return back()->withErrors(['email' => 'Không tìm thấy email này.']);
+        flash()->error('Lỗi đổi mật khẩu mới');
+        return back();
     }
 }
