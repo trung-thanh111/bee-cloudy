@@ -6,7 +6,7 @@ use App\Models\Content;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Requests\ContentRequest;
 class ContentController extends Controller
 {
     public function view_content()
@@ -26,7 +26,7 @@ class ContentController extends Controller
     public function getdata()
     {
         $data = Content::join('users', 'users.id', 'contents.user_id')
-            ->select('users.name as ten_kh', 'contents.*',)
+            ->select('users.*', 'contents.*',)
             ->get();
 
         return response()->json([
@@ -174,8 +174,8 @@ class ContentController extends Controller
     public function data()
     {
         $data = Content::join('users', 'users.id', 'contents.user_id')
-            ->select('users.name', 'contents.*')
-            ->orderByDESC('contents.id')
+            ->select('users.*', 'contents.*')
+            // ->orderByDESC('contents.id')
             ->get();
 
         $commentCount = Content::count();
@@ -185,7 +185,7 @@ class ContentController extends Controller
             'comment_count' => $commentCount,
         ]);
     }
-    public function create(Request $request)
+    public function create(ContentRequest $request)
     {
         if (!Auth::check()) {
             return response()->json([
