@@ -569,7 +569,7 @@
                                                                                     v-if="v.user_id === {{ Auth::id() }}">
                                                                                     <template v-if="v.edit_count === 0">
                                                                                         <li class="p-1"
-                                                                                            v-on:click="v.is_liked === 1 ? edit = Object.assign({}, v) : null"
+                                                                                            v-on:click=" edit = Object.assign({}, v)"
                                                                                             data-bs-toggle="modal"
                                                                                             data-bs-target="#edit">
                                                                                             <a href="#"
@@ -1036,9 +1036,8 @@
                         .then((res) => {
                             if (res.data.status) {
                                 alert(res.data.message);
-                                this.create = {};
                                 this.LoadBinhLuan();
-                            } else {}
+                            } 
                         })
                         .catch((res) => {
                             $.each(res.response.data.errors, function(k, v) {

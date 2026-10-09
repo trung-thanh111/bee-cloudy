@@ -230,10 +230,14 @@ class ProductReviewController extends Controller
                 $data = ProductReview::where('id', $request->id)
                 ->where('user_id',$user->id)->first();
                 if ($data) { 
-                    $data->publish = $request->publish;
-                    $data->content = $request->input('content');
-                    $data->edit_count += 1;
+                    $data->update([
+                    'publish'  => $request->publish,
+                    'content'  => $request->content,
+                    ]);
+                    $data->edit_count  += 1;
+                    
                     $data->save();
+                    
                     return response()->json([
                         'status'    => true,
                         'message'   => 'Đã chỉnh sửa bài đánh giá .',  
