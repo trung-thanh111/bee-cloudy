@@ -233,8 +233,10 @@
                                             class="text-decoration-none fz-16 text-color">Giới thiệu</a>
                                     </li>
                                     <li class="li-menu-header">
-                                        <a href="{{ route('home.faq') }}"
-                                            class="text-decoration-none fz-16 text-color">Câu hỏi thường gặp</a>
+                                        <a href="{{ route('promotion.home_index') }}" class="text-decoration-none fz-16 text-color">Khuyến mãi</a>
+                                    </li>
+                                    <li class="li-menu-header">
+                                        <a href="{{ route('home.faq') }}" class="text-decoration-none fz-16 text-color">Câu hỏi thường gặp</a>
                                     </li>
                                     <li class="li-menu-header">
                                         <a href="{{ route('home.terms_and_conditions') }}"
@@ -278,7 +280,7 @@
                                     data-bs-toggle="dropdown">
                                     <span class="d-flex align-items-center">
                                         <img class="rounded-circle header-profile-user"
-                                            src="{{ $user->image ? Storage::url($user->image) : asset('storage/default/avatar-default.jpg') }}"
+                                            src="{{ $user->image != null  ? $user->image : '/libaries/upload/images/user-default.avif' }}"
                                             alt="Avatar User" class="rounded-circle object-fit-cover" width="40"
                                             height="40">
                                     </span>
@@ -308,6 +310,12 @@
                                             <a href="{{ route('wishlist.index') }}"
                                                 class="text-decoration-none fz-13 ps-1 text-muted">
                                                 <i class="fa-solid fa-bookmark p-0 me-2"></i>Yêu thích
+                                            </a>
+                                        </li>
+                                        <li class="li-menu-header p-2">
+                                            <a href="{{ route('promotion.home_index') }}"
+                                                class="text-decoration-none fz-13 ps-1 text-muted">
+                                                <i class="fa-solid fa-tags p-0 me-2"></i>Khuyến mãi
                                             </a>
                                         </li>
                                         @if ($user->user_catalogue_id == 2)

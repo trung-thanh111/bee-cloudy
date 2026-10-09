@@ -149,10 +149,20 @@
                                 </h4>
                                 <div class="hstack gap-3 fz-14 flex-wrap">
                                     <div class="py-2">Đánh giá (<strong>@{{ comment }}</strong>)</div>
-                                    <div class="vr" style="width: 1px !important;"></div>
-                                    <div class="py-2">
-                                        <span class="fw-500">Số sao trung bình:</span>
-                                        <span class="product-variant-rate">@{{ avg_stars }}</span>
+                                    <div class="py-2" v-if="avg_stars > 0">
+                                        <span class="product-variant-rate">
+                                            <i v-for="index in 5" :key="index" 
+                                               :class="[
+                                                   'fas',
+                                                   {
+                                                       'fa-star': index <= Math.floor(avg_stars),
+                                                       'fa-star-half-alt': index === Math.ceil(avg_stars) && avg_stars % 1 !== 0,
+                                                       'far fa-star': index > Math.ceil(avg_stars)
+                                                   }
+                                               ]"
+                                               style="color: #FFD700;"
+                                            ></i>
+                                        </span>
                                     </div>
                                     <div class="vr" style="width: 1px !important;"></div>
                                     <div class="py-2">
@@ -271,7 +281,7 @@
                                             <input type="text" name="quantity-product-variant w-sm-25 "
                                                 class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
                                                 value="1" min="1"
-                                                max="{{ $product->instock ? $product->instock : 10 }}">
+                                                max="">
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -474,7 +484,7 @@
                                                                     rows="4" placeholder="Hãy cho chúng tôi biết ban đang nghĩ gì?"></textarea>
                                                                 <button type="button"
                                                                     class="btn btn-success position-absolute z-3  py-1 px-4"
-                                                                    style="bottom: 8px ; right: 20px;"
+                                                                    style="bottom: 70px ; right: 20px;"
                                                                     v-on:click="DanhGiaSP()">Gửi</button>
                                                             </div>
                                                         </form>
@@ -486,7 +496,7 @@
                                             </div>
                                         </div>
                                         <div class="review-coment mt-3 mb-2">
-                                            <div class="py-2 me-3 mb-3">
+                                            <div v-if="avg_stars > 0" class="py-2 me-3 mb-3">
                                                 <span class="fw-500 fz-16 ">Xem đánh giá (@{{ comment }})</span>
                                             </div>
                                             <template v-for="(v,k) in list">
@@ -693,7 +703,7 @@
                     </div>
                 </div>
                 <!-- product similar  -->
-                <div class="product-similar mb-3 text-muted">
+                <div class="product-similar mb-3 text-muted {{ (count($productSimilars) > 0 ? '' : 'd-none') }}">
                     <div class="title-product-similar mb-4">
                         <h6 class="fs-3 fw-bold text-muted">Sản phẩm tương tự</h6>
                     </div>
@@ -833,8 +843,7 @@
                                         <option style="color: gold;" value="2">&#9733;&#9733;</option>
                                         <option style="color: gold;" value="3">&#9733;&#9733;&#9733;</option>
                                         <option style="color: gold;" value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;
-                                        </option>
+                                        <option style="color: gold;" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
                                     </select>
                                 </div>
                             </div>

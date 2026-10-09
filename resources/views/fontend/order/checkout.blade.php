@@ -165,7 +165,7 @@
                                                     <button type="button"
                                                         class=" pt-1 btn text-bg-secondary next-tab rounded-1 right nexttab rounded-1 btnPrevious"
                                                         data-nexttab="pills-bill-address-tab">
-                                                        <span class="fz-14">Quay lại</span>
+                                                        <a href="{{ route('cart.index') }}" class="fz-14 text-white">Quay lại giỏ hàng</a>
                                                     </button>
                                                 </div>
                                                 <div class="p-2">
@@ -349,11 +349,11 @@
                                     <div class="table-responsive table-card">
                                         <table class="table table-borderless align-middle mb-0">
                                             <tbody>
-                                                @if ($carts->cartItems)
+                                                @if ($order)
                                                     @php
                                                         $total = 0;
                                                     @endphp
-                                                    @foreach ($carts->cartItems as $cartItem)
+                                                    @foreach ($order as $cartItem)
                                                         <tr class="cart-item">
                                                             <td class="p-0">
                                                                 <div class="avatar-md bg-light rounded p-1">
@@ -413,28 +413,7 @@
                                                         <hr>
                                                     </td>
                                                 </tr>
-
-                                                <tr>
-                                                    <td colspan="3">
-                                                        <div class="bg-light-subtle border-success-subtle p-0">
-                                                            <div class="text-start">
-                                                                <h6 class="mb-2">Bạn có voucher khuyến mãi?</h6>
-                                                            </div>
-                                                            <div class="">
-                                                                <form action="{{ route('cart.applyDiscount') }}"
-                                                                    method="POST" class="d-flex">
-                                                                    @csrf
-                                                                    <div class="input-group mb-0">
-                                                                        <input type="text" class="form-control" placeholder="Nhập mã voucher"
-                                                                        name="promotion_code">
-                                                                        <button type="submit" class="fz-14 btn btn-success col-3 fw-medium">Sử dụng</button>
-                                                                      </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                @if (session()->has('promotions'))
+                                                @if (count(session('promotions')) > 0)
                                                     <tr style="height: 37px">
                                                         <td colspan="3">
                                                             <span class="fw-medium">Mã giảm giá đã áp dụng:</span>

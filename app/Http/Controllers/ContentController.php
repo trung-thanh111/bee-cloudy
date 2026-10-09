@@ -73,12 +73,12 @@ class ContentController extends Controller
                 $content->save();
 
                 return response()->json([
-                    'status' => true,
+                    'code' => 10,
                     'like_count' => $content->like_count
                 ]);
             } else {
                 return response()->json([
-                    'status' => false,
+                    'code' => 11,
                     'message' => 'Bài viết không tồn tại.',
                 ]);
             }
@@ -108,13 +108,13 @@ class ContentController extends Controller
             $isLiked = session()->has($sessionKey);
 
             return response()->json([
-                'status' => true,
+                'code' => 10,
                 'liked' => $isLiked,
                 'like_count' => $content->like_count
             ]);
         } else {
             return response()->json([
-                'status' => false,
+                'code' => 11,
                 'message' => 'Bài viết không tồn tại.',
             ]);
         }
@@ -136,8 +136,8 @@ class ContentController extends Controller
                 $data->content = $request->content;
                 $data->save();
                 return response()->json([
-                    'status'    => true,
-                    'message'   => 'Đã chỉnh sửa bài đánh giá .',
+                    'code' => '10',
+                    'message'   => 'Đã chỉnh sửa bài đánh giá.',
                 ]);
             }
         } catch (\Exception $e) {
@@ -160,8 +160,8 @@ class ContentController extends Controller
         try {
             Content::find($request->id)->delete();
             return response()->json([
-                'status'    => true,
-                'message'   => 'Đã Xóa bài đánh giá .',
+                'code' => '10',
+                'message'   => 'Đã Xóa bài đánh giá.',
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -203,13 +203,13 @@ class ContentController extends Controller
                 'user_id'       => $user->id,
             ]);
             return response()->json([
-                'status'    => true,
-                'message'   => 'Đã thêm bài viết mới.',
+                'code' => '10',
+                'message'   => 'Đánh giá bài viết thành công.',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 11,
-                'message' => 'Có lỗi xảy ra khi đánh giá sản phẩm.',
+                'message' => 'Có lỗi xảy ra khi đánh giá bài viết.',
             ], 500);
         }
     }
@@ -225,13 +225,13 @@ class ContentController extends Controller
         try {
             Content::find($request->id)->delete();
             return response()->json([
-                'status'    => true,
-                'message'   => 'Đã xóa bài viết .',
+                'code' => '10',
+                'message'   => 'Đánh giá đã được xóa!',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 11,
-                'message' => 'Có lỗi xảy ra khi thêm bài biết mới.',
+                'message' => 'Có lỗi xảy ra khi xóa.',
             ], 500);
         }
     }
@@ -241,7 +241,7 @@ class ContentController extends Controller
         if (!Auth::check()) {
             return response()->json([
                 'code' => 11,
-                'message' => 'Vui lòng đăng nhập trước khi gửi bình luận.',
+                'message' => 'Vui lòng đăng nhập trước khi gửi đánh giá.',
                 'redirect' => route('auth.login'),
             ], 401);
         }
@@ -250,7 +250,7 @@ class ContentController extends Controller
             if ($data->edit_count >= 1) {
                 return response()->json([
                     'code' => false,
-                    'message' => 'Bạn đã chỉnh sửa bình luận này',
+                    'message' => 'Đánh giá đã được chỉnh sửa!',
                 ], 500);
             } else {
                 // $data->update([
@@ -261,21 +261,21 @@ class ContentController extends Controller
                 $data->edit_count += 1;
                 $data->save();
                 return response()->json([
-                    'status'    => true,
-                    'message'   => 'Đã chỉnh sửa bình luận.',
+                    'code' => '10',
+                    'message'   => 'Đã chỉnh sửa đánh giá.',
                 ]);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'code' => 11,
-                'message' => 'Có lỗi xảy ra khi chỉnh sửa bình luận này.',
+                'message' => 'Có lỗi xảy ra khi chỉnh sửa đánh giá này.',
             ], 500);
         }
     }
 
     public function loadCommentsPage()
     {
-        $comments = Comment::paginate(10);  // Phân trang 10 bình luận mỗi trang
-        return response()->json($comments); // Trả về bình luận dưới dạng JSON
+        $comments = Content::paginate(10);  // Phân trang 10 đánh giá mỗi trang
+        return response()->json($comments); // Trả về đánh giá dưới dạng JSON
     }
 }

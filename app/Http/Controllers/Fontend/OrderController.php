@@ -56,17 +56,23 @@ class OrderController extends FontendController
             ));
         }
     }
-  
+
 
     public function checkout(Request $request)
     {
         $carts = $this->cartService->all();
+        $arrayIdChecked = session('array_id', []);
+        $order = $this->cartService->getOrderByCartId($request);
+        // dd($order);
         $attributesByCartItem = $this->cartService->findAttributesByCode();
+
+        // Truyền dữ liệu vào view
         return view('fontend.order.checkout', compact(
-            'carts',
+            'order',
             'attributesByCartItem'
         ));
     }
+
     public function store(StoreOrderRequest $request)
     {
         $order = $this->orderService->create($request);
@@ -77,7 +83,7 @@ class OrderController extends FontendController
                     return redirect()->away($response['url']);
                 }
                 $this->orderService->updateQuantitySoldProduct($order);
-                $this->cartService->clear($request);
+                $this->cartService->destroyCartItem($request);
                 flash()->success('Đặt hàng thành công');
                 return redirect()->route('order.success');
             }
@@ -87,7 +93,7 @@ class OrderController extends FontendController
             $this->orderService->updateQuantitySoldProduct($order);
             $this->orderService->sendMail($order);
             // xóa cart sao khi thanh toán hành tất 
-            $this->cartService->clear($request);
+            $this->cartService->destroyCartItem($request);
             //update số lượng và đã bán
             flash()->success('Đặt hàng thành công');
             return redirect()->route('order.success');
@@ -136,8 +142,6 @@ class OrderController extends FontendController
                 ['created_at', 'desc']
             ]
         );
-        // $order = Order::where('customer_id', Auth::id())
-        //     ->orderBy('created_at', 'desc')->first(['code']);
         return view('fontend.order.failed', compact('order'));
     }
 

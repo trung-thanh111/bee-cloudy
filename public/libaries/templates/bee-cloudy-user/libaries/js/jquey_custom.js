@@ -116,7 +116,7 @@
 
     FS.showSubMenuLv3 = () => {
         $(".sub-menu-li").off('click').click(function (e) {
-            e.preventDefault();
+            // e.preventDefault();
 
             let $submenuLv3 = $(this).find(".sub-menu-lv3");
             let $iconRightLv3 = $(this).find(".fa-chevron-right.lv3");

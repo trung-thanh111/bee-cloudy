@@ -18,8 +18,8 @@
             <div class=" text-center text-muted shadow-sm ">
                 <div class=" z-1 text-center p-5 position-relative bg-white rounded-2">
                     <div class="z-3 contact-item-content position-relative text-muted">
-                        <h2 class="text-uppercase fw-bold pd-4 ">liên hệ</h2>
-                        <p class="fz-16 ">Mọi thắc mắc hay gặp vấn đề hãy gửi tin nhắn cho chúng tôi!</p>
+                        <h2 class="text-uppercase fw-bold pd-4">liên hệ</h2>
+                        {{-- <p class="fz-16 ">Mọi thắc mắc hay gặp vấn đề hãy gửi tin nhắn cho chúng tôi!</p> --}}
                     </div>
                 </div>
             </div>

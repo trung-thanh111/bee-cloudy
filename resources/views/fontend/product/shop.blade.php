@@ -343,9 +343,10 @@
                                                 $product->del != 0 && $product->del != null
                                                     ? number_format($product->del, '0', ',', '.')
                                                     : number_format($product->price, '0', ',', '.');
+                                            //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                            $variantFirst = $product->productVariant->first();
                                         @endphp
-                                        <div class="col-lg-4 col-md-6 col-12 mb-4" data-aos="fade-down"
-                                            data-aos-duration="800">
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4">
                                             <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                                 <div class="position-absolute z-1 w-100">
                                                     <div class="head-card ps-0 d-flex justify-content-between">
@@ -398,6 +399,13 @@
                                                                                 @endif
                                                                             @endforeach
                                                                         @endforeach
+                                                                        <input type="hidden"
+                                                                            class="add_product_variant_id"
+                                                                            value="{{ $variant->id }}">
+                                                                        <input type="hidden"
+                                                                            class="attribute_default"
+                                                                            value="{{ $variant->code }}">
+                                                                        {{-- <input type="hidden" class="variant_price" value="{{ $variant->price }}"> --}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -411,7 +419,7 @@
                                                     </h6>
                                                     <div class="d-flex justify-content-start mb-2 ">
                                                         <span
-                                                            class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                            class="text-danger fz-20 fw-medium me-3"
                                                             data-price="{{ $price }}">{{ $price }}đ
                                                         </span>
                                                         <span class="mt-1 ">
@@ -422,12 +430,12 @@
                                                     <div class="box-action">
                                                         <a href="{{ route('cart.index') }}"
                                                             class="action-cart-item-buy addToCart buyNow"
-                                                            data-id="{{ $product->id }}">
+                                                            data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                             <span>Mua ngay</span>
                                                         </a>
                                                         <a href="" class="action-cart-item-add addToCart"
-                                                            data-id="{{ $product->id }}">
+                                                            data-id="{{ $product->id }}" data-product-variant-id="{{ $variantFirst->id }}" data-product-variant-price="{{ $variantFirst->price }}" data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                             <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                             <span>thêm giỏ hàng</span>
                                                         </a>
@@ -467,8 +475,7 @@
                     </div>
                 </div>
                 <div class="banner-shop my-3 w-100">
-                    <div id="carouselExampleIndicators"
-                        class="carousel slide w-100" data-bs-ride="carousel"
+                    <div id="carouselExampleIndicators" class="carousel slide w-100" data-bs-ride="carousel"
                         data-bs-interval="5000">
                         <div class="carousel-inner ">
                             @if ($bannerShop)
@@ -615,7 +622,7 @@
                                                     class="text-break w-100 text-muted">{{ $productNew->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
-                                                <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                <span class="text-danger fz-20 fw-medium me-3"
                                                     data-price="{{ $price }}">{{ $price }}đ
                                                 </span>
                                                 <span class="mt-1 ">
@@ -742,7 +749,7 @@
                                                     class="text-break w-100 text-muted">{{ $productPriceMin->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
-                                                <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                <span class="text-danger fz-20 fw-medium me-3"
                                                     data-price="{{ $price }}">{{ $price }}đ
                                                 </span>
                                                 <span class="mt-1 ">
@@ -1055,10 +1062,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                    <a href="zalo">
-                                                                                                                                        <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
-                                                                                                                                    </a>
-                                                                                                                                </div> -->
+                                                                                                                                        <a href="zalo">
+                                                                                                                                            <img class="rounded-circle " src="/libaries/templates/bee-cloudy-user/libaries/imageso.png" alt="" width="50">
+                                                                                                                                        </a>
+                                                                                                                                    </div> -->
 
         </div>
     </section>

@@ -56,7 +56,7 @@
                 </button>
             </div>
         </div>
-        <div class="container-fluid p-0 bg-white" data-aos="fade-right" >
+        <div class="container-fluid p-0 bg-white" data-aos-duration="800" data-aos="fade-right" >
             <div class="container policy py-5">
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6">
@@ -122,7 +122,7 @@
                 </div>
             </div>
         </div>
-        <section data-aos="zoom-in">
+        <section data-aos-duration="800" data-aos="zoom-in">
             <div class="container p-3 my-4 bg-white">
                 <div class="title-product mb-0 col-3 mb-4">
                     <div class="price-banner">
@@ -168,7 +168,7 @@
                 </div>
             </div>
         </section>
-        <section data-aos="zoom-in">
+        <section data-aos-duration="800" data-aos="zoom-in">
             <div class="container newArrive mt-3 bg-white">
                 <div class="product-category p-2">
                     <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
@@ -203,7 +203,7 @@
                                             : number_format($productN->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-4" >
-                                    <div class="card card-product shadow-sm border-0 mb-2 py-0" data-aos="flip-up">
+                                    <div class="card card-product shadow-sm border-0 mb-2 py-0" data-aos-duration="800" data-aos="flip-up">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
                                                 <span
@@ -313,7 +313,7 @@
                 </div>
             </div>
         </section>
-        <section class="homeCategory" data-aos="fade-up">
+        <section class="homeCategory" data-aos-duration="800" data-aos="fade-up">
             <div class="container my-4 bg-white">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-12 mb-4">
@@ -359,7 +359,7 @@
                 </div>
             </div>
         </section>
-        <section data-aos="zoom-in">
+        <section data-aos-duration="800" data-aos="zoom-in">
             <div class="container plashSale mb-4 bg-white">
                 <div class="product-category p-2">
                     <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
@@ -395,7 +395,7 @@
                                             ? number_format($productPriceMin->del, '0', ',', '.')
                                             : number_format($productPriceMin->price, '0', ',', '.');
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-3" data-aos="fade-up">
+                                <div class="col-lg-3 col-md-6 col-12 mb-3" data-aos-duration="800" data-aos="fade-up">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -495,7 +495,7 @@
             </div>
         </section>
 
-        <section data-aos="zoom-in">
+        <section data-aos-duration="800" data-aos="zoom-in">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                 <div class="carousel-inner mb-5">
                     @if ($bannerHome1)
@@ -583,7 +583,7 @@
                                             ? number_format($productSale->del, '0', ',', '.')
                                             : number_format($productSale->price, '0', ',', '.');
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-4" data-aos="fade-up">
+                                <div class="col-lg-3 col-md-6 col-12 mb-4" data-aos-duration="800" data-aos="fade-up">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -696,7 +696,7 @@
             </div>
             </div>
         </section>
-    <section data-aos="zoom-in">
+    <section data-aos-duration="800" data-aos="zoom-in">
         <div class="container my-4 bg-white py-3">
             <!-- Section Header -->
             <div class="title-product mb-0 col-3 mb-4">
@@ -720,7 +720,7 @@
                                 <div class="mb-4">
                                     <div class="card border-0 shadow-sm rounded-4">
                                         <div class="row g-0">
-                                            <div class="col-md-8 overflow-hidden" data-aos="fade-up">
+                                            <div class="col-md-8 overflow-hidden" data-aos-duration="800" data-aos="fade-up">
                                                 <img src="{{ $valuePostH->image }}"
                                                     class="w-100 object-fit-cover rounded-start-4"
                                                     alt="{{ $valuePostH->name }}" height="450">
@@ -775,7 +775,7 @@
                                 $authorc3->image ??
                                 '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif';
                         @endphp
-                        <div class="col-lg-3 col-md-6 col-12" data-aos="fade-up">
+                        <div class="col-lg-3 col-md-6 col-12" data-aos-duration="800" data-aos="fade-up">
                             <a href="{{ route('post.detail', ['slug' => $valPostStand3->slug]) }}"
                                 class="text-decoration-none">
                                 <div class="card h-100 border-0 shadow-sm rounded-3">

@@ -9,21 +9,25 @@ use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\OrderRepository;
 use App\Http\Controllers\FontendController;
+use App\Services\CartService;
 
 class VnpayController extends FontendController
 {
 
     protected $vnpay;
+    protected $cartService;
     protected $orderService;
     protected $orderRepository;
 
     public function __construct(
         Vnpay $vnpay,
+        CartService $cartService,
         OrderService $orderService,
         OrderRepository $orderRepository,
     ) {
 
         $this->vnpay = $vnpay;
+        $this->cartService = $cartService;
         $this->orderService = $orderService;
         $this->orderRepository = $orderRepository;
     }
@@ -90,17 +94,21 @@ class VnpayController extends FontendController
             } else {
                 $payload = [
                     'payment' => 'failed',
-                    'status' => 'pending'
+                    'status' => 'pending',
+                    'paid_at' => now()->format('Y-m-d H:i:s'),
                 ];
                 flash()->error('Giao dịch không thành công.');
             }
             $this->orderService->updateStatusPayment($payload, $order);
+            $this->orderService->updatePaidAt($order->id, $payload);
             $this->orderService->sendMail($order);
+            $this->cartService->destroyCartItem($request);
+
         } else {
             flash()->error('Chữ ký không hợp lệ.');
         }
     }
-    public function vnpayIpn()
+    public function vnpayIpn(Request $request)
     {
         /* Payment Notify
      * IPN URL: Ghi nhận kết quả thanh toán từ VNPAY
@@ -184,7 +192,8 @@ class VnpayController extends FontendController
                             if ($inputData['vnp_ResponseCode'] == '00' || $inputData['vnp_TransactionStatus'] == '00') {
                                 $payload = [
                                     'payment' => 'paid',
-                                    'status' => 'confirmed'
+                                    'status' => 'confirmed',
+                                    'paid_at' => now()->format('Y-m-d H:i:s'),
                                 ];
                             } else {
                                 $payload = [
@@ -194,7 +203,9 @@ class VnpayController extends FontendController
                             }
                             //cập nhật lại trạng thái đơn đơn hàng và trang thái payment
                             $this->orderService->updateStatusPayment($payload, $order);
+                            $this->orderService->updatePaidAt($order->id, $payload);
                             $this->orderService->sendMail($order);
+                            $this->cartService->destroyCartItem($request);
 
                             // bên dưới trả lại kq cho vn pay
 
