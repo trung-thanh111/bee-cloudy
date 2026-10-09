@@ -83,7 +83,7 @@
                                                                                     <span class="d-none d-xl-block ">Chi tiết</span>
                                                                                 </button>
                                                                                 <a href="{{ route('cart.index') }}"
-                                                                                    class="btn-promotion btn btn-success btn-sm fw-medium text-white rounded-pill shadow-sm hover-lift me-2 d-flex align-items-center"
+                                                                                    class="btn-promotion btn btn-success {{ ($userVoucher->isUsed === 0) ? "d-none" : ''}} btn-sm fw-medium text-white rounded-pill shadow-sm hover-lift me-2 d-flex align-items-center"
                                                                                     style="margin-top: 90px">
                                                                                     <i class="fa-solid fa-check me-1"></i>
                                                                                     <span class="d-none d-xl-block ">
@@ -152,8 +152,8 @@
                                                                         <div class="col-4 text-muted">Trạng thái</div>
                                                                         <div class="col-8 text-end">
                                                                             <span
-                                                                                class="badge {{ $userVoucher->is_used ? 'bg-secondary' : 'bg-success' }}">
-                                                                                {{ $userVoucher->is_used ? 'Đã sử dụng' : 'Chưa sử dụng' }}
+                                                                                class="badge {{ $userVoucher->isUsed === 0 ? 'bg-secondary' : 'bg-success' }}">
+                                                                                {{ $userVoucher->isUsed === 0 ? 'Đã sử dụng' : 'Chưa sử dụng' }}
                                                                             </span>
                                                                         </div>
                                                                     </div>
