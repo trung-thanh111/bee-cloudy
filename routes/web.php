@@ -85,6 +85,7 @@ Route::post('/ajax/wishlist/toggle', [AjaxWishlistController::class, 'toggle'])-
 // ORDER UPDATE AJAX
 Route::post('/ajax/order/editNote', [AjaxOrderController::class, 'edit'])->name('ajax.order.edit');
 Route::post('/ajax/order/updateStatus', [AjaxOrderController::class, 'updateStatus'])->name('ajax.order.updateStatus');
+Route::post('/ajax/order/updatePaidAt', [AjaxOrderController::class, 'updatePaidAt'])->name('ajax.order.updatePaidAt');
 
 //SEARCH SUGGESTION AJAX
 Route::get('/ajax/search/suggestion', [AjaxSearchController::class, 'suggestion'])->name('ajax.search.suggestions');

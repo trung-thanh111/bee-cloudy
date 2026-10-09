@@ -71,7 +71,7 @@ class OrderService implements OrderServiceInterface
 
         return $orders;
     }
-    
+
 
 
     // tạo đơn hàng user Fontend
@@ -83,7 +83,6 @@ class OrderService implements OrderServiceInterface
             $order = $this->orderRepository->create($payload);
             if ($order->id > 0) {
                 $orderItem = $this->createOrderitems($request, $order);
-                
             }
             DB::commit();
             return $order;
@@ -101,7 +100,6 @@ class OrderService implements OrderServiceInterface
         $cc = 'beecloudy2024@gmail.com'; // gửi về mail của hệ thống 
         $content = ['order' => $order];
         Mail::to($to)->cc($cc)->send(new OrderMail($content));
-        
     }
 
 
@@ -110,11 +108,10 @@ class OrderService implements OrderServiceInterface
         $payload = $request->except(['_token', 'submit']);
         $payload['code'] = Str::upper(Str::random(2, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')) . time();
         $payload['customer_id'] = Auth::id();
-        $payload['address'] = $payload['address'].', '.$payload['ward_name'].', '.$payload['district_name'].', '.$payload['province_name'];
+        $payload['address'] = $payload['address'] . ', ' . $payload['ward_name'] . ', ' . $payload['district_name'] . ', ' . $payload['province_name'];
         $payload['cart'] = json_encode($this->cartService->all());
         $payload['total_items'] = $this->cartService->countProductIncart();
         return $payload;
-        dd($payload);
     }
 
     private function createOrderitems($request, $order)
@@ -145,13 +142,14 @@ class OrderService implements OrderServiceInterface
         $order->orderItems()->createMany($orderItem);
     }
 
-    public function update($request ){
+    public function update($request)
+    {
         DB::beginTransaction();
         try {
             $payload = $request->input();
             // dd($payload);
             $this->orderRepository->updateById($payload['id'], $payload);
-            
+
             DB::commit();
             // die();
             return true;
@@ -161,7 +159,8 @@ class OrderService implements OrderServiceInterface
             return false;
         }
     }
-    public function updateStatusPayment($payload, $order ){
+    public function updateStatusPayment($payload, $order)
+    {
         DB::beginTransaction();
         try {
             $this->orderRepository->updateById($order->id, $payload);
@@ -174,12 +173,13 @@ class OrderService implements OrderServiceInterface
         }
     }
 
-    public function updateQuantitySoldProduct($order){
+    public function updateQuantitySoldProduct($order)
+    {
         DB::beginTransaction();
         try {
-            $order = $this->orderRepository->findById($order->id, ['orderItems','orderItems.products', 'orderItems.productVariants']);
-            foreach($order->orderItems as $val){
-                if(!empty($val->product_id) && is_numeric($val->product_id)){
+            $order = $this->orderRepository->findById($order->id, ['orderItems', 'orderItems.products', 'orderItems.productVariants']);
+            foreach ($order->orderItems as $val) {
+                if (!empty($val->product_id) && is_numeric($val->product_id)) {
                     $product = $this->productRepository->findById((int) $val->product_id);
                     if ($product) {
                         $product->instock -= $val->final_quantity;
@@ -187,7 +187,7 @@ class OrderService implements OrderServiceInterface
                         $product->save();
                     }
                 }
-                if(!empty($val->product_variant_id) && is_numeric($val->product_variant_id)){
+                if (!empty($val->product_variant_id) && is_numeric($val->product_variant_id)) {
                     $productVariant = $this->productVariantRepository->findById((int) $val->product_variant_id);
                     if ($productVariant) {
                         $productVariant->quantity -= $val->final_quantity;
@@ -196,6 +196,20 @@ class OrderService implements OrderServiceInterface
                     }
                 }
             }
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function updatePaidAt($orderId, $payload)
+    {
+        DB::beginTransaction();
+        try {
+            $this->orderRepository->updateById($orderId, $payload);
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -215,7 +229,7 @@ class OrderService implements OrderServiceInterface
                 ['customer_id', '=',  Auth::id()]
             ]
         ];
-        $condition['created_at'] = $request->input('created_at') ;
+        $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
         $perPage = $request->integer('perpage') ?: 5;
         $orders = $this->orderRepository->pagination(
@@ -238,7 +252,7 @@ class OrderService implements OrderServiceInterface
 
             ]
         ];
-        $condition['created_at'] = $request->input('created_at') ;
+        $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
         $perPage = $request->integer('perpage') ?: 5;
         $orders = $this->orderRepository->pagination(
@@ -260,7 +274,7 @@ class OrderService implements OrderServiceInterface
                 ['status', '=',  'confirmed']
             ]
         ];
-        $condition['created_at'] = $request->input('created_at') ;
+        $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
         $perPage = $request->integer('perpage') ?: 5;
         $orders = $this->orderRepository->pagination(
@@ -282,7 +296,7 @@ class OrderService implements OrderServiceInterface
                 ['status', '=',  'shipping']
             ]
         ];
-        $condition['created_at'] = $request->input('created_at') ;
+        $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
         $perPage = $request->integer('perpage') ?: 5;
         $orders = $this->orderRepository->pagination(
@@ -304,7 +318,7 @@ class OrderService implements OrderServiceInterface
                 ['status', '=',  'canceled']
             ]
         ];
-        $condition['created_at'] = $request->input('created_at') ;
+        $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
         $perPage = $request->integer('perpage') ?: 5;
         $orders = $this->orderRepository->pagination(
@@ -326,7 +340,7 @@ class OrderService implements OrderServiceInterface
                 ['status', '=',  'completed']
             ]
         ];
-        $condition['created_at'] = $request->input('created_at') ;
+        $condition['created_at'] = $request->input('created_at');
         $relation = ['orderItems', ['orderItems.products'], 'orderItems.productVariants'];
         $perPage = $request->integer('perpage') ?: 5;
         $orders = $this->orderRepository->pagination(
@@ -343,12 +357,12 @@ class OrderService implements OrderServiceInterface
     {
         $orders = $this->all();
         $attributesByOrderItem = [];
-        if(isset($orders->orderItems) && count($orders->orderItems ) > 0){
+        if (isset($orders->orderItems) && count($orders->orderItems) > 0) {
             foreach ($orders->orderItems as $orderItem) {
                 if ($orderItem->productVariants) {
                     $codeIds = explode(',', $orderItem->productVariants->code);
                     $attributes = Attribute::whereIn('id', $codeIds)->get();
-    
+
                     //lấy dúng attribut của cartitem đó
                     $attributesByOrderItem[$orderItem->id] = $attributes;
                 }
@@ -376,6 +390,7 @@ class OrderService implements OrderServiceInterface
             'status',
             'payment_method',
             'payment',
+            'paid_at',
             'created_at',
         ];
     }

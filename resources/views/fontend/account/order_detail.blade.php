@@ -240,7 +240,7 @@
                                                 </div>
                                                 <div>
                                                     <button
-                                                        class="btn btn-success py-2 px-4 rounded-2 fz-13 fw-medium dropdown-toggle updateStatus"
+                                                        class="btn btn-success py-2 px-4 rounded-2 fz-13 fw-medium dropdown-toggle updateStatus updatePaidAt"
                                                         type="button" data-bs-toggle="dropdown" data-status="completed">
                                                         Đã nhận được hàng
                                                     </button>
@@ -540,5 +540,8 @@
     </div>
 </div>
 <input type="hidden" name="order_id" class="orderId" value="{{ $order->id }}">
+<script>
+    let orderUpdatePaiAt = @json($order);
+</script>
 
 @endsection

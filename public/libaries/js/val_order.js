@@ -70,7 +70,6 @@
                 $(document).on("click", "#confirmCancel", function () {
                     FS.updateOrderStatusAjax(orderId, status);
                     $("#confirmModal").modal("hide");
-                    
                 });
             }else {
                 FS.updateOrderStatusAjax(orderId, status);
@@ -92,12 +91,49 @@
                     if (res.redirect === "back") {
                         window.location.reload(); // reload lại trang
                     }
-                    flasher.success(res.message);
                 }
             },
             error: function (xhr) {
                 var response = JSON.parse(xhr.responseText);
-                flasher.error(response.message);
+            },
+        });
+    };
+    FS.updatePaidAtOrder = (res) => {
+        $(document).on("click", ".updatePaidAt", function () {
+            let _this = $(this);
+            let orderId = parseInt($(".orderId").val());
+            let newDate = new Date().toISOString(); // lấy thời gian hiện tại 
+            let paidAt = new Date(newDate).toLocaleString("en-CA", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }).replace(",", ""); // dịnh dạng lại cho gióng csdl
+            
+            if(orderUpdatePaiAt.paid_at == null){
+                FS.updateOrderPaidAtAjax(orderId, paidAt)
+            }
+        });
+    };
+    FS.updateOrderPaidAtAjax = (orderId, paidAt) => {
+        $.ajax({
+            url: "/ajax/order/updatePaidAt",
+            type: "POST",
+            data: {
+                id: orderId,
+                paid_at: paidAt,
+                _token: _token,
+            },
+            dataType: "json",
+            success: function (res) {
+                if (res.code == 10) {
+                    if (res.redirect === "back") {
+                        window.location.reload(); // reload lại trang
+                    }
+                }
             },
         });
     };
@@ -107,5 +143,6 @@
         FS.clickToUpdateNoteOrders();
         FS.updateNote();
         FS.updateStatusOrder();
+        FS.updatePaidAtOrder();
     });
 })(jQuery);

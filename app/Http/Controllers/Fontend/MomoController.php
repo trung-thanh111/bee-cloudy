@@ -77,10 +77,12 @@ class MomoController extends FontendController
             // TẠM THỜI 
             if ($resultCode == '0') { // Thanh toán thành công
                 $payload = [
-                    'payment' => 'paid',
-                    'status' => 'confirmed'
+                    'payment' =>'paid',
+                    'status' => 'confirmed',
+                    'paid_at' => now()->format('Y-m-d H:i:s'),
                 ];
                 $this->orderService->updateStatusPayment($payload, $order);
+                $this->orderService->updatePaidAt($order->id, $payload);
                 $this->orderService->sendMail($order);
                 $this->cartService->clear($request);
                 flash()->success('Giao dịch thành công.');
@@ -139,10 +141,12 @@ class MomoController extends FontendController
                 if ($m2signature == $partnerSignature) {
                     if ($resultCode == '0') { // Thanh toán thành công
                         $payload = [
-                            'payment' => 'paid',
-                            'status' => 'confirmed'
+                            'payment' =>'paid',
+                            'status' => 'confirmed',
+                            'paid_at' => now(),
                         ];
                         $this->orderService->updateStatusPayment($payload, $order);
+                        $this->orderService->updatePaidAt($order->id, $payload['paid_at']);
                         $this->orderService->sendMail($order);
                         $this->cartService->clear($request);
                         flash()->success('Giao dịch thành công.');
@@ -157,7 +161,7 @@ class MomoController extends FontendController
                         flash()->error('Giao dịch thất bại!.');
                         return view('fontend.order.failed', compact('order'));
                     }
-                } else {
+                } else { 
                     flash()->warning('Giao dịch này có thể bị hack, vui lòng kiểm tra chữ ký của bạn và chữ ký đã trả lại.');
                 }
             } catch (Exception $e) {
