@@ -413,7 +413,7 @@
                                                         <hr>
                                                     </td>
                                                 </tr>
-                                                @if (count(session('promotions')) > 0)
+                                                @if (session('promotions'))
                                                     <tr style="height: 37px">
                                                         <td colspan="3">
                                                             <span class="fw-medium">Mã giảm giá đã áp dụng:</span>
