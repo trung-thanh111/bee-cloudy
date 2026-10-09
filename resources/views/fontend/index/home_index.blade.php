@@ -3,8 +3,17 @@
 Trang Chủ
 @endsection
 @section('content')
+
+
 <div class="container-fluid p-0">
-    <img src="/libaries/templates/bee-cloudy-user/libaries/images/mainbanner.jpg" class="img-fluid" alt="...">
+    @if($banner)
+    @foreach ($banner as $valueBanner)
+    <img src="{{ $valueBanner[0]->album }}" class="object-fit-cover" alt="..." width="100%" height="590">
+    @endforeach
+    @else
+    <img src="/libaries/templates/bee-cloudy-user/libaries/images/mainbanner.jpg" class="object-fit-cover" alt="..." width="100%" height="590">
+    @endif
+
 </div>
 <div class="container-fluid p-0" style="background-color:#fff">
     <div class="container policy py-5">
@@ -61,7 +70,7 @@ Trang Chủ
             </div>
         </div>
     </div>
-</div> 
+</div>
 <section>
     <div class="container newArrive mt-3">
         <div class="product-category p-2">
@@ -333,8 +342,8 @@ Trang Chủ
             </div>
         </div>
     </div>
- </section>
- <section class="homeCategory">
+</section>
+<section class="homeCategory">
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-12 mb-4">
@@ -374,9 +383,9 @@ Trang Chủ
                 </div>
             </div>
         </div>
-    </div>        
- </section>
- <section>
+    </div>
+</section>
+<section>
     <div class="container plashSale">
         <div class="product-category p-2">
             <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
@@ -647,8 +656,8 @@ Trang Chủ
             </div>
         </div>
     </div>
- </section>
- <section>
+</section>
+<section>
     <div class="sub-banner my-5">
         <div class="container-fluid p-0">
             <div class="row">
@@ -656,13 +665,19 @@ Trang Chủ
                     <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-sub1.webp" class="img-fluid" alt="...">
                 </div> --}}
                 <div class="col-lg-6 col-md-6 col-12 mb-4"></div>
-                    <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-sub2.jpg" class="img-fluid" alt="...">
-                </div>
+                @if($banner1)
+                @foreach ($banner1 as $valueBanner)
+                <img src=" $valueBanner->album" class="object-fit-cover" alt="..." width="100%" height="590">
+                @endforeach
+                @else
+                <img src="/libaries/templates/bee-cloudy-user/libaries/images/banner-sub2.jpg" class="object-fit-cover" alt="..." width="100%" height="590">
+                @endif
             </div>
-        </div>   
+        </div>
     </div>
- </section>
- <section>
+    </div>
+</section>
+<section>
     <div class="container promotion">
         <div class="product-category p-2">
             <div class="title-product-category d-flex justify-content-between align-items-center mb-3">
@@ -933,8 +948,8 @@ Trang Chủ
             </div>
         </div>
     </div>
- </section>
- <div class="">
+</section>
+<div class="">
     <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
         style="bottom: 60px; right: 30px;">
         <div class=" border-2 rounded-circle">
