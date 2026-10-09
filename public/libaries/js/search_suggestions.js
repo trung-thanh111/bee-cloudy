@@ -114,6 +114,6 @@
         FS.suggestion();
         FS.searchKeyUpShowPaper();
         FS.autoSubmitKeyword()
-    FS.getKeywordClickKeywordRecent();
+        FS.getKeywordClickKeywordRecent();
     });
 })(jQuery);
