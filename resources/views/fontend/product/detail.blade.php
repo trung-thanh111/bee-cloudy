@@ -788,7 +788,7 @@
                                         </div>
                                         <div class="card-body p-2">
                                             <h6 class="fw-medium overflow-hidden " style="height: 35px">
-                                                <a href="#"
+                                                <a href="{{ route('product.detail', ['slug' => $valProductSimilar->slug]) }}"
                                                     class="text-break w-100 text-muted">{{ $valProductSimilar->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">

@@ -1,6 +1,6 @@
 @extends('fontend.home.layout')
 @section('page_title')
-Thanh toán thất bại
+Chính sách
 @endsection
 @section('content')
 <section>

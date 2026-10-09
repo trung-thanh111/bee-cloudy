@@ -42,12 +42,10 @@
                             <div class="content-product-cate row flex-wrap">
                                 @if ($wishlists->isNotEmpty())
                                     @foreach ($wishlists as $key => $wishlist)
-                                        {{-- @dd($wishlists) --}}
 
                                         @php
                                             $product = $wishlist->products;
                                             $productVariant = $wishlist->productVariants;
-                                            // dd($wishlist[2]);
                                         @endphp
 
                                         @if ($product != null || $productVariant != null)
@@ -93,7 +91,7 @@
 
                                                     <div class="image-main-product position-relative">
                                                         <a
-                                                            href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}"></a>
+                                                            href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}">
                                                         <img src="{{ $item->image ?? explode(',', $item->album)[0] }}"
                                                             alt="product image" width="100%" height="250"
                                                             class="img-fluid object-fit-cover rounded-top-2"
@@ -147,8 +145,11 @@
                                                     </div>
                                                     <div class="card-body p-2">
                                                         <h6 class="fw-medium overflow-hidden mb-0" style="height: 39px">
-                                                            <a href="#"
+                                                            <a href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}"
                                                                 class="text-break w-100 text-muted">{{ $item->name }}</a>
+                                                                <h4 class="fs-4 fw-bold mb-1 product-variant-id d-none">
+                                                                    {{ $productVariant ? $productVariant->id : '' }}
+                                                                </h4>
                                                         </h6>
                                                         <div class="d-flex justify-content-start mb-2 ">
                                                             <span
@@ -161,19 +162,39 @@
                                                                 </span>
                                                             @endif
                                                         </div>
+                                                        @if($product)
                                                         <div class="box-action">
                                                             <a href="{{ route('cart.index') }}"
                                                                 class="action-cart-item-buy addToCart buyNow"
-                                                                data-id="{{ $item->id }}">
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
                                                                 <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                                 <span>Mua ngay</span>
                                                             </a>
                                                             <a href="" class="action-cart-item-add addToCart"
-                                                                data-id="{{ $item->id }}">
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
                                                                 <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                                 <span>thêm giỏ hàng</span>
                                                             </a>
                                                         </div>
+                                                        @else
+                                                        <div class="box-action">
+                                                            <a href=""
+                                                                class="action-cart-item-buy toggleWishlist"
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
+                                                                <i class="fa-solid fa-heart-crack fz-18 me-2"></i>
+                                                                <span>Bỏ yêu thích</span>
+                                                                <span
+                                                                    class="product_id_wishlist d-none">{{ $item->id }}</span>
+                                                                <span
+                                                                    class="product_variant_id_wishlist d-none">{{ $productVariant ? $productVariant->id : '' }}</span>
+                                                            </a>
+                                                            <a href="{{ route('product.detail', ['slug' => $product ? $product->slug : $productVariant->product->slug]) }}" class="action-cart-item-add addToCart"
+                                                                data-id="{{ ($productVariant) ? $productVariant->id : $product->id }}">
+                                                                <i class="fa-solid fa-eye fz-18 me-2"></i>
+                                                                <span>Xem chi tiết</span>
+                                                            </a>
+                                                        </div>
+                                                        @endif
                                                         <div class="head-card d-flex p-1">
                                                             <span class="fz-14 ">Mã sản phẩm</span>
                                                             <span

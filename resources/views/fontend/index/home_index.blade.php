@@ -9,54 +9,64 @@
         </div>
         <div class="container-fluid p-0" style="background-color:#fff">
             <div class="container policy py-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-2 col-md-4 col-12 mb-3">
-                        <div class="row align-items-center">
-                            <div class="col-2">
-                                <i class="fa-solid fa-medal fs-2" style="color:#878a99;"></i>
-                            </div>
-                            <div class="col-10 pt-1 ">
-                                Sản phẩm độc quyền
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-12 mb-3">
-                        <div class="row align-items-center">
-                            <div class="col-2">
-                                <i class="fa-solid fa-box fs-2" style="color:#878a99;"></i>
-                            </div>
-                            <div class="col-10 pt-1 ">
-                                Đóng gói chất lượng
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm hover-shadow transition-all">
+                            <div class="card-body p-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <i class="fa-solid fa-medal fs-3 text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-1">Sản phẩm độc quyền</h5>
+                                        <p class="card-text text-muted mb-0 fz-14">Chất lượng đảm bảo</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-4 col-12 mb-3">
-                        <div class="row align-items-center">
-                            <div class="col-2">
-                                <i class="fa-solid fa-money-bill fs-2" style="color:#878a99;"></i>
-                            </div>
-                            <div class="col-10 pt-1 ">
-                                Thanh toán dễ dàng
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-12 mb-3">
-                        <div class="row align-items-center">
-                            <div class="col-2">
-                                <i class="fa-solid fa-clock-rotate-left fs-2" style="color:#878a99;"></i>
-                            </div>
-                            <div class="col-10 pt-1 ">
-                                Trả hàng sau 7 ngày
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm hover-shadow transition-all">
+                            <div class="card-body p-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <i class="fa-solid fa-box fs-3 text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-1">Đóng gói chất lượng</h5>
+                                        <p class="card-text text-muted mb-0 fz-14">An toàn & bảo vệ</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-4 col-12 mb-3">
-                        <div class="row align-items-center">
-                            <div class="col-2">
-                                <i class="fa-solid fa-truck-fast fs-2" style="color:#878a99;"></i>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm hover-shadow transition-all">
+                            <div class="card-body p-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <i class="fa-solid fa-money-bill fs-3 text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-1">Thanh toán dễ dàng</h5>
+                                        <p class="card-text text-muted mb-0 fz-14">Nhiều phương thức</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-10 pt-1 ">
-                                Miễn phí vận chuyển
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card border-0 shadow-sm hover-shadow transition-all">
+                            <div class="card-body p-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="feature-icon bg-light rounded-circle p-3 me-3">
+                                        <i class="fa-solid fa-truck-fast fs-3 text-info"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-1">Miễn phí vận chuyển</h5>
+                                        <p class="card-text text-muted mb-0 fz-14">Toàn quốc</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1110,10 +1120,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                                                                                                                                                                            <a href="zalo">
-                                                                                                                                                                                                                                                                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                <a href="zalo">
+                                                                                                                                                                                                                                                                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                                                                                                                                                                                                                                </a>
+                                                                                                                                                                                                                                                                                            </div> -->
         </div>
         <div class="">
             <a href="#" class="text-decoration-none back-to-top text-end position-fixed z-3 d-none"
@@ -1123,10 +1133,10 @@
                 </div>
             </a>
             <!-- <div class=" live-chat ms-lg-16">
-                                                                                                                                                                                                                                                                                            <a href="zalo">
-                                                                                                                                                                                                                                                                                                <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
-                                                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                <a href="zalo">
+                                                                                                                                                                                                                                                                                                    <img class="rounded-circle " src="public/image/zalo.png" alt="" width="50">
+                                                                                                                                                                                                                                                                                                </a>
+                                                                                                                                                                                                                                                                                            </div> -->
         </div>
     </div>
 @endsection
