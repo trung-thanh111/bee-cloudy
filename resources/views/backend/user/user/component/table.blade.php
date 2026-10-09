@@ -34,7 +34,7 @@
                         </div>
                     </th>
                     <td class="customer_name">
-                        <img src="{{ ($item->image) ? '/userfiles/image/user/'.$item->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}" alt=""
+                        <img src="{{ ($item->image) ? $item->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}" alt=""
                             class="object-fit-contain me-2 rounded-circle" width="60px" height="60px">
                         {{ $item->name }}
                     </td>

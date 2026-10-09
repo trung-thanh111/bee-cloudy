@@ -280,7 +280,7 @@
                                     data-bs-toggle="dropdown">
                                     <span class="d-flex align-items-center">
                                         <img class="rounded-circle header-profile-user"
-                                            src="{{ $user->image != null  ? '/userfiles/image/user/'.$user->image : '/libaries/upload/images/user-default.avif' }}"
+                                            src="{{ $user->image != null  ? $user->image : '/libaries/upload/images/user-default.avif' }}"
                                             alt="Avatar User" class="rounded-circle object-fit-cover" width="40"
                                             height="40">
                                     </span>

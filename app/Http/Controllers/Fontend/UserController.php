@@ -45,12 +45,15 @@ class UserController extends Controller
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $filename = $file->getClientOriginalName();
-                $path = 'userfiles/image/user/';
+                $path = 'userfiles/image/user/'; 
                 $file->move($path, $filename);
-                $payload['image'] = $filename;
+                $relativePath = '/'.$path . $filename;
+            
+                $payload['image'] = $relativePath;
             } else {
-                $payload['image'] = $user->image;
+                $payload['image'] = $user->image; 
             }
+            
             $user->update($payload);
             
             return redirect()->route('profile.user')->with('success', 'Cập nhật thông tin thành công!');
