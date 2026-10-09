@@ -12,6 +12,7 @@ class Promotion extends Model
     // Các cột có thể được fill từ dữ liệu đầu vào
     protected $fillable = [
         'name',
+        'image',
         'code',
         'start_date',
         'end_date',
@@ -20,7 +21,7 @@ class Promotion extends Model
         'usage_limit',
         'apply_for',
         'status',
-        'quantity',
+        'description'
     ];
 
     // Định dạng các cột ngày tháng
