@@ -6,7 +6,10 @@
 
     FS.addToCart = () => {
         $(document).on("click", ".addToCart", function (e) {
-            e.preventDefault();
+
+            if (!$(this).hasClass("buyNow")) {
+                e.preventDefault();
+            }
 
             let _this = $(this);
             let product_id = _this.attr("data-id");
@@ -119,11 +122,24 @@
                 product_variant_id: product_variant_id,
                 _token: _token,
             };
+            let htmlCartNull = `<div class="no-product text-center p-3">
+                            <a href="#">
+                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/image-add-to-cart.png"
+                                    alt="" class="img-fluid object-fit-cover " width="200">
+                                <div class="mt-1 text-white">
+                                    <h6 class=" text-muted text-uppercase mb-2">Bạn chưa có sản phẩm nào!</h6>
+                                    <a href="${'http://127.0.0.1:8000/shop'}" class="btn btn-success"><i
+                                            class="mdi mdi-home me-1"></i>Xem sản phẩm</a>
+                                </div>
+                            </a>
+                        </div>`;
             $.ajax({
                 url: "/ajax/cart/destroyCart",
                 type: "DELETE",
                 data: datas,
                 success: function (res) {
+                    console.log(res, product_variant_id, product_id);
+                    
                     if (res.code == 10) {
                         // xóa sản phẩm ở phía giao diện cart và order
                         $(
@@ -131,6 +147,11 @@
                         ).remove();
                         // cập nhật giá
                         FS.updateTotalPrice();
+                        if ($(".cart-item").length === 0) {
+
+                            $(".bg-cart").hide();
+                            $(".main-cart").html(htmlCartNull);
+                        }
                         flasher.success(res.message);
                     } else {
                         flasher.error("Có lỗi xảy ra khi cập nhật giỏ hàng.");
