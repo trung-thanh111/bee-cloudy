@@ -5,7 +5,7 @@
 @section('content')
     <div class="" id="app">
         <div class="container-fluid p-0 bg-white z-1">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @if ($bannerHome1)
                         @foreach ($bannerHome1 as $key => $valBannerHead)
@@ -15,10 +15,10 @@
                             @endphp
                             @if ($totalImages > 0)
                                 @foreach ($image as $index => $valImgHead)
-                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}" data-bs-interval="5000">
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                         <img src="{{ $valImgHead }}"
                                             class="d-block w-100 object-fit-cover transition-opacity duration-500 ease-in-out"
-                                            alt="Slide Image {{ $index + 1 }}" height="635" loading="lazy">
+                                            alt="Slide Image {{ $index + 1 }}" height="650">
                                     </div>
                                 @endforeach
                             @endif
@@ -187,7 +187,7 @@
                         </div>
                         <a href="{{ route('shop.index') }}">Xem tất cả</a>
                     </div>
-                    <div class="content-product-cate row flex-wrap" >
+                    <div class="content-product-cate row flex-wrap">
                         @if (count($productNew) != 0 && !empty($productNew))
                             @foreach ($productNew as $key => $productN)
                                 @php
@@ -201,8 +201,10 @@
                                         $productN->del != 0 && $productN->del != null
                                             ? number_format($productN->del, '0', ',', '.')
                                             : number_format($productN->price, '0', ',', '.');
+                                    //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                    $variantFirst = $productN->productVariant->first();
                                 @endphp
-                                <div class="col-lg-3 col-md-6 col-12 mb-4" >
+                                <div class="col-lg-3 col-md-6 col-12 mb-4">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
                                         <div class="position-absolute z-1 w-100">
                                             <div class="head-card ps-0 d-flex justify-content-between">
@@ -223,7 +225,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="image-main-product position-relative" >
+                                        <div class="image-main-product position-relative">
                                             <a href="{{ route('product.detail', ['slug' => $productN->slug]) }}">
                                                 <img src="{{ $productN->image }}" alt="product image" width="100%"
                                                     height="250" class="img-fluid object-fit-cover rounded-top-2"
@@ -275,12 +277,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $productN->id }}">
+                                                    data-id="{{ $productN->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $productN->id }}">
+                                                    data-id="{{ $productN->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -313,52 +321,6 @@
                 </div>
             </div>
         </section>
-        <section class="homeCategory">
-            <div class="container my-4 bg-white">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-12 mb-4">
-                        <div class="category-item position-relative">
-                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/image_17.webp"
-                                class="img-fluid rounded" alt="Speakers">
-                            <div class="category-text position-absolute bottom-0 start-0 text-white">
-                                <h5 class="mb-0">Speakers</h5>
-                                <p class="mb-0">6</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12 mb-4">
-                        <div class="category-item position-relative">
-                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/image_17.webp"
-                                class="img-fluid rounded" alt="Headphones">
-                            <div class="category-text position-absolute bottom-0 start-0 text-white">
-                                <h5 class="mb-0">Headphones</h5>
-                                <p class="mb-0">3</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12 mb-4">
-                        <div class="category-item position-relative">
-                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/image_17.webp"
-                                class="img-fluid rounded" alt="Cameras">
-                            <div class="category-text position-absolute bottom-0 start-0 text-white">
-                                <h5 class="mb-0">Cameras</h5>
-                                <p class="mb-0">5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12 mb-4">
-                        <div class="category-item position-relative">
-                            <img src="/libaries/templates/bee-cloudy-user/libaries/images/image_17.webp"
-                                class="img-fluid rounded" alt="Accessories">
-                            <div class="category-text position-absolute bottom-0 start-0 text-white">
-                                <h5 class="mb-0">Accessories</h5>
-                                <span class="mb-0">5</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <section>
             <div class="container plashSale mb-4 bg-white">
                 <div class="product-category p-2">
@@ -378,7 +340,7 @@
                         </div>
                         <a href="{{ route('shop.index') }}">Xem tất cả</a>
                     </div>
-                    <div class="content-product-cate row flex-wrap" >
+                    <div class="content-product-cate row flex-wrap">
                         @if (count($productShopPriceMins) != 0 && !empty($productShopPriceMins))
                             @foreach ($productShopPriceMins as $key => $productPriceMin)
                                 @php
@@ -394,6 +356,8 @@
                                         $productPriceMin->del != 0 && $productPriceMin->del != null
                                             ? number_format($productPriceMin->del, '0', ',', '.')
                                             : number_format($productPriceMin->price, '0', ',', '.');
+                                    //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                    $variantFirst = $productPriceMin->productVariant->first();
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
@@ -468,12 +432,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $productPriceMin->id }}">
+                                                    data-id="{{ $productPriceMin->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $productPriceMin->id }}">
+                                                    data-id="{{ $productPriceMin->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -496,7 +466,7 @@
         </section>
 
         <section>
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner mb-5">
                     @if ($bannerHome1)
                         @foreach ($bannerHome1 as $key => $valBannerHead)
@@ -506,11 +476,10 @@
                             @endphp
                             @if ($totalImages > 0)
                                 @foreach ($image as $index => $valImgHead)
-                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}"
-                                        data-bs-interval="5000">
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                         <img src="{{ $valImgHead }}"
                                             class="d-block w-100 object-fit-cover transition-opacity duration-500 ease-in-out"
-                                            alt="Slide Image {{ $index + 1 }}" height="635" loading="lazy">
+                                            alt="Slide Image {{ $index + 1 }}" height="650">
                                     </div>
                                 @endforeach
                             @endif
@@ -582,6 +551,8 @@
                                         $productSale->del != 0 && $productSale->del != null
                                             ? number_format($productSale->del, '0', ',', '.')
                                             : number_format($productSale->price, '0', ',', '.');
+                                    //-- // lấy phiên bản đầu tiên của sản phẩm làm mặc định
+                                    $variantFirst = $productSale->productVariant->first();
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-4">
                                     <div class="card card-product shadow-sm border-0 mb-2 py-0">
@@ -656,12 +627,18 @@
                                             <div class="box-action">
                                                 <a href="{{ route('cart.index') }}"
                                                     class="action-cart-item-buy addToCart buyNow"
-                                                    data-id="{{ $productSale->id }}">
+                                                    data-id="{{ $productSale->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-shopping fz-18 me-2"></i>
                                                     <span>Mua ngay</span>
                                                 </a>
                                                 <a href="" class="action-cart-item-add addToCart"
-                                                    data-id="{{ $productSale->id }}">
+                                                    data-id="{{ $productSale->id }}"
+                                                    data-product-variant-id="{{ $variantFirst->id }}"
+                                                    data-product-variant-price="{{ $variantFirst->price }}"
+                                                    data-attributeId="{{ @json_encode($variantFirst->code) }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -694,8 +671,8 @@
                     </div>
                 </div>
             </div>
-            </div>
-        </section>
+    </div>
+    </section>
     <section>
         <div class="container my-4 bg-white py-3">
             <!-- Section Header -->
@@ -725,7 +702,7 @@
                                                     class="w-100 object-fit-cover rounded-start-4"
                                                     alt="{{ $valuePostH->name }}" height="450">
                                             </div>
-                                            <div class="col-md-4 d-flex align-items-center bg-light rounded-end-4" >
+                                            <div class="col-md-4 d-flex align-items-center bg-light rounded-end-4">
                                                 <div class="card-body py-2 px-3">
                                                     <div class="mb-3">
                                                         <span class="badge text-bg-dark rounded-pill px-3 py-2">

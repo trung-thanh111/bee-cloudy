@@ -1004,7 +1004,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card border-0 rounded-1 shadow-sm mb-4">
+                        {{-- <div class="card border-0 rounded-1 shadow-sm mb-4">
                             <div class="card-header">
                                 <h6 class="card-title fw-18 fw-500">Khuyến mãi</h6>
                             </div>
@@ -1041,7 +1041,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

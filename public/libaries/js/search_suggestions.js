@@ -59,6 +59,12 @@
             }, 300)
         );
     };
+    FS.autoSubmitKeyword = () => {
+        $(document).on('click', '.content-search-mnpoly, .search-recent-item', function () {
+            $(this).closest('form').submit();
+        });
+    };
+    
 
     FS.searchKeyUpShowPaper = (res) => {
         let isTyping = false;
@@ -107,6 +113,7 @@
     $(document).ready(function () {
         FS.suggestion();
         FS.searchKeyUpShowPaper();
+        FS.autoSubmitKeyword()
     FS.getKeywordClickKeywordRecent();
     });
 })(jQuery);

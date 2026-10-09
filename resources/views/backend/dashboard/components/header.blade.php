@@ -125,7 +125,7 @@
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
                             <img class="rounded-circle header-profile-user"
-                            src="{{ $user->image != null ? '/userfiles/image/user/'.$user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
+                            src="{{ $user->image != null ? $user->image : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif' }}"
                             alt="Avatar User" class="rounded-circle object-fit-cover" width="40"
                             height="40">
                             <span class="text-start ms-xl-2">
@@ -137,7 +137,7 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <h6 class="dropdown-header">Xin chào {{$user->name }}!</h6>
-                        <a class="dropdown-item" href="{{ route('account.info') }}">
+                        <a class="dropdown-item" href="{{ route('profile.user') }}">
                             <i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle">Thông tin cá nhân</span>
                         </a>

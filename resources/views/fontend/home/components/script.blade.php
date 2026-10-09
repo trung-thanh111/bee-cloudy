@@ -11,7 +11,6 @@
 </script>
 <!-- splide js  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <!-- select2 js  -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- js  -->
@@ -38,7 +37,7 @@
 <script defer src="https://cdn.jsdelivr.net/npm/@flasher/flasher@1.2.4/dist/flasher.min.js"></script>
 {{-- vue js  --}}
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-@vite(['resources/js/app.js'])
+{{-- @vite(['resources/js/app.js']) --}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.5/dist/gsap.min.js"></script>

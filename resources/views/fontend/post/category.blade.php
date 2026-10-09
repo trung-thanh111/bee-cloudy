@@ -9,23 +9,13 @@
                 <!-- breadcrumb  -->
                 <nav class="pt-3 pb-3" aria-label="breadcrumb">
                     <ol class="breadcrumb bg-color-white pt-2 pb-2 ps-2 shadow-sm mb-0 p-3 bg-body-tertiary fz-14">
-                        <li class="breadcrumb-item "><a href="#" class="text-decoration-none text-muted">Trang chủ</a>
+                        <li class="breadcrumb-item "><a href="{{ route('post.page') }}" class="text-decoration-none text-muted">Bài viết</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Bài viết</li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh mục</li>
                     </ol>
                 </nav>
                 <!-- end breadcrumb  -->
                 <div class="posts-main">
-                    <!-- <div class="header-post shadow-sm mb-3">
-                                                            <div class="row justify-content-center">
-                                                                <div class="col-md-auto">
-                                                                    <div class="text-muted p-5 rounded-2">
-                                                                        <span class="fs-2 text-uppercase text-center fw-bold">Bài viết</span>
-                                                                    </div>
-                                                                </div>
-                                                              </div>
-                                                        </div> -->
-
                     <div class="main-post-category row flex-wrap mx-0 bg-main-color shadow-sm rounded-1 mb-3 p-2">
                         <div class="col-lg-4 col-md-4 col-12 position-relative" style="height: 200px">
                             <div class="title-category position-absolute top-50 w-75 translate-middle" style="left: 50%;">
@@ -65,11 +55,18 @@
                     </div>
                     <hr class="border-5 border-secondary rounded-pill my-4">
                     <div class="main-post">
-                        <div class="title-post-host mt-4">
-                            <h5 class="fs-5 fw-500 mb-3 text-uppercase">
-                                tin mỗi ngày
-                                <hr class=" border-4 border-info mb-2" style="width: 80px;">
-                            </h5>
+                        <div class="title-product mb-4 col-3">
+                            <div class="price-banner">
+                                <div
+                                    class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                    <div class="price-icon">
+                                        <i class="fa-solid fa-tags text-white"></i>
+                                    </div>
+                                    <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                        tin mỗi ngày
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
                         <div class="row bg-white py-3 rounded-2" >
                             <div class="col-lg-9 col-md-9 col-12 ">

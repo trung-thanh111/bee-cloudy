@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     pagination: false, // Ẩn các chấm chuyển trang
   }).mount();
 });
-// Animation aos 
-AOS.init();
+
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
