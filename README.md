@@ -1,71 +1,146 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Bee Cloudy - Fashion Shop
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Dự án tốt nghiệp: Xây dựng hệ thống website thương mại điện tử thời trang **Bee Cloudy**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 1. Công Nghệ Sử Dụng (Tech Stack)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Backend Framework**: [Laravel 11.x](https://laravel.com/) (PHP 8.2+)
+- **Kiến trúc**: Repository & Service Pattern
+- **Cơ sở dữ liệu**: MySQL
+- **Frontend**: Laravel Blade, Bootstrap 5, SCSS, Vite, Vue 3
+- **Thư viện & Tích hợp**:
+  - `laravel/socialite`: Đăng nhập mạng xã hội (Google, Facebook)
+  - `php-flasher/flasher-laravel`: Thông báo Toastr/Flash message
+  - `darryldecode/cart`, `anayarojo/shoppingcart`: Quản lý giỏ hàng
+  - Cổng thanh toán trực tuyến: **VNPay**, **MoMo**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 2. Kiến Trúc Hệ Thống (Architecture Base)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Dự án tuân thủ mô hình phân tầng **Repository & Service Pattern** nhằm tách biệt nghiệp vụ và truy xuất dữ liệu:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```
+Client / HTTP Request
+        │
+        ▼
+   Controller       (Tiếp nhận Request, gọi Service, trả về View/JSON)
+        │
+        ▼
+    Service         (Xử lý Business Logic, tính toán, kiểm tra nghiệp vụ)
+        │
+        ▼
+   Repository       (Trừu tượng hóa truy vấn CSDL qua Eloquent ORM)
+        │
+        ▼
+ Model / Database   (Bảng CSDL, quan hệ Eloquent)
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Các tầng chính:
+- **`app/Repositories`**:
+  - `Interfaces/`: Định nghĩa các hàm hợp đồng (Contracts) cho từng Repository.
+  - `BaseRepository.php`: Chứa các phương thức CRUD nền tảng (`all`, `create`, `update`, `delete`, `findById`, `pagination`...).
+  - Các Repository cụ thể kế thừa `BaseRepository` và triển khai Interface tương ứng.
+- **`app/Services`**:
+  - `Interfaces/`: Định nghĩa hợp đồng nghiệp vụ cho từng Service.
+  - `BaseService.php`: Tầng xử lý logic chung.
+  - Các Service cụ thể đảm nhận xử lý nghiệp vụ, giao tiếp với Repository.
+- **`app/Providers/AppRepositoryProvider.php`**:
+  - Đăng ký Dependency Injection: Tự động bind cặp Interface và Implementation của Repository & Service vào Service Container.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 3. Cấu Trúc Định Tuyến (Routing Structure)
 
-### Premium Partners
+Hệ thống router được chia tách thành các module chuyên biệt trong thư mục `routes/web/` và được load tập trung tại `routes/web.php`:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```
+routes/
+├── web.php                 # Entrypoint chính nạp các module router và fallback 404
+├── api.php                 # Các API endpoints (Sanctum)
+├── console.php             # Lệnh Artisan console
+└── web/                    # Thư mục router phân hệ
+    ├── auth.php            # Xác thực: Đăng nhập, đăng ký, OTP quên mật khẩu, OAuth (Google, Facebook), đăng xuất
+    ├── frontend.php        # Client công khai: Trang chủ, danh mục sản phẩm, bộ lọc, chi tiết sản phẩm, bài viết, liên hệ, chính sách
+    ├── user.php            # Client yêu cầu đăng nhập (middleware 'auth'): Hồ sơ, đổi mật khẩu, đơn hàng, thanh toán VNPay/MoMo, đánh giá, bình luận
+    ├── ajax.php            # AJAX nội bộ: Gợi ý tìm kiếm realtime, nạp biến thể thuộc tính, giỏ hàng AJAX, wishlist
+    └── backend.php         # Admin (middleware 'auth', 'admin'): Dashboard doanh thu, quản lý danh mục/sản phẩm/thuộc tính/thương hiệu, đơn hàng, banner, tài khoản
+```
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 4. Quy Trình Phát Triển Tính Năng (Workflow)
 
-## Code of Conduct
+Khi thêm một tính năng hoặc module mới vào dự án, tuân theo quy trình chuẩn:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. **Migration & Seeder**: Tạo cấu trúc bảng và dữ liệu mẫu (`database/migrations`, `database/seeders`).
+2. **Model**: Định nghĩa model trong `app/Models`, khai báo `$fillable` và quan hệ Eloquent (`belongsTo`, `hasMany`...).
+3. **Routes**: Khai báo route trong file tương ứng thuộc `routes/web/`.
+4. **Repository**:
+   - Tạo Interface trong `app/Repositories/Interfaces/`.
+   - Tạo Repository class trong `app/Repositories/` (kế thừa `BaseRepository`).
+5. **Service**:
+   - Tạo Interface trong `app/Services/Interfaces/`.
+   - Tạo Service class trong `app/Services/` (kế thừa `BaseService`).
+6. **Provider Binding**: Khai báo cặp Interface -> Class trong `app/Providers/AppRepositoryProvider.php`.
+7. **Controller & Form Request**: Tạo Controller tiếp nhận input, inject Service qua constructor và thực hiện gọi hàm nghiệp vụ.
+8. **View / Response**: Xây dựng Blade template hoặc trả về JSON Ajax.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 5. Hướng Dẫn Cài Đặt & Chạy Dự Án
 
-## License
+### Yêu cầu môi trường:
+- PHP >= 8.2
+- Composer >= 2.x
+- Node.js >= 18.x & NPM
+- MySQL >= 8.0
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# bee-cloudy
-dự án tốt nghiệp - xây dựng website fashion shop (bee-cloudy) 
->>>>>>> 90dff706f996d653edd2aeea193c933837eb51ec
+### Các bước cài đặt:
+
+1. **Clone repository và cài đặt thư viện**:
+   ```bash
+   git clone <repository-url>
+   cd bee-cloudy
+   composer install
+   npm install
+   ```
+
+2. **Cấu hình môi trường**:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   Cấu hình thông số kết nối Database trong file `.env`:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=bee_cloudy
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+3. **Chạy Migration & Seeder**:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+4. **Tạo symlink cho thư mục storage**:
+   ```bash
+   php artisan storage:link
+   ```
+
+5. **Biên dịch Frontend assets**:
+   ```bash
+   npm run dev
+   # hoặc build production: npm run build
+   ```
+
+6. **Khởi chạy ứng dụng**:
+   ```bash
+   php artisan serve
+   ```
+   Truy cập website tại: `http://127.0.0.1:8000`
