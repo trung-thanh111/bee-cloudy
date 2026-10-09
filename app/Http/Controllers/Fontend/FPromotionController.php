@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Fontend;
 
 use Exception;
@@ -46,7 +47,8 @@ class FPromotionController extends Controller
         }
     }
 
-    
+
+
     public function myPromotions()
     {
         $userId = Auth::id();
@@ -56,29 +58,28 @@ class FPromotionController extends Controller
     }
     public function view_promotion(Request $request)
     { {
-        $userVouchers = UserVoucher::with('promotion')
-        ->where('user_id', Auth::id())
-        ->paginate(8);
-        // dd($userVouchers);
-        foreach ($userVouchers as $voucher) {
-            if ($voucher->promotion) {
-                $voucher->promotion->start_date = Carbon::parse($voucher->promotion->start_date);
+            $userVouchers = UserVoucher::with('promotion')
+                ->where('user_id', Auth::id())
+                ->paginate(8);
+            // dd($userVouchers);
+            foreach ($userVouchers as $voucher) {
+                if ($voucher->promotion) {
+                    $voucher->promotion->start_date = Carbon::parse($voucher->promotion->start_date);
+                }
+                if ($voucher->promotion) {
+                    $voucher->promotion->end_date = Carbon::parse($voucher->promotion->end_date);
+                }
             }
-            if ($voucher->promotion) {
-                $voucher->promotion->end_date = Carbon::parse($voucher->promotion->end_date);
-            }
-        }
-            return view('fontend.account.promotion',compact('userVouchers'));
+            return view('fontend.account.promotion', compact('userVouchers'));
         }
     }
     public function show($id)
-{
-    // Fetch the UserVoucher along with its related promotion
-    $userVoucher = UserVoucher::with('promotion')
-                    ->where('id', $id)
-                    ->firstOrFail();
+    {
+        // Fetch the UserVoucher along with its related promotion
+        $userVoucher = UserVoucher::with('promotion')
+            ->where('id', $id)
+            ->firstOrFail();
 
-    return view('fontend.account.promotion-detail', compact('userVoucher'));
-}
-
+        return view('fontend.account.promotion-detail', compact('userVoucher'));
+    }
 }

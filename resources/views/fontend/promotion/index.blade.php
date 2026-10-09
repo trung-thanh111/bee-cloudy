@@ -31,18 +31,19 @@
 
                                         <div class="voucher-item mb-3">
                                             <ul class="ps-0 mb-0">
-                                                <li class="list-unstyled d-flex justify-content-start text-muted mb-2">
-                                                    <div class="image-voucher-item me-2">
-                                                        <img src="{{ asset('public/' . $promotion->image) }}" alt=""
-                                                            width="80" class="img-fluid rounded me-2">
+                                            <div class="image-voucher-item me-2">
+                                                        <img src="{{ $promotion->image != null ?  $promotion->image : '/libaries/upload/images/img-notfound.png' }}" alt=""
+                                                            width="100%" height="" class="img-fluid rounded me-2">
                                                     </div>
+                                                <li class="list-unstyled d-flex justify-content-start text-muted mb-2">
+                                                    
                                                     <div class="title-date-voucher">
                                                         <div class="col">
                                                             <h6 class="fz-16 pb-2 mt-2 text-primary">{{ $promotion->name }}
                                                             </h6>
                                                         </div>
                                                         <div
-                                                            class="col d-flex justify-content-between align-items-center gap-3">
+                                                            class="col d-flex justify-content-between align-items-center  gap-5">
                                                             <p class="fz-12 mb-0">Hạn sử dụng:
                                                                 <strong>{{ $promotion->end_date->format('d/m/Y') }}</strong>
                                                             </p>
@@ -65,8 +66,7 @@
                                                                         disabled>Đã nhận</button>
                                                                 @else
                                                                     <button type="submit"
-                                                                        class="btn rounded-2 btn-info fz-12 fw-medium text-white">Sử
-                                                                        dụng</button>
+                                                                        class="btn rounded-2 btn-info fz-12 fw-medium text-white">Nhận</button>
                                                                 @endif
                                                             </form>
                                                         </div>
