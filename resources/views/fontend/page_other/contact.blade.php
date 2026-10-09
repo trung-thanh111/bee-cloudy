@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 col-md-6 pe-4 pb-2 pt-4 bg-white">
-                            <form action="{{ route('home-contact-form') }}" method="POST">
+                            <form action="{{ route('contact.send') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Họ và tên</label>

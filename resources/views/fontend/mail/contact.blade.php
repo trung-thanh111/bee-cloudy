@@ -1,5 +1,4 @@
-<div>
-    <h3>Liên hệ từ: {{ $contactData['name'] }}</h3>
-    <p>Email: {{ $contactData['email'] }}</p>
-    <p>Nội dung: {{ $contactData['message'] }}</p>
-</div>
+<p><strong>Name:</strong> {{ $data['name'] }}</p>
+<p><strong>Email:</strong> {{ $data['email'] }}</p>
+<p><strong>Message:</strong></p>
+<p>{{ $data['message'] }}</p>
