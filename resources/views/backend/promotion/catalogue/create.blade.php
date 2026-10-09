@@ -235,31 +235,6 @@
         toggleFields();
         applyForField.addEventListener('change', toggleFields);
 
-        // Cập nhật xem trước
-        function updatePreview() {
-            document.getElementById('preview-name').textContent = document.querySelector('input[name="name"]')
-                .value;
-            document.getElementById('preview-start-date').textContent = document.querySelector(
-                'input[name="start_date"]').value;
-            document.getElementById('preview-end-date').textContent = document.querySelector(
-                'input[name="end_date"]').value;
-            document.getElementById('preview-apply-for').textContent = document.querySelector(
-                'select[name="apply_for"]').value;
-            document.getElementById('preview-discount').textContent = document.querySelector(
-                'input[name="discount"]').value;
-            document.getElementById('preview-minimum-amount').textContent = document.querySelector(
-                'input[name="minimum_amount"]').value;
-            document.getElementById('preview-usage-limit').textContent = document.querySelector(
-                'input[name="usage_limit"]').value;
-            document.getElementById('preview-status').textContent = document.querySelector(
-                'select[name="status"]').value;
-        }
-
-        // Cập nhật xem trước khi load trang và khi có thay đổi
-        updatePreview();
-        document.querySelectorAll('input, select').forEach(element => {
-            element.addEventListener('change', updatePreview);
-            element.addEventListener('input', updatePreview);
-        });
+        
     });
 </script>

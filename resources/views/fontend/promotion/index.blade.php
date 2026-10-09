@@ -32,7 +32,7 @@ Voucher
                                     <ul class="ps-0 mb-0">
                                         <li class="list-unstyled d-flex justify-content-start text-muted mb-2">
                                             <div class="image-voucher-item me-2">
-                                                <img src="/libaries/templates/bee-cloudy-user/libaries/images/voucher1.avif"
+                                                <img src="{{ asset('public/' . $promotion->image) }}"
                                                     alt="" width="80" class="img-fluid rounded me-2">
                                             </div>
                                             <div class="title-date-voucher">

@@ -39,50 +39,55 @@ class PromotionService
     }
 
     public function createPromotion(array $data)
-    {
-        $validator = Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-            'description' => 'required|string|max:255',
-            'discount' => 'required_unless:apply_for,freeship|numeric|min:0',
-            'minimum_amount' => 'nullable|numeric|min:0',
-            'usage_limit' => 'nullable|integer|min:1',
-            'apply_for' => 'required|in:specific_products,freeship,all',
-            'status' => 'required|in:active,inactive',
-            'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
-        ]);
+{
+    // Xác thực dữ liệu đầu vào
+    $validator = Validator::make($data, [
+        'name' => 'required|string|max:255',
+        'image' => 'required|string|max:255',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after:start_date',
+        'description' => 'required|string|max:255',
+        'discount' => 'required_unless:apply_for,freeship|numeric|min:0',
+        'minimum_amount' => 'nullable|numeric|min:0',
+        'usage_limit' => 'nullable|integer|min:1',
+        'apply_for' => 'required|in:specific_products,freeship,all',
+        'status' => 'required|in:active,inactive',
+        'product_id' => 'required_if:apply_for,specific_products|exists:products,id|not_in:null',
+    ]);
 
-        if ($validator->fails()) {
-            throw new Exception($validator->errors()->first());
-        }
-
-        $code = strtoupper(Str::random(6));
-        $discount = $data['apply_for'] === 'freeship' ? 0 : $data['discount'];
-
-        $promotion = Promotion::create([
-            'name' => $data['name'],
-            'code' => $code,
-            'start_date' => $data['start_date'],
-            'end_date' => $data['end_date'],
-            'discount' => $discount,
-            'description' => $data['description'],
-            'minimum_amount' => $data['minimum_amount'] ?? null,
-            'usage_limit' => $data['usage_limit'] ?? null,
-            'apply_for' => $data['apply_for'],
-            'status' => $data['status'],
-        ]);
-
-        if ($data['apply_for'] === 'specific_products') {
-            PromotionProductVariant::create([
-                'promotion_id' => $promotion->id,
-                'product_id' => $data['product_id'],
-                'discount' => $discount,
-            ]);
-        }
-
-        return $promotion;
+    if ($validator->fails()) {
+        throw new \Exception($validator->errors()->first());
     }
+
+    $code = strtoupper(Str::random(6));
+    $discount = $data['apply_for'] === 'freeship' ? 0 : $data['discount'];
+
+    // Tạo Promotion và lưu URL ảnh
+    $promotion = Promotion::create([
+        'name' => $data['name'],
+        'code' => $code,
+        'image' => $data['image'], // Lưu URL của ảnh từ CKFinder
+        'start_date' => $data['start_date'],
+        'end_date' => $data['end_date'],
+        'discount' => $discount,
+        'description' => $data['description'],
+        'minimum_amount' => $data['minimum_amount'] ?? null,
+        'usage_limit' => $data['usage_limit'] ?? null,
+        'apply_for' => $data['apply_for'],
+        'status' => $data['status'],
+    ]);
+
+    if ($data['apply_for'] === 'specific_products') {
+        PromotionProductVariant::create([
+            'promotion_id' => $promotion->id,
+            'product_id' => $data['product_id'],
+            'discount' => $discount,
+        ]);
+    }
+
+    return $promotion;
+}
+
 
     public function getPromotionById($id)
     {
