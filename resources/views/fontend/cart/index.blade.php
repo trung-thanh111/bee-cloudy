@@ -367,9 +367,9 @@
                                                     <td class=" text-start fz-16" colspan="2">Giảm giá:</td>
                                                     <td class="fw-semibold text-end text-danger" id="discount-amount">
                                                         @if (session()->has('total_discount'))
-                                                            -{{ number_format(session('total_discount'), 0, ',', '.') }}đ
+                                                            {{ '- '.number_format(session('total_discount'), 0, ',', '.') }}đ
                                                         @else
-                                                            0 đ
+                                                            0đ
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -431,14 +431,20 @@
 
                     @endif
                 </div>
-                <hr class="border-2">
+                <hr class="border-2 mb-3">
                 <!-- product similar  -->
                 <div class="product-similar mb-3 text-muted">
-                    <div class="title-product mt-4 mb-3">
-                        <h5 class="fs-4 fw-500 mb-3 text-uppercase">
-                            sản phẩm mới
-                            <hr class=" border-4 border-info mb-2" style="width: 160px;">
-                        </h5>
+                    <div class="title-product mb-4 col-3">
+                        <div class="price-banner">
+                            <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-fire text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    Sản phẩm mới
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="row flex-wrap">
                         @if (count($productNews) != 0 && !empty($productNews))

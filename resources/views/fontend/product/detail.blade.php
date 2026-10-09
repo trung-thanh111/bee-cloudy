@@ -49,6 +49,14 @@
                     foreach ($product->productVariant as $variant) {
                         $totalReviewCount += $variant->rating_count;
                     }
+
+                    // -- //
+                    $promotionDetail =
+                        $product->del != 0 && $product->del != null
+                            ? (($product->price - $variant->price) / $product->price) * 100
+                            : '0';
+                            // dd($promotionDetail);
+
                 @endphp
                 <!-- content detail -->
                 <div class="main-detail row text-muted pt-3 mx-0 bg-white shadow-sm rounded-1 mb-5 productVariantId">
@@ -68,6 +76,7 @@
                                     @endif
 
                                 </ul>
+
                                 <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
                                     data-bs-title="Thêm vào yêu thích">
                                     <div class="position-relative">
@@ -75,11 +84,27 @@
                                             style="top: 20px;">
                                             <i class="icon-favourite fa-regular fa-bookmark fz-20 text-muted  "></i>
                                         </button>
+
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div class="mini-coupon z-3 {{ $promotionDetail == 0 ? 'hidden-visibility' : '' }}">-{{ round($promotionDetail, 1).'%' }}</div>
                                     </div>
-                                    <span class="product_variant_id_wishlist d-none"></span>
-                                    <span class="product_id_wishlist d-none">
-                                        {{ $product->id }}
-                                    </span>
+                                    <div class="box-favourite position-absolute z-3 toggleWishlist" data-bs-toggle="tooltip"
+                                        data-bs-title="{{ in_array($variantId, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}">
+                                        <div class="position-relative">
+                                            <a href="#" class="position-absolute start-50 translate-middle border-0"
+                                                style="top: 20px;">
+                                                <i
+                                                    class="icon-favourite fa-{{ in_array($variantId, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-20 text-muted  "></i>
+                                            </a>
+
+                                        </div>
+                                        <span class="product_variant_id_wishlist d-none"></span>
+                                        <span class="product_id_wishlist d-none">
+                                            {{ $product->id }}
+                                        </span>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -152,40 +177,54 @@
                                     @endif --}}
                                 <div class="hstack gap-3 fz-14 flex-wrap">
                                     <div class="py-2">Đánh giá ({{ $totalReviewCount }})</div>
-                                    <div class="py-2">
+                                    {{-- <div class="py-2">
                                         <span><i class="fa-solid fa-star rated"></i></span>
                                         <span><i class="fa-solid fa-star rated"></i></span>
                                         <span><i class="fa-solid fa-star rated"></i></span>
                                         <span><i class="fa-solid fa-star rated"></i></span>
                                         <span><i class="fa-solid fa-star rated"></i></span>
-                                    </div>
+                                    </div> --}}
                                     <div class="vr " style="width: 1px !important;"></div>
                                     <div class="py-2">
                                         <span class="fw-500">Đã bán:</span>
                                         <span class="product-variant-sold">{{ $totalSoldCount . ' ' }} sản phẩm</span>
+
+                                        <span
+                                            class="product-variant-sold">{{ $variantSold ? $variantSold : $product->sold_count }}
+                                            sản phẩm</span>
+
                                     </div>
                                 </div>
                             </div>
                             <h4 class="fs-5 py-3">
                                 @foreach ($product->productCatalogues as $productCatalogue)
-                                    {{ $productCatalogue->name }}
+                                    <span class="me-3">{{ $productCatalogue->name }}</span>
                                 @endforeach
                             </h4>
 
-                            <div class="hstack gap-3 fz-14 mb-3">
+                            <div class="hstack gap-3 fz-14 mb-3"> 
                                 <h4 class="fs-4 fw-bold text-danger mb-1 product-variant-price"
                                     data-price="{{ $price }}">{{ $price }}</h4>
+                                <del
+                                    class=" fw-normal text-secondary mb-1 {{ $promotionDetail == 0 ? 'hidden-visibility' : '' }}">{{ number_format($product->price, '0', ',', '.') }}đ</del>
                                 <span
-                                    class="mb-1 ms-auto {{ $product->del == 0 || $product->del == null ? 'hidden-visibility' : '' }}">
+                                    class="mb-1 ms-auto {{ $promotionDetail == 0 ? 'hidden-visibility' : '' }}">
 
-                                    <span class="text-truncate">giảm đến <del
-                                            class="text-warning text-sm-start">{{ $priceDiscount }}</del> trên giá trị mỗi
+                                    <span class="text-truncate">giảm đến <span
+                                            class="text-info text-sm-start">{{ $priceDiscount }}</span> trên giá trị mỗi
                                         sản phẩm</span>
                                 </span>
                             </div>
+
                             <p class="fz-14">{!! $product->info !!}</p>
+
+
+                            <p class="fz-14 {{ $product->info == null ? 'visibility-hidden' : '' }}">
+                                {!! $product->info !!}</p>
+
                             @if (!is_null($attrCatalogues) && !empty($attrCatalogues))
-                                <div class="product-attributes">
+                                <div
+                                    class="product-attributes {{ $attrCatalogues == null ? 'visibility-hidden' : '' }}">
                                     @foreach ($attrCatalogues as $key => $val)
                                         <div class="attribute attribute-{{ $val->id == 1 ? 'color' : 'size' }}">
                                             <div class="attribute-header d-flex justify-content-between mb-2">
@@ -273,9 +312,16 @@
                                                 id="button-addon1">
                                                 <i class='bx bx-minus fw-medium'></i>
                                             </button>
+
                                             <input type="text" name="quantity-product-variant w-sm-25 "
                                                 class="form-control border-0 fz-20 text-center fw-600" value="1"
                                                 min="1" max="">
+
+                                            <input type="text" name="quantity-product-variant w-sm-25"
+                                                class="form-control quantity-product-variant border-0 fz-20 text-center fw-600"
+                                                value="1" min="1"
+                                                max="{{ $product->instock ? $product->instock : 10 }}">
+
                                             <input type="hidden" name="quantity" value="1">
                                             <button class="quantity-plus w-md-100 " type="button" id="button-addon2">
                                                 <i class='bx bx-plus'></i>
@@ -286,18 +332,21 @@
                                 </div>
                                 <div class="btn-group-add ">
                                     <div class="mb-3 w-100">
-                                        <a type="submit" href="#" class="btn w-100 btn-success fw-medium fz-18">
-                                            <i class="fa-solid fa-cart-shopping me-2"></i>Mua Ngay
-                                            <p class="fz-14 fw-normal mb-0"> Giao hàng tận nơi hoặc nhận tại cửa hàng
-                                            </p>
+                                        <a href="" data-id="{{ $product->id }}"
+                                            class=" addToCart btn w-100 btn-success fw-medium fz-18">
+                                            <i class="fa-solid fa-cart-plus me-2"></i>Thêm vào giỏ hàng
+                                            <p class="fz-14 fw-normal mb-0">Hãy thêm vào giỏ hàng có thể có những ưu đãi
+                                                hấp dẫn</p>
                                         </a>
-                                        <div class="row w-100 mt-2 ms-0">
+                                        {{-- <div class="row w-100 mt-2 ms-0">
                                             <div class="col px-0 w-100 ">
+
                                                 <a href="#" class="addToCart" data-id="{{ $product->id }}">
+                                                <a href="" >
+
                                                     <!-- d-none d-md-inline-block: Ẩn trên màn hình nhỏ hơn md (< 768px), chỉ hiển thị từ kích thước màn hình md (>= 768px) trở lên. -->
                                                     <button
-                                                        class=" btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block">Thêm
-                                                        vào giỏ hàng</button>
+                                                        class=" btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-none d-md-inline-block disabled" disabled >Mua ngay</button>
                                                     <!-- d-block d-md-none: Hiển thị trên các màn hình nhỏ hơn md (< 768px), bao gồm màn hình < 480px. -->
                                                     <button
                                                         class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm d-block d-md-none "
@@ -308,11 +357,11 @@
                                             <div class="col pe-0">
                                                 <a href="#">
                                                     <button
-                                                        class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm">Mua
+                                                        class="btn btn-outline-success py-2 w-100 fz-18 fw-medium shadow-sm" disabled >Mua
                                                         Trả Góp</button>
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -711,8 +760,17 @@
                 </div>
                 <!-- product similar  -->
                 <div class="product-similar mb-3 text-muted">
-                    <div class="title-product-similar mb-4">
-                        <h6 class="fs-3 fw-bold text-muted">Sản phẩm tương tự</h6>
+                    <div class="title-product mb-4 col-3">
+                        <div class="price-banner">
+                            <div class="price-content border-start border-info rounded-start-3 rounded-end-5 py-1 border-5 ps-2 shadow-sm d-flex align-items-center">
+                                <div class="price-icon">
+                                    <i class="fa-solid fa-boxes text-white"></i>
+                                </div>
+                                <h4 class="fs-5 fw-bold text-start text-uppercase mb-0 text-info">
+                                    Sản phẩm tương tự
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="row flex-wrap">
                         @if (count($productSimilars) != 0 && !empty($productSimilars))
@@ -721,10 +779,13 @@
                                     $shownColors = [];
                                     $promotion =
                                         $valProductSimilar->del != 0 && $valProductSimilar->del != null
-                                            ? (($valProductSimilar->price - $valProductSimilar->del) /
-                                                    $valProductSimilar->price) *
-                                                100
+                                            ? (($valProductSimilar->price - $valProductSimilar->del) / $valProductSimilar->price) * 100
                                             : '0';
+
+                                    $price =
+                                        $valProductSimilar->del != 0 && $valProductSimilar->del != null
+                                            ? number_format($valProductSimilar->del, '0', ',', '.')
+                                            : number_format($valProductSimilar->price, '0', ',', '.');
                                 @endphp
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <div class="card card-product shadow-sm border-0 mb-2 pt-0">
@@ -735,36 +796,32 @@
                                                     giảm {{ round($promotion, 1) . '%' }}
                                                 </span>
                                                 <span class="text-end mt-2 me-2 text-muted toggleWishlist"
-                                                    data-bs-toggle="tooltip" data-bs-title="Thêm vào yêu thích"
-                                                    data-id="{{ $product->id }}">
-                                                    <i class="fa-regular fa-bookmark fz-16"></i>
-                                                </span>
-                                                <span class="product_variant_id_wishlist">
-                                                    @if (isset($product->productVariant) && $product->productVariant->isNotEmpty())
-                                                        {{ $product->productVariant->first()->id ?? null }}
-                                                    @endif
-                                                </span>
-                                                <span class="product_id_wishlist">
-                                                    {{ $product->id }}
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-title="{{ in_array($valProductSimilar->id, $productInWishlist) ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích' }}"
+                                                    data-id="{{ $valProductSimilar->id }}">
+                                                    <i
+                                                        class="fa-{{ in_array($valProductSimilar->id, $productInWishlist) ? 'solid' : 'regular' }} fa-bookmark fz-16"></i>
+
+                                                    <span class="product_id_wishlist d-none">
+                                                        {{ $valProductSimilar->id }}
+                                                    </span>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="image-main-product position-relative">
-                                            <img src="{{ $valProductSimilar->image }}" alt="product image"
-                                                width="100%" height="250"
-                                                class="img-fluid object-fit-cover rounded-top-2" style="height: 300px">
+                                            <img src="{{ $valProductSimilar->image }}" alt="product image" width="100%"
+                                                height="250" class="img-fluid object-fit-cover rounded-top-2"
+                                                style="height: 300px">
                                             <div class="news-product-detail position-absolute bottom-0 start-0 w-100">
                                                 <div class="hstack gap-3">
-                                                    <div class="p-2 overflow-x-hidden w-50">
+                                                    <div class="p-2 overflow-x-hidden">
                                                         <span
-                                                            class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                            @foreach ($valProductSimilar->productCatalogues as $catalogue)
-                                                                {{ $catalogue->name }}
-                                                            @endforeach
+                                                            class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                            {{ $valProductSimilar->productCatalogues[0]->name }}
                                                         </span>
                                                     </div>
                                                     <div class="p-2 ms-auto">
-                                                        <div class="product-image-color ">
+                                                        <div class="product-image-color">
                                                             @foreach ($valProductSimilar->productVariant as $variant)
                                                                 @foreach ($variant->attributes as $attribute)
                                                                     @if ($attribute->attribute_catalogue_id == 1 && !in_array($attribute->name, $shownColors))
@@ -790,8 +847,8 @@
                                                     class="text-break w-100 text-muted">{{ $valProductSimilar->name }}</a>
                                             </h6>
                                             <div class="d-flex justify-content-start mb-2 ">
-                                                <span
-                                                    class="text-danger fz-20 fw-medium me-3">{{ $valProductSimilar->del != 0 && $valProductSimilar->del != null ? number_format($valProductSimilar->del, '0', ',', '.') : number_format($valProductSimilar->price, '0', ',', '.') }}đ
+                                                <span class="text-danger fz-20 fw-medium me-3 product-variant-price"
+                                                    data-price="{{ $price }}">{{ $price }}đ
                                                 </span>
                                                 <span class="mt-1 ">
                                                     <del
@@ -803,7 +860,8 @@
                                                     class="action-cart-item-buy">
                                                     <span>Xem chi tiết</span>
                                                 </a>
-                                                <a href="#" class="action-cart-item-add">
+                                                <a href="" class="action-cart-item-add addToCart"
+                                                    data-id="{{ $valProductSimilar->id }}">
                                                     <i class="fa-solid fa-cart-plus fz-18 me-2"></i>
                                                     <span>thêm giỏ hàng</span>
                                                 </a>
@@ -812,8 +870,7 @@
                                                 <span class="fz-14 ">
                                                     Mã sản phẩm
                                                 </span>
-                                                <span
-                                                    class="ms-auto text-dark fw-500 fz-14">{{ $valProductSimilar->sku }}</span>
+                                                <span class="ms-auto text-dark fw-500 fz-14">{{ $valProductSimilar->sku }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -861,6 +918,16 @@
             </div>
         </div>
     </section>
+
+
+    <script>
+        // tuyền mảng id product và productvariant sang js đổ vào chuổi
+        let productInWishlist = @json($productInWishlist);
+        // truyền sản phẩm lên để lấy giá -> tính discount
+        let product = @json($product);
+        
+    </script>
+
 @endsection
 @section('js')
     <script>
