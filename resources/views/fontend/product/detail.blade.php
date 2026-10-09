@@ -668,7 +668,7 @@
                                 <h6 class="card-title fw-18 fw-500">Danh mục</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="ads-item mb-3">
+                                <div class="brand-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($categories) && !empty($categories))
                                             @foreach ($categories as $category)
@@ -692,7 +692,7 @@
                                 <h6 class="card-title fw-18 fw-500">Thương hiệu</h6>
                             </div>
                             <div class="card-body p-1">
-                                <div class="ads-item mb-3">
+                                <div class="brand-item mb-3 overflow-y-auto">
                                     <ul class="list-group list-group-flush">
                                         @if (!is_null($brands) && !empty($brands))
                                             @foreach ($brands as $brand)
@@ -743,12 +743,12 @@
                                                     data-id="{{ $product->id }}">
                                                     <i class="fa-regular fa-bookmark fz-16"></i>
                                                 </span>
-                                                <span class="product_variant_id_wishlist">
+                                                <span class="product_variant_id_wishlist d-none">
                                                     @if (isset($product->productVariant) && $product->productVariant->isNotEmpty())
                                                         {{ $product->productVariant->first()->id ?? null }}
                                                     @endif
                                                 </span>
-                                                <span class="product_id_wishlist">
+                                                <span class="product_id_wishlist d-none">
                                                     {{ $product->id }}
                                                 </span>
                                             </div>
@@ -763,10 +763,8 @@
                                                     <div class="hstack gap-3">
                                                         <div class="p-2 overflow-x-hidden w-50">
                                                             <span
-                                                                class="fz-14 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
-                                                                @foreach ($valProductSimilar->productCatalogues as $catalogue)
-                                                                    {{ $catalogue->name }}
-                                                                @endforeach
+                                                                class="fz-12 text-uppercase text-bg-light rounded-2 px-2 py-1 fw-600">
+                                                                {{ $valProductSimilar->productCatalogues[0]->name }}
                                                             </span>
                                                         </div>
                                                         <div class="p-2 ms-auto">
