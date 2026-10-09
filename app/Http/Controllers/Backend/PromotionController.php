@@ -47,22 +47,31 @@ class PromotionController extends Controller
             'description' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'discount' => 'nullable|numeric|min:0',
+            'discount' => 'required|nullable|numeric|min:0',
             'minimum_amount' => 'nullable|numeric|min:0',
-            'usage_limit' => 'nullable|integer|min:1',
+            'usage_limit' => 'required|integer|min:1',
             'apply_for' => 'required|in:specific_products,freeship,all',
             'status' => 'required|in:active,inactive',
             'product_id' => 'nullable|exists:products,id|required_if:apply_for,specific_products',
         ]);
-        // dd($request->input('image')); 
-
 
         // Gọi PromotionService để tạo khuyến mãi
         $promotion = $this->promotionService->createPromotion($validatedData);
-
+        // $errors = ['name' => 'Đây là lỗi thử nghiệm.'];
         return redirect()->route('promotions.index')->with('success', 'Khuyến mãi đã được tạo thành công!');
     } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Xảy ra lỗi khi tạo khuyến mãi: ');
+        $errors = [
+            'name' => 'Bạn chưa nhập tên giảm giá',
+            'image' => 'Bạn chưa chọn ảnh cho giảm giá',
+            'start_date' => 'Bạn chưa chọn ngày bắt đầu',
+            'discount' => 'Bạn chưa nhập giá trị giảm ',
+            'end_date' => 'Bạn chưa chọn ngày kết thúc',
+            'usage_limit' => 'Bạn chưa nhập số lượng giảm giá',
+            'apply_for' => 'Bạn chưa chọn áp dụng',
+            'product_id' => 'Bạn chưa chọn sản phẩm',
+        ];
+        
+        return redirect()->back()->withErrors($errors)->with('error', 'Xảy ra lỗi khi tạo khuyến mãi: ');
     }
     
 }

@@ -3,7 +3,7 @@
     Danh mục bài viết
 @endsection
 @section('content')
-    <section>
+    <section data-aos="fade-up">
         <article>
             <div class="container p-0">
                 <!-- breadcrumb  -->
@@ -71,8 +71,8 @@
                                 <hr class=" border-4 border-info mb-2" style="width: 80px;">
                             </h5>
                         </div>
-                        <div class="row bg-white py-3 rounded-2">
-                            <div class="col-lg-9 col-md-9 col-12 ">
+                        <div class="row bg-white py-3 rounded-2" >
+                            <div class="col-lg-9 col-md-9 col-12 " data-aos="fade-up">
                                 @if ($postInCatagories != null)
                                     @foreach ($postInCatagories as $key => $valPnew)
                                         @php
@@ -91,10 +91,10 @@
                                                     ? $authorPostnew->image
                                                     : '/libaries/templates/bee-cloudy-user/libaries/images/user-default.avif';
                                         @endphp
-                                        <a href="{{ route('post.detail', ['slug' => $valPnew->slug]) }}">
+                                        <a href="{{ route('post.detail', ['slug' => $valPnew->slug]) }}" >
                                             <div
-                                                class="post-flex bg-light rounded-3 d-flex justify-content-start align-items-center border-0 mb-4">
-                                                <div class="image-title-flex">
+                                                class="post-flex bg-light rounded-3 d-flex justify-content-start align-items-center border-0 mb-4" >
+                                                <div class="image-title-flex" >
                                                     <img src="{{ $valPnew->image }}" alt="post image"
                                                         style="min-width: 240px; max-height: 150px;"
                                                         class="object-fit-cover rounded-start-3 me-3">
